@@ -87,6 +87,41 @@ export default function SignUpScreen({ navigation }) {
                 </TouchableOpacity>
               </View>
             </View>
+            <View style={styles.bottomForm}>
+              <View style={styles.email}>
+                <Text style={styles.label}>Nom de la structure</Text>
+                <TextInput style={styles.input} placeholder="" />
+              </View>
+              <View style={styles.password}>
+                <Text style={styles.label}>Numéro de SIREN</Text>
+                <TextInput style={styles.input} placeholder="" />
+              </View>
+              <View style={styles.password}>
+                <Text style={styles.label}>Mot de passe</Text>
+                <TextInput
+                  style={styles.input}
+                  secureTextEntry={true}
+                  placeholder=""
+                />
+              </View>
+              <Text style={styles.label}>Confirmation du mot de passe</Text>
+              <TextInput
+                secureTextEntry={true}
+                style={styles.input}
+                placeholder=""
+              />
+              <TouchableOpacity style={styles.btnSignUp}>
+                <Text style={styles.signup}>S'inscrire</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Login")}
+                style={styles.loginHere}
+              >
+                <Text style={{ textAlign: "center" }}>
+                  Vous avez déjà un compte ? Connectez-vous ici !
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <StatusBar style="auto" />
         </ScrollView>
@@ -139,11 +174,12 @@ const styles = StyleSheet.create({
   },
   btnChoice: {
     backgroundColor: "#274539",
-    width: 150,
+    width: 130,
     padding: 13,
     justifyContent: "center",
     color: "white",
     borderRadius: 4,
+    alignItems: "center",
   },
   company: {
     color: "white",
