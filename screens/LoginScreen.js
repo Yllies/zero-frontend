@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     backgroundColor: "#274539",
-    height: "40%",
+    height: 250,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   title: {
     width: "80%",
     textAlign: "center",
-    fontSize: 55,
+    fontSize: 40,
     fontFamily: "MontserratBold",
     color:"white"
   },
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     height: "70%",
     justifyContent: "center",
     alignItems: "center",
+    marginTop:20,
   },
   form: {
     width: "80%",
@@ -195,4 +196,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily:"Poppins"
   },
+  mdp:{
+    fontFamily:"Poppins"
+  }
 });

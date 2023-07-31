@@ -100,7 +100,7 @@ export default function SignUpScreen({ navigation }) {
                   onPress={() => navigation.navigate("Login")}
                   style={styles.loginHere}
                 >
-                  <Text style={{ textAlign: "center" }}>
+                  <Text style={{ textAlign: "center", fontFamily: "Poppins" }}>
                     Vous avez déjà un compte ? Connectez-vous ici !
                   </Text>
                 </TouchableOpacity>
@@ -223,10 +223,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 25,
     marginTop: 30,
+
   },
   loginHere: {
     marginTop: 10,
     fontFamily:"Poppins"
-
   },
+  signup:{
+    fontFamily:"Poppins"
+  }
 });
