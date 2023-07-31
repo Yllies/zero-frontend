@@ -39,25 +39,25 @@ export default function SignUpScreen({ navigation }) {
             <View style={styles.bottomForm}>
               <View style={styles.email}>
                 <Text style={styles.label}>Nom de la structure</Text>
-                <TextInput style={styles.input} placeholder="Factory company" />
+                <TextInput style={styles.input} placeholder="" />
               </View>
               <View style={styles.password}>
                 <Text style={styles.label}>Numéro de SIREN</Text>
-                <TextInput style={styles.input} placeholder="492061046" />
+                <TextInput style={styles.input} placeholder="" />
               </View>
               <View style={styles.password}>
                 <Text style={styles.label}>Mot de passe</Text>
                 <TextInput
                   style={styles.input}
                   secureTextEntry={true}
-                  placeholder="3j48wWpLkk4R9J"
+                  placeholder=""
                 />
               </View>
               <Text style={styles.label}>Confirmation du mot de passe</Text>
               <TextInput
                 secureTextEntry={true}
                 style={styles.input}
-                placeholder="3j48wWpLkk4R9J"
+                placeholder=""
               />
               <TouchableOpacity style={styles.btnSignUp}>
                 <Text style={styles.signup}>S'inscrire</Text>
@@ -123,11 +123,13 @@ const styles = StyleSheet.create({
   },
   btnChoice: {
     backgroundColor: "#274539",
-    width: 150,
+    width: 130,
     padding: 13,
     justifyContent: "center",
     color: "white",
     borderRadius: 4,
+    alignItems:'center'
+    
   },
   company: {
     color: "white",
