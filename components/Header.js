@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "flex-start",
+    width: '100%',
   },
 
   containerHeader: {
