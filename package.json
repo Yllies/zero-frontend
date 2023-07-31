@@ -9,16 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-=======
     "@react-navigation/bottom-tabs": "6",
     "@react-navigation/native": "6",
     "@react-navigation/native-stack": "6",
     "@reduxjs/toolkit": "^1.9.5",
->>>>>>> d49243cba6b3620a7b09c8435557146214ba6b31
     "expo": "~49.0.5",
     "expo-constants": "~14.4.2",
     "expo-status-bar": "~1.6.0",
