@@ -49,10 +49,10 @@ export default function SignUpScreen({ navigation }) {
               <View style={styles.topForm}>
                 <Text style={styles.youAre}>Vous êtes une:</Text>
                 <View style={styles.choiceType}>
-                  <TouchableOpacity style={styles.btnChoice}>
+                  <TouchableOpacity style={styles.btnChoice} onPress={setType("Entreprise")}>
                     <Text style={styles.company}>ENTREPRISE</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.btnChoice}>
+                  <TouchableOpacity style={styles.btnChoice} onPress={setType('Association')}>
                     <Text style={styles.association}>ASSOCIATION</Text>
                   </TouchableOpacity>
                 </View>
@@ -67,12 +67,13 @@ export default function SignUpScreen({ navigation }) {
                 </View>
                 <View>
                   <Text style={styles.label}>Numéro de SIREN</Text>
-                  <TextInput style={styles.input} placeholder="" />
+                  <TextInput style={styles.input}autoCapitalize='none' keyboardType="number-pad" placeholder="" />
                 </View>
                 <View>
                   <Text style={styles.label}>Email</Text>
                   <TextInput
                     style={styles.input}
+                    autoCapitalize='none' keyboardType="email-address"
                     placeholder=""
                   />
                 </View>
@@ -80,6 +81,7 @@ export default function SignUpScreen({ navigation }) {
                   <Text style={styles.label}>Mot de passe</Text>
                   <TextInput
                     style={styles.input}
+                    autoCapitalize='none' 
                     secureTextEntry={true}
                     placeholder=""
                   />
@@ -89,6 +91,7 @@ export default function SignUpScreen({ navigation }) {
                   <TextInput
                     secureTextEntry={true}
                     style={styles.input}
+                    autoCapitalize='none'
                     placeholder=""
                   />
                 </View>

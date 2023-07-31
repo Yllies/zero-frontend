@@ -92,7 +92,7 @@ export default function LoginScreen({ navigation }) {
             </View>
             <View style={styles.password}>
               <Text style={styles.label}>Mot de passe</Text>
-              <TextInput style={styles.input} autoCapitalize='none' onChangeText={(value) => setPassword(value)} value={password} placeholder="Password" />
+              <TextInput style={styles.input} secureTextEntry={true} autoCapitalize='none' onChangeText={(value) => setPassword(value)} value={password} placeholder="Password" />
             </View>
             <TouchableOpacity onPress={() => handleSignin()}style={styles.btnLogin}>
               <Text style={styles.login}>Connexion</Text>
