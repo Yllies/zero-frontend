@@ -28,7 +28,7 @@ export default function SignUpScreen({ navigation }) {
           <View style={styles.bottomContainer}>
             <View style={styles.form}>
               <View style={styles.topForm}>
-                <Text style={styles.youAre}>Vous êtes :</Text>
+                <Text style={styles.youAre}>Vous êtes une:</Text>
                 <View style={styles.choiceType}>
                   <TouchableOpacity style={styles.btnChoice}>
                     <Text style={styles.company}>ENTREPRISE</Text>
@@ -48,7 +48,7 @@ export default function SignUpScreen({ navigation }) {
                 </View>
                 <View>
                   <Text style={styles.label}>Numéro de SIREN</Text>
-                  <TextInput style={styles.input} placeholder="492061046" />
+                  <TextInput style={styles.input} placeholder="" />
                 </View>
                 <View>
                   <Text style={styles.label}>Email</Text>
