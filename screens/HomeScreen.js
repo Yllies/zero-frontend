@@ -11,8 +11,35 @@ import {
   StatusBar,
   SafeAreaView,
 } from "react-native";
+import { login } from "../reducers/user";
 
 export default function HomeScreen() {
+
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
+
+  // Redirect to /home if logged in
+  const router = useRouter();
+  if (user.token) {
+    router.push('/');
+  }
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignin = () => {
+    fetch('http://localhost:3000/users/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    }).then(response => response.json())
+      .then(data => {
+        data.result && dispatch(login({ token: data.token, email: data.email, name: data.name }));
+      });
+  };
+
+
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -28,13 +55,13 @@ export default function HomeScreen() {
           <View style={styles.form}>
             <View style={styles.email}>
               <Text style={styles.label}>Email</Text>
-              <TextInput style={styles.input} placeholder="johndoe@gmail.com" />
+              <TextInput style={styles.input} onChange={(e) => setEmail(e.target.value)} value={email} placeholder="johndoe@gmail.com" />
             </View>
             <View style={styles.password}>
               <Text style={styles.label}>Mot de passe</Text>
-              <TextInput style={styles.input} placeholder="3j48wWpLkk4R9J" />
+              <TextInput style={styles.input} onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
             </View>
-            <TouchableOpacity style={styles.btnLogin}>
+            <TouchableOpacity onPress={() => handleSignin()}style={styles.btnLogin}>
               <Text style={styles.login}>Connexion</Text>
             </TouchableOpacity>
             <TouchableOpacity>
