@@ -12,10 +12,29 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback } from "react";
+SplashScreen.preventAutoHideAsync();
 
 export default function SignUpScreen({ navigation }) {
+
+  const [fontsLoaded] = useFonts({
+    "Montserrat": require("../assets/fonts/Montserrat-Regular.ttf"),
+    "MontserratBold": require("../assets/fonts/Montserrat-Bold.ttf"),
+    "Poppins": require("../assets/fonts/Poppins-Regular.ttf"),
+
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if(fontsLoaded){
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView onLayout={onLayoutRootView} style={styles.container}>
       <KeyboardAvoidingView
         style={styles.mainContain}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -92,7 +111,7 @@ export default function SignUpScreen({ navigation }) {
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
-  );
+  );}
 }
 
 const styles = StyleSheet.create({
@@ -113,10 +132,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: "600",
     marginLeft: 20,
+    fontFamily:"MontserratBold"
   },
   textWelcome: {
     marginLeft: 25,
     marginTop: 7,
+    fontFamily:"Poppins"
+
   },
   bottomContainer: {
     height: "100%",
@@ -145,20 +167,27 @@ const styles = StyleSheet.create({
     color: "white",
     borderRadius: 4,
     alignItems: "center",
+    
+
   },
   company: {
     color: "white",
     textAlign: "center",
     fontSize: 12,
+    fontFamily:"MontserratBold"
   },
   association: {
     color: "white",
     textAlign: "center",
     fontSize: 12,
+    fontFamily:"MontserratBold"
+
   },
   youAre: {
-    marginLeft: 6,
+    marginLeft: 18,
     fontSize: 15,
+    fontFamily:"Poppins"
+
   },
   bottomForm: {
     height: "85%",
@@ -170,6 +199,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 3,
     marginTop: 10,
+    fontFamily:"Poppins"
+
   },
   input: {
     fontSize: 15,
@@ -178,6 +209,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     borderRadius: 4,
     width: 300,
+    fontFamily:"Poppins"
+
   },
   btnSignUp: {
     backgroundColor: "#EDFC92",
@@ -193,5 +226,7 @@ const styles = StyleSheet.create({
   },
   loginHere: {
     marginTop: 10,
+    fontFamily:"Poppins"
+
   },
 });

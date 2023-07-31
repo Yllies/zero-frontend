@@ -12,10 +12,30 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback } from "react";
+SplashScreen.preventAutoHideAsync();
 
 export default function LoginScreen({ navigation }) {
-  return (
-    <SafeAreaView style={styles.container}>
+
+  const [fontsLoaded] = useFonts({
+    "Montserrat": require("../assets/fonts/Montserrat-Regular.ttf"),
+    "MontserratBold": require("../assets/fonts/Montserrat-Bold.ttf"),
+    "Poppins": require("../assets/fonts/Poppins-Regular.ttf"),
+
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if(fontsLoaded){
+    return (
+
+    <SafeAreaView onLayout={onLayoutRootView} style={styles.container}>
       <KeyboardAvoidingView
         style={styles.mainContain}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -49,7 +69,8 @@ export default function LoginScreen({ navigation }) {
                 onPress={() => navigation.navigate("SignUp")}
                 style={styles.signupHere}
               >
-                <Text style={{ textAlign: "center" }}>
+                <Text style={{ textAlign: "center",     fontFamily:"Poppins"
+ }}>
                   Vous n'avez pas de compte ? Inscrivez-vous ici !
                 </Text>
               </TouchableOpacity>
@@ -60,6 +81,7 @@ export default function LoginScreen({ navigation }) {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -72,17 +94,20 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     backgroundColor: "#274539",
-    height: "30%",
+    height: "40%",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
+    fontFamily: "Montserrat",
   },
   title: {
     width: "80%",
     textAlign: "center",
-    fontSize: 35,
+    fontSize: 55,
+    fontFamily: "MontserratBold",
+    color:"white"
   },
   zero: {
     color: "#EDFC92",
@@ -104,12 +129,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 4,
     width: 300,
+    fontFamily:"Poppins"
   },
   label: {
     fontSize: 15,
+    fontFamily:"Poppins"
+
   },
   email: {
     marginBottom: 30,
+    fontFamily:"Poppins"
+
   },
   password: {
     marginBottom: 50,
@@ -124,11 +154,13 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     alignItems: "center",
     marginBottom: 25,
+    
   },
   signupHere: {
     marginTop: 30,
   },
   login: {
     fontSize: 15,
+    fontFamily:"Poppins"
   },
 });
