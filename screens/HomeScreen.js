@@ -28,11 +28,11 @@ export default function HomeScreen() {
           <View style={styles.form}>
             <View style={styles.email}>
               <Text style={styles.label}>Email</Text>
-              <TextInput style={styles.input} placeholder="johndoe@gmail.com" />
+              <TextInput style={styles.input} placeholder="" />
             </View>
             <View style={styles.password}>
               <Text style={styles.label}>Mot de passe</Text>
-              <TextInput style={styles.input} placeholder="3j48wWpLkk4R9J" />
+              <TextInput style={styles.input} placeholder="" />
             </View>
             <TouchableOpacity style={styles.btnLogin}>
               <Text style={styles.login}>Connexion</Text>
