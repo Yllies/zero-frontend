@@ -1,14 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import Header from './components/Header';
+import * as React from 'react';
 
 export default function App() {
+
+
   return (
     <View style={styles.container}>
-      <Text>ZERO</Text>
+<Header/>
       <StatusBar style="auto" />
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
