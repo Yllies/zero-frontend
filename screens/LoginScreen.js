@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import { login } from "../reducers/user";
 
-export default function HomeScreen() {
+export default function LoginScreen({ navigation }) {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
@@ -27,17 +27,27 @@ export default function HomeScreen() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const handleSignin = () => {
-  useEffect(() => {
     fetch('http://10.20.2.175:3000/users/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     }).then(response => response.json())
       .then(data => {
-        data.result && dispatch(login({ token: data.token, email: data.email, name: data.name }));
+        if (data.result) {
+          dispatch(login({ token: data.token, email: data.email, name: data.name }));
+          navigation.navigate("TabNavigator", { screen: "Acceuil" }); // Redirect to "Accueil" page
+        } else {
+          // Handle login failure, display an error message, etc.
+          alert(data.error);
+        }
+      })
+      .catch(error => {
+        // Handle fetch error, display an error message, etc.
+        console.error('Login failed:', error);
+        alert('An error occurred while trying to log in. Please try again later.');
       });
-    }, []);
   }
 
 
@@ -58,11 +68,11 @@ export default function HomeScreen() {
           <View style={styles.form}>
             <View style={styles.email}>
               <Text style={styles.label}>Email</Text>
-              <TextInput style={styles.input} onChange={(e) => setEmail(e.target.value)} value={email} placeholder="johndoe@gmail.com" />
+              <TextInput style={styles.input} onChangeText={(value) => setEmail(value)} value={email} placeholder="johndoe@gmail.com" />
             </View>
             <View style={styles.password}>
               <Text style={styles.label}>Mot de passe</Text>
-              <TextInput style={styles.input} onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Password" />
+              <TextInput style={styles.input} onChangeText={(value) => setPassword(value)} value={password} placeholder="Password" />
             </View>
             <TouchableOpacity onPress={() => handleSignin()}style={styles.btnLogin}>
               <Text style={styles.login}>Connexion</Text>
@@ -70,7 +80,10 @@ export default function HomeScreen() {
             <TouchableOpacity>
               <Text>Mot de passe oublié ?</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.signupHere}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SignUp")}
+              style={styles.signupHere}
+            >
               <Text>Vous n'avez pas de compte ? Inscrivez-vous ici !</Text>
             </TouchableOpacity>
           </View>
