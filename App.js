@@ -3,11 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/LoginScreen";
 import FavoriteScreen from "./screens/FavoriteScreen";
 import AddScreen from "./screens/AddScreen";
 import SearchBar from "./components/SearchBar";
 import ProfileScreen from "./screens/ProfileScreen";
+import HomeScreen from "./screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -15,10 +16,6 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-    // style={{
-    //   margin: 50,
-    //   height: 150,
-    // }} 
       screenOptions=
       {({ route }) => ({
        
@@ -35,11 +32,10 @@ const TabNavigator = () => {
           }
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
-
+        tabBarStyle: {height: 55, backgroundColor:"#274539", borderTopLeftRadius:10,borderTopRightRadius:10,paddingBottom:5},
         tabBarActiveTintColor: "#EDFC92",
         tabBarInactiveTintColor: "#fff",
-        tabBarActiveBackgroundColor: "#274539",
-        tabBarInactiveBackgroundColor: "#274539",
+
         headerShown: false,
       })}
     >
@@ -57,7 +53,7 @@ export default function App() {
   return (
     <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
     </Stack.Navigator>
   </NavigationContainer>
