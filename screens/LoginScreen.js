@@ -12,7 +12,7 @@ import {
   SafeAreaView,
 } from "react-native";
 
-export default function HomeScreen() {
+export default function Screen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -40,8 +40,13 @@ export default function HomeScreen() {
             <TouchableOpacity>
               <Text>Mot de passe oublié ?</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.signupHere}>
-              <Text>Vous n'avez pas de compte ? Inscrivez-vous ici !</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SignUp")}
+              style={styles.signupHere}
+            >
+              <Text style={{ textAlign: "center" }}>
+                Vous n'avez pas de compte ? Inscrivez-vous ici !
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -69,14 +74,14 @@ const styles = StyleSheet.create({
   title: {
     width: "80%",
     textAlign: "center",
-    fontSize: 60,
+    fontSize: 40,
   },
   zero: {
     color: "#EDFC92",
   },
   bottomContainer: {
     height: "70%",
-    justifyContent: "center",
+    marginTop: 20,
     alignItems: "center",
   },
   form: {
@@ -86,14 +91,14 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#F6F8F7",
-    padding: 13,
-    fontSize: 25,
+    padding: 10,
+    fontSize: 20,
     marginTop: 10,
     borderRadius: 4,
     width: 300,
   },
   label: {
-    fontSize: 25,
+    fontSize: 20,
   },
   email: {
     marginBottom: 30,
