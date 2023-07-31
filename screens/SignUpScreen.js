@@ -43,7 +43,7 @@ export default function SignUpScreen({ navigation }) {
                   <Text style={styles.label}>Nom de la structure</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="Factory company"
+                    placeholder=""
                   />
                 </View>
                 <View>
@@ -54,7 +54,7 @@ export default function SignUpScreen({ navigation }) {
                   <Text style={styles.label}>Email</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="johndoe@gmail.com"
+                    placeholder=""
                   />
                 </View>
                 <View>
@@ -62,7 +62,7 @@ export default function SignUpScreen({ navigation }) {
                   <TextInput
                     style={styles.input}
                     secureTextEntry={true}
-                    placeholder="3j48wWpLkk4R9J"
+                    placeholder=""
                   />
                 </View>
                 <View>
@@ -70,7 +70,7 @@ export default function SignUpScreen({ navigation }) {
                   <TextInput
                     secureTextEntry={true}
                     style={styles.input}
-                    placeholder="3j48wWpLkk4R9J"
+                    placeholder=""
                   />
                 </View>
 
