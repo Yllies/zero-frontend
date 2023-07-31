@@ -3,10 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import LoginScreen from "./screens/LoginScreen";
+
 import FavoriteScreen from "./screens/FavoriteScreen";
 import AddScreen from "./screens/AddScreen";
+import SearchBar from "./components/SearchBar";
 import ProfileScreen from "./screens/ProfileScreen";
+import LoginScreen from "./screens/LoginScreen";
+import SignUpScreen from "./screens/SignUpScreen";
 import HomeScreen from "./screens/HomeScreen";
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -18,9 +21,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions=
-      {({ route }) => ({
-       
+      screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName = "";
           if (route.name === "Accueil") {
@@ -34,7 +35,13 @@ const TabNavigator = () => {
           }
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
-        tabBarStyle: {height: 55, backgroundColor:"#274539", borderTopLeftRadius:10,borderTopRightRadius:10,paddingBottom:5},
+        tabBarStyle: {
+          height: 55,
+          backgroundColor: "#274539",
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+          paddingBottom: 5,
+        },
         tabBarActiveTintColor: "#EDFC92",
         tabBarInactiveTintColor: "#fff",
 
@@ -59,21 +66,19 @@ export default function App() {
   return (
     <Provider store={store}>
     <NavigationContainer>
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="TabNavigator" component={TabNavigator} />
-    </Stack.Navigator>
-  </NavigationContainer>
-  </Provider>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    </Provider>
 
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
   },
-
 });

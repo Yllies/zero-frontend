@@ -21,9 +21,9 @@ export default function HomeScreen() {
   const user = useSelector((state) => state.user.value);
 
   // Redirect to /home if logged in
-  if (user.token) {
-    navigation.navigate('Accueil');
-  }
+  // if (user.token) {
+  //   navigation.navigate('Accueil');
+  // }
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -85,7 +85,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
   },
   mainContain: {
     flex: 1,
@@ -97,8 +96,8 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    borderBottomLeftRadius:30,
-    borderBottomRightRadius:30,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   title: {
     width: "80%",
