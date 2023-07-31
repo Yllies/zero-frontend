@@ -12,7 +12,7 @@ import {
   SafeAreaView,
 } from "react-native";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -40,7 +40,10 @@ export default function LoginScreen() {
             <TouchableOpacity>
               <Text>Mot de passe oublié ?</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.signupHere}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SignUp")}
+              style={styles.signupHere}
+            >
               <Text>Vous n'avez pas de compte ? Inscrivez-vous ici !</Text>
             </TouchableOpacity>
           </View>
