@@ -12,6 +12,7 @@ import {
   View,
   StatusBar,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { login } from "../reducers/user";
 
@@ -59,6 +60,8 @@ export default function LoginScreen({ navigation }) {
         style={styles.mainContain}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+       <ScrollView>
+
         <View style={styles.topContainer}>
           <Text style={styles.title}>
             Bienvenue sur <Text style={styles.zero}>Zéro</Text>
@@ -78,17 +81,18 @@ export default function LoginScreen({ navigation }) {
               <Text style={styles.login}>Connexion</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text>Mot de passe oublié ?</Text>
+              <Text style={styles.signupHere}>Mot de passe oublié ?</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate("SignUp")}
-              style={styles.signupHere}
             >
-              <Text>Vous n'avez pas de compte ? Inscrivez-vous ici !</Text>
+              <Text  style={styles.signupHere}>Vous n'avez pas de compte ? Inscrivez-vous ici !</Text>
             </TouchableOpacity>
           </View>
         </View>
+        </ScrollView>
         <StatusBar style="auto" />
+
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -109,13 +113,13 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
   title: {
     width: "80%",
     textAlign: "center",
-    fontSize: 60,
+    fontSize: 35,
   },
   zero: {
     color: "#EDFC92",
@@ -127,19 +131,20 @@ const styles = StyleSheet.create({
   },
   form: {
     width: "80%",
-    height: "70%",
+    marginTop:70,
+    height: 500,
     alignItems: "center",
   },
   input: {
     backgroundColor: "#F6F8F7",
     padding: 13,
-    fontSize: 25,
+    fontSize: 15,
     marginTop: 10,
     borderRadius: 4,
     width: 300,
   },
   label: {
-    fontSize: 25,
+    fontSize: 15,
   },
   email: {
     marginBottom: 30,
@@ -149,7 +154,7 @@ const styles = StyleSheet.create({
   },
   btnLogin: {
     backgroundColor: "#EDFC92",
-    padding: 13,
+    padding: 10,
     width: 290,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
@@ -162,6 +167,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   login: {
-    fontSize: 20,
+    fontSize: 15,
   },
 });
