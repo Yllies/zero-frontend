@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,12 +14,13 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
+    // style={{
+    //   margin: 50,
+    //   height: 150,
+    // }} 
       screenOptions=
       {({ route }) => ({
-        // style:{
-        //   margin: 50,
-        //   height: 90,
-        // },
+       
         tabBarIcon: ({ color, size }) => {
           let iconName = "";
           if (route.name === "Accueil") {
@@ -53,10 +53,11 @@ const TabNavigator = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen style={styles.barNav} name="TabNavigator" component={TabNavigator} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="TabNavigator" component={TabNavigator} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
@@ -64,8 +65,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 
 });
