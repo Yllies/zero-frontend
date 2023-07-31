@@ -12,7 +12,7 @@ import {
   SafeAreaView,
 } from "react-native";
 
-export default function Screen({ navigation }) {
+export default function LoginScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -28,11 +28,11 @@ export default function Screen({ navigation }) {
           <View style={styles.form}>
             <View style={styles.email}>
               <Text style={styles.label}>Email</Text>
-              <TextInput style={styles.input} placeholder="johndoe@gmail.com" />
+              <TextInput style={styles.input} placeholder="" />
             </View>
             <View style={styles.password}>
               <Text style={styles.label}>Mot de passe</Text>
-              <TextInput style={styles.input} placeholder="3j48wWpLkk4R9J" />
+              <TextInput style={styles.input} placeholder="" />
             </View>
             <TouchableOpacity style={styles.btnLogin}>
               <Text style={styles.login}>Connexion</Text>
@@ -40,13 +40,8 @@ export default function Screen({ navigation }) {
             <TouchableOpacity>
               <Text>Mot de passe oublié ?</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("SignUp")}
-              style={styles.signupHere}
-            >
-              <Text style={{ textAlign: "center" }}>
-                Vous n'avez pas de compte ? Inscrivez-vous ici !
-              </Text>
+            <TouchableOpacity style={styles.signupHere}>
+              <Text>Vous n'avez pas de compte ? Inscrivez-vous ici !</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -70,18 +65,20 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   title: {
     width: "80%",
     textAlign: "center",
-    fontSize: 40,
+    fontSize: 60,
   },
   zero: {
     color: "#EDFC92",
   },
   bottomContainer: {
     height: "70%",
-    marginTop: 20,
+    justifyContent: "center",
     alignItems: "center",
   },
   form: {
@@ -91,14 +88,14 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#F6F8F7",
-    padding: 10,
-    fontSize: 20,
+    padding: 13,
+    fontSize: 25,
     marginTop: 10,
     borderRadius: 4,
     width: 300,
   },
   label: {
-    fontSize: 20,
+    fontSize: 25,
   },
   email: {
     marginBottom: 30,
