@@ -10,6 +10,7 @@ import SearchBar from "./components/SearchBar";
 import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
+import HomeScreen from "./screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
