@@ -6,6 +6,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import HomeScreen from "./screens/HomeScreen";
 import FavoriteScreen from "./screens/FavoriteScreen";
 import AddScreen from "./screens/AddScreen";
+import SearchBar from "./components/SearchBar";
 import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
