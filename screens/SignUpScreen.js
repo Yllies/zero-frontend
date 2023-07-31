@@ -223,10 +223,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 25,
     marginTop: 30,
+
   },
   loginHere: {
     marginTop: 10,
     fontFamily:"Poppins"
-
   },
+  signup:{
+    fontFamily:"Poppins"
+  }
 });

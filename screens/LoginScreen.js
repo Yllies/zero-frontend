@@ -52,18 +52,18 @@ export default function LoginScreen({ navigation }) {
                 <Text style={styles.label}>Email</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="johndoe@gmail.com"
+                  placeholder=""
                 />
               </View>
               <View style={styles.password}>
                 <Text style={styles.label}>Mot de passe</Text>
-                <TextInput style={styles.input} placeholder="3j48wWpLkk4R9J" />
+                <TextInput style={styles.input} placeholder="" />
               </View>
               <TouchableOpacity style={styles.btnLogin}>
                 <Text style={styles.login}>Connexion</Text>
               </TouchableOpacity>
               <TouchableOpacity>
-                <Text>Mot de passe oublié ?</Text>
+                <Text style={styles.mdp}>Mot de passe oublié ?</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => navigation.navigate("SignUp")}
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     backgroundColor: "#274539",
-    height: "40%",
+    height: 250,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   title: {
     width: "80%",
     textAlign: "center",
-    fontSize: 55,
+    fontSize: 40,
     fontFamily: "MontserratBold",
     color:"white"
   },
@@ -116,10 +116,11 @@ const styles = StyleSheet.create({
     height: "70%",
     justifyContent: "center",
     alignItems: "center",
+    marginTop:20,
   },
   form: {
     width: "80%",
-    height: "70%",
+    height: 500,
     alignItems: "center",
   },
   input: {
@@ -163,4 +164,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily:"Poppins"
   },
+  mdp:{
+    fontFamily:"Poppins"
+  }
 });
