@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
   Image,
   KeyboardAvoidingView,
@@ -19,16 +21,15 @@ export default function HomeScreen() {
   const user = useSelector((state) => state.user.value);
 
   // Redirect to /home if logged in
-  const router = useRouter();
   if (user.token) {
-    router.push('/');
+    navigation.navigate('Accueil');
   }
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const handleSignin = () => {
-    fetch('http://localhost:3000/users/signin', {
+  useEffect(() => {
+    fetch('http://10.20.2.175:3000/users/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -36,7 +37,9 @@ export default function HomeScreen() {
       .then(data => {
         data.result && dispatch(login({ token: data.token, email: data.email, name: data.name }));
       });
-  };
+    }, []);
+  }
+
 
 
 
@@ -77,6 +80,7 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
