@@ -54,6 +54,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
   },
   mainContain: {
     flex: 1,
@@ -65,6 +66,8 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
+    borderBottomLeftRadius:30,
+    borderBottomRightRadius:30,
   },
   title: {
     width: "80%",
