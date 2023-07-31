@@ -47,7 +47,7 @@ export default function SignUpScreen({ navigation }) {
           <View style={styles.bottomContainer}>
             <View style={styles.form}>
               <View style={styles.topForm}>
-                <Text style={styles.youAre}>Vous êtes :</Text>
+                <Text style={styles.youAre}>Vous êtes une:</Text>
                 <View style={styles.choiceType}>
                   <TouchableOpacity style={styles.btnChoice}>
                     <Text style={styles.company}>ENTREPRISE</Text>
@@ -62,18 +62,18 @@ export default function SignUpScreen({ navigation }) {
                   <Text style={styles.label}>Nom de la structure</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="Factory company"
+                    placeholder=""
                   />
                 </View>
                 <View>
                   <Text style={styles.label}>Numéro de SIREN</Text>
-                  <TextInput style={styles.input} placeholder="492061046" />
+                  <TextInput style={styles.input} placeholder="" />
                 </View>
                 <View>
                   <Text style={styles.label}>Email</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="johndoe@gmail.com"
+                    placeholder=""
                   />
                 </View>
                 <View>
@@ -81,7 +81,7 @@ export default function SignUpScreen({ navigation }) {
                   <TextInput
                     style={styles.input}
                     secureTextEntry={true}
-                    placeholder="3j48wWpLkk4R9J"
+                    placeholder=""
                   />
                 </View>
                 <View>
@@ -89,7 +89,7 @@ export default function SignUpScreen({ navigation }) {
                   <TextInput
                     secureTextEntry={true}
                     style={styles.input}
-                    placeholder="3j48wWpLkk4R9J"
+                    placeholder=""
                   />
                 </View>
 
