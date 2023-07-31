@@ -10,6 +10,7 @@ import {
   View,
   StatusBar,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 
 export default function LoginScreen({ navigation }) {
@@ -19,36 +20,43 @@ export default function LoginScreen({ navigation }) {
         style={styles.mainContain}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View style={styles.topContainer}>
-          <Text style={styles.title}>
-            Bienvenue sur <Text style={styles.zero}>Zéro</Text>
-          </Text>
-        </View>
-        <View style={styles.bottomContainer}>
-          <View style={styles.form}>
-            <View style={styles.email}>
-              <Text style={styles.label}>Email</Text>
-              <TextInput style={styles.input} placeholder="" />
-            </View>
-            <View style={styles.password}>
-              <Text style={styles.label}>Mot de passe</Text>
-              <TextInput style={styles.input} placeholder="" />
-            </View>
-            <TouchableOpacity style={styles.btnLogin}>
-              <Text style={styles.login}>Connexion</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>Mot de passe oublié ?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("SignUp")}
-              style={styles.signupHere}
-            >
-              <Text>Vous n'avez pas de compte ? Inscrivez-vous ici !</Text>
-            </TouchableOpacity>
+        <ScrollView>
+          <View style={styles.topContainer}>
+            <Text style={styles.title}>
+              Bienvenue sur <Text style={styles.zero}>Zéro</Text>
+            </Text>
           </View>
-        </View>
-        <StatusBar style="auto" />
+          <View style={styles.bottomContainer}>
+            <View style={styles.form}>
+              <View style={styles.email}>
+                <Text style={styles.label}>Email</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="johndoe@gmail.com"
+                />
+              </View>
+              <View style={styles.password}>
+                <Text style={styles.label}>Mot de passe</Text>
+                <TextInput style={styles.input} placeholder="3j48wWpLkk4R9J" />
+              </View>
+              <TouchableOpacity style={styles.btnLogin}>
+                <Text style={styles.login}>Connexion</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text>Mot de passe oublié ?</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("SignUp")}
+                style={styles.signupHere}
+              >
+                <Text style={{ textAlign: "center" }}>
+                  Vous n'avez pas de compte ? Inscrivez-vous ici !
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <StatusBar style="auto" />
+        </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -68,13 +76,13 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
   title: {
     width: "80%",
     textAlign: "center",
-    fontSize: 60,
+    fontSize: 35,
   },
   zero: {
     color: "#EDFC92",
@@ -92,13 +100,13 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "#F6F8F7",
     padding: 13,
-    fontSize: 25,
+    fontSize: 15,
     marginTop: 10,
     borderRadius: 4,
     width: 300,
   },
   label: {
-    fontSize: 25,
+    fontSize: 15,
   },
   email: {
     marginBottom: 30,
@@ -108,7 +116,7 @@ const styles = StyleSheet.create({
   },
   btnLogin: {
     backgroundColor: "#EDFC92",
-    padding: 13,
+    padding: 10,
     width: 290,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
@@ -121,6 +129,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   login: {
-    fontSize: 20,
+    fontSize: 15,
   },
 });
