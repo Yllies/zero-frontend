@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import login from'../reducers/user'
+
+
 import {
   Image,
   KeyboardAvoidingView,
@@ -15,7 +19,9 @@ import {
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
+
 SplashScreen.preventAutoHideAsync();
+BACK_URL=process.env.EXPO_PUBLIC_BACK_URL
 
 export default function SignUpScreen({ navigation }) {
 
@@ -25,6 +31,40 @@ export default function SignUpScreen({ navigation }) {
     "Poppins": require("../assets/fonts/Poppins-Regular.ttf"),
 
   });
+
+  const dispatch = useDispatch();
+
+
+  const [type, setType] = useState('');
+  const [name, setName] = useState('');
+  const [siren, setSiren] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
+
+  const handleSignup  = () => {
+
+if ( password === confirmPassword) {
+
+    fetch(`${BACK_URL}:3000/users/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, name, siret_siren: siren, email, password}),
+    }).then(response => response.json())
+      .then(data => {
+        if (data.result) {
+          dispatch(login({name, email, token: data.token }));
+          setType('');
+          setName('');
+          setSiren('');
+          setEmail('');
+          setPassword('');
+          confirmPassword('');
+        } 
+        console.log("register")
+      });
+  }
+}
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -49,10 +89,12 @@ export default function SignUpScreen({ navigation }) {
               <View style={styles.topForm}>
                 <Text style={styles.youAre}>Vous êtes une:</Text>
                 <View style={styles.choiceType}>
-                  <TouchableOpacity style={styles.btnChoice} onPress={setType("Entreprise")}>
+                  <TouchableOpacity onPress={() => setType("Entreprise")} value={type}
+                   style={styles.btnChoice}>
                     <Text style={styles.company}>ENTREPRISE</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.btnChoice} onPress={setType('Association')}>
+                  <TouchableOpacity onPress={() => setType("Association")} value={type}
+                  style={styles.btnChoice}>
                     <Text style={styles.association}>ASSOCIATION</Text>
                   </TouchableOpacity>
                 </View>
@@ -60,18 +102,19 @@ export default function SignUpScreen({ navigation }) {
               <View style={styles.bottomForm}>
                 <View>
                   <Text style={styles.label}>Nom de la structure</Text>
-                  <TextInput
+                  <TextInput onChangeText={(value) => setName(value)} value={name}
                     style={styles.input}
                     placeholder=""
                   />
                 </View>
                 <View>
                   <Text style={styles.label}>Numéro de SIREN</Text>
-                  <TextInput style={styles.input}autoCapitalize='none' keyboardType="number-pad" placeholder="" />
+                  <TextInput onChangeText={(value) => setSiren(value)} value={siren}
+                  style={styles.input}autoCapitalize='none' keyboardType="number-pad" placeholder="" />
                 </View>
                 <View>
                   <Text style={styles.label}>Email</Text>
-                  <TextInput
+                  <TextInput onChangeText={(value) => setEmail(value)} value={email}
                     style={styles.input}
                     autoCapitalize='none' keyboardType="email-address"
                     placeholder=""
@@ -79,7 +122,7 @@ export default function SignUpScreen({ navigation }) {
                 </View>
                 <View>
                   <Text style={styles.label}>Mot de passe</Text>
-                  <TextInput
+                  <TextInput onChangeText={(value) => setPassword(value)} value={password} 
                     style={styles.input}
                     autoCapitalize='none' 
                     secureTextEntry={true}
@@ -87,8 +130,8 @@ export default function SignUpScreen({ navigation }) {
                   />
                 </View>
                 <View>
-                  <Text style={styles.label}>Confirmation du mot de passe</Text>
-                  <TextInput
+                  <Text style={styles.label}>Confirmation du mot de passe </Text>
+                  <TextInput onChangeText={(value) => setconfirmPassword(value)} value={confirmPassword} 
                     secureTextEntry={true}
                     style={styles.input}
                     autoCapitalize='none'
@@ -96,7 +139,7 @@ export default function SignUpScreen({ navigation }) {
                   />
                 </View>
 
-                <TouchableOpacity style={styles.btnSignUp}>
+                <TouchableOpacity onPress={() => handleSignup()} style={styles.btnSignUp}>
                   <Text style={styles.signup}>S'inscrire</Text>
                 </TouchableOpacity>
                 <TouchableOpacity

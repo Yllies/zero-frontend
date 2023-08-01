@@ -7,15 +7,15 @@ import {
     TouchableOpacity,
     View,
   } from 'react-native';
-
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import * as React from 'react';
 
 
 export default function Header() {
 
-  
+  const user = useSelector((state) => state.user.value);
   return (
     <View style={styles.containerPage}>
 
@@ -26,7 +26,7 @@ export default function Header() {
 <MaterialIcons style={styles.icone} name="notifications" size={34} color="#FFFFFF" />
 </View>
 
-      <Text style={styles.text}>Bonjour <Text style={styles.textDynamique}>Name</Text></Text>
+      <Text style={styles.text}>Bonjour <Text style={styles.textDynamique}>{user.name}</Text></Text>
 
       <Text style={styles.paragraphe}>Bienvenue sur l’app Zéro</Text>
 </View>
