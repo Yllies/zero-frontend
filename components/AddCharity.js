@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
 
   don: {
     fontSize: 15,
-    fontWeight: "bold",
     paddingLeft:10,
     fontFamily: "Poppins",
     color: "#EDFC92",

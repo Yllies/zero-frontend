@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     color: "white",
     fontSize: 40,
-    fontWeight: "bold",
+  
   },
 
   // Style du paragraphe d'introduction
