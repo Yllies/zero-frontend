@@ -5,7 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import FavoriteScreen from "./screens/FavoriteScreen";
-import AddScreen from "./screens/AddScreen";
+import AddScreenCharity from "./screens/AddScreenCharity";
+import AddScreenCompany from "./screens/AddScreenCompany";
 import SearchBar from "./components/SearchBar";
 import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -50,7 +51,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Favoris" component={FavoriteScreen} />
-      <Tab.Screen name="Ajout" component={AddScreen} />
+      <Tab.Screen name="Ajout" component={AddScreenCharity} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
@@ -64,7 +65,6 @@ export default function App() {
    });
 
   return (
-    
     <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -74,7 +74,6 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>
-
   );
 }
 

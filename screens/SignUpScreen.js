@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import login from'../reducers/user'
+import {login} from'../reducers/user'
 
 
 import {
@@ -23,6 +23,10 @@ import { useCallback } from "react";
 SplashScreen.preventAutoHideAsync();
 BACK_URL=process.env.EXPO_PUBLIC_BACK_URL
 
+
+const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
+
+
 export default function SignUpScreen({ navigation }) {
 
   const [fontsLoaded] = useFonts({
@@ -33,35 +37,47 @@ export default function SignUpScreen({ navigation }) {
   });
 
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
 
 
   const [type, setType] = useState('');
+  const [username, setUsername] = useState('');
   const [name, setName] = useState('');
+  const [address, setAdress] = useState('');
   const [siren, setSiren] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setconfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
 
   const handleSignup  = () => {
+    
 
-if ( password === confirmPassword) {
+if (password === confirmPassword) {
 
     fetch(`${BACK_URL}:3000/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type, name, siret_siren: siren, email, password}),
+      body: JSON.stringify({type,username,name,address,siret_siren:siren,email,password}),
     }).then(response => response.json())
       .then(data => {
+        console.log(data.result)
         if (data.result) {
-          dispatch(login({name, email, token: data.token }));
+          
+          dispatch(login({name:data.name,email:data.email, token:data.token}));
           setType('');
+          setUsername(''),
           setName('');
+          setAdress(''),
           setSiren('');
           setEmail('');
           setPassword('');
-          confirmPassword('');
-        } 
-        console.log("register")
+          setConfirmPassword('');
+          console.log("register")
+          navigation.navigate("TabNavigator", { screen: "Acceuil" });
+        } else {
+          console.log("not register")
+        }
       });
   }
 }
@@ -100,6 +116,16 @@ if ( password === confirmPassword) {
                 </View>
               </View>
               <View style={styles.bottomForm}>
+
+              <View>
+                  <Text style={styles.label}>Username</Text>
+                  <TextInput onChangeText={(value) => setUsername(value)} value={username}
+                    style={styles.input}
+                    placeholder=""
+                  />
+                </View>
+
+
                 <View>
                   <Text style={styles.label}>Nom de la structure</Text>
                   <TextInput onChangeText={(value) => setName(value)} value={name}
@@ -107,11 +133,22 @@ if ( password === confirmPassword) {
                     placeholder=""
                   />
                 </View>
+
+                <View>
+                  <Text style={styles.label}>Adresse de la structure</Text>
+                  <TextInput onChangeText={(value) => setAdress(value)} value={address}
+                    style={styles.input}
+                    placeholder=""
+                  />
+                </View>
+
                 <View>
                   <Text style={styles.label}>Numéro de SIREN</Text>
                   <TextInput onChangeText={(value) => setSiren(value)} value={siren}
                   style={styles.input}autoCapitalize='none' keyboardType="number-pad" placeholder="" />
                 </View>
+
+
                 <View>
                   <Text style={styles.label}>Email</Text>
                   <TextInput onChangeText={(value) => setEmail(value)} value={email}
@@ -120,6 +157,7 @@ if ( password === confirmPassword) {
                     placeholder=""
                   />
                 </View>
+
                 <View>
                   <Text style={styles.label}>Mot de passe</Text>
                   <TextInput onChangeText={(value) => setPassword(value)} value={password} 
@@ -129,19 +167,22 @@ if ( password === confirmPassword) {
                     placeholder=""
                   />
                 </View>
+                
                 <View>
                   <Text style={styles.label}>Confirmation du mot de passe </Text>
-                  <TextInput onChangeText={(value) => setconfirmPassword(value)} value={confirmPassword} 
+                  <TextInput onChangeText={(value) => setConfirmPassword(value)} value={confirmPassword} 
                     secureTextEntry={true}
                     style={styles.input}
                     autoCapitalize='none'
                     placeholder=""
                   />
                 </View>
+            
 
                 <TouchableOpacity onPress={() => handleSignup()} style={styles.btnSignUp}>
                   <Text style={styles.signup}>S'inscrire</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                   onPress={() => navigation.navigate("Login")}
                   style={styles.loginHere}

@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "flex-start",
     width: "100%",
+
   },
 
   // Style du conteneur de l'en-tête
@@ -84,13 +85,15 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 50,
     paddingRight: 30,
     paddingLeft: 30,
+ 
   },
 
   // Style du texte "Bonjour"
   text: {
     fontFamily: "Poppins",
     color: "white",
-    fontSize: 40,
+    fontSize: 30,
+
   
   },
 

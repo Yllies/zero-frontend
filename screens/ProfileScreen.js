@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   image:{
-    borderRadius: 0 0 30 0
+    // borderRadius: 0 0 30 0
   },
   iconContainer: {
     flexDirection: 'column',
