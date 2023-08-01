@@ -22,7 +22,7 @@ import { useCallback } from "react";
 SplashScreen.preventAutoHideAsync();
 
 
-const EXPO_PUBLIC_BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
+const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 
 export default function SignUpScreen({ navigation }) {
@@ -41,7 +41,7 @@ export default function SignUpScreen({ navigation }) {
   const [type, setType] = useState('');
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
-  const [address, setAdress] = useState('');
+  const [addgitress, setAdress] = useState('');
   const [siren, setSiren] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,7 +51,7 @@ export default function SignUpScreen({ navigation }) {
 
 if (password === confirmPassword) {
 
-    fetch(`http://${EXPO_PUBLIC_BACK_URL}:3000/users/signup`, {
+    fetch(`${BACK_URL}:3000/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({type,username,name,address,siret_siren:siren,email,password}),

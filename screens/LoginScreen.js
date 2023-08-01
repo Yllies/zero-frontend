@@ -20,6 +20,8 @@ import { useCallback } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
+BACK_URL=process.env.EXPO_PUBLIC_BACK_URL;
+
 export default function LoginScreen({ navigation }) {
   
   const [fontsLoaded] = useFonts({
@@ -31,8 +33,6 @@ export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
 
-  const EXPO_PUBLIC_BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
-
   // Redirect to /home if logged in
   // if (user.token) {
   //   navigation.navigate('Accueil');
@@ -42,7 +42,7 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   const handleSignin = () => {
-    fetch(`http://${EXPO_PUBLIC_BACK_URL}:3000/users/signin`, {
+    fetch(`${BACK_URL}:3000/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -147,9 +147,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     height: "70%",
-    justifyContent: "center",
     alignItems: "center",
-    marginTop:20,
   },
   form: {
     width: "80%",
@@ -193,6 +191,8 @@ const styles = StyleSheet.create({
   },
   signupHere: {
     marginTop: 30,
+    textAlign:"center",
+    fontFamily:"Poppins"
   },
   login: {
     fontSize: 15,

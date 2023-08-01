@@ -1,12 +1,12 @@
 import { StyleSheet, View, Image, Text } from "react-native";
 import AddCharity from "../components/AddCharity";
+import Header from "../components/Header";
 
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Accueil</Text>
-      <AddCharity/>
-      <AddCharity/>
+      <Header />
+      <AddCharity />
     </View>
   );
 }
@@ -16,8 +16,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  text: {
-    fontSize: 30,
   },
 });
