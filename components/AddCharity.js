@@ -5,7 +5,7 @@ export default function DonationScreen() {
   return (
     <View style={styles.containerPage}>
       <TouchableOpacity style={styles.touch}>
-        <Text style={styles.signup}>Don de vêtements</Text>
+        <Text style={styles.don}>Don de vêtements</Text>
         <Image
           style={styles.donationImage}
           source={require('../assets/don.png')}
@@ -21,14 +21,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  
+
   },
   touch: {
     alignItems: 'center',
+ 
+    
   },
-  signup: {
+  don: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    fontFamily:"Poppins",
   },
   donationImage: {
     width: 200,
