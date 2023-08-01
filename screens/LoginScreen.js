@@ -20,7 +20,7 @@ import { useCallback } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
-BACK_URL=process.env.BACK_URL
+BACK_URL='http://10.20.2.175'
 
 export default function LoginScreen({ navigation }) {
   
