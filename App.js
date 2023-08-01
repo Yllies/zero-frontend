@@ -58,12 +58,13 @@ const TabNavigator = () => {
 
 export default function App() {
 
-
+console.log("env", process.env.EXPO_PUBLIC_IP_ADDRESS)
   const store = configureStore({
     reducer: { user },
    });
 
   return (
+    
     <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
