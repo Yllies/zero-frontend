@@ -48,7 +48,7 @@ export default function AddScreenCompany({ navigation }) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <View style={styles.topContainer}>
-          <Text style={styles.title}>Postez votre annonce</Text>
+          <Text style={styles.title}>Postez votre <Text style={styles.zero}>annonce</Text></Text>
         </View>
         <ScrollView style={styles.bottomContainer}>
           <View style={styles.form}>
@@ -190,5 +190,8 @@ const styles = StyleSheet.create({
   login: {
     fontSize: 15,
     fontFamily: "Poppins",
+  },
+  zero: {
+    color: "#EDFC92",
   },
 });
