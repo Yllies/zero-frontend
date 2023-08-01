@@ -1,16 +1,17 @@
-import React from 'react';
-import { Image, TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import React from "react";
+import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 
 export default function DonationScreen() {
   return (
     <View style={styles.containerPage}>
       <TouchableOpacity style={styles.touch}>
-        <Text style={styles.don}>Don de vêtements</Text>
         <Image
           style={styles.donationImage}
-          source={require('../assets/don.png')}
+          source={require("../assets/don.png")}
           alt="don"
         />
+        <Text style={styles.don}>CHAUSSURES</Text>
+        <Text style={styles.don}>10 paires</Text>
       </TouchableOpacity>
     </View>
   );
@@ -19,25 +20,25 @@ export default function DonationScreen() {
 const styles = StyleSheet.create({
   containerPage: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  
+    backgroundColor: "#274539",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    marginBottom: 300,
+  },
 
-  },
-  touch: {
-    alignItems: 'center',
- 
-    
-  },
   don: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    fontFamily:"Poppins",
+    fontSize: 15,
+    fontWeight: "bold",
+    paddingLeft:10,
+    fontFamily: "Poppins",
+    color: "#EDFC92",
+
   },
   donationImage: {
     width: 200,
-    height: 200,
-    marginTop: 20,
+    height: 130, 
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    marginBottom: 25,
   },
 });

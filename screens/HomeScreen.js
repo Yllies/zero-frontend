@@ -7,7 +7,6 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <Header />
       <AddCharity />
-      <AddCharity />
     </View>
   );
 }
@@ -17,8 +16,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  text: {
-    fontSize: 30,
   },
 });

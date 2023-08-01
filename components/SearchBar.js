@@ -13,7 +13,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import * as React from 'react';
 
 
-export default function Header() {
+export default function SearchBar() {
 
   
   return (
