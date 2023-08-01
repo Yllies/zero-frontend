@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import login from'../reducers/user'
+
+
 import {
   Image,
   KeyboardAvoidingView,
@@ -26,6 +30,40 @@ export default function SignUpScreen({ navigation }) {
 
   });
 
+  const dispatch = useDispatch();
+
+
+  const [type, setType] = useState('');
+  const [name, setName] = useState('');
+  const [siren, setSiren] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
+
+  const handleSignup  = () => {
+
+if ( password === confirmPassword) {
+
+    fetch('http://10.20.2.178:3000/users/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, name, siret_siren: siren, email, password}),
+    }).then(response => response.json())
+      .then(data => {
+        if (data.result) {
+          dispatch(login({name, email, token: data.token }));
+          setType('');
+          setName('');
+          setSiren('');
+          setEmail('');
+          setPassword('');
+          confirmPassword('');
+        } 
+        console.log("register")
+      });
+  }
+}
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -49,10 +87,12 @@ export default function SignUpScreen({ navigation }) {
               <View style={styles.topForm}>
                 <Text style={styles.youAre}>Vous êtes une:</Text>
                 <View style={styles.choiceType}>
-                  <TouchableOpacity style={styles.btnChoice}>
+                  <TouchableOpacity onPress={() => setType("Entreprise")} value={type}
+                   style={styles.btnChoice}>
                     <Text style={styles.company}>ENTREPRISE</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.btnChoice}>
+                  <TouchableOpacity onPress={() => setType("Association")} value={type}
+                  style={styles.btnChoice}>
                     <Text style={styles.association}>ASSOCIATION</Text>
                   </TouchableOpacity>
                 </View>
@@ -60,40 +100,41 @@ export default function SignUpScreen({ navigation }) {
               <View style={styles.bottomForm}>
                 <View>
                   <Text style={styles.label}>Nom de la structure</Text>
-                  <TextInput
+                  <TextInput onChangeText={(value) => setName(value)} value={name}
                     style={styles.input}
                     placeholder=""
                   />
                 </View>
                 <View>
                   <Text style={styles.label}>Numéro de SIREN</Text>
-                  <TextInput style={styles.input} placeholder="" />
+                  <TextInput onChangeText={(value) => setSiren(value)} value={siren}
+                  style={styles.input} placeholder="" />
                 </View>
                 <View>
                   <Text style={styles.label}>Email</Text>
-                  <TextInput
+                  <TextInput onChangeText={(value) => setEmail(value)} value={email}
                     style={styles.input}
                     placeholder=""
                   />
                 </View>
                 <View>
                   <Text style={styles.label}>Mot de passe</Text>
-                  <TextInput
+                  <TextInput onChangeText={(value) => setPassword(value)} value={password} 
                     style={styles.input}
                     secureTextEntry={true}
                     placeholder=""
                   />
                 </View>
                 <View>
-                  <Text style={styles.label}>Confirmation du mot de passe</Text>
-                  <TextInput
+                  <Text style={styles.label}>Confirmation du mot de passe </Text>
+                  <TextInput onChangeText={(value) => setconfirmPassword(value)} value={confirmPassword} 
                     secureTextEntry={true}
                     style={styles.input}
                     placeholder=""
                   />
                 </View>
 
-                <TouchableOpacity style={styles.btnSignUp}>
+                <TouchableOpacity onPress={() => handleSignup()} style={styles.btnSignUp}>
                   <Text style={styles.signup}>S'inscrire</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
