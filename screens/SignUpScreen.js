@@ -19,8 +19,8 @@ import {
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
-SplashScreen.preventAutoHideAsync();
 
+SplashScreen.preventAutoHideAsync();
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 

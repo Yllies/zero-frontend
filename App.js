@@ -59,7 +59,7 @@ const TabNavigator = () => {
 
 export default function App() {
 
-console.log("env", process.env.EXPO_PUBLIC_BACK_URL)
+
   const store = configureStore({
     reducer: { user },
    });

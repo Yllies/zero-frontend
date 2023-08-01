@@ -20,7 +20,7 @@ import { useCallback } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
-BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
+const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function AddScreenCharity({ navigation }) {
   const [fontsLoaded] = useFonts({
