@@ -147,9 +147,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     height: "70%",
-    justifyContent: "center",
     alignItems: "center",
-    marginTop:20,
   },
   form: {
     width: "80%",
@@ -193,6 +191,8 @@ const styles = StyleSheet.create({
   },
   signupHere: {
     marginTop: 30,
+    textAlign:"center",
+    fontFamily:"Poppins"
   },
   login: {
     fontSize: 15,
