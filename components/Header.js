@@ -1,20 +1,22 @@
 // Importation des composants et bibliothèques nécessaires
 import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { MaterialIcons } from "@expo/vector-icons";
-import * as React from "react";
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+  } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { MaterialIcons } from '@expo/vector-icons'; 
+import * as React from 'react';
 
 // Définition du composant Header
 export default function Header() {
+
+  const user = useSelector((state) => state.user.value);
   return (
     // Conteneur principal de la page
     <View style={styles.containerPage}>
@@ -33,7 +35,7 @@ export default function Header() {
 
         {/* Texte de bienvenue */}
         <Text style={styles.text}>
-          Bonjour <Text style={styles.textDynamique}>Name</Text>
+          Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
         </Text>
 
         {/* Paragraphe d'introduction */}

@@ -6398,6 +6398,13 @@ pkg-dir@^3.0.0:
   dependencies:
     find-up "^3.0.0"
 
+pkg-dir@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-5.0.0.tgz#a02d6aebe6ba133a928f74aec20bafdfe6b8e760"
+  integrity sha512-NPE8TDbzl/3YQYY7CSS228s3g2ollTFnc+Qi3tqmqJp9Vg2ovUpixcJEo2HJScN2Ez+kEaal6y70c0ehqJBJeA==
+  dependencies:
+    find-up "^5.0.0"
+
 pkg-up@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/pkg-up/-/pkg-up-3.1.0.tgz#100ec235cc150e4fd42519412596a28512a0def5"
@@ -6598,6 +6605,16 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-image-crop-picker@^0.40.0:
+  version "0.40.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.40.0.tgz#cf378a4cbdb64b9b6ff94399b8515ff3bdccbf9c"
+  integrity sha512-FpqiCS4CiPQp8qIorlELWKbpi1d9lyhJki9spZr4LShv9hk65GWo6tYJupfTV19o5XcRwJn8d4MHIUoyWMJRTQ==
+
+react-native-image-picker@^5.6.0:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-5.6.0.tgz#e7b6637dc5296cddb486106b711eb4eedabd083d"
+  integrity sha512-QHHb0qw3VXDedllrfS6SjxNG1SubnjUjIR2OH1HVbjv/IRVa3v4fI1MHbQaSNXlGopT9kL9jcnh7tbcX1z74Vg==
+
 react-native-paper@^5.9.1:
   version "5.9.1"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-5.9.1.tgz#e77d8ecda6e41783cf781ead5c2bbcc9ce26f44b"
@@ -6607,6 +6624,14 @@ react-native-paper@^5.9.1:
     color "^3.1.2"
     patch-package "^7.0.0"
     use-latest-callback "^0.1.5"
+
+react-native-permissions@^3.8.4:
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.8.4.tgz#20f203f1dd659c28fb770fc26bbbf0126faa797e"
+  integrity sha512-tJq+5eNqu8Y1PpmuSVMjQtW8E7YJbQ0LSbZ1o9KjgF7etgYmBSZeCR138x715vyZUAtwuecV+ybEM9z8dDs76Q==
+  dependencies:
+    picocolors "^1.0.0"
+    pkg-dir "^5.0.0"
 
 react-native-safe-area-context@4.6.3:
   version "4.6.3"
