@@ -47,7 +47,9 @@ export default function SignUpScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+
   const handleSignup  = () => {
+    
 
 if (password === confirmPassword) {
 

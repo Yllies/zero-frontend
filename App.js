@@ -64,7 +64,6 @@ console.log("env", process.env.EXPO_PUBLIC_BACK_URL)
    });
 
   return (
-    
     <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -74,7 +73,6 @@ console.log("env", process.env.EXPO_PUBLIC_BACK_URL)
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>
-
   );
 }
 
