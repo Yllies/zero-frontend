@@ -1,133 +1,102 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../reducers/user';
 
 const UserProfile = () => {
- const dispatch= useDispatch
-    const user = useSelector((state) => state.user.value);
-    
-    const recentActivities = [
-    { id: 1, title: 'Publication 1', date: '2023-07-30' },
-    { id: 2, title: 'Publication 2', date: '2023-07-29' },
-    { id: 3, title: 'Publication 3', date: '2023-07-28' },
-  ];
-const handelLogout =() => {
-  dispatch(logout())
-}
+  const dispatch= useDispatch();
+  const user = useSelector((state) => state.user.value);
+
+  const handelLogout = () => {
+    dispatch(logout());
+  }
+
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
+      <View>
+        <Image
+        source={require('../assets/me.jpg')}
+        style={styles.image}
+        resizeMode="cover"
+       />
+       
 
-          <View style={styles.topContainer}>
-
-          </View>
-
-      <View style={styles.header}>
-        {/* <Image source={userData.profilePicture} style={styles.profilePicture} /> */}
-        <View style={styles.userInfoContainer}>
-          <Text style={styles.userName}>{user.name}</Text>
-        </View>
       </View>
+      {/* <Image
+        source={require('../assets/me.jpg')}
+        style={styles.image}
+        resizeMode="cover"
+      />
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Activités récentes</Text>
-        {recentActivities.map((activity) => (
-            <View style={styles.activityInfo}>
-              <Text style={styles.activityTitle}>{activity.title}</Text>
-              <Text style={styles.activityDate}>Date: {activity.date}</Text>
-            </View>
-        ))}
-      </View>
-
-      <View style={styles.logoutContainer}>
-        <TouchableOpacity
-          style={styles.logoutButton}
-          onPress={() =>handelLogout} 
-        >
-          <Text style={styles.logoutText}>Se déconnecter</Text>
+      <View style={styles.iconContainer}>
+        <TouchableOpacity style={styles.icon}>
+          <FontAwesome
+            name="fa-star"
+            size={20}
+            color="#274539" 
+            style={styles.filterIcon}
+          />
+          {/* <FontAwesomeIcon icon="fa-duotone fa-circle-star" 
+          style={{"--fa-primary-color": "#274539", "--fa-secondary-color": "#edfc92", "--fa-secondary-opacity": "1",}} /> 
         </TouchableOpacity>
       </View>
-    </ScrollView>
+
+      <View style={styles.botcontiner}>
+        <Text style={styles.title}>Qui sommes-nous?</Text>
+      </View>*/}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    backgroundColor: '#ffffff',
   },
-  profilePicture: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginRight: 16,
+  image:{
+    borderRadius: 0 0 30 0
   },
-  userInfoContainer: {
-    flex: 1,
+  iconContainer: {
+    flexDirection: 'column',
+    position: 'absolute',
+    top: 20,
+    right: 20,
   },
-  userName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
+  icon: {
+    marginBottom: 10,
+    // Ajoutez ici les styles de vos icônes
   },
-  userAge: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 4,
+  buttonContainer: {
+    marginTop: 250,
+    // Ajustez la marge supérieure en fonction de la disposition souhaitée
   },
-  userOccupation: {
-    fontSize: 18,
-    color: '#333',
+  title: {
+    color: 'black',
   },
-  section: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  activityItem: {
-    flexDirection: 'row',
+  button: {
+    backgroundColor: '#EDFC92',
+    padding: 10,
+    width: 290,
+    shadowColor: '#171717',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 25,
   },
-  activityIcon: {
-    marginRight: 12,
+  buttonText: {
+    fontSize: 15,
+    fontFamily: 'Poppins',
   },
-  activityInfo: {
-    flex: 1,
-  },
-  activityTitle: {
-    fontSize: 16,
-  },
-  activityDate: {
-    color: '#666',
-  },
-  logoutContainer: {
-    alignItems: 'center',
-    marginVertical: 16,
-  },
-  logoutButton: {
-    backgroundColor: '#f00',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-  },
-  logoutText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+  botcontiner: {
+    justifyContent: 'flex-start', // Updated from 'center' to 'flex-start'
+    alignItems: 'flex-start',     // Updated from 'center' to 'flex-start'
+    marginTop: 250,              // You can adjust the marginTop as needed
   },
 });
 
 export default UserProfile;
+
