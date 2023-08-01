@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     marginBottom: 300,
+  
   },
 
   don: {
@@ -39,6 +40,6 @@ const styles = StyleSheet.create({
     height: 130, 
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    marginBottom: 25,
+    marginBottom: 25, 
   },
 });
