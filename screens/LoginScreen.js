@@ -20,8 +20,6 @@ import { useCallback } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
-BACK_URL=process.env.BACK_URL
-
 export default function LoginScreen({ navigation }) {
   
   const [fontsLoaded] = useFonts({
@@ -42,7 +40,7 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   const handleSignin = () => {
-    fetch(`${BACK_URL}:3000/users/signin`, {
+    fetch(`http://10.20.2.174:3000/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
