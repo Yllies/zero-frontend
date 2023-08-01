@@ -31,6 +31,8 @@ export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
 
+  const EXPO_PUBLIC_BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
+
   // Redirect to /home if logged in
   // if (user.token) {
   //   navigation.navigate('Accueil');
@@ -40,7 +42,7 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   const handleSignin = () => {
-    fetch(`http://10.20.2.174:3000/users/signin`, {
+    fetch(`http://${EXPO_PUBLIC_BACK_URL}:3000/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
