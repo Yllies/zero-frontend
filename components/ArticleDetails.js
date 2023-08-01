@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 
-export default function AddCharity() {
+export default function ArticleDetails() {
   return (
     <View style={styles.containerPage}>
       <TouchableOpacity style={styles.touch}>
@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     marginBottom: 300,
-   
   
   },
 
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
 
   },
   donationImage: {
-    width: 160,
+    width: 200,
     height: 130, 
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
