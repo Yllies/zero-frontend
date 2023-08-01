@@ -59,7 +59,9 @@ if (password === confirmPassword) {
       body: JSON.stringify({type,username,name,address,siret_siren:siren,email,password}),
     }).then(response => response.json())
       .then(data => {
+        console.log(data.result)
         if (data.result) {
+          
           dispatch(login({name:data.name,email:data.email, token:data.token}));
           setType('');
           setUsername(''),
