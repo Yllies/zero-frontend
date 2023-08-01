@@ -88,11 +88,11 @@ export default function LoginScreen({ navigation }) {
             <View style={styles.form}>
               <View style={styles.email}>
                 <Text style={styles.label}>Email</Text>
-                <TextInput style={styles.input} autoCapitalize='none' keyboardType="email-address" onChangeText={(value) => setEmail(value)} value={email} placeholder="johndoe@gmail.com" />
+                <TextInput style={styles.input} autoCapitalize='none' keyboardType="email-address" onChangeText={(value) => setEmail(value)} value={email} placeholder="" />
             </View>
             <View style={styles.password}>
               <Text style={styles.label}>Mot de passe</Text>
-              <TextInput style={styles.input} secureTextEntry={true} autoCapitalize='none' onChangeText={(value) => setPassword(value)} value={password} placeholder="Password" />
+              <TextInput style={styles.input} secureTextEntry={true} autoCapitalize='none' onChangeText={(value) => setPassword(value)} value={password} placeholder="" />
             </View>
             <TouchableOpacity onPress={() => handleSignin()}style={styles.btnLogin}>
               <Text style={styles.login}>Connexion</Text>
