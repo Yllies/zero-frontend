@@ -1,3 +1,11 @@
+
+
+
+
+
+// ON NE L'UTILISE PLUS
+
+
 import React from "react";
 import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 

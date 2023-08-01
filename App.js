@@ -67,8 +67,8 @@ console.log("env", process.env.EXPO_PUBLIC_BACK_URL)
     <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        {/* <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

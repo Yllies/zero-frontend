@@ -68,10 +68,10 @@ const styles = StyleSheet.create({
   // Style du conteneur principal de la page
   containerPage: {
     flex: 1,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     justifyContent: "flex-start",
     width: "100%",
-
+    paddingBottom:200,
   },
 
   // Style du conteneur de l'en-tête
@@ -91,8 +91,6 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     color: "white",
     fontSize: 30,
-
-  
   },
 
   // Style du paragraphe d'introduction
