@@ -22,7 +22,7 @@ SplashScreen.preventAutoHideAsync();
 
 BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function LoginScreen({ navigation }) {
+export default function AddScreenCharity({ navigation }) {
   const [fontsLoaded] = useFonts({
     Montserrat: require("../assets/fonts/Montserrat-Regular.ttf"),
     MontserratBold: require("../assets/fonts/Montserrat-Bold.ttf"),
