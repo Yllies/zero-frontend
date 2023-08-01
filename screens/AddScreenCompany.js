@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../reducers/user";
+import React, { useState } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -14,185 +12,183 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import { useCallback } from "react";
-
-SplashScreen.preventAutoHideAsync();
-
-BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
+import {ImagePicker,launchImageLibrary} from "react-native-image-picker";
 
 export default function AddScreenCompany({ navigation }) {
-  const [fontsLoaded] = useFonts({
-    Montserrat: require("../assets/fonts/Montserrat-Regular.ttf"),
-    MontserratBold: require("../assets/fonts/Montserrat-Bold.ttf"),
-    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-  });
-
-  // Redirect to /home if logged in
-  // if (user.token) {
-  //   navigation.navigate('Accueil');
-  // }
-
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [avalaibility, setAvalaibility] = useState("");
+  const [availability, setAvailability] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  const handleImagePicker = () => {
+    const options = {
+      title: "Sélectionner une photo",
+      storageOptions: {
+        skipBackup: true,
+        path: "images",
+      },
+    };
 
-  if (fontsLoaded) {
-    return (
-      <SafeAreaView onLayout={onLayoutRootView} style={styles.container}>
-        <KeyboardAvoidingView
-          style={styles.mainContain}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
-          <View style={styles.topContainer}>
-            <Text style={styles.title}>
-              <Text style={styles.white}>Postez votre<Text style={styles.zero}>annonce</Text></Text>
-            </Text>
-          </View>
-          <View style={styles.bottomContainer}>
-            <View style={styles.form}>
-              <View style={styles.email}>
-                <Text style={styles.label}>Titre</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => setTitle(value)}
-                  value={title}
-                  placeholder="Quel est le titre de votre annonce?"
-                />
-              </View>
-              <View style={styles.password}>
-                <Text style={styles.label}>Catégorie</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => setCategory(value)}
-                  value={category}
-                  placeholder="Quel(s) type(s) de produit(s) avez-vous besoin?"
-                />
-              </View>
-              <View style={styles.password}>
-                <Text style={styles.label}>Description</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => setDescription(value)}
-                  value={description}
-                  placeholder="Dites nous pourquoi vous en avez besoin?"
-                />
-              </View>
-              <View style={styles.password}>
-                <Text style={styles.label}>Disponibilité</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => setAvalaibility(value)}
-                  value={avalaibility}
-                  placeholder="A partir de quand?"
-                />
-              </View>
-              <TouchableOpacity style={styles.btnLogin}>
-                <Text style={styles.login}>Publiez votre annonce</Text>
-              </TouchableOpacity>
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        console.log("L'utilisateur a annulé la sélection d'image");
+      } else if (response.error) {
+        console.log("Erreur ImagePicker: ", response.error);
+      } else {
+        setSelectedImage(response);
+      }
+    });
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.mainContainer}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <View style={styles.topContainer}>
+          <Text style={styles.title}>Postez votre annonce</Text>
+        </View>
+        <ScrollView style={styles.bottomContainer}>
+          <View style={styles.form}>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Titre</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(value) => setTitle(value)}
+                value={title}
+                placeholder="Quel est le titre de votre annonce?"
+              />
             </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Catégorie</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(value) => setCategory(value)}
+                value={category}
+                placeholder="Quel(s) type(s) de produit(s) avez-vous besoin?"
+              />
+            </View>
+            <View style={styles.imagePickerContainer}>
+              <Text style={styles.label}>Ajouter une photo</Text>
+              <TouchableOpacity
+                onPress={handleImagePicker}
+                style={styles.imagePickerButton}
+              >
+                <Text style={styles.imagePickerButtonText}>
+                  Sélectionner une photo
+                </Text>
+              </TouchableOpacity>
+              {selectedImage && (
+                <Image
+                  source={{ uri: selectedImage.uri }}
+                  style={styles.selectedImage}
+                />
+              )}
+            </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Description</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(value) => setDescription(value)}
+                value={description}
+                placeholder="Dites nous pourquoi vous en avez besoin?"
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Disponibilité</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(value) => setAvailability(value)}
+                value={availability}
+                placeholder="A partir de quand?"
+              />
+            </View>
+            <TouchableOpacity style={styles.btnLogin}>
+              <Text style={styles.login}>Publiez votre annonce</Text>
+            </TouchableOpacity>
           </View>
-          <StatusBar style="auto" />
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    );
-  }
+        </ScrollView>
+        <StatusBar style="auto" />
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
 }
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  mainContain: {
-    flex: 1,
     backgroundColor: "#fff",
+  },
+  mainContainer: {
+    flex: 1,
   },
   topContainer: {
     backgroundColor: "#274539",
-    height: 150,
-    width: "100%",
+    height: 120,
     justifyContent: "center",
     alignItems: "center",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    fontFamily: "Montserrat",
-    
-    
   },
   title: {
-    width: "80%",
-    textAlign: "center",
-    fontSize: 40,
+    fontSize: 30,
     fontFamily: "MontserratBold",
     color: "white",
   },
-  zero: {
-    color: "#EDFC92",
-    fontSize:30,
-  },
-  white:{
-    fontSize:30,
-  },
   bottomContainer: {
-    height: "70%",
-    alignItems: "center",
-   
+    padding: 20,
   },
   form: {
-    width: "80%",
-    height: 500,
-    marginTop: 70,
-    alignItems: "center",
+    marginTop: 20,
   },
-  input: {
-    backgroundColor: "#F6F8F7",
-    padding: 13,
-    fontSize: 10,
-    marginTop: 10,
-    borderRadius: 4,
-    width: 300,
-    fontFamily: "Poppins",
+  inputContainer: {
+    marginBottom: 20,
   },
   label: {
     fontSize: 15,
     fontFamily: "Poppins",
   },
-  email: {
-    marginBottom: 30,
+  input: {
+    backgroundColor: "#F6F8F7",
+    padding: 13,
+    borderRadius: 4,
+    width: "100%",
     fontFamily: "Poppins",
   },
-  password: {
-    marginBottom: 50,
+  imagePickerContainer: {
+    marginBottom: 20,
+  },
+  imagePickerButton: {
+    backgroundColor: "#F6F8F7",
+    padding: 13,
+    borderRadius: 4,
+    width: "100%",
+  
+    justifyContent: "center",
+  },
+  imagePickerButtonText: {
+    fontFamily: "Poppins",
+    color: "#555",
+  },
+  selectedImage: {
+    marginTop: 10,
+    width: "100%",
+    height: 200,
+    resizeMode: "cover",
+    borderRadius: 4,
   },
   btnLogin: {
     backgroundColor: "#EDFC92",
     padding: 10,
-    width: 290,
-    shadowColor: "#171717",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    borderRadius: 4,
+    width: "100%",
     alignItems: "center",
-   
-  },
-  signupHere: {
-    marginTop: 30,
-    textAlign: "center",
-    fontFamily: "Poppins",
   },
   login: {
     fontSize: 15,
-    fontFamily: "Poppins",
-  },
-  mdp: {
     fontFamily: "Poppins",
   },
 });
