@@ -108,12 +108,13 @@ if ( password === confirmPassword) {
                 <View>
                   <Text style={styles.label}>Numéro de SIREN</Text>
                   <TextInput onChangeText={(value) => setSiren(value)} value={siren}
-                  style={styles.input} placeholder="" />
+                  style={styles.input}autoCapitalize='none' keyboardType="number-pad" placeholder="" />
                 </View>
                 <View>
                   <Text style={styles.label}>Email</Text>
                   <TextInput onChangeText={(value) => setEmail(value)} value={email}
                     style={styles.input}
+                    autoCapitalize='none' keyboardType="email-address"
                     placeholder=""
                   />
                 </View>
@@ -121,6 +122,7 @@ if ( password === confirmPassword) {
                   <Text style={styles.label}>Mot de passe</Text>
                   <TextInput onChangeText={(value) => setPassword(value)} value={password} 
                     style={styles.input}
+                    autoCapitalize='none' 
                     secureTextEntry={true}
                     placeholder=""
                   />
@@ -130,6 +132,7 @@ if ( password === confirmPassword) {
                   <TextInput onChangeText={(value) => setconfirmPassword(value)} value={confirmPassword} 
                     secureTextEntry={true}
                     style={styles.input}
+                    autoCapitalize='none'
                     placeholder=""
                   />
                 </View>
