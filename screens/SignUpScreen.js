@@ -46,7 +46,7 @@ export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
+  const tokenAPI = "e6b24e73-7c80-3ec5-b16d-358d9ab783f9";
 
   const handleSignup  = () => {
     
@@ -61,7 +61,6 @@ if (password === confirmPassword) {
       .then(data => {
         console.log(data.result)
         if (data.result) {
-          
           dispatch(login({name:data.name,email:data.email, token:data.token}));
           setType('');
           setUsername(''),
@@ -72,6 +71,17 @@ if (password === confirmPassword) {
           setPassword('');
           setConfirmPassword('');
           console.log("register")
+          fetch(`https://api.insee.fr/entreprises/sirene/V3/siren/${siren}`, {
+            method: "GET",
+            headers: {'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tokenAPI}` }
+          }).then(response => response.json()).then(data=>{
+            if(data.identifiantAssociationUniteLegale !== null){
+              // If this is an association
+              navigation.navigate("TabNavigator", { screen: "Acceuil" });
+
+            }
+          })
           navigation.navigate("TabNavigator", { screen: "Acceuil" });
         } else {
           console.log("not register")
