@@ -19,8 +19,8 @@ import {
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
-
 SplashScreen.preventAutoHideAsync();
+
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
@@ -79,10 +79,9 @@ if (password === confirmPassword) {
             if(data.identifiantAssociationUniteLegale !== null){
               // If this is an association
               navigation.navigate("TabNavigator", { screen: "Acceuil" });
-
             }
           })
-          navigation.navigate("TabNavigator", { screen: "Acceuil" });
+        
         } else {
           console.log("not register")
         }
