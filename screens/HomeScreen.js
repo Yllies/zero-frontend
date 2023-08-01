@@ -1,6 +1,7 @@
-import { StyleSheet, View, Image, Text, MaterialIcons } from "react-native";
+import { StyleSheet, View, Image, Text, MaterialIcons, KeyboardAvoidingView } from "react-native";
 import AddCharity from "../components/AddCharity";
 import Header from "../components/Header";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -8,6 +9,7 @@ export default function HomeScreen({ navigation }) {
 
       <Header />
       <AddCharity />
+      
     </View>
   );
 }
