@@ -44,9 +44,9 @@ export default function AddScreenCompany({ navigation }) {
     });
 
     // Vérifier si l'utilisateur a sélectionné des images
-    if (!result.cancelled) {
+    if (!result.canceled) {
       // Ajouter les nouvelles images sélectionnées au tableau existant
-      setSelectedImages([...selectedImages, ...result.assets]);
+      // setSelectedImages([...selectedImages, ...result.assets]);
     }
   };
 
@@ -60,7 +60,7 @@ export default function AddScreenCompany({ navigation }) {
     });
 
     // Vérifier si l'utilisateur a pris une photo
-    if (!result.cancelled) {
+    if (!result.canceled) {
       // Ajouter la nouvelle image prise au tableau existant
       // setSelectedImages([...selectedImages, result]);
     }
