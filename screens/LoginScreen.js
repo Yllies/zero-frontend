@@ -32,6 +32,10 @@ export default function LoginScreen({ navigation }) {
   });
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
+  
+
+  // Regex pour vérifier que l'email est valide
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   // Redirect to /home if logged in
   // if (user.token) {
@@ -40,38 +44,52 @@ export default function LoginScreen({ navigation }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [dataError, setDataError] = useState(false);
+
 
   const handleSignin = () => {
-    fetch(`${BACK_URL}:3000/users/signin`, {
+
+    // verification de l'email
+    if (!EMAIL_REGEX.test(email)) { 
+      console.log("mauvais email")
+      setEmailError(true);
+    }  else {
+     fetch(`${BACK_URL}:3000/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     }).then(response => response.json())
       .then(data => {
-        if (data.result) {
-          dispatch(login({ token: data.token, email: data.email, name: data.name }));
-          navigation.navigate("TabNavigator", { screen: "Acceuil" }); // Redirect to "Accueil" page
-        } else {
-          // Handle login failure, display an error message, etc.
-          alert(data.error);
-        }
-      })
-      .catch(error => {
+
+        // verification de la correspondante email + mdp
+        if (data.error) {
         // Handle fetch error, display an error message, etc.
-        console.error('Login failed:', error);
-        alert('An error occurred while trying to log in. Please try again later.');
-      });
-  }
+        // console.error('Login failed:', error);
+        // alert('An error occurred while trying to log in. Please try again later.');
+          setEmailError(false);
+          setDataError(true);
+         } else {
+            // Redirect to "Accueil" page
+            setDataError(false);
+            dispatch(login({ token: data.token, email: data.email, name: data.name }));
+            navigation.navigate("TabNavigator", { screen: "Acceuil" });
+          }})
+          // .catch(error => {
+          //   // Handle fetch error, display an error message, etc.
+          //   console.error('Login failed:', error);
+          //   alert('An error occurred while trying to log in. Please try again later.');
+          // });
+  }}
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
   
-  
-  
-  
+
   if(fontsLoaded){
     return (
 
@@ -91,11 +109,19 @@ export default function LoginScreen({ navigation }) {
               <View style={styles.email}>
                 <Text style={styles.label}>Email</Text>
                 <TextInput style={styles.input} autoCapitalize='none' keyboardType="email-address" onChangeText={(value) => setEmail(value)} value={email} placeholder="" />
+                {emailError && <Text style={styles.error}>Adresse email invalide</Text>}
             </View>
+
+
+
             <View style={styles.password}>
               <Text style={styles.label}>Mot de passe</Text>
               <TextInput style={styles.input} secureTextEntry={true} autoCapitalize='none' onChangeText={(value) => setPassword(value)} value={password} placeholder="" />
+              {dataError && <Text style={styles.error}>Mauvais identifiants ! </Text>}
             </View>
+
+         
+
             <TouchableOpacity onPress={() => handleSignin()}style={styles.btnLogin}>
               <Text style={styles.login}>Connexion</Text>
             </TouchableOpacity>
@@ -200,5 +226,9 @@ const styles = StyleSheet.create({
   },
   mdp:{
     fontFamily:"Poppins"
-  }
+  },
+  error: {
+    marginTop: 7,
+    color: 'red',
+  },
 });
