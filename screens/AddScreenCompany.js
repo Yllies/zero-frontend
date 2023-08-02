@@ -62,7 +62,7 @@ export default function AddScreenCompany({ navigation }) {
     // Vérifier si l'utilisateur a pris une photo
     if (!result.cancelled) {
       // Ajouter la nouvelle image prise au tableau existant
-      setSelectedImages([...selectedImages, result]);
+      // setSelectedImages([...selectedImages, result]);
     }
   };
 
