@@ -3,13 +3,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
 import FavoriteScreen from "./screens/FavoriteScreen";
-import AddScreenCharity from "./screens/AddScreenCharity";
 import AddScreenCompany from "./screens/AddScreenCompany";
-import SearchBar from "./components/SearchBar";
 import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
+import FilterScreen from "./screens/FilterScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import HomeScreen from "./screens/HomeScreen";
 import { Provider } from "react-redux";
@@ -51,7 +49,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Favoris" component={FavoriteScreen} />
-      <Tab.Screen name="Ajout" component={AddScreenCharity} />
+      <Tab.Screen name="Ajout" component={AddScreenCompany} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );

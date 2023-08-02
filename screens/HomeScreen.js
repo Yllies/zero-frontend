@@ -2,7 +2,11 @@ import React from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity, ScrollView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Header from '../components/Header'
-import SearchBar from '../components/SearchBar'
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
 
 export default function HomeScreen({ navigation }) {
   const articlesCards = [];
@@ -31,11 +35,13 @@ export default function HomeScreen({ navigation }) {
   return (
 
 
+
     
     <View style={styles.container}>
       <Header />
       <View style={styles.containerFilter}>
-        <FontAwesome style={styles.iconeFilter}name="filter" size={28} color="#274539"/>
+        <FontAwesome onPress={() => navigation.navigate("FilterScreen")}
+        style={styles.iconeFilter}name="filter" size={28} color="#274539"/>
       </View>
 
       <View style={styles.cardsRow}>
