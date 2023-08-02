@@ -46,13 +46,37 @@ export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [passewordError, setPassewordError] = useState(false);
+
   const tokenAPI = "e6b24e73-7c80-3ec5-b16d-358d9ab783f9";
 
+ 
+    // Regex pour vérifier que l'email est valide
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const handleSignup  = () => {
+
+    let hasError = false;
     
+    // l'email est incorrect
+    if (!EMAIL_REGEX.test(email)) {
+      setEmailError(true);
+      hasError = true;
+    } else {
+      setEmailError(false);
+    }
 
-if (password === confirmPassword) {
+    // les mots de passe ne correspondent pas
+    if (password !== confirmPassword) {
+    setPassewordError(true);
+    hasError = true;
+  } else {
+    setPassewordError(false);
+  }
 
+  // si les mdp + email ok > on fetch
+  if (!hasError) {
     fetch(`${BACK_URL}:3000/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -60,16 +84,15 @@ if (password === confirmPassword) {
     }).then(response => response.json())
       .then(data => {
         console.log(data.result)
-        if (data.result) {
+
+        // si tous les champs ne sont pas remplis> alerte
+        if (!data.result) {
+          console.log("not register")
+          alert('Merci de remplir tous les champs');
+          
+        } else {
           dispatch(login({name:data.name,email:data.email, token:data.token}));
-          setType('');
-          setUsername(''),
-          setName('');
-          setAdress(''),
-          setSiren('');
-          setEmail('');
-          setPassword('');
-          setConfirmPassword('');
+          
           console.log("register")
           fetch(`https://api.insee.fr/entreprises/sirene/V3/siren/${siren}`, {
             method: "GET",
@@ -81,9 +104,6 @@ if (password === confirmPassword) {
               navigation.navigate("TabNavigator", { screen: "Acceuil" });
             }
           })
-        
-        } else {
-          console.log("not register")
         }
       });
   }
@@ -163,6 +183,7 @@ if (password === confirmPassword) {
                     autoCapitalize='none' keyboardType="email-address"
                     placeholder=""
                   />
+                     {emailError && <Text style={styles.error}>Adresse email invalide</Text>}
                 </View>
 
                 <View>
@@ -173,6 +194,7 @@ if (password === confirmPassword) {
                     secureTextEntry={true}
                     placeholder=""
                   />
+                     {passewordError && <Text style={styles.error}>Les mots de passe ne correspondent pas</Text>}
                 </View>
                 
                 <View>
@@ -325,5 +347,9 @@ const styles = StyleSheet.create({
   },
   signup:{
     fontFamily:"Poppins"
-  }
+  },
+    error: {
+    marginTop: 7,
+    color: 'red',
+  },
 });

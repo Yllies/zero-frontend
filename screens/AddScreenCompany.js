@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -12,34 +12,40 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import {ImagePicker,launchImageLibrary} from "react-native-image-picker";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function AddScreenCompany({ navigation }) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [availability, setAvailability] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImages, setSelectedImages] = useState([]); // Utiliser un tableau pour stocker les images sélectionnées
+  const [galleryPermission, setGalleryPermission] = useState(null);
 
-  const handleImagePicker = () => {
-    const options = {
-      title: "Sélectionner une photo",
-      storageOptions: {
-        skipBackup: true,
-        path: "images",
-      },
-    };
+  useEffect(() => {
+    (async () => {
+      const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      setGalleryPermission(galleryStatus.status === "granted");
+    })();
+  }, []);
 
-    ImagePicker.launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
-        console.log("L'utilisateur a annulé la sélection d'image");
-      } else if (response.error) {
-        console.log("Erreur ImagePicker: ", response.error);
-      } else {
-        setSelectedImage(response);
-      }
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [3, 4],
+      quality: 1,
+      allowsMultipleSelection: true, // Activer la sélection multiple
     });
+    console.log(result);
+    if (!result.canceled) {
+      setSelectedImages(result.assets); // Stocker les images dans le tableau
+    }
   };
+
+  if (galleryPermission === false) {
+    return <Text>No access to Internal Storage</Text>
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,25 +73,29 @@ export default function AddScreenCompany({ navigation }) {
                 style={styles.input}
                 onChangeText={(value) => setCategory(value)}
                 value={category}
-                placeholder="Quel(s) type(s) de produit(s) avez-vous besoin?"
+                placeholder="Quelle est la catégorie?"
               />
             </View>
             <View style={styles.imagePickerContainer}>
-              <Text style={styles.label}>Ajouter une photo</Text>
+              <Text style={styles.label}>Ajouter des photos</Text>
               <TouchableOpacity
-                onPress={handleImagePicker}
+                onPress={() => pickImage()}
                 style={styles.imagePickerButton}
               >
                 <Text style={styles.imagePickerButtonText}>
-                  Sélectionner une photo
+                  Sélectionner des photos
                 </Text>
               </TouchableOpacity>
-              {selectedImage && (
-                <Image
-                  source={{ uri: selectedImage.uri }}
-                  style={styles.selectedImage}
-                />
-              )}
+              {/* Afficher les images sélectionnées */}
+              <View style={styles.selectedImagesContainer}>
+                {selectedImages.map((image, index) => (
+                  <Image
+                    key={index}
+                    source={{ uri: image.uri }}
+                    style={styles.selectedImage}
+                  />
+                ))}
+              </View>
             </View>
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Description</Text>
@@ -93,7 +103,7 @@ export default function AddScreenCompany({ navigation }) {
                 style={styles.input}
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Dites nous pourquoi vous en avez besoin?"
+                placeholder="Dites nous pourquoi vous n'en voulez plus"
               />
             </View>
             <View style={styles.inputContainer}>
@@ -115,7 +125,6 @@ export default function AddScreenCompany({ navigation }) {
     </SafeAreaView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -166,7 +175,7 @@ const styles = StyleSheet.create({
     padding: 13,
     borderRadius: 4,
     width: "100%",
-  
+    marginTop: 30,
     justifyContent: "center",
   },
   imagePickerButtonText: {
@@ -174,6 +183,7 @@ const styles = StyleSheet.create({
     color: "#555",
   },
   selectedImage: {
+    flex: 1 / 2,
     marginTop: 10,
     width: "100%",
     height: 200,
@@ -194,4 +204,5 @@ const styles = StyleSheet.create({
   zero: {
     color: "#EDFC92",
   },
+  
 });

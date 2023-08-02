@@ -91,11 +91,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "Poppins",
     color: "white",
-    marginBottom: -25,
+    marginBottom: -15,
   },
 
   infoContainer: {
-    padding: 15,
+    padding: 12,
+    
   },
 
   donationImage: {
@@ -106,8 +107,7 @@ const styles = StyleSheet.create({
   },
 
   heartIcon: {
-    padding: 10,
     paddingLeft: 130,
-    paddingBottom: 15,
+    paddingBottom: 1,
   },
 });
