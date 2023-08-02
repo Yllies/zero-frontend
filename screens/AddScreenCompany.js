@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -12,34 +12,40 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import {ImagePicker,launchImageLibrary} from "react-native-image-picker";
+import * as ImagePicker from 'expo-image-picker';
 
 export default function AddScreenCompany({ navigation }) {
+
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [availability, setAvailability] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+  const [galleryPermission, setGalleryPermission]=useState(null);
 
-  const handleImagePicker = () => {
-    const options = {
-      title: "Sélectionner une photo",
-      storageOptions: {
-        skipBackup: true,
-        path: "images",
-      },
-    };
 
-    ImagePicker.launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
-        console.log("L'utilisateur a annulé la sélection d'image");
-      } else if (response.error) {
-        console.log("Erreur ImagePicker: ", response.error);
-      } else {
-        setSelectedImage(response);
-      }
+  useEffect(()=>{
+    (async()=>{
+      const galleryStatus=await ImagePicker.requestMediaLibraryPermissionsAsync();
+      setGalleryPermission(galleryStatus.status==="granted");
+    })();
+  }, []);
+  
+  const pickImage = async()=>{
+    let result= await ImagePicker.launchImageLibraryAsync({
+      mediaTypes:ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect:[3,4],
+      quality:1,
     });
+    console.log(result);
+    if (result.canceled){
+setSelectedImage(result.assets)
+    }
   };
+if(galleryPermission===false){
+  return <Text>No access to Internal Storage</Text>
+}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,7 +79,7 @@ export default function AddScreenCompany({ navigation }) {
             <View style={styles.imagePickerContainer}>
               <Text style={styles.label}>Ajouter une photo</Text>
               <TouchableOpacity
-                onPress={handleImagePicker}
+                onPress={()=>pickImage()}
                 style={styles.imagePickerButton}
               >
                 <Text style={styles.imagePickerButtonText}>
@@ -82,7 +88,7 @@ export default function AddScreenCompany({ navigation }) {
               </TouchableOpacity>
               {selectedImage && (
                 <Image
-                  source={{ uri: selectedImage.uri }}
+                  source={{ uri: selectedImage.assets }}
                   style={styles.selectedImage}
                 />
               )}
