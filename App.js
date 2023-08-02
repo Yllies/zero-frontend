@@ -12,8 +12,8 @@ import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import HomeScreen from "./screens/HomeScreen";
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 
 const Stack = createNativeStackNavigator();
@@ -58,21 +58,19 @@ const TabNavigator = () => {
 };
 
 export default function App() {
-
-
   const store = configureStore({
     reducer: { user },
-   });
+  });
 
   return (
     <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="TabNavigator" component={TabNavigator} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }

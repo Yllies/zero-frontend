@@ -22,8 +22,8 @@ const UserProfile = () => {
        />
        
 
-      </View>
-      {/* <Image
+      </View> 
+       <Image
         source={require('../assets/me.jpg')}
         style={styles.image}
         resizeMode="cover"
@@ -37,14 +37,14 @@ const UserProfile = () => {
             color="#274539" 
             style={styles.filterIcon}
           />
-          {/* <FontAwesomeIcon icon="fa-duotone fa-circle-star" 
+           <FontAwesome icon="fa-duotone fa-circle-star" 
           style={{"--fa-primary-color": "#274539", "--fa-secondary-color": "#edfc92", "--fa-secondary-opacity": "1",}} /> 
         </TouchableOpacity>
       </View>
 
       <View style={styles.botcontiner}>
         <Text style={styles.title}>Qui sommes-nous?</Text>
-      </View>*/}
+      </View>
     </View>
   );
 };

@@ -39,7 +39,7 @@ export default function Header() {
         </Text>
 
         {/* Paragraphe d'introduction */}
-        <Text style={styles.paragraphe}>Bienvenue sur l’app Zéro</Text>
+        <Text style={styles.paragraphe}>Bienvenue sur Zéro</Text>
 
         {/* Barre de recherche */}
         <View style={styles.searchBarContainer}>

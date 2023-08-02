@@ -59,7 +59,7 @@ if (password === confirmPassword) {
       body: JSON.stringify({type,username,name,address,siret_siren:siren,email,password}),
     }).then(response => response.json())
       .then(data => {
-        console.log(data.result)
+       
         if (data.result) {
           dispatch(login({name:data.name,email:data.email, token:data.token}));
           setType('');
@@ -77,8 +77,12 @@ if (password === confirmPassword) {
             'Authorization': `Bearer ${tokenAPI}` }
           }).then(response => response.json()).then(data=>{
             if(data.identifiantAssociationUniteLegale !== null){
-              // If this is an association
+              // If this is an association, redirect to HomeAssociationScreen
               navigation.navigate("TabNavigator", { screen: "Acceuil" });
+            }else{
+            // If this is a company, redirect to HomeCompanyScreen
+          
+
             }
           })
         
