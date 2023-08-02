@@ -11,40 +11,52 @@ import {
   StatusBar,
   SafeAreaView,
   ScrollView,
+  FlatList,
 } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function AddScreenCompany({ navigation }) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [availability, setAvailability] = useState("");
-  const [selectedImages, setSelectedImages] = useState([]); // Utiliser un tableau pour stocker les images sélectionnées
+  const [selectedImages, setSelectedImages] = useState([]);
   const [galleryPermission, setGalleryPermission] = useState(null);
 
   useEffect(() => {
+    // Vérifier et demander la permission d'accéder à la galerie
     (async () => {
       const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
       setGalleryPermission(galleryStatus.status === "granted");
     })();
   }, []);
 
+  // Fonction pour sélectionner des images depuis la galerie
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [3, 4],
       quality: 1,
-      allowsMultipleSelection: true, // Activer la sélection multiple
+      allowsMultipleSelection: true,
     });
-    console.log(result);
-    if (!result.canceled) {
-      setSelectedImages(result.assets); // Stocker les images dans le tableau
+
+    // Vérifier si l'utilisateur a sélectionné des images
+    if (!result.cancelled) {
+      // Ajouter les nouvelles images sélectionnées au tableau existant
+      setSelectedImages([...selectedImages, ...result.assets]);
     }
   };
 
+  // Fonction pour supprimer une image du tableau selectedImages
+  const removeImage = (imageUri) => {
+    setSelectedImages(selectedImages.filter(image => image.uri !== imageUri));
+  };
+
+  // Si l'accès à la galerie est refusé, afficher un message d'erreur
   if (galleryPermission === false) {
-    return <Text>No access to Internal Storage</Text>
+    return <Text>Pas d'accès au stockage interne</Text>
   }
 
   return (
@@ -58,6 +70,7 @@ export default function AddScreenCompany({ navigation }) {
         </View>
         <ScrollView style={styles.bottomContainer}>
           <View style={styles.form}>
+            {/* Champ pour le titre */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Titre</Text>
               <TextInput
@@ -67,6 +80,7 @@ export default function AddScreenCompany({ navigation }) {
                 placeholder="Quel est le titre de votre annonce?"
               />
             </View>
+            {/* Champ pour la catégorie */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Catégorie</Text>
               <TextInput
@@ -76,6 +90,7 @@ export default function AddScreenCompany({ navigation }) {
                 placeholder="Quelle est la catégorie?"
               />
             </View>
+            {/* Sélecteur d'images */}
             <View style={styles.imagePickerContainer}>
               <Text style={styles.label}>Ajouter des photos</Text>
               <TouchableOpacity
@@ -88,15 +103,27 @@ export default function AddScreenCompany({ navigation }) {
               </TouchableOpacity>
               {/* Afficher les images sélectionnées */}
               <View style={styles.selectedImagesContainer}>
-                {selectedImages.map((image, index) => (
-                  <Image
-                    key={index}
-                    source={{ uri: image.uri }}
-                    style={styles.selectedImage}
-                  />
-                ))}
+                <FlatList
+                  data={selectedImages}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  keyExtractor={(item, index) => index.toString()}
+                  renderItem={({ item }) => (
+                    <View>
+                      <Image source={{ uri: item.uri }} style={styles.selectedImage} />
+                      {/* Icône "times" pour supprimer l'image */}
+                      <TouchableOpacity
+                        onPress={() => removeImage(item.uri)}
+                        style={styles.deleteIconContainer}
+                      >
+                        <FontAwesome name='times' size={20} color='#EDFC92' style={styles.deleteIcon} />
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                />
               </View>
             </View>
+            {/* Champ pour la description */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Description</Text>
               <TextInput
@@ -106,6 +133,7 @@ export default function AddScreenCompany({ navigation }) {
                 placeholder="Dites nous pourquoi vous n'en voulez plus"
               />
             </View>
+            {/* Champ pour la disponibilité */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Disponibilité</Text>
               <TextInput
@@ -115,6 +143,7 @@ export default function AddScreenCompany({ navigation }) {
                 placeholder="A partir de quand?"
               />
             </View>
+            {/* Bouton de soumission de l'annonce */}
             <TouchableOpacity style={styles.btnLogin}>
               <Text style={styles.login}>Publiez votre annonce</Text>
             </TouchableOpacity>
@@ -183,12 +212,13 @@ const styles = StyleSheet.create({
     color: "#555",
   },
   selectedImage: {
-    flex: 1 / 2,
+    flexWrap: 'wrap',
     marginTop: 10,
-    width: "100%",
-    height: 200,
+    width: 100,
+    height: 100,
     resizeMode: "cover",
     borderRadius: 4,
+    margin: 5,
   },
   btnLogin: {
     backgroundColor: "#EDFC92",
@@ -204,5 +234,20 @@ const styles = StyleSheet.create({
   zero: {
     color: "#EDFC92",
   },
-  
+  selectedImagesContainer: {
+    flex: 1,
+  },
+  deleteIconContainer: {
+    position: 'absolute',
+    top: 12,
+    right: 9,
+    zIndex: 1,
+    backgroundColor: 'rgba(39, 69, 57, 0.7)',
+    // padding: 5,
+    borderRadius: 100,
+  },
+  deleteIcon: {
+margin:5,
+
+  },
 });
