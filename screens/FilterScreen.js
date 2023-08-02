@@ -17,17 +17,24 @@ export default function FilterScreen({navigation}) {
 
   // selection des filtres "chips"
 
+  //  tableau qui contiendra les "chips" sélectionnées
   const [selectedChips, setSelectedChips] = useState([]);
 
-  
+  // fonction appelée quand on clic sur un chip
+
   const handleChipPress = (chip) => {
-    setSelectedChips((prevSelectedChips) =>
-      prevSelectedChips.includes(chip)
-        ? prevSelectedChips.filter((item) => item !== chip)
-        : [...prevSelectedChips, chip]
-    );
+    if (selectedChips.includes(chip)) {
+      // Si le chip est déjà sélectionné, le désélectionner
+      setSelectedChips(selectedChips =>
+        selectedChips.filter(item => item !== chip)
+      );
+    } else {
+      // Sinon, le pousser dans le tableau des chips sélectionnées
+      setSelectedChips(selectedChips => [...selectedChips, chip]);
+    }
   };
 
+  // Vérifie si la chip séléctionée est dans le tableau et renvoi une valeur boolean
   const renderChip = (chip) => {
   const isSelected = selectedChips.includes(chip);
 
@@ -36,8 +43,11 @@ export default function FilterScreen({navigation}) {
       <TouchableOpacity
         key={chip}
         onPress={() => handleChipPress(chip)}
+
+        // on applique un style sur le bouton si la chip est sélectionnée + sur le texte
         style={[styles.chip, isSelected ? styles.selectedChip : null]}
       >
+      
         <Text style={[styles.chipText, isSelected ? styles.selectedChipText : null]}>
           {chip}
         </Text>
@@ -47,7 +57,6 @@ export default function FilterScreen({navigation}) {
 
 
   // Calendrier
-
   const [selectedDate, setSelectedDate] = useState('');
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);
@@ -111,6 +120,19 @@ export default function FilterScreen({navigation}) {
             theme={customTheme} // Utiliser le thème personnalisé pour modifier les couleurs du calendrier
           />
     </View>
+
+<View style={styles.btnContainer}> 
+  
+<TouchableOpacity style={styles.btnAppliquer}>
+              <Text>Appliquer</Text>
+            </TouchableOpacity>
+
+ <TouchableOpacity style={styles.btnEffacer}>
+              <Text style={styles.textBtn}>Effacer</Text>
+            </TouchableOpacity>
+   </View>
+
+    
      </View>
 
      </ScrollView>
@@ -204,6 +226,42 @@ const styles = StyleSheet.create({
     paddingTop:'2%',
     paddingLeft:'6%',
     paddingBottom:'12%',
+  },
+
+  btnContainer : {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingRight:'5%',
+    paddingLeft:'2%',
+  },
+
+
+  btnAppliquer : {
+    backgroundColor: "#EDFC92",
+    padding: '4%',
+    width: '40%',
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    alignItems: "center",
+    marginBottom: 25,
+  },
+
+ btnEffacer : {
+  backgroundColor: "#274539",
+  padding: '4%',
+  width: '40%',
+  shadowColor: "#171717",
+  shadowOffset: { width: -2, height: 4 },
+  shadowOpacity: 0.2,
+  shadowRadius: 3,
+  alignItems: "center",
+  marginBottom: 25,
+  },
+
+  textBtn: {
+    color: 'white',
   },
 });
 
