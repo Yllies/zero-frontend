@@ -22,6 +22,7 @@
       const [category, setCategory] = useState("");
       const [description, setDescription] = useState("");
       const [availability, setAvailability] = useState("");
+      const [quantity,setQuantity]=useState("");
       const [selectedImages, setSelectedImages] = useState([]);
       const [galleryPermission, setGalleryPermission] = useState(null);
 
@@ -178,6 +179,17 @@
                     placeholder="Dites nous pourquoi vous n'en voulez plus"
                   />
                 </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.label}>Quantité</Text>
+                  <TextInput
+                    style={styles.input}
+                    multiline={true}
+                    textAlignVertical="top"
+                    onChangeText={(value) => setQuantity(value)}
+                    value={description}
+                    placeholder="Combien de pièces?"
+                  />
+                </View>
                 {/* Champ pour la disponibilité */}
                 <View style={styles.inputContainer}>
                   <Text style={styles.label}>Disponibilité</Text>
@@ -186,7 +198,7 @@
                     multiline={true}
                     textAlignVertical="top"
                     onChangeText={(value) => setAvailability(value)}
-                    value={availability}
+                    value={quantity}
                     placeholder="A partir de quand?"
                   />
                 </View>
