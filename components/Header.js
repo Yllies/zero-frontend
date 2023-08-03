@@ -1,21 +1,20 @@
 // Importation des composants et bibliothèques nécessaires
 import {
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-  } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useDispatch, useSelector } from 'react-redux';
-import { MaterialIcons } from '@expo/vector-icons'; 
-import * as React from 'react';
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useDispatch, useSelector } from "react-redux";
+import { MaterialIcons } from "@expo/vector-icons";
+import * as React from "react";
 
 // Définition du composant Header
 export default function Header() {
-
   const user = useSelector((state) => state.user.value);
   return (
     // Conteneur principal de la page
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#fff",
     justifyContent: "flex-start",
     width: "100%",
-    paddingBottom:200,
+    paddingBottom: 200,
   },
 
   // Style du conteneur de l'en-tête
@@ -85,12 +84,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 50,
     paddingRight: 30,
     paddingLeft: 30,
- 
   },
 
   // Style du texte "Bonjour"
   text: {
-    fontFamily: "Poppins",
+    fontFamily: "Montserrat",
     color: "white",
     fontSize: 30,
   },

@@ -10,9 +10,11 @@ import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import HomeScreen from "./screens/HomeScreen";
+import ReservationScreen from "./screens/ReservationScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
+import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,7 +50,7 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreen} />
-      <Tab.Screen name="Favoris" component={FavoriteScreen} />
+      <Tab.Screen name="Reservation" component={ReservationScreen} />
       <Tab.Screen name="Ajout" component={AddScreenCompany} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -60,17 +62,28 @@ export default function App() {
     reducer: { user },
   });
 
-  return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
-  );
+  const [fontsLoaded] = useFonts({
+    Montserrat: require("./assets/fonts/Montserrat-Regular.ttf"),
+    MontserratSemiBold: require("./assets/fonts/Montserrat-SemiBold.ttf"),
+    MontserratBold: require("./assets/fonts/Montserrat-Bold.ttf"),
+    Poppins: require("./assets/fonts/Poppins-Regular.ttf"),
+    PoppinsSemiBold: require("./assets/fonts/Poppins-SemiBold.ttf"),
+    PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
+  });
+
+  if (fontsLoaded) {
+    return (
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

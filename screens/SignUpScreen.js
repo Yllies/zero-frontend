@@ -15,20 +15,10 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import { useCallback } from "react";
-SplashScreen.preventAutoHideAsync();
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function SignUpScreen({ navigation }) {
-  const [fontsLoaded] = useFonts({
-    Montserrat: require("../assets/fonts/Montserrat-Regular.ttf"),
-    MontserratBold: require("../assets/fonts/Montserrat-Bold.ttf"),
-    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-  });
-
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
 
@@ -118,160 +108,150 @@ export default function SignUpScreen({ navigation }) {
     }
   };
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (fontsLoaded) {
-    return (
-      <SafeAreaView onLayout={onLayoutRootView} style={styles.container}>
-        <KeyboardAvoidingView
-          style={styles.mainContain}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
-          <ScrollView>
-            <View style={styles.topContainer}>
-              <Text style={styles.title}>Créer un compte </Text>
-              <Text style={styles.textWelcome}>Bienvenue parmi nous !</Text>
-            </View>
-            <View style={styles.bottomContainer}>
-              <View style={styles.form}>
-                <View style={styles.topForm}>
-                  <Text style={styles.youAre}>Vous êtes une:</Text>
-                  <View style={styles.choiceType}>
-                    <TouchableOpacity
-                      onPress={() => setType("Entreprise")}
-                      value={type}
-                      style={styles.btnChoice}
-                    >
-                      <Text style={styles.company}>ENTREPRISE</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => setType("Association")}
-                      value={type}
-                      style={styles.btnChoice}
-                    >
-                      <Text style={styles.association}>ASSOCIATION</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-                <View style={styles.bottomForm}>
-                  <View>
-                    <Text style={styles.label}>Username</Text>
-                    <TextInput
-                      onChangeText={(value) => setUsername(value)}
-                      value={username}
-                      style={styles.input}
-                      placeholder=""
-                    />
-                  </View>
-
-                  <View>
-                    <Text style={styles.label}>Nom de la structure</Text>
-                    <TextInput
-                      onChangeText={(value) => setName(value)}
-                      value={name}
-                      style={styles.input}
-                      placeholder=""
-                    />
-                  </View>
-
-                  <View>
-                    <Text style={styles.label}>Adresse de la structure</Text>
-                    <TextInput
-                      onChangeText={(value) => setAdress(value)}
-                      value={address}
-                      style={styles.input}
-                      placeholder=""
-                    />
-                  </View>
-
-                  <View>
-                    <Text style={styles.label}>Numéro de SIREN</Text>
-                    <TextInput
-                      onChangeText={(value) => setSiren(value)}
-                      value={siren}
-                      style={styles.input}
-                      autoCapitalize="none"
-                      keyboardType="number-pad"
-                      placeholder=""
-                    />
-                  </View>
-
-                  <View>
-                    <Text style={styles.label}>Email</Text>
-                    <TextInput
-                      onChangeText={(value) => setEmail(value)}
-                      value={email}
-                      style={styles.input}
-                      autoCapitalize="none"
-                      keyboardType="email-address"
-                      placeholder=""
-                    />
-                    {emailError && (
-                      <Text style={styles.error}>Adresse email invalide</Text>
-                    )}
-                  </View>
-
-                  <View>
-                    <Text style={styles.label}>Mot de passe</Text>
-                    <TextInput
-                      onChangeText={(value) => setPassword(value)}
-                      value={password}
-                      style={styles.input}
-                      autoCapitalize="none"
-                      secureTextEntry={true}
-                      placeholder=""
-                    />
-                    {passewordError && (
-                      <Text style={styles.error}>
-                        Les mots de passe ne correspondent pas
-                      </Text>
-                    )}
-                  </View>
-
-                  <View>
-                    <Text style={styles.label}>
-                      Confirmation du mot de passe{" "}
-                    </Text>
-                    <TextInput
-                      onChangeText={(value) => setConfirmPassword(value)}
-                      value={confirmPassword}
-                      secureTextEntry={true}
-                      style={styles.input}
-                      autoCapitalize="none"
-                      placeholder=""
-                    />
-                  </View>
-
+  return (
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.mainContain}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <ScrollView>
+          <View style={styles.topContainer}>
+            <Text style={styles.title}>Créer un compte </Text>
+            <Text style={styles.textWelcome}>Bienvenue parmi nous !</Text>
+          </View>
+          <View style={styles.bottomContainer}>
+            <View style={styles.form}>
+              <View style={styles.topForm}>
+                <Text style={styles.youAre}>Vous êtes une:</Text>
+                <View style={styles.choiceType}>
                   <TouchableOpacity
-                    onPress={() => handleSignup()}
-                    style={styles.btnSignUp}
+                    onPress={() => setType("Entreprise")}
+                    value={type}
+                    style={styles.btnChoice}
                   >
-                    <Text style={styles.signup}>S'inscrire</Text>
+                    <Text style={styles.company}>ENTREPRISE</Text>
                   </TouchableOpacity>
-
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("Login")}
-                    style={styles.loginHere}
+                    onPress={() => setType("Association")}
+                    value={type}
+                    style={styles.btnChoice}
                   >
-                    <Text
-                      style={{ textAlign: "center", fontFamily: "Poppins" }}
-                    >
-                      Vous avez déjà un compte ? Connectez-vous ici !
-                    </Text>
+                    <Text style={styles.association}>ASSOCIATION</Text>
                   </TouchableOpacity>
                 </View>
               </View>
+              <View style={styles.bottomForm}>
+                <View>
+                  <Text style={styles.label}>Username</Text>
+                  <TextInput
+                    onChangeText={(value) => setUsername(value)}
+                    value={username}
+                    style={styles.input}
+                    placeholder=""
+                  />
+                </View>
+
+                <View>
+                  <Text style={styles.label}>Nom de la structure</Text>
+                  <TextInput
+                    onChangeText={(value) => setName(value)}
+                    value={name}
+                    style={styles.input}
+                    placeholder=""
+                  />
+                </View>
+
+                <View>
+                  <Text style={styles.label}>Adresse de la structure</Text>
+                  <TextInput
+                    onChangeText={(value) => setAdress(value)}
+                    value={address}
+                    style={styles.input}
+                    placeholder=""
+                  />
+                </View>
+
+                <View>
+                  <Text style={styles.label}>Numéro de SIREN</Text>
+                  <TextInput
+                    onChangeText={(value) => setSiren(value)}
+                    value={siren}
+                    style={styles.input}
+                    autoCapitalize="none"
+                    keyboardType="number-pad"
+                    placeholder=""
+                  />
+                </View>
+
+                <View>
+                  <Text style={styles.label}>Email</Text>
+                  <TextInput
+                    onChangeText={(value) => setEmail(value)}
+                    value={email}
+                    style={styles.input}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    placeholder=""
+                  />
+                  {emailError && (
+                    <Text style={styles.error}>Adresse email invalide</Text>
+                  )}
+                </View>
+
+                <View>
+                  <Text style={styles.label}>Mot de passe</Text>
+                  <TextInput
+                    onChangeText={(value) => setPassword(value)}
+                    value={password}
+                    style={styles.input}
+                    autoCapitalize="none"
+                    secureTextEntry={true}
+                    placeholder=""
+                  />
+                  {passewordError && (
+                    <Text style={styles.error}>
+                      Les mots de passe ne correspondent pas
+                    </Text>
+                  )}
+                </View>
+
+                <View>
+                  <Text style={styles.label}>
+                    Confirmation du mot de passe{" "}
+                  </Text>
+                  <TextInput
+                    onChangeText={(value) => setConfirmPassword(value)}
+                    value={confirmPassword}
+                    secureTextEntry={true}
+                    style={styles.input}
+                    autoCapitalize="none"
+                    placeholder=""
+                  />
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => handleSignup()}
+                  style={styles.btnSignUp}
+                >
+                  <Text style={styles.signup}>S'inscrire</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Login")}
+                  style={styles.loginHere}
+                >
+                  <Text style={{ textAlign: "center", fontFamily: "Poppins" }}>
+                    Vous avez déjà un compte ? Connectez-vous ici !
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <StatusBar style="auto" />
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    );
-  }
+          </View>
+          <StatusBar style="auto" />
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
