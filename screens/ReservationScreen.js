@@ -29,62 +29,62 @@ export default function ReservationScreen({ navigation }) {
 
   // if(LE POST EST EN ATTENTE DE CONFIRMATION){
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ImageBackground
-        style={styles.greenBackground}
-        source={require("../assets/background-diagonal.png")}
-      >
-        <View>
-          <View style={styles.title}>
-            <Text
-              style={{
-                fontSize: 20,
-                fontFamily: "MontserratBold",
-                color: "white",
-              }}
-            >
-              Votre{" "}
-            </Text>
-            <Text
-              style={{
-                fontSize: 20,
-                fontFamily: "MontserratBold",
-                color: "#EDFC92",
-              }}
-            >
-              réservation
-            </Text>
-          </View>
-          <View style={styles.middleContainer}>
-            <Text style={styles.statutReservation}>
-              En attente de validation
-            </Text>
-            <View style={styles.reservationContainer}>
-              <ArticleDetails />
-              <Text style={styles.attention}>
-                Attention, plus que 24h pour valider la demande de réservation !
-              </Text>
-              <TouchableOpacity style={styles.btn}>
-                <Text style={styles.valider}>VALIDER</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btn}>
-                <Text style={styles.refuser}>REFUSER</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <StatusBar style="auto" />
-      </ImageBackground>
-    </KeyboardAvoidingView>
+    // <KeyboardAvoidingView
+    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
+    // >
+    //   <ImageBackground
+    //     style={styles.greenBackground}
+    //     source={require("../assets/background-diagonal.png")}
+    //   >
+    //     <View>
+    //       <View style={styles.title}>
+    //         <Text
+    //           style={{
+    //             fontSize: 20,
+    //             fontFamily: "MontserratBold",
+    //             color: "white",
+    //           }}
+    //         >
+    //           Votre{" "}
+    //         </Text>
+    //         <Text
+    //           style={{
+    //             fontSize: 20,
+    //             fontFamily: "MontserratBold",
+    //             color: "#EDFC92",
+    //           }}
+    //         >
+    //           réservation
+    //         </Text>
+    //       </View>
+    //       <View style={styles.middleContainer}>
+    //         <Text style={styles.statutReservation}>
+    //           En attente de validation
+    //         </Text>
+    //         <View style={styles.reservationContainer}>
+    //           <ArticleDetails />
+    //           <Text style={styles.attention}>
+    //             Attention, plus que 24h pour valider la demande de réservation !
+    //           </Text>
+    //           <TouchableOpacity style={styles.btn}>
+    //             <Text style={styles.valider}>VALIDER</Text>
+    //           </TouchableOpacity>
+    //           <TouchableOpacity style={styles.btn}>
+    //             <Text style={styles.refuser}>REFUSER</Text>
+    //           </TouchableOpacity>
+    //         </View>
+    //       </View>
+    //     </View>
+    //     <StatusBar style="auto" />
+    //   </ImageBackground>
+    // </KeyboardAvoidingView>
     // }else{
     // SI LA RESERVATION A ETE CONFIRMé
-    // <KeyboardAvoidingView style={styles.reservationDone}>
-    //   <ConfettiCannon count={500} origin={{ x: 0, y: 0 }} />
+    <KeyboardAvoidingView style={styles.reservationDone}>
+      <ConfettiCannon count={500} origin={{ x: 0, y: 0 }} />
 
-    //   <ArticleReserved />
-    // </KeyboardAvoidingView>
+      <ArticleReserved />
+    </KeyboardAvoidingView>
     // }
   );
 }
