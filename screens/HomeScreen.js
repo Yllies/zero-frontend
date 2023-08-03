@@ -46,15 +46,6 @@ export default function HomeScreen({ navigation }) {
     <ScrollView>
       <View style={styles.container}>
         <Header />
-        <View style={styles.containerFilter}>
-          <FontAwesome
-            onPress={() => navigation.navigate("FilterScreen")}
-            style={styles.iconeFilter}
-            name="filter"
-            size={28}
-            color="#274539"
-          />
-        </View>
 
         <View style={styles.cardsRow}>
           {posts.map((post, index) => (

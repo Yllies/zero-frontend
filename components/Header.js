@@ -58,6 +58,13 @@ export default function Header() {
             placeholder="Je recherche..."
             placeholderTextColor="#707070"
           />
+          <FontAwesome
+            onPress={() => navigation.navigate("FilterScreen")}
+            style={styles.iconeFilter}
+            name="filter"
+            size={28}
+            color="#274539"
+          />
         </View>
       </View>
     </View>
