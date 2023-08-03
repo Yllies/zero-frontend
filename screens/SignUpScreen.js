@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../reducers/user";
+import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 
 import {
   Image,
@@ -32,8 +33,35 @@ export default function SignUpScreen({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passewordError, setPassewordError] = useState(false);
+  //useState pour les suggestions
+  const [dataSet, setDataSet] = useState([]);
 
   const tokenAPI = "e6b24e73-7c80-3ec5-b16d-358d9ab783f9";
+
+  //fonction de recherche pour l'autocomplete des addresses
+  const searchAdress = (query) => {
+    // Prevent search with an empty query
+    if (query === "") {
+      return;
+    }
+
+    fetch(`https://api-adresse.data.gouv.fr/search/?q=${query}`)
+      .then((response) => response.json())
+      .then((response) => {
+        const suggestions = response.features.map((data, i) => {
+          return {
+            id: i,
+            title: data.properties.name,
+            context: data.properties.context,
+          };
+        });
+        setDataSet(suggestions);
+      })
+      .catch((error) => {
+        console.error("Error fetching cities:", error);
+        setDataSet([]);
+      });
+  };
 
   // Regex pour vérifier que l'email est valide
   const EMAIL_REGEX =
@@ -163,11 +191,19 @@ export default function SignUpScreen({ navigation }) {
 
                 <View>
                   <Text style={styles.label}>Adresse de la structure</Text>
-                  <TextInput
-                    onChangeText={(value) => setAdress(value)}
+                  <AutocompleteDropdown
+                    onChangeText={(value) => searchAdress(value)}
+                    onSelectItem={(item) => item && setAdress(item)}
+                    placeholder="Addresse"
+                    dataSet={dataSet}
                     value={address}
-                    style={styles.input}
-                    placeholder=""
+                    textInputProps={{ placeholder: "Adresse" }}
+                    inputContainerStyle={styles.input}
+                    containerStyle={styles.dropdownContainer}
+                    suggestionsListContainerStyle={
+                      styles.suggestionListContainer
+                    }
+                    closeOnSubmit
                   />
                 </View>
 
@@ -367,5 +403,45 @@ const styles = StyleSheet.create({
   error: {
     marginTop: 7,
     color: "red",
+  },
+  dropdownContainer: {
+    width: "100%",
+    marginBottom: 20,
+  },
+  suggestionListContainer: {
+    borderRadius: 3,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+  },
+  resultContainer: {
+    backgroundColor: "#ffffff",
+    width: "100%",
+    borderRadius: 6,
+    padding: 20,
+    marginBottom: 10,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderColor: "#51e181",
+    borderWidth: 1,
+  },
+  dropdownContainer: {
+    width: "100%",
+    marginBottom: 20,
+  },
+  suggestionListContainer: {
+    borderRadius: 3,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+  },
+  resultContainer: {
+    backgroundColor: "#ffffff",
+    width: "100%",
+    borderRadius: 6,
+    padding: 20,
+    marginBottom: 10,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderColor: "#51e181",
+    borderWidth: 1,
   },
 });
