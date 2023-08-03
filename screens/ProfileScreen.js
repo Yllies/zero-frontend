@@ -63,39 +63,49 @@ const UserProfile = () => {
         <View style={styles.textContainer}>
           <Text style={styles.title}>Infos Complémentaire</Text>
           <View style={styles.InfosContainer}>
-            <Text style={styles.titleInfo}>  <FontAwesome
+            <Text style={styles.titleInfo}>
+              {" "}
+              <FontAwesome
                 name="map-pin"
                 color="#EDFC92"
                 size={40}
                 style={styles.icons}
-              />  Adress</Text>
-                        <Text style={styles.textInfo}>ghir h'na</Text>
+              />{" "}
+              Adress
+            </Text>
+            <Text style={styles.textInfo}>ghir h'na</Text>
 
-            <Text style={styles.titleInfo}>  <FontAwesome
+            <Text style={styles.titleInfo}>
+              {" "}
+              <FontAwesome
                 name="lock"
                 color="#EDFC92"
                 size={40}
                 style={styles.icons}
-              />  Horaires</Text>
-              <Text style={styles.textInfo}>Quand je me reveille à quand j'en ai marre</Text>
-
+              />{" "}
+              Horaires
+            </Text>
+            <Text style={styles.textInfo}>
+              Quand je me reveille à quand j'en ai marre
+            </Text>
           </View>
           <Text style={styles.title}>Points Forts</Text>
           <View style={styles.PFContainer}>
-          <Text style={styles.Number}>8 <Text style={styles.PFText}>euro dans la poche</Text>
-</Text>
-
-
+            <Text style={styles.Number}>
+              8 <Text style={styles.PFText}>euro dans la poche</Text>
+            </Text>
           </View>
-<TouchableOpacity style={styles.btnContact}>
-              <Text style={styles.Contact}>Contacter l'Entreprise           <FontAwesome
+          <TouchableOpacity style={styles.btnContact}>
+            <Text style={styles.Contact}>
+              Contacter l'Entreprise{" "}
+              <FontAwesome
                 name="arrow-right"
                 color="#EDFC92"
                 size={30}
                 style={styles.icons}
-              /></Text>
-            </TouchableOpacity>
-
+              />
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -184,41 +194,40 @@ const styles = StyleSheet.create({
   },
   InfosContainer: {
     borderRadius: 10,
-    backgroundColor: '#254739',
-    paddingLeft:40,
-    paddingTop:20,
-    paddingBottom:20,
+    backgroundColor: "#254739",
+    paddingLeft: 40,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
-  textInfo:{
-    color:'white',
-    fontSize:17,
-    marginTop:10,
-    marginLeft:30,
-    marginRight:30,
+  textInfo: {
+    color: "white",
+    fontSize: 17,
+    marginTop: 10,
+    marginLeft: 30,
+    marginRight: 30,
   },
-  titleInfo:{
+  titleInfo: {
     fontSize: 25,
     lineHeight: 54.5,
-    color:'white'
+    color: "white",
   },
-  PFContainer:{
-    marginTop:20,
+  PFContainer: {
+    marginTop: 20,
     borderRadius: 10,
-    backgroundColor: '#EDFC92',
-    paddingLeft:40,
-    paddingTop:20,
+    backgroundColor: "#EDFC92",
+    paddingLeft: 40,
+    paddingTop: 20,
   },
-  PFText:{
-    color: '#274539',
+  PFText: {
+    color: "#274539",
     fontSize: 18,
-
   },
-  Number:{
-    color: '#274539',
+  Number: {
+    color: "#274539",
     fontSize: 105.799,
-    marginTop:-75,
+    marginTop: -75,
   },
-  btnContact:{
+  btnContact: {
     backgroundColor: "#274539",
     padding: 10,
     width: 290,
@@ -228,16 +237,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     alignItems: "center",
     marginBottom: 25,
-    marginTop:25,
-    borderRadius:10,
-    flex:1,
-    justifyContent:"space-between",
-
+    marginTop: 25,
+    borderRadius: 10,
+    flex: 1,
+    justifyContent: "space-between",
   },
-  Contact:{
+  Contact: {
     fontSize: 18,
-    color:'white',
-   marginBottom:10,
+    color: "white",
+    marginBottom: 10,
   },
 });
 

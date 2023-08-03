@@ -3,17 +3,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
 import FavoriteScreen from "./screens/FavoriteScreen";
-import AddScreenCharity from "./screens/AddScreenCharity";
-import AddScreenCompany from "./screens/AddScreenCompany";
-import SearchBar from "./components/SearchBar";
+import AddScreenCompany from "./screens/ScreenPostCompany";
 import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
+import FilterScreen from "./screens/FilterScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import HomeScreen from "./screens/HomeScreen";
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 
 const Stack = createNativeStackNavigator();
@@ -52,27 +50,26 @@ const TabNavigator = () => {
       <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Favoris" component={FavoriteScreen} />
       <Tab.Screen name="Ajout" component={AddScreenCompany} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} /> 
     </Tab.Navigator>
   );
 };
 
 export default function App() {
-
-
   const store = configureStore({
     reducer: { user },
-   });
+  });
 
   return (
     <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="TabNavigator" component={TabNavigator} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          <Stack.Screen name="FilterScreen" component={FilterScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }
