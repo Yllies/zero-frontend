@@ -135,6 +135,17 @@
                   />
                 </View>
                 {/* Sélecteur d'images */}
+                <View style={styles.inputContainer}>
+                  <Text style={styles.label}>Description</Text>
+                  <TextInput
+                    style={styles.input}
+                    multiline={true}
+                    textAlignVertical="top"
+                    onChangeText={(value) => setDescription(value)}
+                    value={description}
+                    placeholder="Dites nous pourquoi vous n'en voulez plus"
+                  />
+                </View>
                 <View style={styles.imagePickerContainer}>
                   <Text style={styles.label}>Ajouter des photos</Text>
                   {/* Bouton pour ouvrir l'appareil photo */}
@@ -168,17 +179,6 @@
                   />
                 </View>
                 {/* Champ pour la description */}
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Description</Text>
-                  <TextInput
-                    style={styles.input}
-                    multiline={true}
-                    textAlignVertical="top"
-                    onChangeText={(value) => setDescription(value)}
-                    value={description}
-                    placeholder="Dites nous pourquoi vous n'en voulez plus"
-                  />
-                </View>
                 <View style={styles.inputContainer}>
                   <Text style={styles.label}>Quantité</Text>
                   <TextInput
