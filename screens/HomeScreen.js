@@ -1,12 +1,18 @@
 import React from "react";
-import { StyleSheet, View, Image, Text, TouchableOpacity, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Header from '../components/Header'
+import Header from "../components/Header";
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
-
 
 export default function HomeScreen({ navigation }) {
   const articlesCards = [];
@@ -33,24 +39,23 @@ export default function HomeScreen({ navigation }) {
   }
 
   return (
+    <ScrollView>
+      <View style={styles.container}>
+        <Header />
+        <View style={styles.containerFilter}>
+          <FontAwesome
+            onPress={() => navigation.navigate("FilterScreen")}
+            style={styles.iconeFilter}
+            name="filter"
+            size={28}
+            color="#274539"
+          
+          />
+        </View>
 
-
-
-    
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.containerFilter}>
-        <FontAwesome onPress={() => navigation.navigate("FilterScreen")}
-        style={styles.iconeFilter}name="filter" size={28} color="#274539"/>
+        <View style={styles.cardsRow}>{articlesCards}</View>
       </View>
-
-      <View style={styles.cardsRow}>
-     {articlesCards}
-
-      </View>
-
-    </View>
-
+    </ScrollView>
   );
 }
 
@@ -61,7 +66,8 @@ const styles = StyleSheet.create({
   },
 
   containerFilter: {
-    marginTop: 10,
+    marginTop: -218,
+    marginRight:40,
     paddingBottom: 30,
     justifyContent: "flex-end",
     alignItems: "flex-end",
@@ -102,7 +108,6 @@ const styles = StyleSheet.create({
 
   infoContainer: {
     padding: 12,
-    
   },
 
   donationImage: {
@@ -116,4 +121,8 @@ const styles = StyleSheet.create({
     paddingLeft: 130,
     paddingBottom: 1,
   },
+  iconeFilter:{
+    borderRadius:400,
+    
+  }
 });
