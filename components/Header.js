@@ -122,6 +122,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black", // Couleur de la bordure
     borderRadius: 30, // Arrondi des coins de la barre de recherche
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 
   // Style du conteneur de l'icône de loupe
@@ -145,5 +149,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingLeft: 10,
     fontFamily: "Poppins",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 });
