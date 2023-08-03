@@ -11,6 +11,7 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reducers/user";
+import MapScreen from "../components/Map";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -57,11 +58,7 @@ const UserProfile = () => {
           </Text>
         </View>
         <View style={styles.mapContainer}>
-          <Image
-            source={require("../assets/me.jpg")}
-            style={styles.map}
-            resizeMode="cover"
-          />
+          <MapScreen />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Infos Complémentaire</Text>
