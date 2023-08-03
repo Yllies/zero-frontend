@@ -186,7 +186,7 @@
                     multiline={true}
                     textAlignVertical="top"
                     onChangeText={(value) => setQuantity(value)}
-                    value={description}
+                    value={quantity}
                     placeholder="Combien de pièces?"
                   />
                 </View>
@@ -198,7 +198,7 @@
                     multiline={true}
                     textAlignVertical="top"
                     onChangeText={(value) => setAvailability(value)}
-                    value={quantity}
+                    value={availability}
                     placeholder="A partir de quand?"
                   />
                 </View>
