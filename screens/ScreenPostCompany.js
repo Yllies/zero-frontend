@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   FlatList,
   Image,
@@ -14,6 +15,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
+
 import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { AntDesign } from "@expo/vector-icons";

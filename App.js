@@ -15,6 +15,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 import { useFonts } from "expo-font";
+import AccountScreen from "./screens/AccountScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,8 +52,9 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Reservation" component={ReservationScreen} />
-      <Tab.Screen name="Ajout" component={AddScreenCompany} />
+      {/* <Tab.Screen name="Ajout" component={AddScreenCompany} /> */}
       <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Acount" component={AccountScreen} />
     </Tab.Navigator>
   );
 };
@@ -78,7 +80,7 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
           </Stack.Navigator>
         </NavigationContainer>

@@ -26,7 +26,7 @@ export default function SignUpScreen({ navigation }) {
   const [type, setType] = useState("");
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
-  const [address, setAdress] = useState("");
+  const [address, setAdress] = useState(null);
   const [siren, setSiren] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -95,7 +95,7 @@ export default function SignUpScreen({ navigation }) {
           type,
           username,
           name,
-          address,
+          address:address.title,
           siret_siren: siren,
           email,
           password,
