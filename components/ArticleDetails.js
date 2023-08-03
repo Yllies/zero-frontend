@@ -29,14 +29,15 @@ export default function ArticleDetails() {
 
 const styles = StyleSheet.create({
   containerPage: {
-    height: 230,
+    height: 200,
     backgroundColor: "#EDFC92",
     borderRadius: 5,
-    width: 200,
+    width: 170,
+    margin: 10,
   },
 
   donationImage: {
-    width: 200,
+    width: "100%",
     height: 130,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Header from "../components/Header";
-
+import ArticleDetails from "../components/ArticleDetails";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
@@ -18,24 +18,7 @@ export default function HomeScreen({ navigation }) {
   const articlesCards = [];
 
   for (let i = 0; i < 10; i++) {
-    articlesCards.push(
-      <View style={styles.cardContainer} key={i}>
-        <TouchableOpacity style={styles.containerArticle}>
-          <Image
-            style={styles.donationImage}
-            source={require("../assets/asso1.jpeg")}
-            alt="don"
-          />
-          <View style={styles.infoContainer}>
-            <Text style={styles.titre}>CHAUSSURES</Text>
-            <Text style={styles.paragraphe}>10 paires</Text>
-          </View>
-          <TouchableOpacity style={styles.heartIcon}>
-            <FontAwesome name="heart" size={20} color="#EDFC92" />
-          </TouchableOpacity>
-        </TouchableOpacity>
-      </View>
-    );
+    articlesCards.push(<ArticleDetails key={i} />);
   }
 
   return (
@@ -49,7 +32,6 @@ export default function HomeScreen({ navigation }) {
             name="filter"
             size={28}
             color="#274539"
-          
           />
         </View>
 
@@ -67,7 +49,7 @@ const styles = StyleSheet.create({
 
   containerFilter: {
     marginTop: -218,
-    marginRight:40,
+    marginRight: 40,
     paddingBottom: 30,
     justifyContent: "flex-end",
     alignItems: "flex-end",
@@ -77,9 +59,11 @@ const styles = StyleSheet.create({
   cardsRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
+    justifyContent: "center",
+    flexWrap: "wrap",
+    // paddingHorizontal: 20,
     width: "100%",
+    alignItems: "center",
   },
 
   cardContainer: {
@@ -121,8 +105,7 @@ const styles = StyleSheet.create({
     paddingLeft: 130,
     paddingBottom: 1,
   },
-  iconeFilter:{
-    borderRadius:400,
-    
-  }
+  iconeFilter: {
+    borderRadius: 400,
+  },
 });
