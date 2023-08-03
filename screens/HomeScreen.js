@@ -65,6 +65,7 @@ export default function HomeScreen({ navigation }) {
               photo={post.photo[0]}
             />
           ))}
+          
         </View>
       </View>
     </ScrollView>

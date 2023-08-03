@@ -21,11 +21,11 @@ export default function ArticleDetails(props) {
         >
           {props.title}
         </Text>
-        <Text style={{ fontFamily: "Poppins", fontSize: 12, marginLeft: 10 }}>
-          {props.description}
         <TouchableOpacity style={styles.heartIcon}>
           <FontAwesome name="heart" size={20} color="#274539" />
         </TouchableOpacity>
+        <Text style={{ fontFamily: "Poppins", fontSize: 12, marginLeft: 10 }}>
+          {props.description}
         </Text>
       </TouchableOpacity>
     </View>
@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   heartIcon: {
-    paddingLeft: 120,
+    paddingLeft: 130,
+    paddingTop:10,
    
    
   },
