@@ -9,6 +9,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
 import SignUpScreen from "./screens/SignUpScreen";
+import HomeScreenAsso from "./screens/HomeScreenAsso";
 import HomeScreen from "./screens/HomeScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
@@ -48,7 +49,7 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreen} />
-      <Tab.Screen name="Favoris" component={FavoriteScreen} />
+      <Tab.Screen name="Favoris" component={HomeScreenAsso} />
       <Tab.Screen name="Ajout" component={AddScreenCompany} />
       <Tab.Screen name="Profile" component={ProfileScreen} /> 
     </Tab.Navigator>
