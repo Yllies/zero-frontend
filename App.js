@@ -9,6 +9,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
 import SignUpScreen from "./screens/SignUpScreen";
+import HomeScreenAsso from "./screens/HomeScreenAsso";
 import HomeScreen from "./screens/HomeScreen";
 import ReservationScreen from "./screens/ReservationScreen";
 import { Provider } from "react-redux";
@@ -52,7 +53,8 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Reservation" component={ReservationScreen} />
-      {/* <Tab.Screen name="Ajout" component={AddScreenCompany} /> */}
+      <Tab.Screen name="Favoris" component={HomeScreenAsso} />
+      <Tab.Screen name="Ajout" component={AddScreenCompany} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Acount" component={AccountScreen} />
     </Tab.Navigator>

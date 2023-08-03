@@ -26,7 +26,8 @@ export default function SignUpScreen({ navigation }) {
   const [type, setType] = useState("");
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
-  const [address, setAdress] = useState(null);
+  const [address, setAdress] = useState({title: '', latitude: '',
+    longitude: '',longitudeDelta:'',latitudeDelta:''});
   const [siren, setSiren] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +36,7 @@ export default function SignUpScreen({ navigation }) {
   const [passewordError, setPassewordError] = useState(false);
   //useState pour les suggestions
   const [dataSet, setDataSet] = useState([]);
+
 
   const tokenAPI = "e6b24e73-7c80-3ec5-b16d-358d9ab783f9";
 
@@ -45,15 +47,11 @@ export default function SignUpScreen({ navigation }) {
       return;
     }
 
-    fetch(`https://api-adresse.data.gouv.fr/search/?q=${query}`)
+    fetch(`https://api-adresse.data.gouv.fr/search/?q=${query}&type=housenumber`)
       .then((response) => response.json())
       .then((response) => {
         const suggestions = response.features.map((data, i) => {
-          return {
-            id: i,
-            title: data.properties.name,
-            context: data.properties.context,
-          };
+          return { id: i, title: data.properties.name, context: data.properties.context };
         });
         setDataSet(suggestions);
       })
@@ -69,7 +67,6 @@ export default function SignUpScreen({ navigation }) {
 
   const handleSignup = () => {
     let hasError = false;
-
     // l'email est incorrect
     if (!EMAIL_REGEX.test(email)) {
       setEmailError(true);
@@ -95,10 +92,16 @@ export default function SignUpScreen({ navigation }) {
           type,
           username,
           name,
-          address:address.title,
           siret_siren: siren,
           email,
           password,
+  
+            address: address.title,
+            latitude: address.latitude,
+            longitude: address.longitude,
+            longitudeDelta: address.longitudeDelta,
+            latitudeDelta: address.latitudeDelta,
+
         }),
       })
         .then((response) => response.json())
@@ -192,19 +195,24 @@ export default function SignUpScreen({ navigation }) {
                 <View>
                   <Text style={styles.label}>Adresse de la structure</Text>
                   <AutocompleteDropdown
-                    onChangeText={(value) => searchAdress(value)}
-                    onSelectItem={(item) => item && setAdress(item)}
-                    placeholder="Addresse"
-                    dataSet={dataSet}
-                    value={address}
-                    textInputProps={{ placeholder: "Adresse" }}
-                    inputContainerStyle={styles.input}
-                    containerStyle={styles.dropdownContainer}
-                    suggestionsListContainerStyle={
-                      styles.suggestionListContainer
-                    }
-                    closeOnSubmit
-                  />
+              onChangeText={(value) => searchAdress(value)}
+              onSelectItem={(item) => item && setAdress((prevState) => ({
+                ...prevState,
+                title: item.title,
+                latitude: item.latitude,
+                longitude: item.longitude,
+                longitudeDelta: item.longitudeDelta,
+                latitudeDelta: item.latitudeDelta,
+              }))}
+              placeholder="Addresse"
+              dataSet={dataSet}
+              value={address.title}
+              textInputProps={{ placeholder: 'Adresse' }}
+              inputContainerStyle={styles.input}
+              containerStyle={styles.dropdownContainer}
+              suggestionsListContainerStyle={styles.suggestionListContainer}
+              closeOnSubmit
+            />
                 </View>
 
                 <View>
