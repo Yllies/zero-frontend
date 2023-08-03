@@ -55,7 +55,7 @@ export default function Header() {
           {/* Champ d'entrée de texte pour la recherche */}
           <TextInput
             style={styles.searchInput}
-            placeholder="Rechercher..."
+            placeholder="Je recherche..."
             placeholderTextColor="#707070"
           />
         </View>
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   paragraphe: {
     color: "white",
     fontSize: 17,
+    marginBottom: 15,
   },
 
   // Style du conteneur de l'icône de notification
@@ -119,15 +120,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#EDFC92", // Couleur de la bordure
+    borderColor: "black", // Couleur de la bordure
     borderRadius: 30, // Arrondi des coins de la barre de recherche
   },
 
   // Style du conteneur de l'icône de loupe
   searchIconContainer: {
     backgroundColor: "#EDFC92", // Couleur de fond de l'icône de loupe
-    borderRadius: 15, // Arrondi des coins de l'icône de loupe
-    padding: 5,
+    borderRadius: 30, // Arrondi des coins de l'icône de loupe
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "black",
   },
 
   // Style de l'icône de loupe
@@ -141,5 +144,6 @@ const styles = StyleSheet.create({
     color: "#707070",
     fontSize: 16,
     paddingLeft: 10,
+    fontFamily: "Poppins",
   },
 });
