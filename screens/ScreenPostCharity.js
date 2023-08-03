@@ -14,87 +14,65 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import { useCallback } from "react";
-
-SplashScreen.preventAutoHideAsync();
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function AddScreenCharity({ navigation }) {
-  const [fontsLoaded] = useFonts({
-    Montserrat: require("../assets/fonts/Montserrat-Regular.ttf"),
-    MontserratBold: require("../assets/fonts/Montserrat-Bold.ttf"),
-    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-  });
-
-  // Redirect to /home if logged in
-  // if (user.token) {
-  //   navigation.navigate('Accueil');
-  // }
-
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (fontsLoaded) {
-    return (
-      <SafeAreaView onLayout={onLayoutRootView} style={styles.container}>
-        <KeyboardAvoidingView
-          style={styles.mainContain}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
-          <View style={styles.topContainer}>
-            <Text style={styles.title}>
-              <Text style={styles.white}>Postez votre demande de <Text style={styles.zero}>besoin</Text></Text>
+  return (
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.mainContain}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <View style={styles.topContainer}>
+          <Text style={styles.title}>
+            <Text style={styles.white}>
+              Postez votre demande de <Text style={styles.zero}>besoin</Text>
             </Text>
-          </View>
-          <View style={styles.bottomContainer}>
-            <View style={styles.form}>
-              <View style={styles.email}>
-                <Text style={styles.label}>Titre</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => setTitle(value)}
-                  value={title}
-                  placeholder="Quel est le titre de votre annonce?"
-                />
-              </View>
-              <View style={styles.password}>
-                <Text style={styles.label}>Catégorie</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => setCategory(value)}
-                  value={category}
-                  placeholder="Quel(s) type(s) de produit(s) avez-vous besoin?"
-                />
-              </View>
-              <View style={styles.password}>
-                <Text style={styles.label}>Description</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => setDescription(value)}
-                  value={description}
-                  placeholder="Dites nous pourquoi vous en avez besoin?"
-                />
-              </View>
-              <TouchableOpacity style={styles.btnLogin}>
-                <Text style={styles.login}>Publiez votre demande</Text>
-              </TouchableOpacity>
+          </Text>
+        </View>
+        <View style={styles.bottomContainer}>
+          <View style={styles.form}>
+            <View style={styles.email}>
+              <Text style={styles.label}>Titre</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(value) => setTitle(value)}
+                value={title}
+                placeholder="Quel est le titre de votre annonce?"
+              />
             </View>
+            <View style={styles.password}>
+              <Text style={styles.label}>Catégorie</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(value) => setCategory(value)}
+                value={category}
+                placeholder="Quel(s) type(s) de produit(s) avez-vous besoin?"
+              />
+            </View>
+            <View style={styles.password}>
+              <Text style={styles.label}>Description</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(value) => setDescription(value)}
+                value={description}
+                placeholder="Dites nous pourquoi vous en avez besoin?"
+              />
+            </View>
+            <TouchableOpacity style={styles.btnLogin}>
+              <Text style={styles.login}>Publiez votre demande</Text>
+            </TouchableOpacity>
           </View>
-          <StatusBar style="auto" />
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    );
-  }
+        </View>
+        <StatusBar style="auto" />
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -114,8 +92,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     fontFamily: "Montserrat",
-    
-    
   },
   title: {
     width: "80%",
@@ -126,15 +102,14 @@ const styles = StyleSheet.create({
   },
   zero: {
     color: "#EDFC92",
-    fontSize:30,
+    fontSize: 30,
   },
-  white:{
-    fontSize:30,
+  white: {
+    fontSize: 30,
   },
   bottomContainer: {
     height: "70%",
     alignItems: "center",
-   
   },
   form: {
     width: "80%",
@@ -171,7 +146,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     alignItems: "center",
-   
   },
   signupHere: {
     marginTop: 30,
