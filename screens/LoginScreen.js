@@ -14,21 +14,10 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import { useCallback } from "react";
-
-SplashScreen.preventAutoHideAsync();
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function LoginScreen({ navigation }) {
-  const [fontsLoaded] = useFonts({
-    Montserrat: require("../assets/fonts/Montserrat-Regular.ttf"),
-    MontserratBold: require("../assets/fonts/Montserrat-Bold.ttf"),
-    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-  });
-
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
 
@@ -83,79 +72,71 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (fontsLoaded) {
-    return (
-      <SafeAreaView onLayout={onLayoutRootView} style={styles.container}>
-        <KeyboardAvoidingView
-          style={styles.mainContain}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
-          <ScrollView>
-            <View style={styles.topContainer}>
-              <Text style={styles.title}>
-                Bienvenue sur <Text style={styles.zero}>Zéro</Text>
-              </Text>
-            </View>
-            <View style={styles.bottomContainer}>
-              <View style={styles.form}>
-                <View style={styles.email}>
-                  <Text style={styles.label}>Email</Text>
-                  <TextInput
-                    style={styles.input}
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                    onChangeText={(value) => setEmail(value)}
-                    value={email}
-                    placeholder=""
-                  />
-                  {emailError && (
-                    <Text style={styles.error}>Adresse email invalide</Text>
-                  )}
-                </View>
-
-                <View style={styles.password}>
-                  <Text style={styles.label}>Mot de passe</Text>
-                  <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
-                    autoCapitalize="none"
-                    onChangeText={(value) => setPassword(value)}
-                    value={password}
-                    placeholder=""
-                  />
-                  {dataError && (
-                    <Text style={styles.error}>Mauvais identifiants ! </Text>
-                  )}
-                </View>
-
-                <TouchableOpacity
-                  onPress={() => handleSignin()}
-                  style={styles.btnLogin}
-                >
-                  <Text style={styles.login}>Connexion</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Text style={styles.signupHere}>Mot de passe oublié ?</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-                  <Text style={styles.signupHere}>
-                    Vous n'avez pas de compte ? Inscrivez-vous ici !
-                  </Text>
-                </TouchableOpacity>
+  return (
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.mainContain}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <ScrollView>
+          <View style={styles.topContainer}>
+            <Text style={styles.title}>
+              Bienvenue sur <Text style={styles.zero}>Zéro</Text>
+            </Text>
+          </View>
+          <View style={styles.bottomContainer}>
+            <View style={styles.form}>
+              <View style={styles.email}>
+                <Text style={styles.label}>Email</Text>
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="none"
+                  keyboardType="email-address"
+                  onChangeText={(value) => setEmail(value)}
+                  value={email}
+                  placeholder=""
+                />
+                {emailError && (
+                  <Text style={styles.error}>Adresse email invalide</Text>
+                )}
               </View>
+
+              <View style={styles.password}>
+                <Text style={styles.label}>Mot de passe</Text>
+                <TextInput
+                  style={styles.input}
+                  secureTextEntry={true}
+                  autoCapitalize="none"
+                  onChangeText={(value) => setPassword(value)}
+                  value={password}
+                  placeholder=""
+                />
+                {dataError && (
+                  <Text style={styles.error}>Mauvais identifiants ! </Text>
+                )}
+              </View>
+
+              <TouchableOpacity
+                onPress={() => handleSignin()}
+                style={styles.btnLogin}
+              >
+                <Text style={styles.login}>Connexion</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.signupHere}>Mot de passe oublié ?</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+                <Text style={styles.signupHere}>
+                  Vous n'avez pas de compte ? Inscrivez-vous ici !
+                </Text>
+              </TouchableOpacity>
             </View>
-            <StatusBar style="auto" />
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    );
-  }
+          </View>
+          <StatusBar style="auto" />
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({

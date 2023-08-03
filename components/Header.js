@@ -1,21 +1,20 @@
 // Importation des composants et bibliothèques nécessaires
 import {
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-  } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useDispatch, useSelector } from 'react-redux';
-import { MaterialIcons } from '@expo/vector-icons'; 
-import * as React from 'react';
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useDispatch, useSelector } from "react-redux";
+import { MaterialIcons } from "@expo/vector-icons";
+import * as React from "react";
 
 // Définition du composant Header
 export default function Header() {
-
   const user = useSelector((state) => state.user.value);
   return (
     // Conteneur principal de la page
@@ -56,8 +55,15 @@ export default function Header() {
           {/* Champ d'entrée de texte pour la recherche */}
           <TextInput
             style={styles.searchInput}
-            placeholder="Rechercher..."
+            placeholder="Je recherche..."
             placeholderTextColor="#707070"
+          />
+          <FontAwesome
+            onPress={() => navigation.navigate("FilterScreen")}
+            style={styles.iconeFilter}
+            name="filter"
+            size={28}
+            color="#274539"
           />
         </View>
       </View>
@@ -73,7 +79,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#fff",
     justifyContent: "flex-start",
     width: "100%",
-    paddingBottom:200,
+    paddingBottom: 200,
   },
 
   // Style du conteneur de l'en-tête
@@ -85,12 +91,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 50,
     paddingRight: 30,
     paddingLeft: 30,
- 
   },
 
   // Style du texte "Bonjour"
   text: {
-    fontFamily: "Poppins",
+    fontFamily: "Montserrat",
     color: "white",
     fontSize: 30,
   },
@@ -99,6 +104,7 @@ const styles = StyleSheet.create({
   paragraphe: {
     color: "white",
     fontSize: 17,
+    marginBottom: 15,
   },
 
   // Style du conteneur de l'icône de notification
@@ -121,15 +127,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#EDFC92", // Couleur de la bordure
+    borderColor: "black", // Couleur de la bordure
     borderRadius: 30, // Arrondi des coins de la barre de recherche
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 
   // Style du conteneur de l'icône de loupe
   searchIconContainer: {
     backgroundColor: "#EDFC92", // Couleur de fond de l'icône de loupe
-    borderRadius: 15, // Arrondi des coins de l'icône de loupe
-    padding: 5,
+    borderRadius: 30, // Arrondi des coins de l'icône de loupe
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "black",
   },
 
   // Style de l'icône de loupe
@@ -143,5 +155,10 @@ const styles = StyleSheet.create({
     color: "#707070",
     fontSize: 16,
     paddingLeft: 10,
+    fontFamily: "Poppins",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 });

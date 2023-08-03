@@ -1,62 +1,65 @@
 import React from "react";
 import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import { useCallback } from "react";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-SplashScreen.preventAutoHideAsync();
-
-export default function ArticleDetails() {
-  const [fontsLoaded] = useFonts({
-    Montserrat: require("../assets/fonts/Montserrat-Regular.ttf"),
-    MontserratBold: require("../assets/fonts/Montserrat-Bold.ttf"),
-    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-  });
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-  if (fontsLoaded) {
-    return (
-      <View onLayout={onLayoutRootView} style={styles.containerPage}>
-        <TouchableOpacity style={styles.touch}>
-          <Image
-            style={styles.donationImage}
-            source={require("../assets/don.png")}
-            alt="don"
-          />
-          <Text
-            style={{
-              fontFamily: "MontserratBold",
-              fontSize: 15,
-              marginLeft: 10,
-            }}
-          >
-            CHAUSSURES
-          </Text>
-          <Text style={{ fontFamily: "Poppins", fontSize: 15, marginLeft: 10 }}>
-            10 paires
-          </Text>
+export default function ArticleDetails(props) {
+  console.log(props.photo);
+  return (
+    <View style={styles.containerPage}>
+      <TouchableOpacity style={styles.touch}>
+        <Image
+          style={styles.donationImage}
+          source={{ uri: props.photo }} // Utilisation de l'URL directement
+          alt="don"
+        />
+        <Text
+          style={{
+            fontFamily: "MontserratBold",
+            fontSize: 15,
+            marginLeft: 10,
+          }}
+        >
+          {props.title}
+        </Text>
+        <TouchableOpacity style={styles.heartIcon}>
+          <FontAwesome name="heart" size={20} color="#274539" />
         </TouchableOpacity>
-      </View>
-    );
-  }
+        <Text style={{ fontFamily: "Poppins", fontSize: 12, marginLeft: 10 }}>
+          {props.description}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   containerPage: {
-    height: 230,
+    height: 200,
     backgroundColor: "#EDFC92",
     borderRadius: 5,
-    width: 200,
+    width: 160,
+    margin: 10,
   },
 
   donationImage: {
-    width: 200,
-    height: 130,
+    width: "100%",
+    height: 120,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     marginBottom: 15,
   },
+  heartIcon: {
+    paddingLeft: 130,
+    paddingTop:10,
+   
+   
+  },
+// touch:{
+//   // marginTop: -218,
+//   // marginRight:40,
+//   // paddingBottom: 30,
+//   justifyContent: "left",
+//   alignItems: "left",
+//   // paddingLeft: 300,
+// }
 });

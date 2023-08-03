@@ -6,19 +6,17 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  ActivityIndicator,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Header from "../components/Header";
-import ArticleDetails from "../components/ArticleDetails";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
+const Stack = createNativeStackNavigator();
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreenAsso({ navigation }) {
   const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -34,7 +32,7 @@ export default function HomeScreen({ navigation }) {
         if (data.posts) {
           setPosts(data.posts);
         } else {
-          setError("Erreur inconnue !");
+          setError("Unknown error!");
         }
       })
       .catch((error) => {
@@ -46,18 +44,40 @@ export default function HomeScreen({ navigation }) {
     <ScrollView>
       <View style={styles.container}>
         <Header />
-
-        <View style={styles.cardsRow}>
-          {posts.map((post, index) => (
-            <ArticleDetails style={styles.titre}
-              key={index}
-              title={post.title}
-              description={post.description}
-              photo={post.photo[0]}
-            />
-          ))}
-          
+        <View style={styles.containerFilter}>
+          <FontAwesome
+            onPress={() => navigation.navigate("FilterScreen")}
+            style={styles.iconeFilter}
+            name="filter"
+            size={28}
+            color="#274539"
+          />
         </View>
+
+        {error ? (
+          <Text style={styles.errorText}>{error}</Text>
+        ) : (
+          <View style={styles.cardsRow}>
+            {posts.map((post) => (
+              <View style={styles.cardContainer} key={post.id}>
+                <TouchableOpacity style={styles.containerArticle}>
+                  <Image
+                    style={styles.donationImage}
+                    source={{ uri: post.photo[0] }}
+                    alt={post.title}
+                  />
+                  <View style={styles.infoContainer}>
+                    <Text style={styles.titre}>{post.title}</Text>
+                    <Text style={styles.paragraphe}>{post.description}</Text>
+                  </View>
+                  <TouchableOpacity style={styles.heartIcon}>
+                    <FontAwesome name="heart" size={20} color="#EDFC92" />
+                  </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -71,7 +91,7 @@ const styles = StyleSheet.create({
 
   containerFilter: {
     marginTop: -218,
-    marginRight: 40,
+    marginRight:40,
     paddingBottom: 30,
     justifyContent: "flex-end",
     alignItems: "flex-end",
@@ -81,12 +101,9 @@ const styles = StyleSheet.create({
   cardsRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    // paddingHorizontal: 20,
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
     width: "100%",
-    alignItems: "center",
-    fontSize:10,
   },
 
   cardContainer: {
@@ -101,13 +118,13 @@ const styles = StyleSheet.create({
   },
 
   titre: {
-    fontSize: 10,
+    fontSize: 17,
     color: "white",
-    // marginBottom: 5,
+    marginBottom: 5,
   },
 
   paragraphe: {
-    fontSize: 10,
+    fontSize: 12,
     fontFamily: "Poppins",
     color: "white",
     marginBottom: -15,
@@ -128,7 +145,14 @@ const styles = StyleSheet.create({
     paddingLeft: 130,
     paddingBottom: 1,
   },
-  iconeFilter: {
-    borderRadius: 400,
+  iconeFilter:{
+    borderRadius:400,
+    
+  },
+  errorText: {
+    color: "red",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 20,
   },
 });
