@@ -34,7 +34,7 @@ export default function HomeScreen({ navigation }) {
         if (data.posts) {
           setPosts(data.posts);
         } else {
-          setError("Erreur inconnue !");
+          setError(error,"Erreur inconnue !");
         }
       })
       .catch((error) => {

@@ -19,7 +19,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { AntDesign } from "@expo/vector-icons";
-
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function AddScreenCompany({ navigation }) {
@@ -30,7 +30,7 @@ export default function AddScreenCompany({ navigation }) {
   const [quantity, setQuantity] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
   const [galleryPermission, setGalleryPermission] = useState(null);
-  
+  const [selectedDate, setSelectedDate] = useState('');
   const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
@@ -82,7 +82,11 @@ export default function AddScreenCompany({ navigation }) {
   if (galleryPermission === false) {
     return <Text>Pas d'accès au stockage interne</Text>;
   }
-
+  const onDayPress = (day) => {
+    console.log(day)
+    setSelectedDate(day.dateString);
+    setAvailability(day.dateString);
+  };
   // Composant pour afficher une image sélectionnée avec l'icône de suppression
   const SelectedImageItem = ({ item }) => (
     <View style={styles.selectedImageItem}>
@@ -104,6 +108,7 @@ export default function AddScreenCompany({ navigation }) {
 
   // Fonction pour gérer l'envoi du formulaire
   const handleSubmit = () => {
+    console.log("lavalabiliaty", availability)
     if (!title || !description || !category || !selectedImages || !quantity || !availability) {
       // Vérifier si tous les champs obligatoires sont remplis
       alert("Veuillez remplir tous les champs obligatoires");
@@ -122,6 +127,7 @@ export default function AddScreenCompany({ navigation }) {
       quantity,
       availability_date: availability,
     };
+    console.log("from front", user.token)
 
     // Envoyer les informations au backend via une requête POST
     fetch(`${BACK_URL}:3000/posts/company/publish/${user.token}`, {
@@ -155,6 +161,10 @@ export default function AddScreenCompany({ navigation }) {
         // Afficher un message d'erreur générique
         alert("Une erreur est survenue lors de la publication de l'annonce.");
       });
+  };
+  const customTheme = {
+    todayTextColor: '#EDFC92', 
+    arrowColor: '#EDFC92', 
   };
 
   return (
@@ -253,14 +263,14 @@ export default function AddScreenCompany({ navigation }) {
             {/* Champ pour la disponibilité */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Disponibilité</Text>
-              <TextInput
-                style={styles.input}
-                multiline={true}
-                textAlignVertical="top"
-                onChangeText={(value) => setAvailability(value)}
-                value={availability}
-                placeholder="A partir de quand?"
-              />
+              <Calendar
+              style={{fontFamily:"Poppins"}}
+            onDayPress={onDayPress}
+            markedDates={{
+              [selectedDate]: { selected: true, selectedColor: '#274539' }, // date sélectionnée en vert
+            }}
+            theme={customTheme} // Utiliser le thème personnalisé pour modifier les couleurs du calendrier
+          />
             </View>
             {/* Bouton de soumission de l'annonce */}
             <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
