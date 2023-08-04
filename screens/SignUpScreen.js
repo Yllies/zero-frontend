@@ -51,7 +51,7 @@ else {
       .then((response) => response.json())
       .then((response) => {
        const suggestions = response.features.map((data, i) => {
-          return { id: i, title: data.properties.label, context: data.properties.context };
+          return { id: i, title: data.properties.label, context: data.properties.context, latitude: data.geometry.coordinates[0],longitude: data.geometry.coordinates[1], latitudeDelta:data.properties.x,longitudeDelta:data.properties.y};
         });
         setDataSet(suggestions);
       })
@@ -64,7 +64,7 @@ else {
   // Regex pour vérifier que l'email est valide
   const EMAIL_REGEX =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+console.log(address)
   const handleSignup = () => {
     let hasError = false;
     // l'email est incorrect
