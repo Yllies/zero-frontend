@@ -127,7 +127,15 @@ export default function SignUpScreen({ navigation }) {
                 token: data.token,
                 type: data.type,
               }),
-              navigation.navigate("TabNavigator", { screen: "Acceuil" })
+              setType(""),
+              setUsername(""),
+              setName(""),
+              setAdress(""),
+              setEmail(""),
+              setSiren(""),
+              setPassword(""),
+              setConfirmPassword(""),
+              navigation.navigate("TabNavigator", { screen: "Accueil" })
             );
           }
         });
