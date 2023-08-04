@@ -126,7 +126,8 @@ export default function SignUpScreen({ navigation }) {
                 email: data.email,
                 token: data.token,
                 type: data.type,
-              })
+              }),
+              navigation.navigate("TabNavigator", { screen: "Acceuil" })
             );
           }
         });
