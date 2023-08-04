@@ -9,13 +9,15 @@ import {
   View,
 } from "react-native";
 
+
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
 
+
 // Définition du composant Header
-export default function Header() {
+export default function Header({navigation}) {
   const user = useSelector((state) => state.user.value);
   return (
     // Conteneur principal de la page
