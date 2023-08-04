@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser } from "../reducers/user";
+import { removeUser, logout } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -22,18 +22,18 @@ export default function AccountScreen({ navigation }) {
 
   const handleDelete = () => {
     fetch(`${BACK_URL}:3000/users/`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.deletedCount >= 1) {
-          dispatch(removeUser({ token: data.token }));
-          navigation.navigate("TabNavigator", { screen: "login" });
-        }
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({token: user.token}),
+    }).then(response => response.json())
+      .then(data => {
+
+       if(data.deletedCount >= 1) {
+        dispatch(removeUser({token: data.token})) &&navigation.navigate("SignUp");
+    }
       });
-  };
+    
+   };
 
   return (
     <SafeAreaView style={styles.containerPage}>
@@ -110,10 +110,11 @@ export default function AccountScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.btnDeco}>
-            <Text>Déconnexion</Text>
-          </TouchableOpacity>
+        <View style={styles.btnContainer}> 
+  
+<TouchableOpacity style={styles.btnDeco}>
+              <Text>Déconnexion</Text>
+            </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.btnSupp}
