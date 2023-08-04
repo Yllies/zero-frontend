@@ -59,7 +59,7 @@ export default function LoginScreen({ navigation }) {
             // Redirect to "Accueil" page
             setDataError(false);
             dispatch(
-              login({ token: data.token, email: data.email, name: data.name })
+              login({ token: data.token, email: data.email, name: data.name, type:data.type })
             );
             navigation.navigate("TabNavigator", { screen: "Acceuil" });
           }

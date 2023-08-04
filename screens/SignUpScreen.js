@@ -204,7 +204,7 @@ export default function SignUpScreen({ navigation }) {
                     placeholder="Addresse"
                     dataSet={dataSet}
                     value={address.title}
-                    textInputProps={{ placeholder: "Adresse" }}
+                    textInputProps={{ placeholder: "" }}
                     inputContainerStyle={styles.input}
                     containerStyle={styles.dropdownContainer}
                     suggestionsListContainerStyle={

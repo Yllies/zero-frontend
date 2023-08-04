@@ -53,7 +53,7 @@ export default function HomeScreen({ navigation }) {
             <ArticleDetails style={styles.titre}
               key={index}
               title={post.title}
-              description={post.description}
+              description={post.description.slice(0,25)}
               photo={post.photo[0]}
             />
           ))}
