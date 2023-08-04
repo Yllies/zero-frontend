@@ -43,7 +43,7 @@ export default function SignUpScreen({ navigation }) {
   //fonction de recherche pour l'autocomplete des addresses
   const searchAdress = (query) => {
     // Prevent search with an empty query
-    if (query < 4) {
+    if (query.length < 4) {
       return;
     }
 else {
@@ -95,12 +95,11 @@ console.log(address)
           siret_siren: siren,
           email,
           password,
-  
-            address: address.title,
-            latitude: address.latitude,
-            longitude: address.longitude,
-            longitudeDelta: address.longitudeDelta,
-            latitudeDelta: address.latitudeDelta,
+          address: address.title,
+          latitude: address.latitude,
+          longitude: address.longitude,
+          longitudeDelta: address.longitudeDelta,
+          latitudeDelta: address.latitudeDelta,
 
         }),
       })
