@@ -29,16 +29,14 @@ export default function AccountScreen({ navigation }) {
     fetch(`${BACK_URL}:3000/users/`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({token}),
+      body: JSON.stringify({token: user.token}),
     }).then(response => response.json())
       .then(data => {
+
        if(data.deletedCount >= 1) {
-        dispatch(
-          removeUser({token: data.token}))
-        navigation.navigate("TabNavigator", { screen: "login" })
+        dispatch(removeUser({token: data.token})) &&navigation.navigate("SignUp");
     }
       });
-    
    };
 
   return (
