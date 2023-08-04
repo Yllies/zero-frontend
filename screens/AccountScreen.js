@@ -21,19 +21,19 @@ export default function AccountScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    fetch(`${BACK_URL}:3000/users/`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({token: user.token}),
-    }).then(response => response.json())
-      .then(data => {
-
-       if(data.deletedCount >= 1) {
-        dispatch(removeUser({token: data.token})) &&navigation.navigate("SignUp");
-    }
+    fetch(`${BACK_URL}:3000/users/delete/${user.token}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: user.token }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          dispatch(removeUser({ token: data.token }));
+          navigation.navigate("Login");
+        }
       });
-    
-   };
+  };
 
   return (
     <SafeAreaView style={styles.containerPage}>
@@ -110,13 +110,15 @@ export default function AccountScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.btnContainer}> 
-  
-<TouchableOpacity onPress={() => {dispatch(logout(), navigation.navigate("SignIn"))}}
-
-style={styles.btnDeco}>
-              <Text>Déconnexion</Text>
-            </TouchableOpacity>
+        <View style={styles.btnContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(logout(), navigation.navigate("Login"));
+            }}
+            style={styles.btnDeco}
+          >
+            <Text>Déconnexion</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.btnSupp}

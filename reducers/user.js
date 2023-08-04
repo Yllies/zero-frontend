@@ -23,7 +23,10 @@ export const userSlice = createSlice({
     },
     
     removeUser: (state, action) => {
-      state.value.token = state.value.token.filter(e => e.token !== action.payload);
+      state.value.token = null;
+      state.value.email = null;
+      state.value.name = null;
+      state.value.type = null;
     },
   },
 });

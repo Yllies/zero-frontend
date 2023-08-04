@@ -126,7 +126,16 @@ export default function SignUpScreen({ navigation }) {
                 email: data.email,
                 token: data.token,
                 type: data.type,
-              })
+              }),
+              setType(""),
+              setUsername(""),
+              setName(""),
+              setAdress(""),
+              setEmail(""),
+              setSiren(""),
+              setPassword(""),
+              setConfirmPassword(""),
+              navigation.navigate("TabNavigator", { screen: "Accueil" })
             );
           }
         });
@@ -204,7 +213,7 @@ export default function SignUpScreen({ navigation }) {
                     placeholder="Addresse"
                     dataSet={dataSet}
                     value={address.title}
-                    textInputProps={{ placeholder: "Adresse" }}
+                    textInputProps={{ placeholder: "" }}
                     inputContainerStyle={styles.input}
                     containerStyle={styles.dropdownContainer}
                     suggestionsListContainerStyle={

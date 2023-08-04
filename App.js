@@ -31,7 +31,7 @@ const TabNavigator = () => {
             iconName = "home";
           } else if (route.name === "Favoris") {
             iconName = "heart";
-          } else if (route.name === "Ajout") {
+          } else if (route.name === "Publier") {
             iconName = "plus";
           } else if (route.name === "Profile") {
             iconName = "user";
@@ -47,14 +47,13 @@ const TabNavigator = () => {
         },
         tabBarActiveTintColor: "#EDFC92",
         tabBarInactiveTintColor: "#fff",
-
         headerShown: false,
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Reservation" component={ReservationScreen} />
       <Tab.Screen name="Favoris" component={HomeScreenAsso} />
-      <Tab.Screen name="Ajout" component={ScreenPostCompany} />
+      <Tab.Screen name="Publier" component={ScreenPostCompany} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Acount" component={AccountScreen} />
     </Tab.Navigator>
@@ -75,15 +74,14 @@ export default function App() {
     PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
   });
 
-  
   if (fontsLoaded) {
     return (
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {/* {<Stack.Screen name="Login" component={LoginScreen} /> }
-            { <Stack.Screen name="SignUp" component={SignUpScreen} /> } */}
-             <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
           </Stack.Navigator>
         </NavigationContainer>

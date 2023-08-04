@@ -81,7 +81,7 @@ export default function ReservationScreen({ navigation }) {
     // }else{
     // SI LA RESERVATION A ETE CONFIRMé
     <KeyboardAvoidingView style={styles.reservationDone}>
-      <ConfettiCannon fadeOut="true" count={500} origin={{ x: 0, y: 0 }} />
+      <ConfettiCannon fadeOut="true" count={400} origin={{ x: 0, y: 0 }} />
 
       <ArticleReserved />
     </KeyboardAvoidingView>
