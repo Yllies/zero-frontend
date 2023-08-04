@@ -22,12 +22,12 @@ export default function AccountScreen() {
 
   const user = useSelector((state) => state.user.value);
 
-  const handleDelete = (userId) => {
+  const handleDelete = () => {
 
-    fetch(`${BACK_URL}:3000/users/${userId}`, {
+    fetch(`${BACK_URL}:3000/users/${_id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ _id: user.userId }),
+      body: JSON.stringify({ userId }),
     }).then(response => response.json())
       .then(data => {
        if(data.deletedCount >= 1) {
@@ -123,11 +123,10 @@ export default function AccountScreen() {
               <Text>Déconnexion</Text>
             </TouchableOpacity>
 
- <TouchableOpacity style={styles.btnSupp} onPress={() => handleDelete(user._id)}>
+ <TouchableOpacity style={styles.btnSupp} onPress={() => handleDelete()}>
  
 <Text style={styles.textBtn}>Supprimer mon compte</Text>
             </TouchableOpacity>
-
    </View>
 
       </ScrollView>
