@@ -9,69 +9,109 @@ import {
   View,
 } from "react-native";
 
-
+import { useState } from 'react'
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
+import Modal from 'react-native-modal';
+import FilterScreen from "../screens/FilterScreen";
+import HomeScreen from "../screens/HomeScreen";
 
 
 // Définition du composant Header
 export default function Header({navigation}) {
+
+
   const user = useSelector((state) => state.user.value);
+
+    const [isModalVisible, setModalVisible] = useState(false);
+  
+    const toggleModal = () => {
+      setModalVisible(!isModalVisible);
+    };
+
+
   return (
-    // Conteneur principal de la page
     <View style={styles.containerPage}>
-      {/* En-tête */}
-      <View style={styles.containerHeader}>
-        {/* Conteneur de l'icône de notification */}
-        <View style={styles.containerNotif}>
-          {/* Icône de notification */}
-          <MaterialIcons
-            style={styles.icone}
-            name="notifications"
-            size={34}
-            color="#FFFFFF"
+    {/* Conteneur de l'icône de notification */}
+    <View style={styles.containerNotif}>
+      {/* Icône de notification */}
+      <MaterialIcons
+        style={styles.icone}
+        name="notifications"
+        size={34}
+        color="#FFFFFF"
+      />
+    </View>
+
+    {/* En-tête */}
+    <View style={styles.containerHeader}>
+      {/* Texte de bienvenue */}
+      <Text style={styles.text}>
+        Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
+      </Text>
+
+      {/* Paragraphe d'introduction */}
+      <Text style={styles.paragraphe}>Bienvenue sur Zéro</Text>
+
+      {/* Barre de recherche */}
+      <View style={styles.searchBarContainer}>
+        {/* Conteneur de l'icône de loupe avec contour */}
+        <View style={styles.searchIconContainer}>
+          {/* Icône de loupe */}
+          <FontAwesome
+            name="search"
+            size={20}
+            color="#274539" // Couleur de l'icône de loupe
+            style={styles.searchIcon}
           />
         </View>
+        {/* Champ d'entrée de texte pour la recherche */}
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Je recherche..."
+          placeholderTextColor="#707070"
+        />
+        <FontAwesome
+          onPress={toggleModal}
+          style={styles.iconeFilter}
+          name="filter"
+          size={28}
+          color="#274539"
+        />
+      </View>
 
-        {/* Texte de bienvenue */}
-        <Text style={styles.text}>
-          Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
-        </Text>
+      {/* Icône "croix" pour fermer la modale */}
+      {isModalVisible && (
+        <FontAwesome
+          onPress={toggleModal}
+          style={styles.iconeClose}
+          name="times"
+          size={28}
+          color="#FFFFFF"
+        />
+      )}
+    </View>
 
-        {/* Paragraphe d'introduction */}
-        <Text style={styles.paragraphe}>Bienvenue sur Zéro</Text>
-
-        {/* Barre de recherche */}
-        <View style={styles.searchBarContainer}>
-          {/* Conteneur de l'icône de loupe avec contour */}
-          <View style={styles.searchIconContainer}>
-            {/* Icône de loupe */}
-            <FontAwesome
-              name="search"
-              size={20}
-              color="#274539" // Couleur de l'icône de loupe
-              style={styles.searchIcon}
-            />
-          </View>
-          {/* Champ d'entrée de texte pour la recherche */}
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Je recherche..."
-            placeholderTextColor="#707070"
-          />
+    {/* Modale */}
+    <Modal isVisible={isModalVisible}>
+      <View style={styles.modalContainer}>
+        <View style={styles.modalContent}>
+          {/* Icône "croix" pour fermer la modale depuis la modale elle-même */}
           <FontAwesome
-            onPress={() => navigation.navigate("FilterScreen")}
-            style={styles.iconeFilter}
-            name="filter"
+            onPress={toggleModal}
+            style={styles.iconeCloseModal}
+            name="times"
             size={28}
             color="#274539"
           />
+          <FilterScreen />
         </View>
       </View>
-    </View>
-  );
+    </Modal>
+  </View>
+);
 }
 
 // Définition des styles utilisés dans le composant
@@ -102,6 +142,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 30,
   },
+
 
   // Style du paragraphe d'introduction
   paragraphe: {
@@ -164,4 +205,41 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+
+  // modalContainer: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   backgroundColor: 'rgba(255, 255, 255, 0.9)', // Couleur de fond blanc semi-transparent
+  // },
+  modalContent: {
+    width: '100%', // Largeur du contenu modal (vous pouvez ajuster selon vos besoins)
+    backgroundColor: '#fff', // Couleur de fond blanc pur
+    borderRadius: 10,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+   // Style de l'icône "croix" en haut à droite de l'en-tête
+   iconeClose: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 1, // Assurez-vous que l'icône est au-dessus de la modale
+  },
+
+  // Style de l'icône "croix" en haut à droite de la modale
+  iconeCloseModal: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 1,
+  },
 });
+
+
+
+
+
+
+

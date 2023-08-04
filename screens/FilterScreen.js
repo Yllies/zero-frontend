@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-nativ
 import Slider from '@react-native-community/slider';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
-
+import HomeScreen from './HomeScreen';
 
 export default function FilterScreen({navigation}) {
 
@@ -74,13 +74,13 @@ export default function FilterScreen({navigation}) {
 
     <ScrollView contentContainerStyle={styles.scrollContainer}>
 
-
     <View contentContainerStyle={styles.container}>
 
 <View style={styles.containerTitle}> 
 <Text style={styles.Title}>Filtres</Text>
-<FontAwesome  onPress={() => navigation.navigate("Accueil")}
- style={styles.iconeFilter}name="close" size={28} color="#274539"/>
+
+{/* <FontAwesome  onPress={() => navigation.navigate("Accueil")}
+ style={styles.iconeFilter}name="close" size={28} color="#274539"/> */}
 </View>
 
 
