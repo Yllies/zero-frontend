@@ -113,24 +113,6 @@ export default function SignUpScreen({ navigation }) {
             dispatch(
               login({ name: data.name, email: data.email, token: data.token })
             );
-
-            console.log("register");
-            fetch(`https://api.insee.fr/entreprises/sirene/V3/siren/${siren}`, {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${tokenAPI}`,
-              },
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                if (data.identifiantAssociationUniteLegale !== null) {
-                  // If this is an association, redirect to HomeAssociationScreen
-                  navigation.navigate("TabNavigator", { screen: "Acceuil" });
-                } else {
-                  // If this is a company, redirect to HomeCompanyScreen
-                }
-              });
           }
         });
     }
