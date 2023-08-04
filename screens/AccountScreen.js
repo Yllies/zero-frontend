@@ -112,7 +112,9 @@ export default function AccountScreen({ navigation }) {
 
         <View style={styles.btnContainer}> 
   
-<TouchableOpacity style={styles.btnDeco}>
+<TouchableOpacity onPress={() => {dispatch(logout(), navigation.navigate("SignIn"))}}
+
+style={styles.btnDeco}>
               <Text>Déconnexion</Text>
             </TouchableOpacity>
 
