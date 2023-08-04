@@ -18,20 +18,23 @@ import {
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 
-export default function AccountScreen() {
+export default function AccountScreen({ navigation }) {
 
   const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
 
   const handleDelete = () => {
-
-    fetch(`${BACK_URL}:3000/users/${_id}`, {
+   
+ 
+    fetch(`${BACK_URL}:3000/users/`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId }),
+      body: JSON.stringify({token}),
     }).then(response => response.json())
       .then(data => {
        if(data.deletedCount >= 1) {
-        dispatch(removeUser())
+        dispatch(
+          removeUser({token: data.token}))
         navigation.navigate("TabNavigator", { screen: "login" })
     }
       });
