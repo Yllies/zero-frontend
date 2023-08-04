@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FavoriteScreen from "./screens/FavoriteScreen";
-import AddScreenCompany from "./screens/ScreenPostCompany";
+import ScreenPostCompany from "./screens/ScreenPostCompany";
 import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
@@ -16,6 +16,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 import { useFonts } from "expo-font";
+import AccountScreen from "./screens/AccountScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -53,8 +54,9 @@ const TabNavigator = () => {
       <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Reservation" component={ReservationScreen} />
       <Tab.Screen name="Favoris" component={HomeScreenAsso} />
-      <Tab.Screen name="Ajout" component={AddScreenCompany} />
+      <Tab.Screen name="Ajout" component={ScreenPostCompany} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Acount" component={AccountScreen} />
     </Tab.Navigator>
   );
 };
@@ -73,14 +75,15 @@ export default function App() {
     PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
   });
 
+  
   if (fontsLoaded) {
     return (
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+            {/* <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
+             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
           </Stack.Navigator>
         </NavigationContainer>

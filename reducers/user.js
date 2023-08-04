@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: { token: null, email: null, name: null },
+  value: {token: "RiRWMLmhGyX9pM2VeSTZPRc031xPvyO9", email: null, name: null},//token:a remettre null après install persistor ou écran login  
 };
 
 export const userSlice = createSlice({
@@ -19,10 +19,14 @@ export const userSlice = createSlice({
       state.value.email = null;
       state.value.name = null;
       state.value.type = null;
-
+    },
+    
+    removeUser: (state, action) => {
+      state.value.token = state.value.token.filter(e => e.token !== action.payload);
     },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, removeUser } = userSlice.actions;
+
 export default userSlice.reducer;

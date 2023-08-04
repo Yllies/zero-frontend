@@ -26,7 +26,7 @@ export default function HomeScreenAsso({ navigation }) {
 
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
-    fetch(`${BACK_URL}:3000/posts/company`)
+    fetch(`${BACK_URL}:3000/posts/charity`)
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {
@@ -61,14 +61,9 @@ export default function HomeScreenAsso({ navigation }) {
             {posts.map((post) => (
               <View style={styles.cardContainer} key={post.id}>
                 <TouchableOpacity style={styles.containerArticle}>
-                  <Image
-                    style={styles.donationImage}
-                    source={{ uri: post.photo[0] }}
-                    alt={post.title}
-                  />
                   <View style={styles.infoContainer}>
                     <Text style={styles.titre}>{post.title}</Text>
-                    <Text style={styles.paragraphe}>{post.description}</Text>
+                    <Text style={styles.paragraphe}>{post.description.slice(0,25)} ...</Text>
                   </View>
                   <TouchableOpacity style={styles.heartIcon}>
                     <FontAwesome name="heart" size={20} color="#EDFC92" />
