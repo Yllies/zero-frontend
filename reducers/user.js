@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: {token: "RiRWMLmhGyX9pM2VeSTZPRc031xPvyO9", email: null, name: null},//token:a remettre null après install persistor ou écran login  
+  value: {token: null, email: null, name: null},//token:a remettre null après install persistor ou écran login  
 };
 
 export const userSlice = createSlice({
