@@ -85,6 +85,7 @@ export default function AddScreenCompany({ navigation }) {
   const onDayPress = (day) => {
     console.log(day)
     setSelectedDate(day.dateString);
+    setAvailability(day.dateString);
   };
   // Composant pour afficher une image sélectionnée avec l'icône de suppression
   const SelectedImageItem = ({ item }) => (
@@ -107,6 +108,7 @@ export default function AddScreenCompany({ navigation }) {
 
   // Fonction pour gérer l'envoi du formulaire
   const handleSubmit = () => {
+    console.log("lavalabiliaty", availability)
     if (!title || !description || !category || !selectedImages || !quantity || !availability) {
       // Vérifier si tous les champs obligatoires sont remplis
       alert("Veuillez remplir tous les champs obligatoires");
@@ -125,6 +127,7 @@ export default function AddScreenCompany({ navigation }) {
       quantity,
       availability_date: availability,
     };
+    console.log("from front", user.token)
 
     // Envoyer les informations au backend via une requête POST
     fetch(`${BACK_URL}:3000/posts/company/publish/${user.token}`, {
@@ -261,7 +264,7 @@ export default function AddScreenCompany({ navigation }) {
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Disponibilité</Text>
               <Calendar
-              style={{fontFamily:"MontserratBold"}}
+              style={{fontFamily:"Poppins"}}
             onDayPress={onDayPress}
             markedDates={{
               [selectedDate]: { selected: true, selectedColor: '#274539' }, // date sélectionnée en vert
