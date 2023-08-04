@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser } from "../reducers/user";
+import { removeUser, logout } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -122,9 +122,9 @@ export default function AccountScreen({ navigation }) {
 
         <View style={styles.btnContainer}> 
   
-<TouchableOpacity style={styles.btnDeco}>
-              <Text>Déconnexion</Text>
-            </TouchableOpacity>
+<TouchableOpacity onPress={() => {navigation.navigate("Login");dispatch(logout())}} style={styles.btnDeco}>
+ <Text>Déconnexion</Text>
+  </TouchableOpacity>
 
  <TouchableOpacity style={styles.btnSupp} onPress={() => handleDelete()}>
  
