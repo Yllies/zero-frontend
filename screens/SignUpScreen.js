@@ -43,15 +43,15 @@ export default function SignUpScreen({ navigation }) {
   //fonction de recherche pour l'autocomplete des addresses
   const searchAdress = (query) => {
     // Prevent search with an empty query
-    if (query === "") {
+    if (query < 4) {
       return;
     }
-
-    fetch(`https://api-adresse.data.gouv.fr/search/?q=${query}&type=housenumber`)
+else {
+    fetch(`https://api-adresse.data.gouv.fr/search/?q=${query}`)
       .then((response) => response.json())
       .then((response) => {
-        const suggestions = response.features.map((data, i) => {
-          return { id: i, title: data.properties.name, context: data.properties.context };
+       const suggestions = response.features.map((data, i) => {
+          return { id: i, title: data.properties.label, context: data.properties.context };
         });
         setDataSet(suggestions);
       })
@@ -59,7 +59,7 @@ export default function SignUpScreen({ navigation }) {
         console.error("Error fetching cities:", error);
         setDataSet([]);
       });
-  };
+  };}
 
   // Regex pour vérifier que l'email est valide
   const EMAIL_REGEX =
