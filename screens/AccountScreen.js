@@ -14,18 +14,13 @@ import {
   View,
 } from "react-native";
 
-
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-
 export default function AccountScreen({ navigation }) {
-
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-   
- 
     fetch(`${BACK_URL}:3000/users/`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -37,6 +32,7 @@ export default function AccountScreen({ navigation }) {
         dispatch(removeUser({token: data.token})) &&navigation.navigate("SignUp");
     }
       });
+    
    };
 
   return (
@@ -78,19 +74,15 @@ export default function AccountScreen({ navigation }) {
 
         {/* Contenu */}
         <View style={styles.containerOption}>
-
-          <TouchableOpacity style={styles.reservation}
-          >
-            
+          <TouchableOpacity style={styles.reservation}>
             <Text style={styles.textbtn}>Réservations en cours</Text>
 
             <FontAwesome
-                name="check"
-                color="#274539"
-                size={30}
-                style={styles.icons}
-              />
-            
+              name="check"
+              color="#274539"
+              size={30}
+              style={styles.icons}
+            />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.optionBtn}>
@@ -120,145 +112,145 @@ export default function AccountScreen({ navigation }) {
 
         <View style={styles.btnContainer}> 
   
-<TouchableOpacity onPress={() => {navigation.navigate("Login");dispatch(logout())}} style={styles.btnDeco}>
- <Text>Déconnexion</Text>
-  </TouchableOpacity>
-
- <TouchableOpacity style={styles.btnSupp} onPress={() => handleDelete()}>
- 
-<Text style={styles.textBtn}>Supprimer mon compte</Text>
+<TouchableOpacity style={styles.btnDeco}>
+              <Text>Déconnexion</Text>
             </TouchableOpacity>
-   </View>
 
+          <TouchableOpacity
+            style={styles.btnSupp}
+            onPress={() => handleDelete()}
+          >
+            <Text style={styles.textBtn}>Supprimer mon compte</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-    containerPage: {
-      flex: 1,
-      backgroundColor: "#fff",
-    },
-  
-    scrollViewContent: {
-      justifyContent: "flex-start",
-      width: "100%",
-      paddingBottom: 120,
-    },
-  
-    containerHeader: {
-      backgroundColor: "#274539",
-      width: "100%",
-      height: "28%",
-      paddingTop: "10%",
-      paddingRight: 30,
-      paddingLeft: 30,
-    },
-  
-    text: {
-      fontFamily: "Montserrat",
-      color: "white",
-      fontSize: 30,
-    },
-  
-    paragraphe: {
-      color: "white",
-      fontSize: 17,
-      paddingTop: "2%",
-    },
-  
-    containerNotif: {
-      paddingTop: "7%",
-      paddingLeft: "5%",
-      paddingBottom: "3%",
-      flexDirection: "row",
-      justifyContent: "flex-end",
-    },
-  
-    textDynamique: {
-      color: "#EDFC92",
-    },
-  
-    containerNote: {
-      flexDirection: "row",
-      paddingTop: "5%",
-    },
-  
-    containerOption: {
-      paddingTop: "10%",
-      alignItems: "center", // Align all buttons in the center horizontally
-    },
-  
-    reservation: {
-      width: "90%",
-      height: 100,
-      backgroundColor: "#EDFC92",
-      borderRadius: 10,
-      justifyContent: "center",
-      alignItems: "center",
-      marginBottom: "10%",
-    },
-  
-    textbtn: {
-      color: "#274539",
-      fontSize: 17,
-    },
-  
-    btn: {
-      color: "#274539",
-      fontSize: 17,
-    },
-  
-    optionBtn: {
-      width: "90%", 
-      height: 50,
-      backgroundColor: "#274539",
-      borderRadius: 10,
-      justifyContent: "center",
-      alignItems: "center",
-      marginBottom: "5%",
-    },
-  
-    textOptionBtn: {
-      color: "white",
-      fontSize: 15,
-    },
+  containerPage: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
 
-    btnContainer : {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingRight:'5%',
-        paddingLeft:'2%',
-        paddingTop:'10%',
-      },
-    
-    
-      btnDeco : {
-        backgroundColor: "#EDFC92",
-        padding: '4%',
-        width: '35%',
-        shadowColor: "#171717",
-        shadowOffset: { width: -2, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-        alignItems: "center",
-        marginBottom: 25,
-      },
-    
-     btnSupp : {
-      backgroundColor: "#274539",
-      padding: '4%',
-      width: '50%',
-      shadowColor: "#171717",
-      shadowOffset: { width: -2, height: 4 },
-      shadowOpacity: 0.2,
-      shadowRadius: 3,
-      alignItems: "center",
-      marginBottom: 25,
-      },
-    
-      textBtn: {
-        color: 'white',
-      },
-  });
+  scrollViewContent: {
+    justifyContent: "flex-start",
+    width: "100%",
+    paddingBottom: 120,
+  },
+
+  containerHeader: {
+    backgroundColor: "#274539",
+    width: "100%",
+    height: "28%",
+    paddingTop: "10%",
+    paddingRight: 30,
+    paddingLeft: 30,
+  },
+
+  text: {
+    fontFamily: "Montserrat",
+    color: "white",
+    fontSize: 30,
+  },
+
+  paragraphe: {
+    color: "white",
+    fontSize: 17,
+    paddingTop: "2%",
+  },
+
+  containerNotif: {
+    paddingTop: "7%",
+    paddingLeft: "5%",
+    paddingBottom: "3%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+
+  textDynamique: {
+    color: "#EDFC92",
+  },
+
+  containerNote: {
+    flexDirection: "row",
+    paddingTop: "5%",
+  },
+
+  containerOption: {
+    paddingTop: "10%",
+    alignItems: "center", // Align all buttons in the center horizontally
+  },
+
+  reservation: {
+    width: "90%",
+    height: 100,
+    backgroundColor: "#EDFC92",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "10%",
+  },
+
+  textbtn: {
+    color: "#274539",
+    fontSize: 17,
+  },
+
+  btn: {
+    color: "#274539",
+    fontSize: 17,
+  },
+
+  optionBtn: {
+    width: "90%",
+    height: 50,
+    backgroundColor: "#274539",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "5%",
+  },
+
+  textOptionBtn: {
+    color: "white",
+    fontSize: 15,
+  },
+
+  btnContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingRight: "5%",
+    paddingLeft: "2%",
+    paddingTop: "10%",
+  },
+
+  btnDeco: {
+    backgroundColor: "#EDFC92",
+    padding: "4%",
+    width: "35%",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    alignItems: "center",
+    marginBottom: 25,
+  },
+
+  btnSupp: {
+    backgroundColor: "#274539",
+    padding: "4%",
+    width: "50%",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    alignItems: "center",
+    marginBottom: 25,
+  },
+
+  textBtn: {
+    color: "white",
+  },
+});
