@@ -19,6 +19,7 @@ import user from "./reducers/user";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
 import ArticleDetails from "./components/ArticleDetails";
+import ArticleReserved from "./components/ArticleReserved";
 
 
 const Stack = createNativeStackNavigator();
@@ -54,10 +55,10 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreenCharity} />
-      <Tab.Screen name="Reservation" component={FilterScreen} />
+      <Tab.Screen name="Reservation" component={ProfileScreen} />
       <Tab.Screen name="Favoris" component={HomeScreenCompany} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ReservationScreen} />
       <Tab.Screen name="Acount" component={AccountScreen} />
     </Tab.Navigator>
   );
