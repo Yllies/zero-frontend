@@ -41,23 +41,23 @@ export default function AccountScreen({ navigation }) {
         {/* En-tête */}
         <View style={styles.containerHeader}>
           {/* Conteneur de l'icône de notification */}
-          <View style={styles.containerNotif}>
-            {/* Icône de notification */}
-            <MaterialIcons
+          <Text style={styles.text}>
+            Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
+          </Text>
+          {/* <View style={styles.containerNotif}> */}
+          {/* Icône de notification */}
+          {/* <MaterialIcons
               style={styles.icone}
               name="notifications"
               size={34}
               color="#FFFFFF"
             />
-          </View>
+          </View> */}
 
           {/* Texte de bienvenue */}
-          <Text style={styles.text}>
-            Name <Text style={styles.textDynamique}>{user.name}</Text>
-          </Text>
 
           {/* Paragraphe d'introduction */}
-          <Text style={styles.paragraphe}> Votre compte donneur </Text>
+          <Text style={styles.paragraphe}> Votre compte</Text>
 
           <View style={styles.containerNote}>
             <TouchableOpacity style={styles.iconeHeader}>
@@ -117,7 +117,7 @@ export default function AccountScreen({ navigation }) {
             }}
             style={styles.btnDeco}
           >
-            <Text>Déconnexion</Text>
+            <Text style={styles.textBtn}>Déconnexion</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -143,26 +143,31 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingBottom: 120,
   },
-
+  icone: {
+    paddingTop: 0,
+  },
   containerHeader: {
     backgroundColor: "#274539",
-    width: "100%",
-    height: "28%",
-    paddingTop: "10%",
-    paddingRight: 30,
-    paddingLeft: 30,
+    height: 160,
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
 
   text: {
-    fontFamily: "Montserrat",
+    fontFamily: "MontserratBold",
     color: "white",
     fontSize: 30,
+    textAlign: "center", // Aligner le texte au centre horizontalement
   },
 
   paragraphe: {
     color: "white",
     fontSize: 17,
     paddingTop: "2%",
+    fontFamily: "MontserratBold",
+    textAlign: "center", // Aligner le texte au centre horizontalement
   },
 
   containerNotif: {
@@ -184,7 +189,7 @@ const styles = StyleSheet.create({
 
   containerOption: {
     paddingTop: "10%",
-    alignItems: "center", // Align all buttons in the center horizontally
+    alignItems: "center", // Aligner tous les boutons au centre horizontalement
   },
 
   reservation: {
@@ -200,6 +205,8 @@ const styles = StyleSheet.create({
   textbtn: {
     color: "#274539",
     fontSize: 17,
+    fontFamily: "Poppins",
+    textAlign: "center", // Aligner le texte au centre horizontalement
   },
 
   btn: {
@@ -220,41 +227,47 @@ const styles = StyleSheet.create({
   textOptionBtn: {
     color: "white",
     fontSize: 15,
+    fontFamily: "Poppins",
+    textAlign: "center", // Aligner le texte au centre horizontalement
   },
 
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    paddingRight: "5%",
-    paddingLeft: "2%",
-    paddingTop: "10%",
+    marginTop: 20,
   },
 
   btnDeco: {
     backgroundColor: "#EDFC92",
     padding: "4%",
-    width: "35%",
+    width: "45%",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
     alignItems: "center",
     marginBottom: 25,
+    borderRadius: 10,
+    fontFamily: "Poppins",
   },
 
   btnSupp: {
-    backgroundColor: "#274539",
+    fontFamily: "Poppins",
+    backgroundColor: "#EDFC92",
     padding: "4%",
-    width: "50%",
+    width: "45%",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
     alignItems: "center",
     marginBottom: 25,
+    borderRadius: 10,
   },
 
   textBtn: {
-    color: "white",
+    color: "#274539",
+    fontFamily: "Poppins",
+    textAlign: "center", // Aligner le texte au centre horizontalement
   },
 });

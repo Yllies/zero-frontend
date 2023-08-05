@@ -44,6 +44,7 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
+    
     <ScrollView>
       <View style={styles.container}>
         <Header />

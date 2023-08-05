@@ -51,7 +51,7 @@ export default function Header({navigation}) {
             <FontAwesome
               name="search"
               size={20}
-              color="#274539" // Couleur de l'icône de loupe
+              color="#EDFC92" // Couleur de l'icône de loupe
               style={styles.searchIcon}
             />
           </View>
@@ -67,6 +67,7 @@ export default function Header({navigation}) {
             name="filter"
             size={28}
             color="#274539"
+        
           />
         </View>
       </View>
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#fff",
     justifyContent: "flex-start",
     width: "100%",
-    paddingBottom: 200,
+    paddingBottom: 50,
   },
 
   // Style du conteneur de l'en-tête
@@ -90,15 +91,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#274539",
     width: "100%",
     height: 160,
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
     paddingRight: 30,
     paddingLeft: 30,
   },
 
   // Style du texte "Bonjour"
   text: {
-    fontFamily: "Montserrat",
+    fontFamily: "MontserratBold",
     color: "white",
     fontSize: 30,
   },
@@ -108,8 +109,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 17,
     marginBottom: 15,
+    fontFamily:"Montserrat",
   },
-
+  iconeFilter:{
+    padding: 5,
+  },
   // Style du conteneur de l'icône de notification
   containerNotif: {
     padding: 5,
@@ -126,11 +130,12 @@ const styles = StyleSheet.create({
   // Style du conteneur de la barre de recherche
   searchBarContainer: {
     flexDirection: "row",
-    marginTop: 10,
+    
+    // marginTop: 10,
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "black", // Couleur de la bordure
+    borderColor: "#EDFC92", // Couleur de la bordure
     borderRadius: 30, // Arrondi des coins de la barre de recherche
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
@@ -140,17 +145,14 @@ const styles = StyleSheet.create({
 
   // Style du conteneur de l'icône de loupe
   searchIconContainer: {
-    backgroundColor: "#EDFC92", // Couleur de fond de l'icône de loupe
+    backgroundColor: "#274539", // Couleur de fond de l'icône de loupe
     borderRadius: 30, // Arrondi des coins de l'icône de loupe
     padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
+    // borderWidth: 1,
+    // borderColor: "black",
   },
 
   // Style de l'icône de loupe
-  searchIcon: {
-    // marginRight: 10,
-  },
 
   // Style du champ d'entrée de texte de recherche
   searchInput: {
