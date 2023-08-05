@@ -53,83 +53,30 @@ export default function HomeScreen({ navigation }) {
             <ArticleDetails style={styles.titre}
               key={index}
               title={post.title}
-              description={post.description.slice(0,25)}
+              description={post.description}
               photo={post.photo[0]}
             />
           ))}
-          
         </View>
       </View>
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
   },
-
-  containerFilter: {
-    marginTop: -218,
-    marginRight: 40,
-    paddingBottom: 30,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    paddingLeft: 300,
-  },
-
   cardsRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    flexWrap: "wrap",
-    // paddingHorizontal: 20,
     width: "100%",
     alignItems: "center",
     fontSize:10,
   },
-
-  cardContainer: {
-    width: "48%",
-    marginBottom: 10,
-  },
-
-  containerArticle: {
-    backgroundColor: "#274539",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-  },
-
   titre: {
     fontSize: 10,
     color: "white",
-    // marginBottom: 5,
-  },
-
-  paragraphe: {
-    fontSize: 10,
-    fontFamily: "Poppins",
-    color: "white",
-    marginBottom: -15,
-  },
-
-  infoContainer: {
-    padding: 12,
-  },
-
-  donationImage: {
-    width: "100%",
-    height: 170,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-
-  heartIcon: {
-    paddingLeft: 130,
-    paddingBottom: 1,
-  },
-  iconeFilter: {
-    borderRadius: 400,
   },
 });
