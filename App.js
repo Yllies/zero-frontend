@@ -9,7 +9,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
 import SignUpScreen from "./screens/SignUpScreen";
-
+import NeedDetails from "./components/NeedDetails";
 import HomeScreenCompany from "./screens/HomeScreenCompany";
 import HomeScreenCharity from "./screens/HomeScreenCharity";
 import ReservationScreen from "./screens/ReservationScreen";
@@ -18,6 +18,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
+import ArticleDetails from "./components/ArticleDetails";
 
 
 const Stack = createNativeStackNavigator();

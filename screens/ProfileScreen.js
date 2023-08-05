@@ -26,7 +26,7 @@ const UserProfile = () => {
       <ScrollView>
         <View style={styles.TopContainer}>
           <Image
-            source={require("../assets/me.jpg")}
+            source={require("../assets/asso6.jpeg")}
             style={styles.image}
             resizeMode="cover"
           />
@@ -71,9 +71,9 @@ const UserProfile = () => {
                 size={40}
                 style={styles.icons}
               />{" "}
-              Adress
+              Adresse
             </Text>
-            <Text style={styles.textInfo}>ghir h'na</Text>
+            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
 
             <Text style={styles.titleInfo}>
               {" "}
@@ -86,13 +86,13 @@ const UserProfile = () => {
               Horaires
             </Text>
             <Text style={styles.textInfo}>
-              Quand je me reveille à quand j'en ai marre
+            Du lundi au vendredi de 9h à 18h
             </Text>
           </View>
           <Text style={styles.title}>Points Forts</Text>
           <View style={styles.PFContainer}>
             <Text style={styles.Number}>
-              8 <Text style={styles.PFText}>euro dans la poche</Text>
+              8 <Text style={styles.PFText}>euros dans la poche</Text>
             </Text>
           </View>
           <TouchableOpacity style={styles.btnContact}>
@@ -173,10 +173,12 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingLeft: 30,
     paddingRight: 30,
+    fontFamily: "Poppins",
   },
   title: {
     fontSize: 25,
     lineHeight: 54.5 /* 218% */,
+    fontFamily: "PoppinsBold",
   },
   description: {
     color: 676767,
@@ -205,11 +207,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 30,
     marginRight: 30,
+    fontFamily: "Poppins",
   },
   titleInfo: {
     fontSize: 25,
     lineHeight: 54.5,
     color: "white",
+    fontFamily: "Poppins",
   },
   PFContainer: {
     marginTop: 20,
@@ -220,12 +224,14 @@ const styles = StyleSheet.create({
   },
   PFText: {
     color: "#274539",
-    fontSize: 18,
+    fontSize: 15,
+    fontFamily: "Poppins",
   },
   Number: {
     color: "#274539",
     fontSize: 105.799,
     marginTop: -75,
+    fontFamily: "Poppins",
   },
   btnContact: {
     backgroundColor: "#274539",
@@ -243,9 +249,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   Contact: {
-    fontSize: 18,
+    fontSize: 17,
     color: "white",
     marginBottom: 10,
+    fontFamily: "Poppins",
   },
 });
 

@@ -52,7 +52,7 @@ export default function HomeScreenCharity({ navigation }) {
             <ArticleDetails
               key={index}
               title={post.title}
-              description={post.description.slice(0,25)}
+              description={post.description.slice(0,25)+'...'}
               photo={post.photo[0]}
             />
           ))}
