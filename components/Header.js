@@ -79,11 +79,11 @@ export default function Header({navigation}) {
 const styles = StyleSheet.create({
   // Style du conteneur principal de la page
   containerPage: {
-    flex: 1,
+    // flex: 1,
     // backgroundColor: "#fff",
     justifyContent: "flex-start",
     width: "100%",
-    paddingBottom: 50,
+   
   },
 
   // Style du conteneur de l'en-tête
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 17,
     marginBottom: 15,
-    fontFamily:"Montserrat",
+    fontFamily:"MontserratBold",
   },
   iconeFilter:{
     padding: 5,

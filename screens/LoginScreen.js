@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     alignItems: "center",
     marginBottom: 25,
+    borderRadius: 4,
   },
   signupHere: {
     marginTop: 30,
@@ -214,6 +215,7 @@ const styles = StyleSheet.create({
   login: {
     fontSize: 15,
     fontFamily: "Poppins",
+   
   },
   mdp: {
     fontFamily: "Poppins",

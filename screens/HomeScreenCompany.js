@@ -15,7 +15,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 const Stack = createNativeStackNavigator();
 
-export default function HomeScreenAsso({ navigation }) {
+export default function HomeScreenCompany({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
 

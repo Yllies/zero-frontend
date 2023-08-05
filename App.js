@@ -9,14 +9,16 @@ import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
 import SignUpScreen from "./screens/SignUpScreen";
-import HomeScreenAsso from "./screens/HomeScreenAsso";
-import HomeScreen from "./screens/HomeScreen";
+
+import HomeScreenCompany from "./screens/HomeScreenCompany";
+import HomeScreenCharity from "./screens/HomeScreenCharity";
 import ReservationScreen from "./screens/ReservationScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -50,9 +52,9 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Accueil" component={HomeScreen} />
-      <Tab.Screen name="Reservation" component={ReservationScreen} />
-      <Tab.Screen name="Favoris" component={HomeScreenAsso} />
+      <Tab.Screen name="Accueil" component={HomeScreenCharity} />
+      <Tab.Screen name="Reservation" component={FilterScreen} />
+      <Tab.Screen name="Favoris" component={HomeScreenCompany} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Acount" component={AccountScreen} />

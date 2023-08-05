@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Header from "../components/Header";
@@ -17,9 +18,8 @@ import FilterScreen from "./FilterScreen";
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreenCharity({ navigation }) {
   const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function HomeScreen({ navigation }) {
         if (data.posts) {
           setPosts(data.posts);
         } else {
-          setError(error,"Erreur inconnue !");
+          setError("Erreur inconnue !");
         }
       })
       .catch((error) => {
@@ -44,37 +44,40 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    
-    <ScrollView>
-      <View style={styles.container}>
-        <Header />
-
-        <View style={styles.cardsRow}>
+    <SafeAreaView style={styles.container}>
+      <Header />
+      <View style={styles.scrollViewContainer}>
+        <ScrollView contentContainerStyle={styles.cardsRow}>
           {posts.map((post, index) => (
-            <ArticleDetails style={styles.titre}
+            <ArticleDetails
               key={index}
               title={post.title}
-              description={post.description}
+              description={post.description.slice(0,25)}
               photo={post.photo[0]}
             />
           ))}
-        </View>
+        </ScrollView>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+ 
+  },
+  scrollViewContainer: {
+    flex: 1,
+    width: "100%",
+    marginTop:20,
   },
   cardsRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    width: "100%",
     alignItems: "center",
-    fontSize:10,
   },
   titre: {
     fontSize: 10,
