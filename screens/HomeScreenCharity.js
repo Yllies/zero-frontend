@@ -5,8 +5,7 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  ScrollView,
-  ActivityIndicator,
+  FlatList,
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -47,16 +46,22 @@ export default function HomeScreenCharity({ navigation }) {
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.scrollViewContainer}>
-        <ScrollView contentContainerStyle={styles.cardsRow}>
-          {posts.map((post, index) => (
-            <ArticleDetails
-              key={index}
-              title={post.title}
-              description={post.description.slice(0,25)+'...'}
-              photo={post.photo[0]}
-            />
-          ))}
-        </ScrollView>
+        <FlatList
+          data={posts}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={2}
+          contentContainerStyle={styles.cardsRow}
+          renderItem={({ item }) => (
+            <View style={styles.needContainer}>
+              <ArticleDetails
+                title={item.title}
+                description={item.description.slice(0, 25) + "..."}
+                category={item.category}
+                photo={item.photo[0]}
+              />
+            </View>
+          )}
+        />
       </View>
     </SafeAreaView>
   );

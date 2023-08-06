@@ -3,7 +3,7 @@ import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function ArticleDetails(props) {
-  console.log(props.photo);
+ 
   return (
     <View style={styles.containerPage}>
       <TouchableOpacity style={styles.touch}>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   containerPage: {
     width: 160,
     margin: 7,
-    borderTopLeftRadius: 5,
+      borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
 

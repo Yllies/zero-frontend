@@ -55,7 +55,7 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreenCharity} />
-      <Tab.Screen name="Reservation" component={ProfileScreen} />
+      {/* <Tab.Screen name="Reservation" component={FilterScreen} /> */}
       <Tab.Screen name="Favoris" component={HomeScreenCompany} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
       <Tab.Screen name="Profile" component={ReservationScreen} />
@@ -87,6 +87,7 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

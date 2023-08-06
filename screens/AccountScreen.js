@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeUser, logout } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 
 import {
   SafeAreaView,
@@ -17,25 +18,34 @@ import {
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function AccountScreen({ navigation }) {
+export default function AccountScreen() {
+  // Récupérer les informations de l'utilisateur depuis Redux
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(true); // true pour déconnexion, false pour suppression de compte
 
+  // Gérer la déconnexion de l'utilisateur
   const handleLogout = () => {
     setShowModal(true);
+    setConfirmAction(true); // On veut effectuer la déconnexion
   };
 
+  // Gérer la suppression du compte de l'utilisateur
   const handleDelete = () => {
     setShowModal(true);
+    setConfirmAction(false); // On veut effectuer la suppression du compte
   };
 
+  // Confirmer la déconnexion de l'utilisateur
   const confirmLogout = () => {
     dispatch(logout());
     navigation.navigate("Login");
     setShowModal(false);
   };
 
+  // Confirmer la suppression du compte de l'utilisateur
   const confirmDelete = () => {
     fetch(`${BACK_URL}:3000/users/delete/${user.token}`, {
       method: "DELETE",
@@ -59,23 +69,10 @@ export default function AccountScreen({ navigation }) {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {/* En-tête */}
         <View style={styles.containerHeader}>
-          {/* Conteneur de l'icône de notification */}
           <Text style={styles.text}>
             Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
           </Text>
-          {/* <View style={styles.containerNotif}> */}
-          {/* Icône de notification */}
-          {/* <MaterialIcons
-              style={styles.icone}
-              name="notifications"
-              size={34}
-              color="#FFFFFF"
-            />
-          </View> */}
 
-          {/* Texte de bienvenue */}
-
-          {/* Paragraphe d'introduction */}
           <Text style={styles.paragraphe}> Votre compte</Text>
 
           <View style={styles.containerNote}>
@@ -95,7 +92,6 @@ export default function AccountScreen({ navigation }) {
         <View style={styles.containerOption}>
           <TouchableOpacity style={styles.reservation}>
             <Text style={styles.textbtn}>Réservations en cours</Text>
-
             <FontAwesome
               name="check"
               color="#274539"
@@ -112,7 +108,16 @@ export default function AccountScreen({ navigation }) {
             <Text style={styles.textOptionBtn}>Historique des dons</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionBtn}>
+          <TouchableOpacity
+            style={styles.optionBtn}
+            onPress={() => {
+              if (user.token) {
+                navigation.navigate('ProfileScreen');
+              } else {
+                navigation.navigate('Login');
+              }
+            }}
+          >
             <Text style={styles.textOptionBtn}>Mon profil</Text>
           </TouchableOpacity>
 
@@ -155,7 +160,7 @@ export default function AccountScreen({ navigation }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.modalButton}
-                  onPress={confirmLogout}
+                  onPress={confirmAction ? confirmLogout : confirmDelete}
                 >
                   <Text style={styles.modalButtonText}>Confirmer</Text>
                 </TouchableOpacity>
@@ -167,7 +172,6 @@ export default function AccountScreen({ navigation }) {
     </SafeAreaView>
   );
 }
-
 
 const styles = StyleSheet.create({
   containerPage: {
@@ -189,7 +193,7 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 16,
     marginBottom: 20,
-    fontFamily:"Poppins",
+    fontFamily: "Poppins",
   },
   modalButtons: {
     flexDirection: "row",
@@ -202,8 +206,7 @@ const styles = StyleSheet.create({
   },
   modalButtonText: {
     fontSize: 16,
-   
-    fontFamily:"PoppinsSemiBold",
+    fontFamily: "PoppinsSemiBold",
   },
   scrollViewContent: {
     justifyContent: "flex-start",
@@ -221,22 +224,19 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
   },
-
   text: {
     fontFamily: "MontserratBold",
     color: "white",
     fontSize: 30,
-    textAlign: "center", // Aligner le texte au centre horizontalement
+    textAlign: "center",
   },
-
   paragraphe: {
     color: "white",
     fontSize: 17,
     paddingTop: "2%",
     fontFamily: "MontserratBold",
-    textAlign: "center", // Aligner le texte au centre horizontalement
+    textAlign: "center",
   },
-
   containerNotif: {
     paddingTop: "7%",
     paddingLeft: "5%",
@@ -244,21 +244,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
   },
-
   textDynamique: {
     color: "#EDFC92",
   },
-
   containerNote: {
     flexDirection: "row",
     paddingTop: "5%",
   },
-
   containerOption: {
     paddingTop: "10%",
-    alignItems: "center", // Aligner tous les boutons au centre horizontalement
+    alignItems: "center",
   },
-
   reservation: {
     width: "90%",
     height: 100,
@@ -268,19 +264,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: "10%",
   },
-
   textbtn: {
     color: "#274539",
     fontSize: 17,
     fontFamily: "Poppins",
-    textAlign: "center", // Aligner le texte au centre horizontalement
+    textAlign: "center",
   },
-
   btn: {
     color: "#274539",
     fontSize: 17,
   },
-
   optionBtn: {
     width: "90%",
     height: 50,
@@ -290,20 +283,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: "5%",
   },
-
   textOptionBtn: {
     color: "white",
     fontSize: 15,
     fontFamily: "Poppins",
-    textAlign: "center", // Aligner le texte au centre horizontalement
+    textAlign: "center",
   },
-
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 20,
   },
-
   btnDeco: {
     backgroundColor: "#EDFC92",
     padding: "4%",
@@ -317,7 +307,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontFamily: "Poppins",
   },
-
   btnSupp: {
     fontFamily: "Poppins",
     backgroundColor: "#EDFC92",
@@ -331,10 +320,9 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     borderRadius: 10,
   },
-
   textBtn: {
     color: "#274539",
     fontFamily: "Poppins",
-    textAlign: "center", // Aligner le texte au centre horizontalement
+    textAlign: "center",
   },
 });

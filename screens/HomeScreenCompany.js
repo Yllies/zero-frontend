@@ -56,6 +56,7 @@ export default function HomeScreenCompany({ navigation }) {
               <NeedDetails
                 title={item.title}
                 description={item.description.slice(0, 25) + "..."}
+                category={item.category}
               />
             </View>
           )}
@@ -69,18 +70,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+ 
   },
   scrollViewContainer: {
     flex: 1,
     width: "100%",
-    marginTop: 20,
+    marginTop:20,
   },
   cardsRow: {
-    justifyContent: "space-between",
-  },
-  needContainer: {
-    width: "48%", // Pour afficher deux éléments par ligne, avec un petit espace entre eux
-    marginBottom: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
   },
   titre: {
     fontSize: 10,
