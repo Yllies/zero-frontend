@@ -9,8 +9,7 @@ export default function NeedDetails(props) {
       <TouchableOpacity style={styles.touch}>
       <Image
           style={styles.donationImage}
-          source={require("../assets/background-diagonal.png")} //{/*{{uri: props.photo }}*/} // Utilisation de l'URL directement
-          alt="don"
+          source={require("../assets/background-diagonal.png")} 
         />
         <View
           style={{

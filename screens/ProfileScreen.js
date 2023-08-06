@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   description: {
     color: 676767,
     fontFamily: "Poppins",
-    fontSize: 17,
+    fontSize: 15,
   },
   map: {
     height: 120,
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   },
   textInfo: {
     color: "white",
-    fontSize: 17,
+    fontSize: 15,
     marginTop: 10,
     marginLeft: 30,
     marginRight: 30,

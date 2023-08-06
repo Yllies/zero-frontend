@@ -45,7 +45,7 @@ export default function ArticleReserved() {
 const styles = StyleSheet.create({
   reservationContainer: {
     height: 400,
-    width: 380,
+    width: 350,
     
   },
   card: {

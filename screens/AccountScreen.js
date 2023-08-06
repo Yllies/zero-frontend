@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser, logout } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Modal,
 } from "react-native";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
@@ -19,8 +20,23 @@ const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 export default function AccountScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleLogout = () => {
+    setShowModal(true);
+  };
 
   const handleDelete = () => {
+    setShowModal(true);
+  };
+
+  const confirmLogout = () => {
+    dispatch(logout());
+    navigation.navigate("Login");
+    setShowModal(false);
+  };
+
+  const confirmDelete = () => {
     fetch(`${BACK_URL}:3000/users/delete/${user.token}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -32,6 +48,9 @@ export default function AccountScreen({ navigation }) {
           dispatch(removeUser({ token: data.token }));
           navigation.navigate("Login");
         }
+      })
+      .finally(() => {
+        setShowModal(false);
       });
   };
 
@@ -111,33 +130,81 @@ export default function AccountScreen({ navigation }) {
         </View>
 
         <View style={styles.btnContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(logout(), navigation.navigate("Login"));
-            }}
-            style={styles.btnDeco}
-          >
+          <TouchableOpacity onPress={handleLogout} style={styles.btnDeco}>
             <Text style={styles.textBtn}>Déconnexion</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.btnSupp}
-            onPress={() => handleDelete()}
-          >
+          <TouchableOpacity onPress={handleDelete} style={styles.btnSupp}>
             <Text style={styles.textBtn}>Supprimer mon compte</Text>
           </TouchableOpacity>
         </View>
+
+        {/* Boîte de dialogue modale */}
+        <Modal visible={showModal} transparent>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalText}>
+                Êtes-vous sûr de vouloir continuer ?
+              </Text>
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={() => setShowModal(false)}
+                >
+                  <Text style={styles.modalButtonText}>Annuler</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={confirmLogout}
+                >
+                  <Text style={styles.modalButtonText}>Confirmer</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
   containerPage: {
     flex: 1,
     backgroundColor: "#fff",
   },
-
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 20,
+    fontFamily:"Poppins",
+  },
+  modalButtons: {
+    flexDirection: "row",
+  },
+  modalButton: {
+    padding: 10,
+    marginHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: "#EDFC92",
+  },
+  modalButtonText: {
+    fontSize: 16,
+   
+    fontFamily:"PoppinsSemiBold",
+  },
   scrollViewContent: {
     justifyContent: "flex-start",
     width: "100%",

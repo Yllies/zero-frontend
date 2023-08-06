@@ -9,7 +9,7 @@ export default function ArticleDetails(props) {
       <TouchableOpacity style={styles.touch}>
         <Image
           style={styles.donationImage}
-          source={require("../assets/asso1.jpeg")} //{/*{{uri: props.photo }}*/} // Utilisation de l'URL directement
+          source={{uri: props.photo }}
           alt="don"
         />
         <View
@@ -20,7 +20,7 @@ export default function ArticleDetails(props) {
           }}
         >
           <Text style={styles.title}>
-            Don {/*{props.title}substring(0,25) + "..."*/}
+            {props.title}
           </Text>
           <TouchableOpacity>
             <FontAwesome
@@ -32,8 +32,8 @@ export default function ArticleDetails(props) {
           </TouchableOpacity>
         </View>
         <Text style={styles.description}>
-          Donne vêtements invendables mais ...
-          {/*{props.description}*/}
+        
+          {props.description}
         </Text>
       </TouchableOpacity>
     </View>
@@ -44,6 +44,8 @@ const styles = StyleSheet.create({
   containerPage: {
     width: 160,
     margin: 7,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
   },
 
   title: {

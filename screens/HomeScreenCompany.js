@@ -5,7 +5,7 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  ScrollView,
+  FlatList,
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -46,16 +46,20 @@ export default function HomeScreenCompany({ navigation }) {
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.scrollViewContainer}>
-        <ScrollView contentContainerStyle={styles.cardsRow}>
-          {posts.map((post, index) => (
-            <NeedDetails
-              key={index}
-              title={post.title}
-              description={post.description.slice(0,25)+"..."}
-            
-            />
-          ))}
-        </ScrollView>
+        <FlatList
+          data={posts}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={2}
+          contentContainerStyle={styles.cardsRow}
+          renderItem={({ item }) => (
+            <View style={styles.needContainer}>
+              <NeedDetails
+                title={item.title}
+                description={item.description.slice(0, 25) + "..."}
+              />
+            </View>
+          )}
+        />
       </View>
     </SafeAreaView>
   );
@@ -65,18 +69,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
- 
   },
   scrollViewContainer: {
     flex: 1,
     width: "100%",
-    marginTop:20,
+    marginTop: 20,
   },
   cardsRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  needContainer: {
+    width: "48%", // Pour afficher deux éléments par ligne, avec un petit espace entre eux
+    marginBottom: 10,
   },
   titre: {
     fontSize: 10,
