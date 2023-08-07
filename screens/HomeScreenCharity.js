@@ -18,22 +18,58 @@ import FilterScreen from "./FilterScreen";
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
+import { useSelector } from 'react-redux';
+
+
 export default function HomeScreenCharity({ navigation }) {
+  
+  
+  const selectedQuantity = useSelector(state => state.filter.quantity);
+
+  const selectedDate= useSelector(state => state.filter.date);
+
+  // const selectedLocalisation= useSelector(state => state.filter.localisation);
+  
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     // Appeler la fonction pour récupérer les posts depuis le backend ou une API REST
     fetchPosts();
-  }, []);
+  }, [selectedQuantity]);
 
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
+
+    console.log("selectedQuantity:", selectedQuantity); 
+    // console.log("selectedDate:", selectedDate); 
+
     fetch(`${BACK_URL}:3000/posts/company`)
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {
-          setPosts(data.posts);
+
+        const filteredPosts = data.posts.filter(post => {
+    
+          const quantityMatch = selectedQuantity.length === 0 || selectedQuantity.includes(post.quantity);
+          const dateMatch = selectedDate === null || post.availability_date >= selectedDate;
+          // const localisationMatch = selectedLocalisation.length === 0 || selectedLocalisation.includes(post.location);
+
+          // Return true if the post passes all the filters, otherwise return false
+
+              console.log("dateMatch:", dateMatch); 
+              console.log("quantityMatch:", quantityMatch); 
+    // console.log("selectedDate:", selectedDate); 
+
+          return quantityMatch 
+          && dateMatch 
+          // && localisationMatch;
+
+        });
+
+        setPosts(filteredPosts);
+          // setPosts(data.posts);
+
         } else {
           setError("Erreur inconnue !");
         }

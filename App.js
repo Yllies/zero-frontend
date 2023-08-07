@@ -94,6 +94,7 @@ export default function App() {
               name="PostsPublished"
               component={PostsPublishedScreen}
             />
+               <Stack.Screen name="Accueil" component={HomeScreenCharity} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

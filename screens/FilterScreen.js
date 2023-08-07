@@ -10,16 +10,19 @@ import Slider from "@react-native-community/slider";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
 import * as Location from "expo-location";
-
+import { useDispatch } from 'react-redux';
+import { addQuantity, addDate, addLocalisation,removeFilter } from '../reducers/filter';
 
 export default function FilterScreen({ navigation, onClose }) {
   
-  // LOCALISATION
+  const dispatch = useDispatch();
 
-    // Current position 
+//-------------------------------------- LOCALISATION
+
+// Current position 
 const [currentPosition, setCurrentPosition] = useState(null);
 
-  // Slider de localisation
+// Slider de localisation
 const [sliderValue, setSliderValue] = useState(50);
   
 const onSliderValueChange = (value) => {
@@ -52,32 +55,70 @@ useEffect(() => {
 
     // Mettre à jour la localisation avec la nouvelle valeur
     const newLocation = { latitude: newLatitude, longitude: newLongitude };
+
+    console.log(newLocation)
     dispatch(addLocalisation({newLocation}));
   }
 }, [sliderValue, currentPosition]);
 
-// ----------------------------------------------
+// -----------------------------------------CHIPS
 
-    //  tableau qui contiendra les "chips" sélectionnées
+  //  tableau qui contiendra les "chips" sélectionnées
   const [selectedChips, setSelectedChips] = useState([]);
 
 
   // selection des filtres "chips"
-  // fonction appelée quand on clic sur un chip
 
-  const [selectedDate, setSelectedDate] = useState("");
+  // Lorsque clic sur une puce, la fonction handleChipPress est appelée. Cette fonction prend la chips du clic en paramètre, et elle vérifie si cette puce est déjà dans le tableau selectedChips ou non.
+
+  // Si la puce est déjà dans le tableau, cela signifie qu'on veut la désélectionner, donc elle est retirée du tableau, autrement ça veut dire qu'on veut l'ajouter au tableau
 
 
 
   const handleChipPress = (chip) => {
+
+    // Le but est d'envoyer la quantité au store mais React ne met pas immédiatement à jour le tableau donc il faut passer par un calcul de la sélection actuelle/etat local actuel et c'est ça qu'on va pousser au store
+
+    let updatedChips;
+  
     if (selectedChips.includes(chip)) {
-      setSelectedChips((selectedChips) =>
-        selectedChips.filter((item) => item !== chip)
-      );
+      updatedChips = selectedChips.filter((item) => item !== chip);
     } else {
-      setSelectedChips((selectedChips) => [...selectedChips, chip]);
+      updatedChips = [...selectedChips, chip];
     }
-    dispatch(addQuantity(selectedChips));
+  
+    // il faut faire une conversion pour obtenir le nombre de lot en number 
+
+    let quantityRange = null;
+
+    switch (chip) {
+      case "1 article":
+        quantityRange = [1, 1];
+        break;
+      case "Moins de 5 articles":
+        quantityRange = [1, 4];
+        break;
+      case "Moins de 10 articles":
+        quantityRange = [1, 9];
+        break;
+      case "Lot de 10 à 50":
+        quantityRange = [10, 50];
+        break;
+      case "Lot de 50 à 1OO":
+        quantityRange = [50, 100];
+        break;
+      case "Plus de 150":
+        quantityRange = [150, Infinity];
+        break;
+      default:
+        // Gérer tout autre cas par : 
+        break;
+    }
+  
+    setSelectedChips(updatedChips);
+    dispatch(addQuantity(quantityRange));
+    console.log(quantityRange)
+
   };
 
   const renderChip = (chip) => {
@@ -98,15 +139,30 @@ useEffect(() => {
     );
   };
 
+  // ------------------------------ CALENDRIER
+
+  const [selectedDate, setSelectedDate] = useState("");
+
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);
-    dispatch(addDate(selectedDate));
+    console.log(day.dateString);
+    dispatch(addDate(day.dateString));
   };
 
   const customTheme = {
     todayTextColor: "#EDFC92",
     arrowColor: "#EDFC92",
   };
+
+
+  // -------------------------- EFFACER LES FILTRES
+
+  const handleErase = () => {
+		dispatch(removeFilter());
+    setSliderValue(0);
+    setSelectedDate("");
+    setSelectedChips([])
+	};
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -126,7 +182,7 @@ useEffect(() => {
         <View style={styles.containerChips}>
           {renderChip("1 article")}
           {renderChip("Moins de 5 articles")}
-          {renderChip("moins de 10 articles")}
+          {renderChip("Moins de 10 articles")}
           {renderChip("Lot de 10 à 50")}
           {renderChip("Lot de 50 à 1OO")}
           {renderChip("Plus de 150")}
@@ -159,11 +215,18 @@ useEffect(() => {
         </View>
 
         <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.btnAppliquer}>
+
+
+          <TouchableOpacity 
+          style={styles.btnAppliquer}
+          onPress={() => onClose()}
+          >
             <Text style={styles.textBtn1}>Appliquer</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnEffacer}>
+          <TouchableOpacity 
+           onPress={() => handleErase()} 
+          style={styles.btnEffacer}>
             <Text style={styles.textBtn}>Effacer</Text>
           </TouchableOpacity>
         </View>
