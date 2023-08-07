@@ -83,7 +83,7 @@ export default function ReservationScreen({ navigation }) {
     <KeyboardAvoidingView style={styles.reservationDone}>
       <ConfettiCannon fadeOut="true" count={400} origin={{ x: 0, y: 0 }} />
 
-      <ArticleReserved />
+      <ArticleReserved/>
     </KeyboardAvoidingView>
     // }
   );
@@ -154,8 +154,9 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   reservationDone: {
-    borderWidth: 4,
+    // borderWidth: 4,
     flex: 1,
+    padding:20,
 
     alignItems: "center",
     justifyContent: "center",

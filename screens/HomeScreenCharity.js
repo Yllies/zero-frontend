@@ -5,8 +5,8 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  ScrollView,
-  ActivityIndicator,
+  FlatList,
+  SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Header from "../components/Header";
@@ -17,9 +17,8 @@ import FilterScreen from "./FilterScreen";
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreenCharity({ navigation }) {
   const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export default function HomeScreen({ navigation }) {
         if (data.posts) {
           setPosts(data.posts);
         } else {
-          setError(error,"Erreur inconnue !");
+          setError("Erreur inconnue !");
         }
       })
       .catch((error) => {
@@ -44,23 +43,27 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Header />
-
-        <View style={styles.cardsRow}>
-          {posts.map((post, index) => (
-            <ArticleDetails style={styles.titre}
-              key={index}
-              title={post.title}
-              description={post.description.slice(0,25)}
-              photo={post.photo[0]}
-            />
-          ))}
-          
-        </View>
+    <SafeAreaView style={styles.container}>
+      <Header />
+      <View style={styles.scrollViewContainer}>
+        <FlatList
+          data={posts}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={2}
+          contentContainerStyle={styles.cardsRow}
+          renderItem={({ item }) => (
+            <View style={styles.needContainer}>
+              <ArticleDetails
+                title={item.title}
+                description={item.description.slice(0, 25) + "..."}
+                category={item.category}
+                photo={item.photo[0]}
+              />
+            </View>
+          )}
+        />
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -68,68 +71,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+ 
   },
-
-  containerFilter: {
-    marginTop: -218,
-    marginRight: 40,
-    paddingBottom: 30,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    paddingLeft: 300,
+  scrollViewContainer: {
+    flex: 1,
+    width: "100%",
+    marginTop:20,
   },
-
   cardsRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    flexWrap: "wrap",
-    // paddingHorizontal: 20,
-    width: "100%",
     alignItems: "center",
-    fontSize:10,
   },
-
-  cardContainer: {
-    width: "48%",
-    marginBottom: 10,
-  },
-
-  containerArticle: {
-    backgroundColor: "#274539",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-  },
-
   titre: {
     fontSize: 10,
     color: "white",
-    // marginBottom: 5,
-  },
-
-  paragraphe: {
-    fontSize: 10,
-    fontFamily: "Poppins",
-    color: "white",
-    marginBottom: -15,
-  },
-
-  infoContainer: {
-    padding: 12,
-  },
-
-  donationImage: {
-    width: "100%",
-    height: 170,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-
-  heartIcon: {
-    paddingLeft: 130,
-    paddingBottom: 1,
-  },
-  iconeFilter: {
-    borderRadius: 400,
   },
 });

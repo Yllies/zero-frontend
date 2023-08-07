@@ -294,11 +294,13 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     backgroundColor: "#274539",
-    height: 120,
+    height: 160,
     justifyContent: "center",
     alignItems: "center",
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    
+    
   },
   title: {
     fontSize: 30,

@@ -45,7 +45,8 @@ export default function ArticleReserved() {
 const styles = StyleSheet.create({
   reservationContainer: {
     height: 400,
-    width: 380,
+    width: 350,
+    
   },
   card: {
     marginTop: 30,
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
   contact: {
     fontSize: 22,
     color: "#274539",
-    fontFamily: "PoppinsSemiBold",
+    fontFamily: "PoppinsBold",
     textAlign: "center",
   },
 });

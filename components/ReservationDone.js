@@ -18,25 +18,25 @@ export default function ReservationDone() {
 }
 
 const styles = StyleSheet.create({
-  containerPage: {
-    flex: 1,
-    backgroundColor: "#274539",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    marginBottom: 300,
-  },
+  // containerPage: {
+  //   flex: 1,
+  //   backgroundColor: "#274539",
+  //   borderTopLeftRadius: 30,
+  //   borderTopRightRadius: 30,
+  //   marginBottom: 300,
+  // },
 
-  don: {
-    fontSize: 15,
-    paddingLeft: 10,
-    fontFamily: "Poppins",
-    color: "#EDFC92",
-  },
-  donationImage: {
-    width: 200,
-    height: 130,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    marginBottom: 25,
-  },
+  // don: {
+  //   fontSize: 15,
+  //   paddingLeft: 10,
+  //   fontFamily: "Poppins",
+  //   color: "#EDFC92",
+  // },
+  // donationImage: {
+  //   width: 200,
+  //   height: 130,
+  //   borderTopLeftRadius: 30,
+  //   borderTopRightRadius: 30,
+  //   marginBottom: 25,
+  // },
 });

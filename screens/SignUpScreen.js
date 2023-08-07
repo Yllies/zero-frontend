@@ -148,11 +148,17 @@ export default function SignUpScreen({ navigation }) {
         style={styles.mainContain}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+        <View style={styles.topContainer}>
+          <Text style={styles.title}>
+            Bienvenue parmis <Text style={styles.zero}>nous!</Text>
+          </Text>
+          <Text style={styles.textWelcome}>Créer votre compte</Text>
+        </View>
         <ScrollView>
-          <View style={styles.topContainer}>
+          {/* <View style={styles.topContainer}>
             <Text style={styles.title}>Créer un compte </Text>
             <Text style={styles.textWelcome}>Bienvenue parmi nous !</Text>
-          </View>
+          </View> */}
           <View style={styles.bottomContainer}>
             <View style={styles.form}>
               <View style={styles.topForm}>
@@ -309,27 +315,41 @@ export default function SignUpScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+       
+  },
+  zero: {
+    color: "#EDFC92",
+  },
+  topContainer: {
+    backgroundColor: "#274539",
+    height: 160,
+    justifyContent: "center",
+    // alignItems: "center",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    color:"white",
   },
   mainContain: {
     flex: 1,
     backgroundColor: "#fff",
   },
-  topContainer: {
-    height: "10%",
-    width: "100%",
-  },
+ 
   title: {
     width: "100%",
-    fontSize: 25,
+    fontSize: 30,
     marginTop: 10,
     fontWeight: "600",
     marginLeft: 20,
     fontFamily: "MontserratBold",
+    color:"white",
   },
   textWelcome: {
+   
     marginLeft: 25,
     marginTop: 7,
-    fontFamily: "Poppins",
+    fontFamily: "MontserratBold",
+    fontSize:17,
+    color:"white",
   },
   bottomContainer: {
     height: "100%",
@@ -341,8 +361,10 @@ const styles = StyleSheet.create({
     height: "70%",
   },
   topForm: {
-    width: "100%",
-    height: "17%",
+    // width: "100%",
+    height: "15%",
+    justifyContent: "center",
+    alignItems:'center',
   },
   choiceType: {
     width: "100%",
@@ -362,17 +384,17 @@ const styles = StyleSheet.create({
   company: {
     color: "white",
     textAlign: "center",
-    fontSize: 12,
-    fontFamily: "MontserratBold",
+    fontSize: 13,
+    fontFamily: "PoppinsBold",
   },
   association: {
     color: "white",
     textAlign: "center",
-    fontSize: 12,
-    fontFamily: "MontserratBold",
+    fontSize: 13,
+    fontFamily: "PoppinsBold",
   },
   youAre: {
-    marginLeft: 18,
+    
     fontSize: 15,
     fontFamily: "Poppins",
   },
@@ -381,6 +403,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 10,
     alignItems: "center",
+    marginBottom:60,
   },
   label: {
     fontSize: 15,
@@ -396,6 +419,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: 300,
     fontFamily: "Poppins",
+    marginBottom:10,
   },
   btnSignUp: {
     backgroundColor: "#EDFC92",
@@ -404,10 +428,10 @@ const styles = StyleSheet.create({
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
-    shadowRadius: 3,
+borderRadius:4,
     alignItems: "center",
     marginBottom: 25,
-    marginTop: 30,
+    marginTop: 50,
   },
   loginHere: {
     marginTop: 10,
@@ -415,6 +439,7 @@ const styles = StyleSheet.create({
   },
   signup: {
     fontFamily: "Poppins",
+    
   },
   error: {
     marginTop: 7,
@@ -424,10 +449,10 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 20,
   },
-  suggestionListContainer: {
-    borderRadius: 3,
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-  },
+  // suggestionListContainer: {
+  //   borderRadius: 3,
+  //   backgroundColor: "rgba(255, 255, 255, 0.9)",
+  // },
   resultContainer: {
     backgroundColor: "#ffffff",
     width: "100%",

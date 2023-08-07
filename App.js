@@ -9,14 +9,19 @@ import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
 import SignUpScreen from "./screens/SignUpScreen";
-import HomeScreenAsso from "./screens/HomeScreenAsso";
-import HomeScreen from "./screens/HomeScreen";
+import NeedDetails from "./components/NeedDetails";
+import HomeScreenCompany from "./screens/HomeScreenCompany";
+import HomeScreenCharity from "./screens/HomeScreenCharity";
 import ReservationScreen from "./screens/ReservationScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
+import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
+import ArticleDetails from "./components/ArticleDetails";
+import ArticleReserved from "./components/ArticleReserved";
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -50,11 +55,11 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Accueil" component={HomeScreen} />
-      <Tab.Screen name="Reservation" component={ReservationScreen} />
-      <Tab.Screen name="Favoris" component={HomeScreenAsso} />
+      <Tab.Screen name="Accueil" component={HomeScreenCharity} />
+      <Tab.Screen name="Reservation" component={FilterScreen} />
+      <Tab.Screen name="Favoris" component={HomeScreenCompany} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ReservationScreen} />
       <Tab.Screen name="Acount" component={AccountScreen} />
     </Tab.Navigator>
   );
@@ -62,7 +67,7 @@ const TabNavigator = () => {
 
 export default function App() {
   const store = configureStore({
-    reducer: { user },
+    reducer: { user, filter }
   });
 
   const [fontsLoaded] = useFonts({
@@ -83,6 +88,7 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
