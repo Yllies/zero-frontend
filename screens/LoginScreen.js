@@ -148,14 +148,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   topContainer: {
-    backgroundColor: "#274539",
-    height: 250,
-    width: "100%",
+     backgroundColor: "#274539",
+    height: 160,
     justifyContent: "center",
     alignItems: "center",
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    fontFamily: "Montserrat",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   title: {
     width: "80%",
@@ -207,6 +205,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     alignItems: "center",
     marginBottom: 25,
+    borderRadius: 4,
   },
   signupHere: {
     marginTop: 30,
@@ -216,6 +215,7 @@ const styles = StyleSheet.create({
   login: {
     fontSize: 15,
     fontFamily: "Poppins",
+   
   },
   mdp: {
     fontFamily: "Poppins",

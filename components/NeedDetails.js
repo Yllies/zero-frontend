@@ -2,13 +2,14 @@ import React from "react";
 import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default function ArticleDetails(props) {
+export default function NeedDetails(props) {
+
   return (
     <View style={styles.containerPage}>
       <TouchableOpacity style={styles.touch}>
         <Image
           style={styles.donationImage}
-          source={{ uri: props.photo }}
+          source={require("../assets/background-diagonal.png")}
           alt="don"
         />
         <View
@@ -29,6 +30,7 @@ export default function ArticleDetails(props) {
           </TouchableOpacity>
         </View>
         <Text style={styles.description}>{props.description}</Text>
+        <Text style={styles.category}>{props.category}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -40,6 +42,11 @@ const styles = StyleSheet.create({
     margin: 7,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+  },
+  category:{
+    fontFamily: "PoppinsSemiBold",
+    fontSize: 12,
+    marginLeft: 10,
   },
 
   title: {
@@ -64,12 +71,4 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
-  // touch:{
-  //   // marginTop: -218,
-  //   // marginRight:40,
-  //   // paddingBottom: 30,
-  //   justifyContent: "left",
-  //   alignItems: "left",
-  //   // paddingLeft: 300,
-  // }
 });
