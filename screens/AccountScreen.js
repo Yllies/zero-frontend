@@ -66,7 +66,6 @@ export default function AccountScreen() {
 
   return (
     <SafeAreaView style={styles.containerPage}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {/* En-tête */}
         <View style={styles.containerHeader}>
           <Text style={styles.text}>
@@ -87,6 +86,7 @@ export default function AccountScreen() {
             <Text style={styles.paragraphe}> 4.9 </Text>
           </View>
         </View>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
 
         {/* Contenu */}
         <View style={styles.containerOption}>

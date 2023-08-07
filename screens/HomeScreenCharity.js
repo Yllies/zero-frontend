@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
     marginTop:20,
   },
   cardsRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    // flexDirection: "row",
+    // flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
   },

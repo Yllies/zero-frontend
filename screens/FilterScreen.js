@@ -10,10 +10,12 @@ import Slider from "@react-native-community/slider";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
 import * as Location from "expo-location";
+import { useDispatch } from "react-redux";
+import { addLocalisation } from "../reducers/filter";
 
 
 export default function FilterScreen({ navigation, onClose }) {
-  
+  const dispatch = useDispatch();
   // LOCALISATION
 
     // Current position 
