@@ -10,6 +10,7 @@ import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import NeedDetails from "./components/NeedDetails";
+import DonnationDetails from './screens/DonnationDetails';
 import HomeScreenCompany from "./screens/HomeScreenCompany";
 import HomeScreenCharity from "./screens/HomeScreenCharity";
 import ReservationScreen from "./screens/ReservationScreen";
