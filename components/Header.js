@@ -1,4 +1,4 @@
-// Importation des composants et bibliothèques nécessaires
+import { useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -7,84 +7,73 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Modal,
 } from "react-native";
-
-import { useState } from 'react'
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as React from "react";
-// import Modal from 'react-native-modal';
-// import FilterScreen from "../screens/FilterScreen";
-// import HomeScreen from "../screens/HomeScreen";
+import FilterScreen from "../screens/FilterScreen";
 
-
-// Définition du composant Header
-export default function Header({navigation}) {
-
-
+export default function Header({ navigation }) {
   const user = useSelector((state) => state.user.value);
+  const [isModalVisible, setModalVisible] = useState(false);
 
-    const [isModalVisible, setModalVisible] = useState(false);
-  
-    const toggleModal = () => {
-      setModalVisible(!isModalVisible);
-    };
-
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   return (
     <View style={styles.containerPage}>
-    {/* Conteneur de l'icône de notification */}
-    <View style={styles.containerNotif}>
-      {/* Icône de notification */}
-      <MaterialIcons
-        style={styles.icone}
-        name="notifications"
-        size={34}
-        color="#FFFFFF"
-      />
-    </View>
-
-    {/* En-tête */}
-    <View style={styles.containerHeader}>
-      {/* Texte de bienvenue */}
-      <Text style={styles.text}>
-        Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
-      </Text>
-
-      {/* Paragraphe d'introduction */}
-      <Text style={styles.paragraphe}>Bienvenue sur Zéro</Text>
-
-        {/* Barre de recherche */}
+      <View style={styles.containerHeader}>
+        <View style={styles.containerNotif}>
+          <MaterialIcons
+            style={styles.icone}
+            name="notifications"
+            size={34}
+            color="#FFFFFF"
+          />
+        </View>
+        <Text style={styles.text}>
+          Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
+        </Text>
+        <Text style={styles.paragraphe}>Bienvenue sur Zéro</Text>
         <View style={styles.searchBarContainer}>
-          {/* Conteneur de l'icône de loupe avec contour */}
           <View style={styles.searchIconContainer}>
-            {/* Icône de loupe */}
             <FontAwesome
               name="search"
               size={20}
-              color="#EDFC92" // Couleur de l'icône de loupe
+              color="#EDFC92"
               style={styles.searchIcon}
             />
           </View>
-          {/* Champ d'entrée de texte pour la recherche */}
           <TextInput
             style={styles.searchInput}
             placeholder="Je recherche..."
             placeholderTextColor="#707070"
           />
           <FontAwesome
-            onPress={() => navigation.navigate("FilterScreen")}
+            onPress={toggleModal}
             style={styles.iconeFilter}
             name="filter"
             size={28}
             color="#274539"
-        
           />
         </View>
       </View>
-  </View>
-);
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modalContainer}>
+          {/* Contenu de la modal (FilterScreen) */}
+          <FilterScreen onClose={toggleModal}/>
+        </View>
+      </Modal>
+    </View>
+  );
 }
 
 // Définition des styles utilisés dans le composant
