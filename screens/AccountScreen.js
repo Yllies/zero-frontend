@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeUser, logout } from "../reducers/user";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 import {
   SafeAreaView,
@@ -100,7 +100,10 @@ export default function AccountScreen() {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionBtn}>
+          <TouchableOpacity
+            style={styles.optionBtn}
+            onPress={() => navigation.navigate("PostsPublished")}
+          >
             <Text style={styles.textOptionBtn}>Annonces en lignes</Text>
           </TouchableOpacity>
 
@@ -112,9 +115,9 @@ export default function AccountScreen() {
             style={styles.optionBtn}
             onPress={() => {
               if (user.token) {
-                navigation.navigate('ProfileScreen');
+                navigation.navigate("ProfileScreen");
               } else {
-                navigation.navigate('Login');
+                navigation.navigate("Login");
               }
             }}
           >

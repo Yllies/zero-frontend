@@ -8,7 +8,7 @@ export default function ArticleDetails(props) {
       <TouchableOpacity style={styles.touch}>
         <Image
           style={styles.donationImage}
-          source={{ uri: props.photo }}
+          source={require("../assets/asso1.jpeg")}
           alt="don"
         />
         <View

@@ -70,12 +70,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
- 
   },
   scrollViewContainer: {
     flex: 1,
     width: "100%",
-    marginTop:20,
+    marginTop: 20,
   },
   cardsRow: {
     // flexDirection: "row",

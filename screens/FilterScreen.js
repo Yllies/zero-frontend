@@ -264,7 +264,6 @@ backgroundColor:"white"
     paddingTop: "2%",
     paddingLeft: "6%",
     paddingBottom: "12%",
-    
   },
 
   btnContainer: {
@@ -272,8 +271,6 @@ backgroundColor:"white"
     justifyContent: "space-around",
     paddingRight: "5%",
     paddingLeft: "2%",
-    
-    
   },
 
   btnAppliquer: {

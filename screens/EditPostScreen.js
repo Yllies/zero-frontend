@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import {
   FlatList,
@@ -22,16 +22,19 @@ import { AntDesign } from "@expo/vector-icons";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function AddScreenCompany({ navigation }) {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [availability, setAvailability] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [galleryPermission, setGalleryPermission] = useState(null);
-  const [selectedDate, setSelectedDate] = useState("");
+export default function EditPostScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
+  const post = useSelector((state) => state.post.value);
+  const [title, setTitle] = useState(post.title);
+  const [category, setCategory] = useState(post.category);
+  const [description, setDescription] = useState(post.description);
+  const [availability, setAvailability] = useState(post.availability);
+  const [quantity, setQuantity] = useState(`${post.quantity}`);
+  const [selectedImages, setSelectedImages] = useState(post.photo);
+  const [galleryPermission, setGalleryPermission] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(
+    post.availability_date.substring(0, 10)
+  );
 
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
@@ -83,7 +86,6 @@ export default function AddScreenCompany({ navigation }) {
     return <Text>Pas d'accès au stockage interne</Text>;
   }
   const onDayPress = (day) => {
-    console.log(day);
     setSelectedDate(day.dateString);
     setAvailability(day.dateString);
   };
@@ -108,19 +110,6 @@ export default function AddScreenCompany({ navigation }) {
 
   // Fonction pour gérer l'envoi du formulaire
   const handleSubmit = () => {
-    if (
-      !title ||
-      !description ||
-      !category ||
-      !selectedImages ||
-      !quantity ||
-      !availability
-    ) {
-      // Vérifier si tous les champs obligatoires sont remplis
-      alert("Veuillez remplir tous les champs obligatoires");
-      return;
-    }
-
     // Créer un tableau contenant les liens des images sélectionnées
     const picture = selectedImages.map((image) => image.uri);
 
@@ -135,20 +124,21 @@ export default function AddScreenCompany({ navigation }) {
     };
 
     // Envoyer les informations au backend via une requête POST
-    fetch(`${BACK_URL}:3000/posts/company/publish/${user.token}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newPostData),
-    })
+    fetch(
+      `${BACK_URL}:3000/posts/company/update/${user.token}/${post.idPost}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newPostData),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log("from front", user.token);
-
         if (data.result) {
           // Si la publication a réussi, naviguer vers une autre page ou afficher un message de succès
           // Naviguer vers une autre page :
           // Ou afficher un message de succès :
-          alert("Votre annonce a été publiée avec succès !");
+          alert("Votre annonce a été modifée avec succès !");
           // Réinitialiser les champs du formulaire (si nécessaire)
           setTitle("");
           setDescription("");
@@ -156,7 +146,7 @@ export default function AddScreenCompany({ navigation }) {
           setQuantity("");
           setAvailability("");
           setSelectedImages([]);
-          navigation.navigate("Accueil");
+          navigation.navigate("PostsPublished");
         } else {
           // Si la publication a échoué, afficher un message d'erreur
 
@@ -183,7 +173,7 @@ export default function AddScreenCompany({ navigation }) {
       >
         <View style={styles.topContainer}>
           <Text style={styles.title}>
-            Postez votre <Text style={styles.zero}>annonce</Text>
+            Modifier mon <Text style={styles.zero}>annonce</Text>
           </Text>
         </View>
         <ScrollView style={styles.bottomContainer}>
@@ -275,14 +265,17 @@ export default function AddScreenCompany({ navigation }) {
                 style={{ fontFamily: "Poppins" }}
                 onDayPress={onDayPress}
                 markedDates={{
-                  [selectedDate]: { selected: true, selectedColor: "#274539" }, // date sélectionnée en vert
+                  [selectedDate]: { selected: true, selectedColor: "#274539" },
                 }}
                 theme={customTheme} // Utiliser le thème personnalisé pour modifier les couleurs du calendrier
               />
             </View>
             {/* Bouton de soumission de l'annonce */}
-            <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
-              <Text style={styles.login}>Publiez votre annonce</Text>
+            <TouchableOpacity
+              style={styles.btnLogin}
+              onPress={() => handleSubmit()}
+            >
+              <Text style={styles.login}>Modifier</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
