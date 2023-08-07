@@ -17,6 +17,7 @@ import ReservationScreen from "./screens/ReservationScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
+import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
 import ArticleDetails from "./components/ArticleDetails";
@@ -67,7 +68,7 @@ const TabNavigator = () => {
 
 export default function App() {
   const store = configureStore({
-    reducer: { user },
+    reducer: { user, filter }
   });
 
   const [fontsLoaded] = useFonts({

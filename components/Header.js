@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 
+
   // Style du paragraphe d'introduction
   paragraphe: {
     color: "white",
@@ -167,4 +168,39 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+
+  // modalContainer: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   backgroundColor: 'rgba(255, 255, 255, 0.9)', // Couleur de fond blanc semi-transparent
+  // },
+  modalContent: {
+    width: '100%', // Largeur du contenu modal (vous pouvez ajuster selon vos besoins)
+    backgroundColor: '#fff', // Couleur de fond blanc pur
+    borderRadius: 10,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+   // Style de l'icône "croix" en haut à droite de l'en-tête
+   iconeClose: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 1, // Assurez-vous que l'icône est au-dessus de la modale
+  },
+
+  // Style de l'icône "croix" en haut à droite de la modale
+  iconeCloseModal: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 1,
+  },
 });
+
+ 
+
+
+

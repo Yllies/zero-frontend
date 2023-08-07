@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,15 +9,65 @@ import {
 import Slider from "@react-native-community/slider";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
+import * as Location from "expo-location";
+
 
 export default function FilterScreen({ navigation, onClose }) {
-  const [sliderValue, setSliderValue] = useState(50);
+  
+  // LOCALISATION
+
+    // Current position 
+const [currentPosition, setCurrentPosition] = useState(null);
+
+  // Slider de localisation
+const [sliderValue, setSliderValue] = useState(50);
+  
+const onSliderValueChange = (value) => {
+        setSliderValue(value);
+      };
+
+// Accès à la localisation de l'utilisateur
+useEffect(() => {
+  (async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+
+    if (status === 'granted') {
+      Location.watchPositionAsync({ distanceInterval: 10 },
+        (location) => {
+          setCurrentPosition(location.coords);
+        });
+    }
+  })();
+}, []);
+
+
+// Mise à jour de la localisation en fonction de la valeur du slider
+useEffect(() => {
+  if (currentPosition !== null) {
+    // Calculer la nouvelle localisation en fonction du rayon sélectionné
+    const latitude = currentPosition.latitude;
+    const longitude = currentPosition.longitude;
+    const newLatitude = latitude + (sliderValue * 0.009); // 0.009 est une valeur approximative pour convertir km en degrés
+    const newLongitude = longitude + (sliderValue * 0.009);
+
+    // Mettre à jour la localisation avec la nouvelle valeur
+    const newLocation = { latitude: newLatitude, longitude: newLongitude };
+    dispatch(addLocalisation({newLocation}));
+  }
+}, [sliderValue, currentPosition]);
+
+// ----------------------------------------------
+
+    //  tableau qui contiendra les "chips" sélectionnées
   const [selectedChips, setSelectedChips] = useState([]);
+
+
+  // selection des filtres "chips"
+  // fonction appelée quand on clic sur un chip
+
   const [selectedDate, setSelectedDate] = useState("");
 
-  const onSliderValueChange = (value) => {
-    setSliderValue(value);
-  };
+
 
   const handleChipPress = (chip) => {
     if (selectedChips.includes(chip)) {
@@ -27,6 +77,7 @@ export default function FilterScreen({ navigation, onClose }) {
     } else {
       setSelectedChips((selectedChips) => [...selectedChips, chip]);
     }
+    dispatch(addQuantity(selectedChips));
   };
 
   const renderChip = (chip) => {
@@ -49,6 +100,7 @@ export default function FilterScreen({ navigation, onClose }) {
 
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);
+    dispatch(addDate(selectedDate));
   };
 
   const customTheme = {
