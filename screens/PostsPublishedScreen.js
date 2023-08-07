@@ -1,49 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser, logout } from "../reducers/user";
+
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+import Header from "../components/Header";
 import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
-  Modal,
 } from "react-native";
+import { addToUpdate } from "../reducers/post";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function PostPublishedScreen() {
   // Récupérer les informations de l'utilisateur depuis Redux
   const user = useSelector((state) => state.user.value);
+  const post = useSelector((state) => state.post.value);
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(false);
-  const [confirmAction, setConfirmAction] = useState(true); // true pour déconnexion, false pour suppression de compte
   const [allPosts, setAllPosts] = useState([]);
+  const [lastDeleted, setLastDeleted] = useState("");
   useEffect(() => {
-    console.log(user.token);
-
+    console.log("retour dans le composant post published");
     fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setAllPosts(data);
+        setAllPosts(data.data);
       });
-  }, []);
+  }, [isFocused]);
 
-  //   const handleDeletePost = () => {
-  //     fetch(`${BACK_URL}:3000/posts/company/delete/${user.token}`);
-  //   };
+  const handleDeletePost = (id) => {
+    fetch(`${BACK_URL}:3000/posts/company/delete/${user.token}/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setLastDeleted(id);
+          alert("Post supprimé");
+        }
+      });
+  };
 
-  const allPostsCompany = allPosts.data?.map((postCompany) => {
+  const handleUpdatePost = (post) => {
+    dispatch(addToUpdate(post));
+    navigation.navigate("EditPost");
+  };
+
+  const allPostsCompany = allPosts?.map((postCompany, i) => {
     return (
-      <View style={styles.post}>
+      <View style={styles.post} key={i}>
         <View style={styles.leftContain}>
           <Text style={styles.title}>{postCompany.title}</Text>
           <Text style={styles.description}>{postCompany.description}</Text>
@@ -55,10 +69,10 @@ export default function PostPublishedScreen() {
               name="close"
               size={20}
               color="white"
-              onPress={() => handleDeletePost()}
+              onPress={() => handleDeletePost(postCompany.idPost)}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => handleUpdatePost(postCompany)}>
             <FontAwesome name="edit" size={20} color="white" />
           </TouchableOpacity>
         </View>
@@ -68,6 +82,11 @@ export default function PostPublishedScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.topContainer}>
+        <Text style={styles.titleHeader}>
+          Annonces <Text style={{ color: "#EDFC92" }}>publiées</Text>
+        </Text>
+      </View>
       <ScrollView style={styles.allPosts}>{allPostsCompany}</ScrollView>
     </SafeAreaView>
   );
@@ -85,11 +104,15 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   post: {
-    borderWidth: 2,
     height: 100,
     margin: 10,
     flexDirection: "row",
     backgroundColor: "#274539",
+    borderRadius: 5,
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   leftContain: {
     width: "80%",
@@ -112,5 +135,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: "Poppins",
     color: "white",
+  },
+  topContainer: {
+    backgroundColor: "#274539",
+    width: "100%",
+    height: 160,
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    marginBottom: 10,
+  },
+  titleHeader: {
+    fontFamily: "MontserratBold",
+    color: "white",
+    fontSize: 20,
   },
 });
