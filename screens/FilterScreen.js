@@ -8,37 +8,27 @@ import {
 } from "react-native";
 import Slider from "@react-native-community/slider";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 
-export default function FilterScreen({ navigation }) {
-  // Slider de localisation
-
+export default function FilterScreen({ navigation, onClose }) {
   const [sliderValue, setSliderValue] = useState(50);
+  const [selectedChips, setSelectedChips] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
 
   const onSliderValueChange = (value) => {
     setSliderValue(value);
   };
 
-  // selection des filtres "chips"
-
-  //  tableau qui contiendra les "chips" sélectionnées
-  const [selectedChips, setSelectedChips] = useState([]);
-
-  // fonction appelée quand on clic sur un chip
-
   const handleChipPress = (chip) => {
     if (selectedChips.includes(chip)) {
-      // Si le chip est déjà sélectionné, le désélectionner
       setSelectedChips((selectedChips) =>
         selectedChips.filter((item) => item !== chip)
       );
     } else {
-      // Sinon, le pousser dans le tableau des chips sélectionnées
       setSelectedChips((selectedChips) => [...selectedChips, chip]);
     }
   };
 
-  // Vérifie si la chip séléctionée est dans le tableau et renvoi une valeur boolean
   const renderChip = (chip) => {
     const isSelected = selectedChips.includes(chip);
 
@@ -46,7 +36,6 @@ export default function FilterScreen({ navigation }) {
       <TouchableOpacity
         key={chip}
         onPress={() => handleChipPress(chip)}
-        // on applique un style sur le bouton si la chip est sélectionnée + sur le texte
         style={[styles.chip, isSelected ? styles.selectedChip : null]}
       >
         <Text
@@ -58,13 +47,10 @@ export default function FilterScreen({ navigation }) {
     );
   };
 
-  // Calendrier
-  const [selectedDate, setSelectedDate] = useState("");
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);
   };
 
-  // Changez la couleur du jour actuel + flèches de navigation en vert
   const customTheme = {
     todayTextColor: "#EDFC92",
     arrowColor: "#EDFC92",
@@ -72,11 +58,11 @@ export default function FilterScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View contentContainerStyle={styles.container}>
+      <View style={styles.container}>
         <View style={styles.containerTitle}>
           <Text style={styles.Title}>Filtres</Text>
           <FontAwesome
-            onPress={() => navigation.navigate("Accueil")}
+            onPress={() => onClose()}  // Utilisez la fonction navigation.goBack() pour fermer la page
             style={styles.iconeFilter}
             name="close"
             size={28}
@@ -114,9 +100,9 @@ export default function FilterScreen({ navigation }) {
           <Calendar
             onDayPress={onDayPress}
             markedDates={{
-              [selectedDate]: { selected: true, selectedColor: "#274539" }, // date sélectionnée en vert
+              [selectedDate]: { selected: true, selectedColor: "#274539" },
             }}
-            theme={customTheme} // Utiliser le thème personnalisé pour modifier les couleurs du calendrier
+            theme={customTheme}
           />
         </View>
 
@@ -134,12 +120,15 @@ export default function FilterScreen({ navigation }) {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     fontFamily: "Poppins",
   },
-
+  scrollContainer:{
+backgroundColor:"white"
+  },
   containerTitle: {
     flexDirection: "row",
     justifyContent: "space-between",
