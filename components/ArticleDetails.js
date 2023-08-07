@@ -3,7 +3,6 @@ import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function ArticleDetails(props) {
-  console.log(props.photo);
   return (
     <View style={styles.containerPage}>
       <TouchableOpacity style={styles.touch}>
@@ -50,16 +49,14 @@ const styles = StyleSheet.create({
   },
   heartIcon: {
     paddingLeft: 130,
-    paddingTop:10,
-   
-   
+    paddingTop: 10,
   },
-// touch:{
-//   // marginTop: -218,
-//   // marginRight:40,
-//   // paddingBottom: 30,
-//   justifyContent: "left",
-//   alignItems: "left",
-//   // paddingLeft: 300,
-// }
+  // touch:{
+  //   // marginTop: -218,
+  //   // marginRight:40,
+  //   // paddingBottom: 30,
+  //   justifyContent: "left",
+  //   alignItems: "left",
+  //   // paddingLeft: 300,
+  // }
 });
