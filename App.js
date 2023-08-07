@@ -11,12 +11,14 @@ import FilterScreen from "./screens/FilterScreen";
 import PostsPublishedScreen from "./screens/PostsPublishedScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import NeedDetails from "./components/NeedDetails";
+import DonnationDetails from './screens/DonnationDetails';
 import HomeScreenCompany from "./screens/HomeScreenCompany";
 import HomeScreenCharity from "./screens/HomeScreenCharity";
 import ReservationScreen from "./screens/ReservationScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
+import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
 import ArticleDetails from "./components/ArticleDetails";
@@ -55,7 +57,7 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreenCharity} />
-      <Tab.Screen name="Reservation" component={FilterScreen} />
+      {/* <Tab.Screen name="Reservation" component={FilterScreen} /> */}
       <Tab.Screen name="Favoris" component={HomeScreenCompany} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
       <Tab.Screen name="Profile" component={ReservationScreen} />
@@ -66,7 +68,7 @@ const TabNavigator = () => {
 
 export default function App() {
   const store = configureStore({
-    reducer: { user },
+    reducer: { user, filter }
   });
 
   const [fontsLoaded] = useFonts({
