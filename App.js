@@ -10,14 +10,17 @@ import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
 import PostsPublishedScreen from "./screens/PostsPublishedScreen";
 import SignUpScreen from "./screens/SignUpScreen";
+import EditPostScreen from "./screens/EditPostScreen";
 import NeedDetails from "./components/NeedDetails";
-import DonnationDetails from './screens/DonnationDetails';
+import DonnationDetails from "./screens/DonnationDetails";
 import HomeScreenCompany from "./screens/HomeScreenCompany";
 import HomeScreenCharity from "./screens/HomeScreenCharity";
 import ReservationScreen from "./screens/ReservationScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
+import post from "./reducers/post";
+
 import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
@@ -68,7 +71,7 @@ const TabNavigator = () => {
 
 export default function App() {
   const store = configureStore({
-    reducer: { user, filter }
+    reducer: { user, filter, post },
   });
 
   const [fontsLoaded] = useFonts({
@@ -90,6 +93,8 @@ export default function App() {
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen name="EditPost" component={EditPostScreen} />
+
             <Stack.Screen
               name="PostsPublished"
               component={PostsPublishedScreen}
