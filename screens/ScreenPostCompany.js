@@ -19,7 +19,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { AntDesign } from "@expo/vector-icons";
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function AddScreenCompany({ navigation }) {
@@ -30,7 +30,7 @@ export default function AddScreenCompany({ navigation }) {
   const [quantity, setQuantity] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
   const [galleryPermission, setGalleryPermission] = useState(null);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState("");
   const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export default function AddScreenCompany({ navigation }) {
     return <Text>Pas d'accès au stockage interne</Text>;
   }
   const onDayPress = (day) => {
-    console.log(day)
+    console.log(day);
     setSelectedDate(day.dateString);
     setAvailability(day.dateString);
   };
@@ -108,8 +108,14 @@ export default function AddScreenCompany({ navigation }) {
 
   // Fonction pour gérer l'envoi du formulaire
   const handleSubmit = () => {
-    console.log("lavalabiliaty", availability)
-    if (!title || !description || !category || !selectedImages || !quantity || !availability) {
+    if (
+      !title ||
+      !description ||
+      !category ||
+      !selectedImages ||
+      !quantity ||
+      !availability
+    ) {
       // Vérifier si tous les champs obligatoires sont remplis
       alert("Veuillez remplir tous les champs obligatoires");
       return;
@@ -117,7 +123,7 @@ export default function AddScreenCompany({ navigation }) {
 
     // Créer un tableau contenant les liens des images sélectionnées
     const picture = selectedImages.map((image) => image.uri);
-    
+
     // Créer un objet contenant les informations de l'annonce
     const newPostData = {
       title,
@@ -127,7 +133,6 @@ export default function AddScreenCompany({ navigation }) {
       quantity,
       availability_date: availability,
     };
-    console.log("from front", user.token)
 
     // Envoyer les informations au backend via une requête POST
     fetch(`${BACK_URL}:3000/posts/company/publish/${user.token}`, {
@@ -137,6 +142,8 @@ export default function AddScreenCompany({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("from front", user.token);
+
         if (data.result) {
           // Si la publication a réussi, naviguer vers une autre page ou afficher un message de succès
           // Naviguer vers une autre page :
@@ -149,9 +156,10 @@ export default function AddScreenCompany({ navigation }) {
           setQuantity("");
           setAvailability("");
           setSelectedImages([]);
-          navigation.navigate("Accueil"); 
+          navigation.navigate("Accueil");
         } else {
           // Si la publication a échoué, afficher un message d'erreur
+
           alert("Une erreur est survenue lors de la publication de l'annonce.");
         }
       })
@@ -163,8 +171,8 @@ export default function AddScreenCompany({ navigation }) {
       });
   };
   const customTheme = {
-    todayTextColor: '#EDFC92', 
-    arrowColor: '#EDFC92', 
+    todayTextColor: "#EDFC92",
+    arrowColor: "#EDFC92",
   };
 
   return (
@@ -264,13 +272,13 @@ export default function AddScreenCompany({ navigation }) {
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Disponibilité</Text>
               <Calendar
-              style={{fontFamily:"Poppins"}}
-            onDayPress={onDayPress}
-            markedDates={{
-              [selectedDate]: { selected: true, selectedColor: '#274539' }, // date sélectionnée en vert
-            }}
-            theme={customTheme} // Utiliser le thème personnalisé pour modifier les couleurs du calendrier
-          />
+                style={{ fontFamily: "Poppins" }}
+                onDayPress={onDayPress}
+                markedDates={{
+                  [selectedDate]: { selected: true, selectedColor: "#274539" }, // date sélectionnée en vert
+                }}
+                theme={customTheme} // Utiliser le thème personnalisé pour modifier les couleurs du calendrier
+              />
             </View>
             {/* Bouton de soumission de l'annonce */}
             <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
@@ -299,8 +307,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    
-    
   },
   title: {
     fontSize: 30,

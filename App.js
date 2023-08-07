@@ -8,6 +8,7 @@ import ScreenPostCompany from "./screens/ScreenPostCompany";
 import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
+import PostsPublishedScreen from "./screens/PostsPublishedScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import NeedDetails from "./components/NeedDetails";
 import HomeScreenCompany from "./screens/HomeScreenCompany";
@@ -20,7 +21,6 @@ import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
 import ArticleDetails from "./components/ArticleDetails";
 import ArticleReserved from "./components/ArticleReserved";
-
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -88,6 +88,10 @@ export default function App() {
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen
+              name="PostsPublished"
+              component={PostsPublishedScreen}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
