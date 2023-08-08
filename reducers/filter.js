@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  quantity: [],
+  quantity: [1, Infinity],
   date: null,
   localisation: [],
 };

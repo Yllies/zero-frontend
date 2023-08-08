@@ -105,7 +105,7 @@ useEffect(() => {
         quantityRange = [10, 50];
         break;
       case "Lot de 50 à 1OO":
-        quantityRange = [50, 100];
+        quantityRange = [51, 100];
         break;
       case "Plus de 150":
         quantityRange = [150, Infinity];
@@ -163,6 +163,10 @@ useEffect(() => {
     setSelectedDate("");
     setSelectedChips([])
 	};
+
+
+  // ----------------------------
+
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
