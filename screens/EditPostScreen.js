@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
+import { addToUpdate } from "../reducers/post";
 import {
   FlatList,
   Image,
@@ -24,7 +24,7 @@ const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function EditPostScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
-  const post = useSelector((state) => state.post.value);
+  const post = useSelector((state) => state.post.value.toUpdate);
   const [title, setTitle] = useState(post.title);
   const [category, setCategory] = useState(post.category);
   const [description, setDescription] = useState(post.description);
@@ -35,7 +35,7 @@ export default function EditPostScreen({ navigation }) {
   const [selectedDate, setSelectedDate] = useState(
     post.availability_date.substring(0, 10)
   );
-
+  console.log(post);
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
     (async () => {
@@ -44,7 +44,7 @@ export default function EditPostScreen({ navigation }) {
       setGalleryPermission(galleryStatus.status === "granted");
     })();
   }, []);
-
+  // console.log(selectedImages);
   // Fonction pour sélectionner des images depuis la galerie
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -57,7 +57,9 @@ export default function EditPostScreen({ navigation }) {
     // Vérifier si l'utilisateur a sélectionné des images
     if (!result.canceled) {
       // Ajouter les nouvelles images sélectionnées au tableau existant
-      setSelectedImages([...selectedImages, ...result.assets]);
+      const URIs = result.assets.map((elem) => elem.uri);
+      setSelectedImages([...selectedImages, ...URIs]);
+      dispatch(addToUpdate({ ...post, photo: [...selectedImages, ...URIs] }));
     }
   };
 
@@ -72,7 +74,7 @@ export default function EditPostScreen({ navigation }) {
     // Vérifier si l'utilisateur a pris une photo
     if (!result.canceled) {
       // Ajouter la nouvelle image prise au tableau existant
-      setSelectedImages([...selectedImages, result]);
+      setSelectedImages([...selectedImages, result.uri]);
     }
   };
 
@@ -92,7 +94,7 @@ export default function EditPostScreen({ navigation }) {
   // Composant pour afficher une image sélectionnée avec l'icône de suppression
   const SelectedImageItem = ({ item }) => (
     <View style={styles.selectedImageItem}>
-      <Image source={{ uri: item.uri }} style={styles.selectedImage} />
+      <Image source={{ uri: item }} style={styles.selectedImage} />
       {/* Icône "times" pour supprimer l'image */}
       <TouchableOpacity
         onPress={() => removeImage(item.uri)}
