@@ -6,30 +6,29 @@ export default function ArticleDetails(props) {
   return (
     <View style={styles.containerPage}>
       <TouchableOpacity style={styles.touch}>
-        <Image
-          style={styles.donationImage}
-          source={{uri:props.photo}}
-          alt="don"
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginRight: 10,
-          }}
-        >
-          <Text style={styles.title}>{props.title}</Text>
-          <TouchableOpacity>
-            <FontAwesome
-              style={styles.heart}
-              name="heart"
-              size={20}
-              color="#274539"
-            />
-          </TouchableOpacity>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.donationImage}
+            source={{ uri: props.photo }}
+            alt="don"
+          />
         </View>
-        <Text style={styles.description}>{props.description}</Text>
-        <Text style={styles.category}>{props.category}</Text>
+        <View style={styles.contentContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{props.title}</Text>
+            <TouchableOpacity>
+              <FontAwesome
+                style={styles.heart}
+                name="heart"
+                size={20}
+                color="#EDFC92"
+              />
+            </TouchableOpacity>
+          </View>
+     
+          <Text style={styles.description}>{props.description}</Text>
+          <Text style={styles.category}>{props.category}</Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -38,53 +37,51 @@ export default function ArticleDetails(props) {
 const styles = StyleSheet.create({
   containerPage: {
     width: 160,
+    height: 240,
     margin: 7,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+    borderColor: "#EDFC92",
+    borderWidth: 1,
+    backgroundColor: "#274539",
   },
-  category:{
+  imageContainer: {
+    height: 150, // Augmentez la hauteur de l'image
+    borderTopLeftRadius: 2,
+    borderTopRightRadius: 2,
+    borderColor: "#EDFC92",
+    overflow: "hidden",
+  },
+  contentContainer: {
+    padding: 5, // Réduisez le padding
+  },
+  category: {
     fontFamily: "PoppinsSemiBold",
     fontSize: 12,
-    marginLeft: 10,
+    color: "#EDFC92",
   },
-
+  titleContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   title: {
-    flex: 1,
     fontFamily: "PoppinsBold",
     fontSize: 15,
-    marginLeft: 10,
-    color:"#274539",
+    color: "#EDFC92",
   },
   description: {
     fontFamily: "Poppins",
     fontSize: 12,
-    marginLeft: 10,
-  color:"#274539",
+    color:"white",
   },
   donationImage: {
     width: "100%",
-    height: 120,
-    borderTopLeftRadius: 2,
-    borderTopRightRadius: 2,
-    borderColor:"#274539",
- 
+    height: "100%",
   },
   touch: {
-    backgroundColor: "#EDFC92",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    borderColor:"#274539",
-    borderWidth:2,
-   
+    borderColor: "#274539",
   },
-
-
-  // touch:{
-  //   // marginTop: -218,
-  //   // marginRight:40,
-  //   // paddingBottom: 30,
-  //   justifyContent: "left",
-  //   alignItems: "left",
-  //   // paddingLeft: 300,
-  // }
 });

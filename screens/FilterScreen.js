@@ -1,181 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import {
-//   View,
-//   Text,
-//   StyleSheet,
-//   TouchableOpacity,
-//   ScrollView,
-// } from "react-native";
-// import Slider from "@react-native-community/slider";
-// import FontAwesome from "react-native-vector-icons/FontAwesome";
-// import { Calendar } from "react-native-calendars";
-// import * as Location from "expo-location";
-// import { useDispatch } from "react-redux";
-// import { addLocalisation } from "../reducers/filter";
-// import { addQuantity, addDate, addLocalisation } from "../reducers/filter";
-
-
-
-// export default function FilterScreen({ navigation, onClose }) {
-//   const dispatch = useDispatch();
-//   // LOCALISATION
-
-//     // Current position 
-// const [currentPosition, setCurrentPosition] = useState(null);
-
-//   // Slider de localisation
-// const [sliderValue, setSliderValue] = useState(50);
-  
-// const onSliderValueChange = (value) => {
-//         setSliderValue(value);
-//       };
-
-// // Accès à la localisation de l'utilisateur
-// useEffect(() => {
-//   (async () => {
-//     const { status } = await Location.requestForegroundPermissionsAsync();
-
-//     if (status === 'granted') {
-//       Location.watchPositionAsync({ distanceInterval: 10 },
-//         (location) => {
-//           setCurrentPosition(location.coords);
-//         });
-//     }
-//   })();
-// }, []);
-
-
-// // Mise à jour de la localisation en fonction de la valeur du slider
-// useEffect(() => {
-//   if (currentPosition !== null) {
-//     // Calculer la nouvelle localisation en fonction du rayon sélectionné
-//     const latitude = currentPosition.latitude;
-//     const longitude = currentPosition.longitude;
-//     const newLatitude = latitude + (sliderValue * 0.009); // 0.009 est une valeur approximative pour convertir km en degrés
-//     const newLongitude = longitude + (sliderValue * 0.009);
-
-//     // Mettre à jour la localisation avec la nouvelle valeur
-//     const newLocation = { latitude: newLatitude, longitude: newLongitude };
-//     dispatch(addLocalisation({newLocation}));
-//   }
-// }, [sliderValue, currentPosition]);
-
-// // ----------------------------------------------
-
-//     //  tableau qui contiendra les "chips" sélectionnées
-//   const [selectedChips, setSelectedChips] = useState([]);
-
-
-//   // selection des filtres "chips"
-//   // fonction appelée quand on clic sur un chip
-
-//   const [selectedDate, setSelectedDate] = useState("");
-
-
-
-//   const handleChipPress = (chip) => {
-//     if (selectedChips.includes(chip)) {
-//       setSelectedChips((selectedChips) =>
-//         selectedChips.filter((item) => item !== chip)
-//       );
-//     } else {
-//       setSelectedChips((selectedChips) => [...selectedChips, chip]);
-//     }
-//     dispatch(addQuantity(selectedChips));
-//   };
-
-//   const renderChip = (chip) => {
-//     const isSelected = selectedChips.includes(chip);
-
-//     return (
-//       <TouchableOpacity
-//         key={chip}
-//         onPress={() => handleChipPress(chip)}
-//         style={[styles.chip, isSelected ? styles.selectedChip : null]}
-//       >
-//         <Text
-//           style={[styles.chipText, isSelected ? styles.selectedChipText : null]}
-//         >
-//           {chip}
-//         </Text>
-//       </TouchableOpacity>
-//     );
-//   };
-
-//   const onDayPress = (day) => {
-//     setSelectedDate(day.dateString);
-//     dispatch(addDate(selectedDate));
-//   };
-
-//   const customTheme = {
-//     todayTextColor: "#EDFC92",
-//     arrowColor: "#EDFC92",
-//   };
-
-//   return (
-//     <ScrollView contentContainerStyle={styles.scrollContainer}>
-//       <View style={styles.container}>
-//         <View style={styles.containerTitle}>
-//           <Text style={styles.Title}>Filtres</Text>
-//           <FontAwesome
-//             onPress={() => onClose()}  // Utilisez la fonction navigation.goBack() pour fermer la page
-//             style={styles.iconeFilter}
-//             name="close"
-//             size={28}
-//             color="#274539"
-//           />
-//         </View>
-
-//         <Text style={styles.subTitle}>Quantité</Text>
-//         <View style={styles.containerChips}>
-//           {renderChip("1 article")}
-//           {renderChip("Moins de 5 articles")}
-//           {renderChip("moins de 10 articles")}
-//           {renderChip("Lot de 10 à 50")}
-//           {renderChip("Lot de 50 à 1OO")}
-//           {renderChip("Plus de 150")}
-//         </View>
-
-//         <Text style={styles.subTitle}>Localisation</Text>
-//         <View style={styles.containerSlider}>
-//           <Text style={styles.text}>Dans un rayon de: {sliderValue} km</Text>
-//           <Slider
-//             style={styles.slider}
-//             minimumValue={0}
-//             maximumValue={30}
-//             step={1}
-//             value={sliderValue}
-//             onValueChange={onSliderValueChange}
-//             minimumTrackTintColor="#274539"
-//             thumbTintColor="#EDFC92"
-//           />
-//         </View>
-
-//         <Text style={styles.subTitle}>Disponibilité</Text>
-//         <View style={styles.containerCalendrier}>
-//           <Calendar
-//             onDayPress={onDayPress}
-//             markedDates={{
-//               [selectedDate]: { selected: true, selectedColor: "#274539" },
-//             }}
-//             theme={customTheme}
-//           />
-//         </View>
-
-//         <View style={styles.btnContainer}>
-//           <TouchableOpacity style={styles.btnAppliquer}>
-//             <Text style={styles.textBtn1}>Appliquer</Text>
-//           </TouchableOpacity>
-
-//           <TouchableOpacity style={styles.btnEffacer}>
-//             <Text style={styles.textBtn}>Effacer</Text>
-//           </TouchableOpacity>
-//         </View>
-//       </View>
-//     </ScrollView>
-//   );
-// }
-
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -188,20 +10,29 @@ import Slider from "@react-native-community/slider";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
 import * as Location from "expo-location";
-import { useDispatch } from "react-redux";
-import { addQuantity, addDate, addLocalisation } from "../reducers/filter";
+import { useDispatch } from 'react-redux';
+import { addQuantity, addDate, addLocalisation,removeFilter } from '../reducers/filter';
 
 export default function FilterScreen({ navigation, onClose }) {
+  
   const dispatch = useDispatch();
-  const [currentPosition, setCurrentPosition] = useState(null);
-  const [sliderValue, setSliderValue] = useState(50);
-  const [selectedChips, setSelectedChips] = useState([]);
-  const [selectedDate, setSelectedDate] = useState("");
 
-  useEffect(() => {
-    // Demande l'accès à la localisation de l'utilisateur
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+//-------------------------------------- LOCALISATION
+
+// Current position 
+const [currentPosition, setCurrentPosition] = useState(null);
+
+// Slider de localisation
+const [sliderValue, setSliderValue] = useState(50);
+  
+const onSliderValueChange = (value) => {
+        setSliderValue(value);
+      };
+
+// Accès à la localisation de l'utilisateur
+useEffect(() => {
+  (async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status === 'granted') {
         Location.watchPositionAsync({ distanceInterval: 10 },
@@ -220,25 +51,74 @@ export default function FilterScreen({ navigation, onClose }) {
       const newLatitude = latitude + (sliderValue * 0.009); // 0.009 est une valeur approximative pour convertir km en degrés
       const newLongitude = longitude + (sliderValue * 0.009);
 
-      // Mettre à jour la localisation avec la nouvelle valeur
-      const newLocation = { latitude: newLatitude, longitude: newLongitude };
-      dispatch(addLocalisation(newLocation));
-    }
-  }, [sliderValue, currentPosition]);
+    // Mettre à jour la localisation avec la nouvelle valeur
+    const newLocation = { latitude: newLatitude, longitude: newLongitude };
+
+    console.log(newLocation)
+    dispatch(addLocalisation({newLocation}));
+  }
+}, [sliderValue, currentPosition]);
+
+// -----------------------------------------CHIPS
+
+  //  tableau qui contiendra les "chips" sélectionnées
+  const [selectedChips, setSelectedChips] = useState([]);
+
+
+  // selection des filtres "chips"
+
+  // Lorsque clic sur une puce, la fonction handleChipPress est appelée. Cette fonction prend la chips du clic en paramètre, et elle vérifie si cette puce est déjà dans le tableau selectedChips ou non.
+
+  // Si la puce est déjà dans le tableau, cela signifie qu'on veut la désélectionner, donc elle est retirée du tableau, autrement ça veut dire qu'on veut l'ajouter au tableau
+
+
 
   const handleChipPress = (chip) => {
+
+    // Le but est d'envoyer la quantité au store mais React ne met pas immédiatement à jour le tableau donc il faut passer par un calcul de la sélection actuelle/etat local actuel et c'est ça qu'on va pousser au store
+
+    let updatedChips;
+  
     if (selectedChips.includes(chip)) {
-      setSelectedChips((selectedChips) =>
-        selectedChips.filter((item) => item !== chip)
-      );
+      updatedChips = selectedChips.filter((item) => item !== chip);
     } else {
-      setSelectedChips((selectedChips) => [...selectedChips, chip]);
+      updatedChips = [...selectedChips, chip];
     }
+  
+    // il faut faire une conversion pour obtenir le nombre de lot en number 
+
+    let quantityRange = null;
+
+    switch (chip) {
+      case "1 article":
+        quantityRange = [1, 1];
+        break;
+      case "Moins de 5 articles":
+        quantityRange = [1, 4];
+        break;
+      case "Moins de 10 articles":
+        quantityRange = [1, 9];
+        break;
+      case "Lot de 10 à 50":
+        quantityRange = [10, 50];
+        break;
+      case "Lot de 50 à 1OO":
+        quantityRange = [51, 100];
+        break;
+      case "Plus de 150":
+        quantityRange = [150, Infinity];
+        break;
+      default:
+        // Gérer tout autre cas par : 
+        break;
+    }
+  
+    setSelectedChips(updatedChips);
+    dispatch(addQuantity(quantityRange));
+    console.log(quantityRange)
+
   };
 
-  const onDayPress = (day) => {
-    setSelectedDate(day.dateString);
-  };
 
   const renderChip = (label) => {
     const isSelected = selectedChips.includes(label);
@@ -258,21 +138,34 @@ export default function FilterScreen({ navigation, onClose }) {
     );
   };
 
+  // ------------------------------ CALENDRIER
+
+  const [selectedDate, setSelectedDate] = useState("");
+
+  const onDayPress = (day) => {
+    setSelectedDate(day.dateString);
+    console.log(day.dateString);
+    dispatch(addDate(day.dateString));
+  };
+
   const customTheme = {
     todayTextColor: "#EDFC92",
     arrowColor: "#EDFC92",
   };
 
-  const applyFilter = () => {
-    // Dispatch actions with the filter data
-    dispatch(addQuantity(selectedChips));
-    dispatch(addDate(selectedDate));
-    // The newLocation is already stored in the state from the slider change
-    // (assuming you dispatch the addLocalisation action in the useEffect hook)
 
-    // Close the filter screen
-    onClose();
-  };
+  // -------------------------- EFFACER LES FILTRES
+
+  const handleErase = () => {
+		dispatch(removeFilter());
+    setSliderValue(0);
+    setSelectedDate("");
+    setSelectedChips([])
+	};
+
+
+  // ----------------------------
+
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -292,7 +185,7 @@ export default function FilterScreen({ navigation, onClose }) {
         <View style={styles.containerChips}>
           {renderChip("1 article")}
           {renderChip("Moins de 5 articles")}
-          {renderChip("moins de 10 articles")}
+          {renderChip("Moins de 10 articles")}
           {renderChip("Lot de 10 à 50")}
           {renderChip("Lot de 50 à 1OO")}
           {renderChip("Plus de 150")}
@@ -325,11 +218,18 @@ export default function FilterScreen({ navigation, onClose }) {
         </View>
 
         <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.btnAppliquer} onPress={applyFilter}>
+
+
+          <TouchableOpacity 
+          style={styles.btnAppliquer}
+          onPress={() => onClose()}
+          >
             <Text style={styles.textBtn1}>Appliquer</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btnEffacer}>
+          <TouchableOpacity 
+           onPress={() => handleErase()} 
+          style={styles.btnEffacer}>
             <Text style={styles.textBtn}>Effacer</Text>
           </TouchableOpacity>
         </View>

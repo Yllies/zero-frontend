@@ -10,7 +10,10 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Header from "../components/Header";
+import NeedScreen from "./NeedScreen";
 import NeedDetails from "../components/NeedDetails";
+import { useNavigation } from "@react-navigation/native";
+
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -53,11 +56,17 @@ export default function HomeScreenCompany({ navigation }) {
           contentContainerStyle={styles.cardsRow}
           renderItem={({ item }) => (
             <View style={styles.needContainer}>
-              <NeedDetails
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("NeedScreen", { postId: item._id })
+                }
+              >
+                <NeedDetails
                 title={item.title}
                 description={item.description.slice(0, 25) + "..."}
                 category={item.category}
               />
+              </TouchableOpacity>
             </View>
           )}
         />

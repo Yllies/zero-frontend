@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: {quantity:[], date: null, localisation:[]},
-  //remettre null après remise à jour des filtres 
+  quantity: [1, Infinity],
+  date: null,
+  localisation: [],
 };
 
 export const userSlice = createSlice({
@@ -11,26 +12,29 @@ export const userSlice = createSlice({
   reducers: {
 
     addQuantity: (state, action) => {
-        state.value.localisation.push(action.payload);  
+      state.quantity.push(action.payload);
     },
     
     // on veut pas de doubon donc = 
     addDate:(state, action) => {
-        state.value.date = action.payload;
+// Update the date without checking for duplicates
+state.date = action.payload;
       },
 
      // on veut pas de doubon donc = 
     addLocalisation: (state, action) => {
-        state.value.localisation = action.payload;
-    },
+  // Add the payload to the localisation array if not already present
+  const newLocalisation = action.payload;
+  if (!state.localisation.includes(newLocalisation)) {
+    state.localisation.push(newLocalisation);
+  }    },
 
   removeFilter: (state, action) => {
-    state.value.localisation = [];
-    state.value.date = null;
-    state.value.quantity = [];
+    state.localisation = [];
+    state.date = null;
+    state.quantity = [];
 },
 },
-
 });
 
 

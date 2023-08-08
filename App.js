@@ -13,7 +13,8 @@ import PostsPublishedScreen from "./screens/PostsPublishedScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import EditPostScreen from "./screens/EditPostScreen";
 import NeedDetails from "./components/NeedDetails";
-import DonnationDetails from "./screens/DonnationScreen";
+import NeedScreen from "./screens/NeedScreen";
+import DonnationScreen from "./screens/DonnationScreen";
 import HomeScreenCompany from "./screens/HomeScreenCompany";
 import HomeScreenCharity from "./screens/HomeScreenCharity";
 import ReservationScreen from "./screens/ReservationScreen";
@@ -89,12 +90,14 @@ export default function App() {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            {/* <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
+            <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
+            <Stack.Screen name="NeedScreen" component={NeedScreen} />
             <Stack.Screen
               name="PostsInWaiting"
               component={PostsInWaitingScreen}
@@ -104,6 +107,7 @@ export default function App() {
               name="PostsPublished"
               component={PostsPublishedScreen}
             />
+               <Stack.Screen name="Accueil" component={HomeScreenCharity} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
