@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useSelector } from 'react-redux';
 
 import Header from "../components/Header";
 import { useNavigation } from "@react-navigation/native";
@@ -23,7 +24,6 @@ import FilterScreen from "./FilterScreen";
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-import { useSelector } from 'react-redux';
 
 
 export default function HomeScreenCharity({ navigation}) {
@@ -49,7 +49,7 @@ export default function HomeScreenCharity({ navigation}) {
   useEffect(() => {
     // Appeler la fonction pour récupérer les posts depuis le backend ou une API REST
     fetchPosts();
-  }, [selectedQuantity,selectedDate]);
+  }, [selectedQuantity, selectedDate]);
   
   const goToDonnationScreen = (postId) => {
     console.log("toto", postId),
@@ -61,21 +61,22 @@ export default function HomeScreenCharity({ navigation}) {
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {
+          const filteredPosts = data.posts.filter(post => {
+            console.log('post.quantity', post.quantity)
 
-          let filteredPosts = data.posts;
-
-          if (selectedQuantity) {
-            filteredPosts = filteredPosts.filter(post => {
-              
-              const quantity = post.quantity;
-              return (quantity >= selectedQuantity[0] && quantity <= selectedQuantity[1]
-                )})
-          }
-  
-          // if (filteredPosts.date >= selectedDate) {
-          //   filteredPosts = filteredPosts.filter(post => post.date >= selectedDate);
-          // }
+            // Vérification de la quantité en fonction de la plage sélectionnée
+            const postQuantity = parseInt(post.quantity);
+            const matchQuantity = selectedQuantity[0] <= postQuantity && postQuantity <= selectedQuantity[1];
+            const matchDate = post.availability_date >= selectedDate;
+            return matchQuantity && matchDate;
+        
+            // const localisationMatch = selectedLocalisation.includes(post.location);
+      
+   
+          });
           setPosts(filteredPosts);
+              //  setPosts(data.posts);
+
         } else {
           setError("Erreur inconnue !");
         }
