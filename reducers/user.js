@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: {token: null, email: null, name: null},//token:a remettre null après install persistor ou écran login  
+  value: { token: null, email: null, name: null }, //token:a remettre null après install persistor ou écran login
 };
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     login: (state, action) => {
@@ -14,14 +14,13 @@ export const userSlice = createSlice({
       state.value.name = action.payload.name;
       state.value.type = action.payload.type;
     },
-    
     logout: (state) => {
       state.value.token = null;
       state.value.email = null;
       state.value.name = null;
       state.value.type = null;
     },
-    
+
     removeUser: (state, action) => {
       state.value.token = null;
       state.value.email = null;
