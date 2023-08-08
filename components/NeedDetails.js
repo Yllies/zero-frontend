@@ -3,35 +3,32 @@ import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function NeedDetails(props) {
-
   return (
     <View style={styles.containerPage}>
       <TouchableOpacity style={styles.touch}>
-        <Image
-          style={styles.donationImage}
-          source={require("../assets/background-diagonal.png")}
-          alt="don"
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginRight: 10,
-            // height:30,
-          }}
-        >
-          <Text style={styles.title}>{props.title}</Text>
-          <TouchableOpacity>
-            <FontAwesome
-              style={styles.heart}
-              name="heart"
-              size={20}
-              color="#274539"
-            />
-          </TouchableOpacity>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.donationImage}
+            source={require("../assets/background-diagonal.png")}
+            alt="don"
+          />
         </View>
-        <Text style={styles.description}>{props.description}</Text>
-        <Text style={styles.category}>{props.category}</Text>
+        <View style={styles.contentContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{props.title}</Text>
+            <TouchableOpacity>
+              <FontAwesome
+                style={styles.heart}
+                name="heart"
+                size={20}
+                color="#EDFC92"
+              />
+            </TouchableOpacity>
+          </View>
+         
+          <Text style={styles.description}>{props.description}</Text>
+          <Text style={styles.category}>{props.category}</Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -40,45 +37,52 @@ export default function NeedDetails(props) {
 const styles = StyleSheet.create({
   containerPage: {
     width: 160,
+    height: 250, // Ajustez cette hauteur pour contrôler la taille des éléments
     margin: 7,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    borderColor:"#274539",
-    borderWidth:2,
+    borderColor:"#EDFC92",
+    borderWidth: 2,
+        backgroundColor:"#274539",
   },
-  category:{
+  imageContainer: {
+    height: 150,
+    borderTopLeftRadius: 2,
+    borderTopRightRadius: 2,
+    borderColor: "#EDFC92",
+    overflow: "hidden",
+  },
+  contentContainer: {
+    padding: 10,
+  },
+  category: {
     fontFamily: "PoppinsSemiBold",
     fontSize: 12,
-    marginLeft: 10,
-    
+    color: "#EDFC92"
   },
-
+  titleContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   title: {
-    flex: 1,
     fontFamily: "PoppinsBold",
     fontSize: 15,
-    marginLeft: 10,
-    
+    color: "#EDFC92"
   },
   description: {
     fontFamily: "Poppins",
     fontSize: 12,
-    marginLeft: 10,
+    color: "white"
   },
   donationImage: {
     width: "100%",
-    height: 120,
-    borderTopLeftRadius: 2,
-    borderTopRightRadius: 2,
-    //  borderColor:"#274539",
-    // borderTopWidth:2,
-   
+    height: "100%",
   },
   touch: {
-    backgroundColor: "#EDFC92",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    // borderColor:"#274539",
-    // borderTopWidth:2,
+    borderColor: "#274539",
+  
   },
 });
