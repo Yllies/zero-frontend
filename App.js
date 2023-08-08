@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FavoriteScreen from "./screens/FavoriteScreen";
 import ScreenPostCompany from "./screens/ScreenPostCompany";
+import PostsInWaitingScreen from "./screens/PostsInWaitingScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
@@ -94,6 +95,10 @@ export default function App() {
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
+            <Stack.Screen
+              name="PostsInWaiting"
+              component={PostsInWaitingScreen}
+            />
 
             <Stack.Screen
               name="PostsPublished"

@@ -18,50 +18,22 @@ import { addToUpdate } from "../reducers/post";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function PostPublishedScreen() {
+export default function PostsInWaitingScreen() {
   // Récupérer les informations de l'utilisateur depuis Redux
   const user = useSelector((state) => state.user.value);
-  const post = useSelector((state) => state.post.value);
-  const isFocused = useIsFocused();
+  const post = useSelector((state) => state.post.value.toConfirm);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [allPosts, setAllPosts] = useState([]);
   const [lastDeleted, setLastDeleted] = useState("");
-  useEffect(() => {
-    console.log("retour dans le composant post published");
-    fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllPosts(data.data);
-      });
-  }, [isFocused, lastDeleted]);
 
-  const handleDeletePost = (id) => {
-    fetch(`${BACK_URL}:3000/posts/company/delete/${user.token}/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          setLastDeleted(id);
-          // alert("Post supprimé");
-        }
-      });
-  };
-
-  const handleUpdatePost = (post) => {
-    dispatch(addToUpdate(post));
-    navigation.navigate("EditPost");
-  };
-
-  const allPostsCompany = allPosts?.map((postCompany, i) => {
+  const allPostsInWaiting = post.map((postInWaiting, i) => {
     return (
       <TouchableOpacity key={i}>
         <View style={styles.post}>
           <View style={styles.leftContain}>
-            <Text style={styles.title}>{postCompany.title}</Text>
-            <Text style={styles.description}>{postCompany.description}</Text>
+            <Text style={styles.title}>{postInWaiting.title}</Text>
+            <Text style={styles.description}>{postInWaiting.description}</Text>
           </View>
           <View style={styles.rightContain}>
             <FontAwesome
@@ -69,25 +41,22 @@ export default function PostPublishedScreen() {
               name="close"
               size={20}
               color="#274539"
-              onPress={() => handleDeletePost(postCompany.idPost)}
+              onPress={() => handleDeletePost(postInWaiting.idPost)}
             />
-            <TouchableOpacity onPress={() => handleUpdatePost(postCompany)}>
-              <FontAwesome name="edit" size={20} color="#274539" />
-            </TouchableOpacity>
           </View>
         </View>
       </TouchableOpacity>
     );
   });
-
+  console.log(allPostsInWaiting);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.titleHeader}>
-          Annonces <Text style={{ color: "#EDFC92" }}>publiées</Text>
+          En attente de <Text style={{ color: "#EDFC92" }}>confirmation</Text>
         </Text>
       </View>
-      <ScrollView style={styles.allPosts}>{allPostsCompany}</ScrollView>
+      <ScrollView style={styles.allPosts}>{allPostsInWaiting}</ScrollView>
     </SafeAreaView>
   );
 }
@@ -151,6 +120,6 @@ const styles = StyleSheet.create({
   titleHeader: {
     fontFamily: "MontserratBold",
     color: "white",
-    fontSize: 30,
+    fontSize: 25,
   },
 });
