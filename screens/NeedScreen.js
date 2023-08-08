@@ -9,9 +9,27 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useRoute } from "@react-navigation/native";
+
 import { useDispatch, useSelector } from "react-redux";
 
+const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 export default function NeedScreen({ navigation }){
+  const route = useRoute();
+  const { postId } = route.params;
+  const [Details, setDetails] = useState([]);
+
+
+  useEffect(() => {
+    fetch(`${BACK_URL}:3000/posts/Charity/${postId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching post details:", error);
+      });
+  }, [postId]);
 
   return (
     <SafeAreaView style={styles.container}>

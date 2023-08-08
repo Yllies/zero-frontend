@@ -14,9 +14,13 @@ export const postSlice = createSlice({
     addToConfirm: (state, action) => {
       state.value.toConfirm.push(action.payload);
     },
+    removeAllToConfirm: (state) => {
+      state.value.toConfirm.splice(0);
+    },
   },
 });
 
-export const { addToUpdate, addToConfirm } = postSlice.actions;
+export const { addToUpdate, addToConfirm, removeAllToConfirm } =
+  postSlice.actions;
 
 export default postSlice.reducer;
