@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser, logout } from "../reducers/user";
-
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -14,65 +13,71 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { addToUpdate } from "../reducers/post";
+import { addToUpdate, removeAllToConfirm } from "../reducers/post";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function PostPublishedScreen() {
+export default function PostsInWaitingScreen() {
   // Récupérer les informations de l'utilisateur depuis Redux
   const user = useSelector((state) => state.user.value);
-  const post = useSelector((state) => state.post.value);
-  const isFocused = useIsFocused();
+  const post = useSelector((state) => state.post.value.toConfirm);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [allPosts, setAllPosts] = useState([]);
   const [lastDeleted, setLastDeleted] = useState("");
-  useEffect(() => {
-    console.log("retour dans le composant post published");
-    fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllPosts(data.data);
-      });
-  }, [isFocused, lastDeleted]);
 
-  const handleDeletePost = (id) => {
-    fetch(`${BACK_URL}:3000/posts/company/delete/${user.token}/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
+  const handleAccept = (post) => {
+    fetch(
+      `${BACK_URL}:3000/posts/company/book/accept/${user.token}/${post.idPost}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      }
+    )
       .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          setLastDeleted(id);
-          // alert("Post supprimé");
-        }
+      .then(() => {
+        dispatch(removeAllToConfirm());
+        alert("Réservation acceptée");
+        navigation.navigate("Acount");
       });
   };
 
-  const handleUpdatePost = (post) => {
-    dispatch(addToUpdate(post));
-    navigation.navigate("EditPost");
+  const handleRefuse = (post) => {
+    fetch(
+      `${BACK_URL}:3000/posts/company/book/refuse/${user.token}/${post.idPost}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+      .then((response) => response.json())
+      .then(() => {
+        dispatch(removeAllToConfirm());
+        alert("Réservation refusée");
+        navigation.navigate("Acount");
+      });
   };
 
-  const allPostsCompany = allPosts?.map((postCompany, i) => {
+  const allPostsInWaiting = post.map((postInWaiting, i) => {
     return (
       <TouchableOpacity key={i}>
         <View style={styles.post}>
           <View style={styles.leftContain}>
-            <Text style={styles.title}>{postCompany.title}</Text>
-            <Text style={styles.description}>{postCompany.description}</Text>
+            <Text style={styles.title}>{postInWaiting.title}</Text>
+            <Text style={styles.description}>{postInWaiting.description}</Text>
           </View>
           <View style={styles.rightContain}>
-            <FontAwesome
-              style={styles.cross}
-              name="close"
-              size={20}
-              color="#274539"
-              onPress={() => handleDeletePost(postCompany.idPost)}
-            />
-            <TouchableOpacity onPress={() => handleUpdatePost(postCompany)}>
-              <FontAwesome name="edit" size={20} color="#274539" />
+            <TouchableOpacity
+              style={styles.btnAccept}
+              onPress={() => handleAccept(postInWaiting)}
+            >
+              <Text style={styles.accepter}>Accepter</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.btnRefuse}
+              onPress={() => handleRefuse(postInWaiting)}
+            >
+              <Text style={styles.refuser}>Refuser</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -80,14 +85,16 @@ export default function PostPublishedScreen() {
     );
   });
 
+  console.log(allPostsInWaiting);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.titleHeader}>
-          Annonces <Text style={{ color: "#EDFC92" }}>publiées</Text>
+          En attente de <Text style={{ color: "#EDFC92" }}>confirmation</Text>
         </Text>
       </View>
-      <ScrollView style={styles.allPosts}>{allPostsCompany}</ScrollView>
+      <ScrollView style={styles.allPosts}>{allPostsInWaiting}</ScrollView>
     </SafeAreaView>
   );
 }
@@ -103,6 +110,7 @@ const styles = StyleSheet.create({
     width: "90%",
     // padding: 10,
   },
+
   post: {
     height: 100,
     margin: 10,
@@ -114,19 +122,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     borderColor: "#274539",
-    borderWidth: 2,
   },
   leftContain: {
-    width: "80%",
+    width: "60%",
     padding: 10,
   },
   rightContain: {
     justifyContent: "center",
     alignItems: "center",
-    width: "20%",
+    width: "40%",
     flexDirection: "row",
     justifyContent: "space-around",
     marginBottom: 50,
+    height: "100%",
+    flexDirection: "column",
   },
   title: {
     fontSize: 20,
@@ -151,6 +160,36 @@ const styles = StyleSheet.create({
   titleHeader: {
     fontFamily: "MontserratBold",
     color: "white",
-    fontSize: 30,
+    fontSize: 25,
+  },
+  btnAccept: {
+    padding: 7,
+    width: "80%",
+    backgroundColor: "#274539",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    borderRadius: 4,
+  },
+  btnRefuse: {
+    padding: 7,
+    width: "80%",
+    backgroundColor: "red",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    borderRadius: 4,
+  },
+  accepter: {
+    fontFamily: "PoppinsSemiBold",
+    color: "white",
+    textAlign: "center",
+  },
+  refuser: {
+    fontFamily: "PoppinsSemiBold",
+    color: "white",
+    textAlign: "center",
   },
 });

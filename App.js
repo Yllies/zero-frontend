@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FavoriteScreen from "./screens/FavoriteScreen";
 import ScreenPostCompany from "./screens/ScreenPostCompany";
+import PostsInWaitingScreen from "./screens/PostsInWaitingScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
@@ -61,10 +62,10 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreenCharity} />
-      {/* <Tab.Screen name="Reservation" component={FilterScreen} /> */}
+      <Tab.Screen name="Reservation" component={FilterScreen} />
       <Tab.Screen name="Favoris" component={HomeScreenCompany} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
-      <Tab.Screen name="Profile" component={ReservationScreen} />
+      <Tab.Screen name="Profile" component={ArticleDetails} />
       <Tab.Screen name="Acount" component={AccountScreen} />
     </Tab.Navigator>
   );
@@ -89,19 +90,24 @@ export default function App() {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            {/* <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
             <Stack.Screen name="NeedScreen" component={NeedScreen} />
+            <Stack.Screen
+              name="PostsInWaiting"
+              component={PostsInWaitingScreen}
+            />
 
             <Stack.Screen
               name="PostsPublished"
               component={PostsPublishedScreen}
             />
+               <Stack.Screen name="Accueil" component={HomeScreenCharity} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
