@@ -19,6 +19,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { AntDesign } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
@@ -203,14 +204,19 @@ export default function AddScreenCompany({ navigation }) {
             {/* Champ pour la catégorie */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Catégorie</Text>
-              <TextInput
-                style={styles.input}
-                multiline={true}
-                textAlignVertical="top"
-                onChangeText={(value) => setCategory(value)}
-                value={category}
-                placeholder="Quelle est la catégorie?"
-              />
+              <Picker
+                selectedValue={category}
+                style={{ height: 50, width: 250 }}
+                mode={"dialog"}
+                onValueChange={(itemValue) => setCategory(itemValue)}
+              >
+          <Picker.Item label="Vetement" value="Vetement"  />
+          <Picker.Item label="Meubles" value="Meuble" />
+          <Picker.Item label="High-Tech" value="High-Tech" />
+          <Picker.Item label="Electroménager" value="Electroménager" />
+          <Picker.Item label="Jeux" value="Jeux" />
+          <Picker.Item label="Enfants" value="Enfants" />
+          </Picker>
             </View>
             {/* Champ pour la description */}
             <View style={styles.inputContainer}>

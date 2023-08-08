@@ -29,7 +29,7 @@ export default function HomeScreenCharity({ navigation }) {
 
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
-    fetch(`${BACK_URL}:3000/posts/company`)
+    fetch(`${BACK_URL}:3000/filter/company/posts`)
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {
@@ -48,11 +48,13 @@ export default function HomeScreenCharity({ navigation }) {
       <Header />
       <View style={styles.scrollViewContainer}>
         <FlatList
+        
           data={posts}
           keyExtractor={(item, index) => index.toString()}
           numColumns={2}
           contentContainerStyle={styles.cardsRow}
           renderItem={({ item }) => (
+            console.log(item),
             <View style={styles.needContainer}>
               <ArticleDetails
                 title={item.title}
