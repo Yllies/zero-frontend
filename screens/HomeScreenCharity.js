@@ -13,7 +13,7 @@ import Header from "../components/Header";
 
 import ArticleDetails from "../components/ArticleDetails";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import FilterScreen from "./FilterScreen";
+
 
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
@@ -29,7 +29,7 @@ export default function HomeScreenCharity({ navigation }) {
 
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
-    fetch(`${BACK_URL}:3000/filter/company/posts`)
+    fetch(`${BACK_URL}:3000/posts/company`)
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {
