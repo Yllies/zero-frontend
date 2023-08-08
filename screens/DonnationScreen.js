@@ -11,7 +11,7 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 
-const UserProfile = () => {
+const DonnationDetails = () => {
 
 
   return (
@@ -215,4 +215,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+export default DonnationDetails;
