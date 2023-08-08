@@ -20,7 +20,7 @@ const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function AddScreenCharity({ navigation }) {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Vetement");
   const [description, setDescription] = useState("");
 
   return (

@@ -12,7 +12,8 @@ import PostsPublishedScreen from "./screens/PostsPublishedScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import EditPostScreen from "./screens/EditPostScreen";
 import NeedDetails from "./components/NeedDetails";
-import DonnationDetails from "./screens/DonnationScreen";
+import NeedScreen from "./screens/NeedScreen";
+import DonnationScreen from "./screens/DonnationScreen";
 import HomeScreenCompany from "./screens/HomeScreenCompany";
 import HomeScreenCharity from "./screens/HomeScreenCharity";
 import ReservationScreen from "./screens/ReservationScreen";
@@ -94,6 +95,8 @@ export default function App() {
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
+            <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
+            <Stack.Screen name="NeedScreen" component={NeedScreen} />
 
             <Stack.Screen
               name="PostsPublished"

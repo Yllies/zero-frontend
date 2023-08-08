@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Header from "../components/Header";
-
+import { useNavigation } from "@react-navigation/native";
+import DonnationScreen from "./DonnationScreen";
 import ArticleDetails from "../components/ArticleDetails";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FilterScreen from "./FilterScreen";
@@ -18,18 +19,25 @@ import FilterScreen from "./FilterScreen";
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function HomeScreenCharity({ navigation }) {
+export default function HomeScreenCharity({navigation}) {
+
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  // const navigation = useNavigation();
 
+  
   useEffect(() => {
     // Appeler la fonction pour récupérer les posts depuis le backend ou une API REST
     fetchPosts();
   }, []);
-
+  
+  const goToDonnationScreen = (postId) => {
+    console.log("toto", postId),
+   navigation.navigate("DonnationScreen", { postId: postId });
+ };
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
-    fetch(`${BACK_URL}:3000/filter/company/posts`)
+    fetch(`${BACK_URL}:3000/posts/company`)
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {
@@ -47,20 +55,24 @@ export default function HomeScreenCharity({ navigation }) {
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.scrollViewContainer}>
-        <FlatList
+      <FlatList
           data={posts}
           keyExtractor={(item, index) => index.toString()}
           numColumns={2}
           contentContainerStyle={styles.cardsRow}
           renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => {goToDonnationScreen(item._id)}}
+              >
             <View style={styles.needContainer}>
-              <ArticleDetails
-                title={item.title}
-                description={item.description.slice(0, 25) + "..."}
-                category={item.category}
-                photo={item.photo[0]}
-              />
+                <ArticleDetails
+                  title={item.title}
+                  description={item.description.slice(0, 25) + "..."}
+                  category={item.category}
+                  photo={item.photo[0]}
+                />
             </View>
+              </TouchableOpacity>
           )}
         />
       </View>
