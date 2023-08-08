@@ -12,7 +12,7 @@ import PostsPublishedScreen from "./screens/PostsPublishedScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import EditPostScreen from "./screens/EditPostScreen";
 import NeedDetails from "./components/NeedDetails";
-import DonnationDetails from "./screens/DonnationDetails";
+import DonnationDetails from "./screens/DonnationScreen";
 import HomeScreenCompany from "./screens/HomeScreenCompany";
 import HomeScreenCharity from "./screens/HomeScreenCharity";
 import ReservationScreen from "./screens/ReservationScreen";

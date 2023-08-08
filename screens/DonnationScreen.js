@@ -11,7 +11,8 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 
-const UserProfile = () => {
+const DonnationDetails = () => {
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,7 +29,7 @@ const UserProfile = () => {
             </TouchableOpacity>
             <TouchableOpacity>
               <FontAwesome
-                name="hand-holding-heart"
+                name="heart"
                 color="#EDFC92"
                 size={40}
                 style={styles.icons}
@@ -214,4 +215,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+export default DonnationDetails;

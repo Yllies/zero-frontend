@@ -29,7 +29,7 @@ export default function HomeScreenCharity({ navigation }) {
 
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
-    fetch(`${BACK_URL}:3000/posts/company`)
+    fetch(`${BACK_URL}:3000/filter/company/posts`)
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {
