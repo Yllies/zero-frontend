@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../reducers/user";
+import {Picker} from "@react-native-picker/picker";
 import {
   Image,
   KeyboardAvoidingView,
@@ -48,12 +49,20 @@ export default function AddScreenCharity({ navigation }) {
             </View>
             <View style={styles.password}>
               <Text style={styles.label}>Catégorie</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={(value) => setCategory(value)}
-                value={category}
-                placeholder="Quel(s) type(s) de produit(s) avez-vous besoin?"
-              />
+              <Picker
+                selectedValue={category}
+                style={{ height: 50, width: 250 }}
+                mode={"dialog"}
+                onValueChange={(itemValue) => setCategory(itemValue)}
+              >
+          <Picker.Item label="Vetement" value="Vetement"  />
+          <Picker.Item label="Meubles" value="Meuble" />
+          <Picker.Item label="High-Tech" value="High-Tech" />
+          <Picker.Item label="Electroménager" value="Electroménager" />
+          <Picker.Item label="Jeux" value="Jeux" />
+          <Picker.Item label="Enfants" value="Enfants" />
+          </Picker>
+
             </View>
             <View style={styles.password}>
               <Text style={styles.label}>Description</Text>

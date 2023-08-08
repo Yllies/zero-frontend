@@ -17,7 +17,7 @@ import Header from "../components/Header";
 
 import ArticleDetails from "../components/ArticleDetails";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import FilterScreen from "./FilterScreen";
+
 
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
   },
 
   cardsRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    // flexDirection: "row",
+    // flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
   },

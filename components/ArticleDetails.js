@@ -8,7 +8,7 @@ export default function ArticleDetails(props) {
       <TouchableOpacity style={styles.touch}>
         <Image
           style={styles.donationImage}
-          source={require("../assets/asso1.jpeg")}
+          source={{uri:props.photo}}
           alt="don"
         />
         <View
@@ -29,6 +29,7 @@ export default function ArticleDetails(props) {
           </TouchableOpacity>
         </View>
         <Text style={styles.description}>{props.description}</Text>
+        <Text style={styles.category}>{props.category}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -41,29 +42,43 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
+  category:{
+    fontFamily: "PoppinsSemiBold",
+    fontSize: 12,
+    marginLeft: 10,
+  },
 
   title: {
     flex: 1,
     fontFamily: "PoppinsBold",
     fontSize: 15,
     marginLeft: 10,
+    color:"#274539",
   },
   description: {
     fontFamily: "Poppins",
     fontSize: 12,
     marginLeft: 10,
+  color:"#274539",
   },
   donationImage: {
     width: "100%",
     height: 120,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    borderTopLeftRadius: 2,
+    borderTopRightRadius: 2,
+    borderColor:"#274539",
+ 
   },
   touch: {
     backgroundColor: "#EDFC92",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+    borderColor:"#274539",
+    borderWidth:2,
+   
   },
+
+
   // touch:{
   //   // marginTop: -218,
   //   // marginRight:40,

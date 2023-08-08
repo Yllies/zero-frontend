@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser, logout } from "../reducers/user";
+import { addToConfirm } from "../reducers/post";
+
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 import {
   SafeAreaView,
@@ -21,11 +23,13 @@ const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 export default function AccountScreen() {
   // Récupérer les informations de l'utilisateur depuis Redux
   const user = useSelector((state) => state.user.value);
+  const post = useSelector((state) => state.post.value.toConfirm);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   const [confirmAction, setConfirmAction] = useState(true); // true pour déconnexion, false pour suppression de compte
-
+  const [postToConfirm, setPostToConfirm] = useState(false);
+  const isFocused = useIsFocused();
   // Gérer la déconnexion de l'utilisateur
   const handleLogout = () => {
     setShowModal(true);
@@ -63,42 +67,71 @@ export default function AccountScreen() {
         setShowModal(false);
       });
   };
+  console.log("hors useEffect", isFocused);
+  useEffect(() => {
+    console.log("dans useEffect", isFocused);
+
+    fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
+      .then((response) => response.json())
+      .then((data) => {
+        let isInWaiting = false;
+
+        data.data.map((postInWaiting) => {
+          if (postInWaiting.isBooked === "En attente") {
+            isInWaiting = true;
+            if (
+              !post.map((elem) => elem.idPost).includes(postInWaiting.idPost)
+            ) {
+              dispatch(addToConfirm(postInWaiting));
+            }
+          }
+
+          isInWaiting ? setPostToConfirm(true) : setPostToConfirm(false);
+        });
+      });
+  }, [isFocused]);
 
   return (
     <SafeAreaView style={styles.containerPage}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        {/* En-tête */}
-        <View style={styles.containerHeader}>
-          <Text style={styles.text}>
-            Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
-          </Text>
+      {/* En-tête */}
+      <View style={styles.containerHeader}>
+        <Text style={styles.text}>
+          Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
+        </Text>
 
-          <Text style={styles.paragraphe}> Votre compte</Text>
+        <Text style={styles.paragraphe}> Votre compte</Text>
 
-          <View style={styles.containerNote}>
-            <TouchableOpacity style={styles.iconeHeader}>
-              <FontAwesome
-                name="star"
-                color="#EDFC92"
-                size={30}
-                style={styles.icons}
-              />
-            </TouchableOpacity>
-            <Text style={styles.paragraphe}> 4.9 </Text>
-          </View>
-        </View>
-
-        {/* Contenu */}
-        <View style={styles.containerOption}>
-          <TouchableOpacity style={styles.reservation}>
-            <Text style={styles.textbtn}>Réservations en cours</Text>
+        <View style={styles.containerNote}>
+          <TouchableOpacity style={styles.iconeHeader}>
             <FontAwesome
-              name="check"
-              color="#274539"
+              name="star"
+              color="#EDFC92"
               size={30}
               style={styles.icons}
             />
           </TouchableOpacity>
+          <Text style={styles.paragraphe}> 4.9 </Text>
+        </View>
+      </View>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {/* Contenu */}
+        <View style={styles.containerOption}>
+          {postToConfirm && (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("PostsInWaiting")}
+              style={styles.reservation}
+            >
+              <Text style={styles.textbtn}>
+                Réservations en attente de confirmation
+              </Text>
+              <FontAwesome
+                name="check"
+                color="#274539"
+                size={30}
+                style={styles.icons}
+              />
+            </TouchableOpacity>
+          )}
 
           <TouchableOpacity
             style={styles.optionBtn}
@@ -269,7 +302,7 @@ const styles = StyleSheet.create({
   },
   textbtn: {
     color: "#274539",
-    fontSize: 17,
+    fontSize: 15,
     fontFamily: "Poppins",
     textAlign: "center",
   },

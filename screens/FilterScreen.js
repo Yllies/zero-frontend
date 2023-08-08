@@ -34,24 +34,22 @@ useEffect(() => {
   (async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
 
-    if (status === 'granted') {
-      Location.watchPositionAsync({ distanceInterval: 10 },
-        (location) => {
-          setCurrentPosition(location.coords);
-        });
-    }
-  })();
-}, []);
+      if (status === 'granted') {
+        Location.watchPositionAsync({ distanceInterval: 10 },
+          (location) => {
+            setCurrentPosition(location.coords);
+          });
+      }
+    })();
+  }, []);
 
-
-// Mise à jour de la localisation en fonction de la valeur du slider
-useEffect(() => {
-  if (currentPosition !== null) {
-    // Calculer la nouvelle localisation en fonction du rayon sélectionné
-    const latitude = currentPosition.latitude;
-    const longitude = currentPosition.longitude;
-    const newLatitude = latitude + (sliderValue * 0.009); // 0.009 est une valeur approximative pour convertir km en degrés
-    const newLongitude = longitude + (sliderValue * 0.009);
+  useEffect(() => {
+    if (currentPosition !== null) {
+      // Calculer la nouvelle localisation en fonction du rayon sélectionné
+      const latitude = currentPosition.latitude;
+      const longitude = currentPosition.longitude;
+      const newLatitude = latitude + (sliderValue * 0.009); // 0.009 est une valeur approximative pour convertir km en degrés
+      const newLongitude = longitude + (sliderValue * 0.009);
 
     // Mettre à jour la localisation avec la nouvelle valeur
     const newLocation = { latitude: newLatitude, longitude: newLongitude };
@@ -121,19 +119,20 @@ useEffect(() => {
 
   };
 
-  const renderChip = (chip) => {
-    const isSelected = selectedChips.includes(chip);
 
+  const renderChip = (label) => {
+    const isSelected = selectedChips.includes(label);
     return (
       <TouchableOpacity
-        key={chip}
-        onPress={() => handleChipPress(chip)}
-        style={[styles.chip, isSelected ? styles.selectedChip : null]}
+        key={label}
+        onPress={() => handleChipPress(label)}
+        style={[
+          styles.chip,
+          isSelected ? styles.selectedChip : null,
+        ]}
       >
-        <Text
-          style={[styles.chipText, isSelected ? styles.selectedChipText : null]}
-        >
-          {chip}
+        <Text style={[styles.chipText, isSelected ? styles.selectedChipText : null]}>
+          {label}
         </Text>
       </TouchableOpacity>
     );
@@ -201,7 +200,7 @@ useEffect(() => {
             maximumValue={30}
             step={1}
             value={sliderValue}
-            onValueChange={onSliderValueChange}
+            onValueChange={setSliderValue}
             minimumTrackTintColor="#274539"
             thumbTintColor="#EDFC92"
           />
@@ -238,7 +237,6 @@ useEffect(() => {
     </ScrollView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {

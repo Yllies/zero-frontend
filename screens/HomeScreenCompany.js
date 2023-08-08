@@ -72,15 +72,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   scrollViewContainer: {
-    flex: 1,
-    width: "100%",
+    // flex: 1,
+    // width: "100%",
     marginTop: 20,
   },
   cardsRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    // flexDirection: "row",
+    // flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
+    // borderColor:"#274539",
+    // borderWidth:2,
   },
   titre: {
     fontSize: 10,
