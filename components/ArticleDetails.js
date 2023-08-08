@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
+  category:{
+    fontFamily: "PoppinsSemiBold",
+    fontSize: 12,
+    marginLeft: 10,
+  },
 
   title: {
     flex: 1,
@@ -56,14 +61,21 @@ const styles = StyleSheet.create({
   donationImage: {
     width: "100%",
     height: 120,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    borderTopLeftRadius: 2,
+    borderTopRightRadius: 2,
+    borderColor:"#274539",
+ 
   },
   touch: {
     backgroundColor: "#EDFC92",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+    borderColor:"#274539",
+    borderWidth:2,
+   
   },
+
+
   // touch:{
   //   // marginTop: -218,
   //   // marginRight:40,

@@ -17,6 +17,7 @@ export default function NeedDetails(props) {
             flexDirection: "row",
             alignItems: "center",
             marginRight: 10,
+            // height:30,
           }}
         >
           <Text style={styles.title}>{props.title}</Text>
@@ -42,11 +43,14 @@ const styles = StyleSheet.create({
     margin: 7,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+    borderColor:"#274539",
+    borderWidth:2,
   },
   category:{
     fontFamily: "PoppinsSemiBold",
     fontSize: 12,
     marginLeft: 10,
+    
   },
 
   title: {
@@ -54,6 +58,7 @@ const styles = StyleSheet.create({
     fontFamily: "PoppinsBold",
     fontSize: 15,
     marginLeft: 10,
+    
   },
   description: {
     fontFamily: "Poppins",
@@ -63,12 +68,17 @@ const styles = StyleSheet.create({
   donationImage: {
     width: "100%",
     height: 120,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    borderTopLeftRadius: 2,
+    borderTopRightRadius: 2,
+    //  borderColor:"#274539",
+    // borderTopWidth:2,
+   
   },
   touch: {
     backgroundColor: "#EDFC92",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+    // borderColor:"#274539",
+    // borderTopWidth:2,
   },
 });
