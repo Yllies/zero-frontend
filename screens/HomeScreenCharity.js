@@ -48,11 +48,13 @@ export default function HomeScreenCharity({ navigation }) {
       <Header />
       <View style={styles.scrollViewContainer}>
         <FlatList
+        
           data={posts}
           keyExtractor={(item, index) => index.toString()}
           numColumns={2}
           contentContainerStyle={styles.cardsRow}
           renderItem={({ item }) => (
+            console.log(item),
             <View style={styles.needContainer}>
               <ArticleDetails
                 title={item.title}

@@ -8,7 +8,7 @@ export default function ArticleDetails(props) {
       <TouchableOpacity style={styles.touch}>
         <Image
           style={styles.donationImage}
-          source={require("../assets/asso1.jpeg")}
+          source={{uri:props.photo}}
           alt="don"
         />
         <View
@@ -52,11 +52,13 @@ const styles = StyleSheet.create({
     fontFamily: "PoppinsBold",
     fontSize: 15,
     marginLeft: 10,
+    color:"#274539",
   },
   description: {
     fontFamily: "Poppins",
     fontSize: 12,
     marginLeft: 10,
+  color:"#274539",
   },
   donationImage: {
     width: "100%",
