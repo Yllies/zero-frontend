@@ -14,6 +14,7 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import Header from "../components/Header";
+import FilterScreen from "./FilterScreen";
 
 import ArticleDetails from "../components/ArticleDetails";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -117,7 +118,6 @@ export default function HomeScreenCharity({ navigation}) {
         <View style={styles.modalContainer}>
           {/* Contenu de la modal (FilterScreen) */}
           <FilterScreen onClose={toggleModal}
-
           />
         </View>
       </Modal>
