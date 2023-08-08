@@ -240,6 +240,24 @@ export default function FilterScreen({ navigation, onClose }) {
     setSelectedDate(day.dateString);
   };
 
+  const renderChip = (label) => {
+    const isSelected = selectedChips.includes(label);
+    return (
+      <TouchableOpacity
+        key={label}
+        onPress={() => handleChipPress(label)}
+        style={[
+          styles.chip,
+          isSelected ? styles.selectedChip : null,
+        ]}
+      >
+        <Text style={[styles.chipText, isSelected ? styles.selectedChipText : null]}>
+          {label}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   const customTheme = {
     todayTextColor: "#EDFC92",
     arrowColor: "#EDFC92",

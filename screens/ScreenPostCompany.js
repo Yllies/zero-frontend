@@ -58,11 +58,12 @@ export default function AddScreenCompany({ navigation }) {
     setSelectedImages(selectedImages.filter((image) => image.uri !== imageUri));
   };
 
-  const SelectedImageItem = ({ item }) => (
+  const SelectedImageItem = ({ item }) =>
+  (
     <View style={styles.selectedImageItem}>
-      <Image source={{ assets: item.uri }} style={styles.selectedImage} />
+      <Image source={{ uri: item }} style={styles.selectedImage} />
       <TouchableOpacity
-        onPress={() => removeImage(item.uri)}
+        onPress={() => removeImage(item)}
         style={styles.deleteIconContainer}
       >
         <FontAwesome
@@ -86,7 +87,7 @@ export default function AddScreenCompany({ navigation }) {
     })
       .then((res) => res.json())
       .then(async (data) => {
-        console.log(data.url);
+        console.log(data);
 
         if (data) {
           setSelectedImages([...selectedImages, data.url]);
@@ -218,7 +219,7 @@ export default function AddScreenCompany({ navigation }) {
               <Text style={styles.label}>Catégorie</Text>
               <Picker
                 selectedValue={category}
-                style={{ height: 50, width: 250 }}
+                style={styles.input}
                 mode={"dialog"}
                 onValueChange={(itemValue) => setCategory(itemValue)}
               >

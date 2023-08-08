@@ -29,6 +29,7 @@ export default function ArticleDetails(props) {
           </TouchableOpacity>
         </View>
         <Text style={styles.description}>{props.description}</Text>
+        <Text style={styles.category}>{props.category}</Text>
       </TouchableOpacity>
     </View>
   );
