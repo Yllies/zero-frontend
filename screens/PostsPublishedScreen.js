@@ -57,26 +57,26 @@ export default function PostPublishedScreen() {
 
   const allPostsCompany = allPosts?.map((postCompany, i) => {
     return (
+          <TouchableOpacity>
       <View style={styles.post} key={i}>
         <View style={styles.leftContain}>
           <Text style={styles.title}>{postCompany.title}</Text>
           <Text style={styles.description}>{postCompany.description}</Text>
         </View>
         <View style={styles.rightContain}>
-          <TouchableOpacity>
             <FontAwesome
               style={styles.cross}
               name="close"
               size={20}
-              color="white"
+              color="#274539"
               onPress={() => handleDeletePost(postCompany.idPost)}
             />
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => handleUpdatePost(postCompany)}>
-            <FontAwesome name="edit" size={20} color="white" />
+            <FontAwesome name="edit" size={20} color="#274539" />
           </TouchableOpacity>
         </View>
       </View>
+          </TouchableOpacity>
     );
   });
 
@@ -87,7 +87,9 @@ export default function PostPublishedScreen() {
           Annonces <Text style={{ color: "#EDFC92" }}>publiées</Text>
         </Text>
       </View>
-      <ScrollView style={styles.allPosts}>{allPostsCompany}</ScrollView>
+      <ScrollView style={styles.allPosts}>
+      {allPostsCompany}
+       </ScrollView>
     </SafeAreaView>
   );
 }
@@ -101,18 +103,20 @@ const styles = StyleSheet.create({
   },
   allPosts: {
     width: "90%",
-    padding: 10,
+    // padding: 10,
   },
   post: {
     height: 100,
     margin: 10,
     flexDirection: "row",
-    backgroundColor: "#274539",
+    backgroundColor: "#EDFC92",
     borderRadius: 5,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
+    borderColor:"#274539",
+    borderWidth:2,
   },
   leftContain: {
     width: "80%",
@@ -124,17 +128,17 @@ const styles = StyleSheet.create({
     width: "20%",
     flexDirection: "row",
     justifyContent: "space-around",
-    padding: 5,
+    marginBottom:50,
   },
   title: {
-    fontSize: 18,
-    fontFamily: "PoppinsSemiBold",
-    color: "#EDFC92",
+    fontSize: 20,
+    fontFamily: "PoppinsBold",
+    color: "#274539",
   },
   description: {
-    fontSize: 14,
+    fontSize: 15,
     fontFamily: "Poppins",
-    color: "white",
+    color: "#274539",
   },
   topContainer: {
     backgroundColor: "#274539",
@@ -144,11 +148,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   titleHeader: {
     fontFamily: "MontserratBold",
     color: "white",
-    fontSize: 20,
+    fontSize: 30,
   },
 });
