@@ -67,21 +67,26 @@ export default function AccountScreen() {
         setShowModal(false);
       });
   };
-
+  console.log("hors useEffect", isFocused);
   useEffect(() => {
+    console.log("dans useEffect", isFocused);
+
     fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
+        let isInWaiting = false;
+
         data.data.map((postInWaiting) => {
-          console.log(post);
           if (postInWaiting.isBooked === "En attente") {
-            setPostToConfirm(true);
+            isInWaiting = true;
             if (
               !post.map((elem) => elem.idPost).includes(postInWaiting.idPost)
             ) {
               dispatch(addToConfirm(postInWaiting));
             }
           }
+
+          isInWaiting ? setPostToConfirm(true) : setPostToConfirm(false);
         });
       });
   }, [isFocused]);
