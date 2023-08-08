@@ -25,7 +25,7 @@ export default function ArticleDetails(props) {
               />
             </TouchableOpacity>
           </View>
-     
+
           <Text style={styles.description}>{props.description}</Text>
           <Text style={styles.category}>{props.category}</Text>
         </View>
@@ -41,9 +41,12 @@ const styles = StyleSheet.create({
     margin: 7,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    borderColor: "#EDFC92",
-    borderWidth: 1,
     backgroundColor: "#274539",
+    borderRadius: 4,
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   imageContainer: {
     height: 150, // Augmentez la hauteur de l'image
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
   description: {
     fontFamily: "Poppins",
     fontSize: 12,
-    color:"white",
+    color: "white",
   },
   donationImage: {
     width: "100%",
