@@ -13,6 +13,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
 
 import { useDispatch, useSelector } from "react-redux";
+import { UseSelector } from "react-redux/es/hooks/useSelector";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 

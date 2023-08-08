@@ -4,7 +4,7 @@ import {
   View,
   Image,
   Text,
-  TouchableOpacity,
+  TouchableHighlight,
   FlatList,
   SafeAreaView,
   TextInput,
@@ -134,6 +134,10 @@ export default function HomeScreenCharity({ navigation}) {
         numColumns={2}
         contentContainerStyle={styles.cardsRow}
         renderItem={({ item }) => (
+          <TouchableHighlight
+          onPress={() => goToDonnationScreen(item.postId)}
+          underlayColor="#EDFC92" // Specify the underlay color for TouchableHighlight
+        >
           <View style={styles.needContainer}>
             <ArticleDetails
               title={item.title}
@@ -142,6 +146,7 @@ export default function HomeScreenCharity({ navigation}) {
               photo={item.photo[0]}
             />
           </View>
+          </TouchableHighlight>
         )}
       />
     </SafeAreaView>
