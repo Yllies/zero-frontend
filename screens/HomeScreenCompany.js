@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   SafeAreaView,
+  TouchableHighlight,
   TextInput,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -153,18 +154,18 @@ export default function HomeScreenCompany({ navigation }) {
           contentContainerStyle={styles.cardsRow}
           renderItem={({ item }) => (
             <View style={styles.needContainer}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("NeedScreen", { postId: item._id })
-                }
-              >
+      <TouchableHighlight
+      onPress={() => goToDonnationScreen(item.postId)}
+      underlayColor="#EDFC92" // Specify the underlay color for TouchableHighlight
+    >
                 {/* Affichage des détails du besoin */}
                 <NeedDetails
                   title={item.title}
                   description={item.description.slice(0, 25) + "..."}
                   category={item.category}
+                  idPost={item.idPost}
                 />
-              </TouchableOpacity>
+              </TouchableHighlight>
             </View>
           )}
         />

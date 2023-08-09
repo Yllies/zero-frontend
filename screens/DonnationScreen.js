@@ -27,21 +27,32 @@ const DonnationScreen = () => {
   };
 
 console.log(idPost)
-  useEffect(() => {
-    setTimeout(() => {
+useEffect(() => {
+  const fetchData = async (url) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.post) {
+        setDetails(data.post);
+        console.log(data.post.author.token);
+      }
+    } catch (error) {
+      console.error("Error fetching post details:", error);
+    }
+  };
 
-    fetch(`${BACK_URL}:3000/posts/company/${idPost}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.post.author.token)
-        setDetails(data.post); // Update the Details state with the fetched data
-      })
-      .catch((error) => {
-        console.error("Error fetching post details:", error);
-      });
-    }, 1000);
+  const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
+  const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
 
-  }, [idPost]);
+  fetchData(companyUrl); // Try fetching from the company URL
+
+  setTimeout(() => {
+    if (!details) {
+      fetchData(charityUrl); // If details are still null, fetch from the charity URL
+    }
+  }, 1000);
+
+}, [idPost, details]);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -82,7 +93,7 @@ Description:
           goToProfileScreen(details.author.token);
         }}>
             <Text style={styles.Contact}>
-              Détails de l'Entreprise{" "}
+              Détails de l'{details.author.type}{" "}
               <FontAwesome
                 name="arrow-right"
                 color="#274539"

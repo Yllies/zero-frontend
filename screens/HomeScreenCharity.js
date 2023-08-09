@@ -49,7 +49,6 @@ export default function HomeScreenCharity({ navigation}) {
   }, [selectedQuantity, selectedDate]);
 
   const goToDonnationScreen = (postId) => {
-    console.log("toto", postId),
    navigation.navigate("DonnationScreen", { postId: postId });
  };
   // Fonction pour récupérer les posts depuis le backend ou une API REST
@@ -59,7 +58,6 @@ export default function HomeScreenCharity({ navigation}) {
       .then((data) => {
         if (data.posts) {
           const filteredPosts = data.posts.filter(post => {
-            console.log('post.quantity', post.quantity)
 
         // Vérification de la quantité en fonction de la plage sélectionnée
         const postQuantity = parseInt(post.quantity);
@@ -131,10 +129,7 @@ export default function HomeScreenCharity({ navigation}) {
     numColumns={2}
     contentContainerStyle={styles.cardsRow}
     renderItem={({ item }) => (
-      <TouchableHighlight
-      onPress={() => goToDonnationScreen(item.postId)}
-      underlayColor="#EDFC92" // Specify the underlay color for TouchableHighlight
-    >
+
       <View style={styles.needContainer}>
         <ArticleDetails
           title={item.title}
@@ -143,7 +138,6 @@ export default function HomeScreenCharity({ navigation}) {
           photo={item.photo[0]}
         />
       </View>
-      </TouchableHighlight>
     )}
   />
 </SafeAreaView>
