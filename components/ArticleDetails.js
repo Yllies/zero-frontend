@@ -1,11 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function ArticleDetails(props) {
+  const navigation =useNavigation()
+  const goToDonnationScreen = (idPost) => {
+    navigation.navigate("DonnationScreen", { idPost: idPost });
+  };
   return (
     <View style={styles.containerPage}>
-      <TouchableOpacity style={styles.touch}>
+      <TouchableOpacity style={styles.touch}
+        onPress={() => {
+          goToDonnationScreen(props.idPost);
+        }}
+      >
         <Image
           style={styles.donationImage}
           source={{uri:props.photo}}
@@ -18,6 +27,7 @@ export default function ArticleDetails(props) {
             marginRight: 10,
           }}
         >
+          
           <Text style={styles.title}>{props.title}</Text>
           <TouchableOpacity>
             <FontAwesome

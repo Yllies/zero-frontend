@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import {
   View,
   Text,
@@ -7,41 +7,48 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  Modal,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../reducers/user";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import DetailsAuthor from "./DetailsAuthor";
+import { useRoute } from "@react-navigation/native";
+import MapScreen from "../components/Map";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-const DonnationScreen = () => {
-  const route = useRoute();
-  const { idPost } = route.params;
-  const [details, setDetails] = useState(null);
-  const navigation =useNavigation()
-  const goToProfileScreen = (author) => {
-    navigation.navigate("DetailsAuthor", { author: author });
-  };
 
-console.log(idPost)
+const DetailsAuthor = () => {
+    const route = useRoute();
+    const { author } = route.params;
+    const [details, setDetails] = useState(null);
+    const navigation =useNavigation()
+    console.log(author)
+  const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
 
-    fetch(`${BACK_URL}:3000/posts/company/${idPost}`)
+    fetch(`${BACK_URL}:3000/users/${author}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.post.author.token)
-        setDetails(data.post); // Update the Details state with the fetched data
+        console.log(data)
+        setDetails(data); // Update the Details state with the fetched data
       })
       .catch((error) => {
         console.error("Error fetching post details:", error);
       });
     }, 1000);
 
-  }, [idPost]);
+  }, [author]);
+
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -53,7 +60,12 @@ console.log(idPost)
           />
           <View style={styles.iconContainer}>
             <TouchableOpacity>
-
+              <FontAwesome
+                name="star"
+                color="#254739"
+                size={40}
+                style={styles.icons}
+              />
             </TouchableOpacity>
             <TouchableOpacity>
               <FontAwesome
@@ -65,34 +77,86 @@ console.log(idPost)
             </TouchableOpacity>
           </View>
         </View>
-
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{details?.title}</Text>
+          <Text style={styles.title}>Qui sommes-nous?</Text>
+          <Text style={styles.description}>
+            {details?.description}
+          </Text>
+        </View>
+        <View style={styles.mapContainer}>
+          <MapScreen />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>Infos Complémentaire</Text>
           <View style={styles.InfosContainer}>
             <Text style={styles.titleInfo}>
-Catégorie:              
+              {" "}
+              <FontAwesome
+                name="map-pin"
+                color="#EDFC92"
+                size={40}
+                style={styles.icons}
+              />{" "}
+              Adresse
             </Text>
-            <Text style={styles.textInfo}>{details?.category}</Text>
-            <Text style={styles.titleInfo}>
-Description:              
-            </Text>
-            <Text style={styles.textInfo}>{details?.description}</Text>
-            
+            <Text style={styles.textInfo}>{details?.address}</Text>
 
+            <Text style={styles.titleInfo}>
+              {" "}
+              <FontAwesome
+                name="lock"
+                color="#EDFC92"
+                size={40}
+                style={styles.icons}
+              />{" "}
+              Horaires
+            </Text>
+            <Text style={styles.textInfo}>
+            Du lundi au vendredi de 9h à 18h
+            </Text>
           </View>
-          <TouchableOpacity style={styles.btnContact}onPress={() => {
-          goToProfileScreen(details.author.token);
-        }}>
+          <Text style={styles.title}>Points Forts</Text>
+          <View style={styles.PFContainer}>
+            <Text style={styles.Number}>
+              8 <Text style={styles.PFText}>euros dans la poche</Text>
+            </Text>
+          </View>
+          <TouchableOpacity style={styles.btnContact} onPress={toggleModal}>
             <Text style={styles.Contact}>
-             Détails de l'Entreprise{" "}
+              Contacter l'{details?.type}{" "}
               <FontAwesome
                 name="arrow-right"
-                color="#274539"
+                color="#EDFC92"
                 size={30}
                 style={styles.icons}
               />
             </Text>
           </TouchableOpacity>
+          <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isModalVisible}
+          onRequestClose={toggleModal}
+        >
+<View style={styles.modalContainer}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={toggleModal}
+            >
+              <FontAwesome
+                name="close"
+                color="black"
+                size={30}
+                style={styles.closeIcon}
+              />
+            </TouchableOpacity>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Contact Details</Text>
+              <Text>Email: {details?.email}</Text>
+              <Text>Telephone: {details?.phone_number}</Text>
+            </View>
+          </View>
+        </Modal>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -106,7 +170,7 @@ const styles = StyleSheet.create({
   },
   image: {
     // borderRadius: 0 0 30 0
-    height: 250,
+    height: 320,
     width: 250,
     borderBottomRightRadius: 30,
   },
@@ -197,7 +261,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
   titleInfo: {
-    fontSize: 15,
+    fontSize: 25,
     lineHeight: 54.5,
     color: "white",
     fontFamily: "Poppins",
@@ -221,7 +285,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
   btnContact: {
-    backgroundColor: "#EDFC92",
+    backgroundColor: "#274539",
     padding: 10,
     width: 290,
     shadowColor: "#171717",
@@ -237,10 +301,28 @@ const styles = StyleSheet.create({
   },
   Contact: {
     fontSize: 17,
-    color: "#274539",
+    color: "white",
     marginBottom: 10,
     fontFamily: "Poppins",
   },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  closeButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    zIndex: 1,
+  },
 });
 
-export default DonnationScreen;
+export default DetailsAuthor;

@@ -22,7 +22,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
 import post from "./reducers/post";
-
+import DetailsAuthor from "./screens/DetailsAuthor";
 import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
@@ -90,14 +90,16 @@ export default function App() {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {/* <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
             <Stack.Screen name="NeedScreen" component={NeedScreen} />
+            <Stack.Screen name="DetailsAuthor" component={DetailsAuthor} />
+
             <Stack.Screen
               name="PostsInWaiting"
               component={PostsInWaitingScreen}

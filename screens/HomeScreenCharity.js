@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FilterScreen from "./FilterScreen";
 
 import Header from "../components/Header";
 import { useNavigation } from "@react-navigation/native";
@@ -51,10 +52,6 @@ export default function HomeScreenCharity({ navigation}) {
     fetchPosts();
   }, [selectedQuantity,selectedDate]);
   
-  const goToDonnationScreen = (postId) => {
-    console.log("toto", postId),
-   navigation.navigate("DonnationScreen", { postId: postId });
- };
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
     fetch(`${BACK_URL}:3000/posts/company`)
@@ -134,19 +131,17 @@ export default function HomeScreenCharity({ navigation}) {
         numColumns={2}
         contentContainerStyle={styles.cardsRow}
         renderItem={({ item }) => (
-          <TouchableHighlight
-          onPress={() => goToDonnationScreen(item.postId)}
-          underlayColor="#EDFC92" // Specify the underlay color for TouchableHighlight
-        >
           <View style={styles.needContainer}>
+
             <ArticleDetails
               title={item.title}
               description={item.description.slice(0, 25) + "..."}
               category={item.category}
               photo={item.photo[0]}
+              idPost={item.idPost}
             />
+
           </View>
-          </TouchableHighlight>
         )}
       />
     </SafeAreaView>
