@@ -13,7 +13,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { addToUpdate, removeAllToConfirm } from "../reducers/post";
+import {
+  addToConfirm,
+  addToUpdate,
+  removeAllToConfirm,
+  addToConfirmOrRefuse,
+} from "../reducers/post";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
@@ -26,36 +31,9 @@ export default function PostsInWaitingScreen() {
   const [allPosts, setAllPosts] = useState([]);
   const [lastDeleted, setLastDeleted] = useState("");
 
-  const handleAccept = (post) => {
-    fetch(
-      `${BACK_URL}:3000/posts/company/book/accept/${user.token}/${post.idPost}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      }
-    )
-      .then((response) => response.json())
-      .then(() => {
-        dispatch(removeAllToConfirm());
-        alert("Réservation acceptée");
-        navigation.navigate("Acount");
-      });
-  };
-
-  const handleRefuse = (post) => {
-    fetch(
-      `${BACK_URL}:3000/posts/company/book/refuse/${user.token}/${post.idPost}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      }
-    )
-      .then((response) => response.json())
-      .then(() => {
-        dispatch(removeAllToConfirm());
-        alert("Réservation refusée");
-        navigation.navigate("Acount");
-      });
+  const handleConsult = (post) => {
+    dispatch(addToConfirmOrRefuse(post));
+    navigation.navigate("Reservation");
   };
 
   const allPostsInWaiting = post.map((postInWaiting, i) => {
@@ -69,16 +47,10 @@ export default function PostsInWaitingScreen() {
           </View>
           <View style={styles.rightContain}>
             <TouchableOpacity
+              onPress={() => handleConsult(postInWaiting)}
               style={styles.btnAccept}
-              onPress={() => handleAccept(postInWaiting)}
             >
-              <Text style={styles.accepter}>Accepter</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.btnRefuse}
-              onPress={() => handleRefuse(postInWaiting)}
-            >
-              <Text style={styles.refuser}>Refuser</Text>
+              <Text style={styles.accepter}>Consulter</Text>
             </TouchableOpacity>
           </View>
         </View>
