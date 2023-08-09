@@ -26,9 +26,8 @@ import post from "./reducers/post";
 import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
-import ArticleDetails from "./components/ArticleDetails";
 import ArticleReserved from "./components/ArticleReserved";
-
+import ArticleDetails from "./components/ArticleDetails";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -107,7 +106,7 @@ export default function App() {
               name="PostsPublished"
               component={PostsPublishedScreen}
             />
-               <Stack.Screen name="Accueil" component={HomeScreenCharity} />
+            <Stack.Screen name="Accueil" component={HomeScreenCharity} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
