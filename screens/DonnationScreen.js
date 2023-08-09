@@ -22,12 +22,11 @@ const DonnationScreen = () => {
   const { postId } = route.params;
   const [Details, setDetails] = useState([]);
 
-
   useEffect(() => {
     fetch(`${BACK_URL}:3000/posts/company/${postId}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         setDetails(data); // Update the Details state with the fetched data
       })
       .catch((error) => {
@@ -44,9 +43,7 @@ const DonnationScreen = () => {
             resizeMode="cover"
           />
           <View style={styles.iconContainer}>
-            <TouchableOpacity>
-
-            </TouchableOpacity>
+            <TouchableOpacity></TouchableOpacity>
             <TouchableOpacity>
               <FontAwesome
                 name="heart"
@@ -61,22 +58,18 @@ const DonnationScreen = () => {
         <View style={styles.textContainer}>
           <Text style={styles.title}>Détails</Text>
           <View style={styles.InfosContainer}>
-            <Text style={styles.titleInfo}>
-              Adresse de l'entreprise:
-              
+            <Text style={styles.titleInfo}>Adresse de l'entreprise:</Text>
+            <Text style={styles.textInfo}>
+              12 rue de la République 13002 Marseille
             </Text>
-            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
-            <Text style={styles.titleInfo}>
-              Adresse de l'entreprise:
-              
+            <Text style={styles.titleInfo}>Adresse de l'entreprise:</Text>
+            <Text style={styles.textInfo}>
+              12 rue de la République 13002 Marseille
             </Text>
-            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
-            
-
           </View>
           <TouchableOpacity style={styles.btnContact}>
             <Text style={styles.Contact}>
-             Détails de l'Entreprise{" "}
+              Détails de l'Entreprise{" "}
               <FontAwesome
                 name="arrow-right"
                 color="#274539"
