@@ -315,7 +315,6 @@ export default function SignUpScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-       
   },
   zero: {
     color: "#EDFC92",
@@ -327,13 +326,13 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    color:"white",
+    color: "white",
   },
   mainContain: {
     flex: 1,
     backgroundColor: "#fff",
   },
- 
+
   title: {
     width: "100%",
     fontSize: 30,
@@ -341,15 +340,14 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginLeft: 20,
     fontFamily: "MontserratBold",
-    color:"white",
+    color: "white",
   },
   textWelcome: {
-   
     marginLeft: 25,
     marginTop: 7,
     fontFamily: "MontserratBold",
-    fontSize:17,
-    color:"white",
+    fontSize: 17,
+    color: "white",
   },
   bottomContainer: {
     height: "100%",
@@ -364,7 +362,7 @@ const styles = StyleSheet.create({
     // width: "100%",
     height: "15%",
     justifyContent: "center",
-    alignItems:'center',
+    alignItems: "center",
   },
   choiceType: {
     width: "100%",
@@ -394,7 +392,6 @@ const styles = StyleSheet.create({
     fontFamily: "PoppinsBold",
   },
   youAre: {
-    
     fontSize: 15,
     fontFamily: "Poppins",
   },
@@ -403,7 +400,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 10,
     alignItems: "center",
-    marginBottom:60,
+    marginBottom: 60,
   },
   label: {
     fontSize: 15,
@@ -419,7 +416,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: 300,
     fontFamily: "Poppins",
-    marginBottom:10,
+    marginBottom: 10,
   },
   btnSignUp: {
     backgroundColor: "#EDFC92",
@@ -428,7 +425,7 @@ const styles = StyleSheet.create({
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
-borderRadius:4,
+    borderRadius: 4,
     alignItems: "center",
     marginBottom: 25,
     marginTop: 50,
@@ -439,7 +436,6 @@ borderRadius:4,
   },
   signup: {
     fontFamily: "Poppins",
-    
   },
   error: {
     marginTop: 7,

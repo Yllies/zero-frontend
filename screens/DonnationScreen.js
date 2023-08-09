@@ -52,9 +52,7 @@ console.log(idPost)
             resizeMode="cover"
           />
           <View style={styles.iconContainer}>
-            <TouchableOpacity>
-
-            </TouchableOpacity>
+            <TouchableOpacity></TouchableOpacity>
             <TouchableOpacity>
               <FontAwesome
                 name="heart"
@@ -84,7 +82,7 @@ Description:
           goToProfileScreen(details.author.token);
         }}>
             <Text style={styles.Contact}>
-             Détails de l'Entreprise{" "}
+              Détails de l'Entreprise{" "}
               <FontAwesome
                 name="arrow-right"
                 color="#274539"
