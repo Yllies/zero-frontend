@@ -13,7 +13,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { addToUpdate, removeAllToConfirm } from "../reducers/post";
+import {
+  addToConfirm,
+  addToUpdate,
+  removeAllToConfirm,
+  addToConfirmOrRefuse,
+} from "../reducers/post";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
@@ -26,36 +31,9 @@ export default function PostsInWaitingScreen() {
   const [allPosts, setAllPosts] = useState([]);
   const [lastDeleted, setLastDeleted] = useState("");
 
-  const handleAccept = (post) => {
-    fetch(
-      `${BACK_URL}:3000/posts/company/book/accept/${user.token}/${post.idPost}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      }
-    )
-      .then((response) => response.json())
-      .then(() => {
-        dispatch(removeAllToConfirm());
-        alert("Réservation acceptée");
-        navigation.navigate("Acount");
-      });
-  };
-
-  const handleRefuse = (post) => {
-    fetch(
-      `${BACK_URL}:3000/posts/company/book/refuse/${user.token}/${post.idPost}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      }
-    )
-      .then((response) => response.json())
-      .then(() => {
-        dispatch(removeAllToConfirm());
-        alert("Réservation refusée");
-        navigation.navigate("Acount");
-      });
+  const handleConsult = (post) => {
+    dispatch(addToConfirmOrRefuse(post));
+    navigation.navigate("Reservation");
   };
 
   const allPostsInWaiting = post.map((postInWaiting, i) => {
@@ -65,19 +43,14 @@ export default function PostsInWaitingScreen() {
           <View style={styles.leftContain}>
             <Text style={styles.title}>{postInWaiting.title}</Text>
             <Text style={styles.description}>{postInWaiting.description}</Text>
+            <Text style={styles.category}>{postInWaiting.category}</Text>
           </View>
           <View style={styles.rightContain}>
             <TouchableOpacity
+              onPress={() => handleConsult(postInWaiting)}
               style={styles.btnAccept}
-              onPress={() => handleAccept(postInWaiting)}
             >
-              <Text style={styles.accepter}>Accepter</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.btnRefuse}
-              onPress={() => handleRefuse(postInWaiting)}
-            >
-              <Text style={styles.refuser}>Refuser</Text>
+              <Text style={styles.accepter}>Consulter</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -102,7 +75,7 @@ export default function PostsInWaitingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F6F8F7",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -115,13 +88,14 @@ const styles = StyleSheet.create({
     height: 100,
     margin: 10,
     flexDirection: "row",
-    backgroundColor: "#EDFC92",
+    backgroundColor: "#274539",
     borderRadius: 5,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    borderColor: "#274539",
+    borderColor: "#EDFC92",
+    borderWidth: 2,
   },
   leftContain: {
     width: "60%",
@@ -140,12 +114,17 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontFamily: "PoppinsBold",
-    color: "#274539",
+    color: "#EDFC92",
   },
   description: {
     fontSize: 15,
     fontFamily: "Poppins",
-    color: "#274539",
+    color: "white",
+  },
+ category: {
+    fontSize: 15,
+    fontFamily: "PoppinsSemiBold",
+    color:"#EDFC92",
   },
   topContainer: {
     backgroundColor: "#274539",
@@ -160,12 +139,12 @@ const styles = StyleSheet.create({
   titleHeader: {
     fontFamily: "MontserratBold",
     color: "white",
-    fontSize: 25,
+    fontSize: 30,
   },
   btnAccept: {
     padding: 7,
     width: "80%",
-    backgroundColor: "#274539",
+    backgroundColor: "#EDFC92",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
@@ -175,21 +154,23 @@ const styles = StyleSheet.create({
   btnRefuse: {
     padding: 7,
     width: "80%",
-    backgroundColor: "red",
+    backgroundColor: "#EDFC92",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
     borderRadius: 4,
+   
   },
   accepter: {
     fontFamily: "PoppinsSemiBold",
-    color: "white",
+    color: "#274539",
     textAlign: "center",
+    // backgroundColor: "#EDFC92",
   },
   refuser: {
     fontFamily: "PoppinsSemiBold",
-    color: "white",
+    color: "#274539",
     textAlign: "center",
   },
 });

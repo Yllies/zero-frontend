@@ -21,14 +21,15 @@ import ReservationScreen from "./screens/ReservationScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
+import { useSelector } from "react-redux";
+
 import post from "./reducers/post";
 import DetailsAuthor from "./screens/DetailsAuthor";
 import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
-import ArticleDetails from "./components/ArticleDetails";
 import ArticleReserved from "./components/ArticleReserved";
-
+import ArticleDetails from "./components/ArticleDetails";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -62,7 +63,7 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreenCharity} />
-      <Tab.Screen name="Reservation" component={FilterScreen} />
+      <Tab.Screen name="Reservation" component={ReservationScreen} />
       <Tab.Screen name="Favoris" component={HomeScreenCompany} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
       <Tab.Screen name="Profile" component={ArticleDetails} />
@@ -109,7 +110,7 @@ export default function App() {
               name="PostsPublished"
               component={PostsPublishedScreen}
             />
-               <Stack.Screen name="Accueil" component={HomeScreenCharity} />
+            <Stack.Screen name="Accueil" component={HomeScreenCharity} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

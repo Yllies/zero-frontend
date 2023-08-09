@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: { toUpdate: null, toConfirm: [] },
+  value: { toUpdate: null, toConfirm: [], toConfirmOrRefuse: {}, reserved: {} },
 };
 
 export const postSlice = createSlice({
@@ -17,10 +17,24 @@ export const postSlice = createSlice({
     removeAllToConfirm: (state) => {
       state.value.toConfirm.splice(0);
     },
+    addToConfirmOrRefuse: (state, action) => {
+      state.value.toConfirmOrRefuse = action.payload;
+    },
+    removeToConfirmOrRefuse: (state) => {
+      state.value.toConfirmOrRefuse = {};
+    },
+    addToShowTheAccepted: (state, action) => {
+      state.value.reserved = action.payload;
+    },
   },
 });
 
-export const { addToUpdate, addToConfirm, removeAllToConfirm } =
-  postSlice.actions;
+export const {
+  addToUpdate,
+  addToConfirm,
+  removeAllToConfirm,
+  addToConfirmOrRefuse,
+  addToShowTheAccepted,
+} = postSlice.actions;
 
 export default postSlice.reducer;

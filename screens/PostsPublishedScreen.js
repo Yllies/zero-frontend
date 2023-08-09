@@ -13,6 +13,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import { addToUpdate } from "../reducers/post";
 
@@ -60,19 +61,21 @@ export default function PostPublishedScreen() {
       <TouchableOpacity key={i}>
         <View style={styles.post}>
           <View style={styles.leftContain}>
+    
             <Text style={styles.title}>{postCompany.title}</Text>
-            <Text style={styles.description}>{postCompany.description}</Text>
+            <Text style={styles.description}>{postCompany.description.slice(0, 25) + "..."}</Text>
+            <Text style={styles.category}>{postCompany.category}</Text>
           </View>
           <View style={styles.rightContain}>
             <FontAwesome
               style={styles.cross}
               name="close"
               size={20}
-              color="#274539"
+              color="#EDFC92"
               onPress={() => handleDeletePost(postCompany.idPost)}
             />
             <TouchableOpacity onPress={() => handleUpdatePost(postCompany)}>
-              <FontAwesome name="edit" size={20} color="#274539" />
+              <FontAwesome name="edit" size={20} color="#EDFC92" />
             </TouchableOpacity>
           </View>
         </View>
@@ -95,7 +98,7 @@ export default function PostPublishedScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F6F8F7",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -104,16 +107,16 @@ const styles = StyleSheet.create({
     // padding: 10,
   },
   post: {
-    height: 100,
+    // height: 100,
     margin: 10,
     flexDirection: "row",
-    backgroundColor: "#EDFC92",
+    backgroundColor: "#274539",
     borderRadius: 5,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    borderColor: "#274539",
+    borderColor: "#EDFC92",
     borderWidth: 2,
   },
   leftContain: {
@@ -131,12 +134,17 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontFamily: "PoppinsBold",
-    color: "#274539",
+    color: "#EDFC92"
   },
   description: {
     fontSize: 15,
     fontFamily: "Poppins",
-    color: "#274539",
+    color: "white"
+  },
+ category: {
+    fontSize: 15,
+    fontFamily: "PoppinsBold",
+    color:"#EDFC92"
   },
   topContainer: {
     backgroundColor: "#274539",

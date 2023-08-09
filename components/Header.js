@@ -17,6 +17,7 @@ import FilterScreen from "../screens/FilterScreen";
 
 export default function Header({ navigation }) {
   const user = useSelector((state) => state.user.value);
+  console.log(user);
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -69,7 +70,7 @@ export default function Header({ navigation }) {
       >
         <View style={styles.modalContainer}>
           {/* Contenu de la modal (FilterScreen) */}
-          <FilterScreen onClose={toggleModal}/>
+          <FilterScreen onClose={toggleModal} />
         </View>
       </Modal>
     </View>
@@ -84,7 +85,6 @@ const styles = StyleSheet.create({
     // backgroundColor: "#fff",
     justifyContent: "flex-start",
     width: "100%",
-   
   },
 
   // Style du conteneur de l'en-tête
@@ -105,15 +105,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 
-
   // Style du paragraphe d'introduction
   paragraphe: {
     color: "white",
     fontSize: 17,
     marginBottom: 15,
-    fontFamily:"MontserratBold",
+    fontFamily: "MontserratBold",
   },
-  iconeFilter:{
+  iconeFilter: {
     padding: 5,
   },
   // Style du conteneur de l'icône de notification
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
   // Style du conteneur de la barre de recherche
   searchBarContainer: {
     flexDirection: "row",
-    
+
     // marginTop: 10,
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
@@ -176,15 +175,15 @@ const styles = StyleSheet.create({
   //   backgroundColor: 'rgba(255, 255, 255, 0.9)', // Couleur de fond blanc semi-transparent
   // },
   modalContent: {
-    width: '100%', // Largeur du contenu modal (vous pouvez ajuster selon vos besoins)
-    backgroundColor: '#fff', // Couleur de fond blanc pur
+    width: "100%", // Largeur du contenu modal (vous pouvez ajuster selon vos besoins)
+    backgroundColor: "#fff", // Couleur de fond blanc pur
     borderRadius: 10,
     padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-   // Style de l'icône "croix" en haut à droite de l'en-tête
-   iconeClose: {
+  // Style de l'icône "croix" en haut à droite de l'en-tête
+  iconeClose: {
     position: "absolute",
     top: 20,
     right: 20,
@@ -199,8 +198,3 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 });
-
- 
-
-
-
