@@ -110,7 +110,17 @@ export default function DonnationScreen() {
                 size={40}
                 style={styles.icons}
               />
+
             </TouchableOpacity>
+            <TouchableOpacity>
+              <FontAwesome
+                name="star"
+                color="#EDFC92"
+                size={40}
+                style={styles.icons}
+              />
+            </TouchableOpacity>
+<Text>4,9</Text>
           </View>
         </View>
 
@@ -206,11 +216,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#ffffff",
+
   },
   iconContainer: {
     // flexDirection: "column",
     position: "absolute",
-    top: 20,
     right: 20,
   },
 

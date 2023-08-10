@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
+  Text,
   FlatList,
   SafeAreaView,
   TextInput,
@@ -13,11 +14,15 @@ import { useNavigation } from "@react-navigation/native";
 import ArticleDetails from "../components/ArticleDetails";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FilterScreen from "./FilterScreen";
+import { MaterialIcons } from "@expo/vector-icons";
+
 
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function HomeCharityScreen({ navigation }) {
+  const user = useSelector((state) => state.user.value);
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -86,7 +91,37 @@ export default function HomeCharityScreen({ navigation }) {
   };
 console.log("mon filtre sur homecharity", displayFilter)
   return (
+
+
     <SafeAreaView style={styles.container}>
+
+<View style={styles.containerPage}>
+      <View style={styles.containerHeader}>
+        <View style={styles.containerNotif}>
+          <MaterialIcons
+            style={styles.icone}
+            name="notifications"
+            size={34}
+            color="#FFFFFF"
+          />
+        </View>
+        <Text style={styles.text}>
+          Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
+        </Text>
+        <Text style={styles.paragraphe}>Bienvenue sur Zéro</Text>
+      </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modalContainer}>
+          {/* Contenu de la modal (FilterScreen) */}
+          <FilterScreen onClose={toggleModal} />
+        </View>
+      </Modal>
+    </View>
       <View style={styles.searchBarContainer}>
         <View style={styles.searchIconContainer}>
           <FontAwesome
@@ -149,7 +184,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: 50,
   },
 
   scrollViewContainer: {
@@ -179,7 +213,7 @@ const styles = StyleSheet.create({
   containerHeader: {
     backgroundColor: "#274539",
     width: "100%",
-    height: 160,
+    height: 200,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingRight: 30,
@@ -209,6 +243,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     paddingBottom: 20,
+    paddingTop: 35,
   },
 
   // Style du texte dynamique à l'intérieur du texte "Bonjour"
@@ -218,18 +253,20 @@ const styles = StyleSheet.create({
 
   // Style du conteneur de la barre de recherche
   searchBarContainer: {
-    flexDirection: "row",
-    marginTop: 10,
-    marginBottom: 10, // Add margin below the search bar
-    backgroundColor: "#FFFFFF",
-    borderRadius: 30,
-    borderWidth: 1,
-    borderColor: "#EDFC92",
-    shadowColor: "#171717",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    zIndex: 1, // Ensure the search bar is above the flat list
+  flexDirection: "row",
+  marginTop: 20,
+  marginBottom: 20, // Add margin below the search bar
+  marginLeft: 20, // Adjust the left margin
+  marginRight: 20, // Adjust the right margin
+  backgroundColor: "#FFFFFF",
+  borderRadius: 30,
+  borderWidth: 1,
+  borderColor: "#EDFC92",
+  shadowColor: "#171717",
+  shadowOffset: { width: -2, height: 4 },
+  shadowOpacity: 0.2,
+  shadowRadius: 3,
+  zIndex: 1,
   },
 
   // Style du conteneur de l'icône de loupe
