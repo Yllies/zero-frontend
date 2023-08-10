@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
-export default function MapScreen() {
+export default function MapScreen(props) {
     const dispatch = useDispatch();
   
     const [currentPosition, setCurrentPosition] = useState(null);
@@ -30,14 +30,13 @@ export default function MapScreen() {
   
     return (
       <View style={{ flex: 1 }}>
-        <MapView initialRegion={{
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  }} mapType="standard" style={styles.map}>
-          {currentPosition && <Marker coordinate={currentPosition} title="My position" pinColor="#fecb2d" />}
-          {/* {markers} */}
+        <MapView initialRegion={props?.initialRegion} mapType="standard" style={styles.map}>
+        {currentPosition && (
+                    <Marker coordinate={currentPosition} title="My position" pinColor="#fecb2d" />
+                )}
+                {props?.initialRegion?.latitude && props?.initialRegion?.longitude && (
+                    <Marker coordinate={{ latitude: props.initialRegion.longitude, longitude: props.initialRegion.latitude }} pinColor="red" />
+                )}
         </MapView>
       </View>
     );
