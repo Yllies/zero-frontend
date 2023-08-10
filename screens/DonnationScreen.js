@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux"; // Import correct
+import { useSelector } from "react-redux";
 import {
   View,
   Text,
@@ -8,15 +8,21 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  FlatList,
 } from "react-native";
+import Swiper from 'react-native-swiper';
+
+import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useRoute, useNavigation } from "@react-navigation/native"; // Combine imports
+import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function DonnationScreen() {
   const user = useSelector((state) => state.user.value);
   const route = useRoute();
+  const [selectedImage, setSelectedImage] = useState(null);
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
   const navigation = useNavigation();
@@ -24,83 +30,86 @@ export default function DonnationScreen() {
   const goToProfileScreen = (author) => {
     navigation.navigate("DetailsAuthor", { author: author });
   };
-  const [isReserved, setIsReserved] = useState(false);
 
   useEffect(() => {
-    console.log("on joue le useEffect", user.token, details);
     const fetchData = async (url) => {
       try {
         const response = await fetch(url);
         const data = await response.json();
         if (data.post) {
           setDetails(data.post);
-          console.log("on a set le detail");
         }
       } catch (error) {
         console.error("Error fetching post details:", error);
       }
     };
+
     const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
     const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
-    fetchData(companyUrl); // Try fetching from the company URL
-    if (!details) {
-      console.log("fetch charity");
-      fetchData(charityUrl); // If details are still null, fetch from the charity URL
-    }
-  }, [idPost, isReserved]);
 
-  useEffect(() => {
-    console.log("le use qui set le reserved");
-    if (details?.isBooked === "Oui" || details?.isBooked === "En attente") {
-      setIsReserved(true);
-      console.log("true", isReserved);
-    } else if (details?.isBooked === "Non") {
-      setIsReserved(false);
-      console.log("false", isReserved);
-    }
-  }, [details]);
+    fetchData(companyUrl);
 
+    setTimeout(() => {
+      if (!details) {
+        fetchData(charityUrl);
+      }
+    }, 1000);
+
+    setSelectedImage(details?.photo)
+  }, [idPost, details]);
+  
   const handleCancel = () => {
     fetch(
-      `${BACK_URL}:3000/posts/association/book/cancel/${user.token}/${details.idPost}`,
+      `${BACK_URL}:3000/posts/association/book/cancel/${user.token}/${idPost}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
       }
-    )
+      )
       .then((response) => response.json())
       .then(() => {
-        setIsReserved(false);
         alert("Réservation annulée !");
       });
   };
 
   const handleReserve = () => {
-    fetch(
-      `${BACK_URL}:3000/posts/association/book/${user.token}/${details.idPost}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      }
-    )
-      .then((response) => response.json())
-      .then(() => {
-        setIsReserved(true);
-        alert(
-          "Demande de réservation effectuée, veuillez patienter que l'entreprise confirme votre demande !"
+    fetch(`${BACK_URL}:3000/posts/company/book/${user.token}/${idPost}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    })
+    .then((response) => response.json())
+    .then(() => {
+      alert(
+        "Demande de réservation effectuée, veuillez patienter que l'entreprise confirme votre demande !"
         );
       });
-  };
-
-  return (
-    <SafeAreaView style={styles.container}>
+    };
+    
+    
+      return (
+        <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.TopContainer}>
-          <Image
+          <View style={styles.swiper}>
+
+        {selectedImage?.length > 0 ? (
+          <Swiper style={styles.wrapper} showsButtons={true}>
+              {selectedImage.map((image, index) => (
+                <View key={index} style={styles.slide}>
+                  <Image source={{ uri: image }} style={styles.image} resizeMode="cover" />
+                </View>
+              ))}
+            </Swiper>
+          ) : (
+            <Image
             source={require("../assets/asso6.jpeg")}
-            style={styles.image}
-            resizeMode="cover"
-          />
+              style={styles.image}
+              resizeMode="cover"
+              />
+              )}
+              </View>
+
+
           <View style={styles.iconContainer}>
             <TouchableOpacity>
             <View style={styles.circle}>
@@ -154,56 +163,23 @@ export default function DonnationScreen() {
 
             </Text>
           </TouchableOpacity>
-          <View style={styles.btnBooking}>
-            {user.type === "Association" &&
-              !isReserved &&
-              details?.isBooked === "Non" && (
-                <TouchableOpacity
-                  style={styles.reserve}
-                  onPress={() => handleReserve()}
-                >
-                  <Text style={styles.reserver}>
-                    Envoyer une demande de réservation
-                  </Text>
+          {user.type === "Association" && (
+            <>
+              <TouchableOpacity onPress={() => handleReserve()}>
+                <Text>Envoyer une demande de réservation</Text>
+              </TouchableOpacity>
+              {details?.isBookedBy?.token === user.token && (
+                <TouchableOpacity onPress={() => handleCancel()}>
+                  <Text>Annuler ma réservation</Text>
                 </TouchableOpacity>
               )}
-
-            {isReserved && details?.isBookedBy?.token === user.token && (
-              <TouchableOpacity
-                style={styles.cancel}
-                onPress={() => handleCancel()}
-              >
-                <Text style={styles.annuler}>Annuler ma réservation</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-          {/* {user.type === "Association" &&
-            !details.isReserved &&
-            details.isBooked === "Non" && (
-              <View style={styles.btnBooking}>
-                <TouchableOpacity
-                  style={styles.reserve}
-                  onPress={() => handleReserve()}
-                >
-                  <Text style={styles.reserver}>
-                    Envoyer une demande de réservation
-                  </Text>
-                </TouchableOpacity>
-                {details?.isBookedBy?.token === user.token && (
-                  <TouchableOpacity
-                    style={styles.cancel}
-                    onPress={() => handleCancel()}
-                  >
-                    <Text style={styles.annuler}>Annuler ma réservation</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-            )} */}
+            </>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -212,9 +188,9 @@ const styles = StyleSheet.create({
   },
   image: {
     // borderRadius: 0 0 30 0
-    height: 250,
-    width: 250,
-    borderBottomRightRadius: 30,
+    height: '100%',
+    width: '100%',
+    borderRadius: 15,
   },
   TopContainer: {
     flex: 1,
@@ -253,9 +229,9 @@ const styles = StyleSheet.create({
   },
 
   botcontiner: {
-    justifyContent: "flex-start", // Updated from 'center' to 'flex-start'
-    alignItems: "flex-start", // Updated from 'center' to 'flex-start'
-    marginTop: 250, // You can adjust the marginTop as needed
+    justifyContent: "flex-start", 
+    alignItems: "flex-start",
+    marginTop: 250,
   },
 
   icons: {
