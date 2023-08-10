@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -7,45 +7,18 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  Modal,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reducers/user";
-import { useNavigation } from "@react-navigation/native";
-import { useRoute } from "@react-navigation/native";
 import MapScreen from "../components/Map";
 
-const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
-
-
-const DetailsAuthor = () => {
-    const route = useRoute();
-    const { author } = route.params;
-    const [details, setDetails] = useState(null);
-    const navigation =useNavigation()
+export default function UserProfileScreen  ()  {
   const dispatch = useDispatch();
-  useEffect(() => {
-    setTimeout(() => {
+  const user = useSelector((state) => state.user.value);
 
-    fetch(`${BACK_URL}:3000/users/${author}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        setDetails(data); // Update the Details state with the fetched data
-      })
-      .catch((error) => {
-        console.error("Error fetching post details:", error);
-      });
-    }, 1000);
-
-  }, [author]);
-
-
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+  const handelLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -79,7 +52,9 @@ const DetailsAuthor = () => {
         <View style={styles.textContainer}>
           <Text style={styles.title}>Qui sommes-nous?</Text>
           <Text style={styles.description}>
-            {details?.description}
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+            voluptatum laborum
           </Text>
         </View>
         <View style={styles.mapContainer}>
@@ -98,7 +73,7 @@ const DetailsAuthor = () => {
               />{" "}
               Adresse
             </Text>
-            <Text style={styles.textInfo}>{details?.address}</Text>
+            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
 
             <Text style={styles.titleInfo}>
               {" "}
@@ -120,9 +95,9 @@ const DetailsAuthor = () => {
               8 <Text style={styles.PFText}>euros dans la poche</Text>
             </Text>
           </View>
-          <TouchableOpacity style={styles.btnContact} onPress={toggleModal}>
+          <TouchableOpacity style={styles.btnContact}>
             <Text style={styles.Contact}>
-              Contacter l'{details?.type}{" "}
+              Contacter l'Entreprise{" "}
               <FontAwesome
                 name="arrow-right"
                 color="#EDFC92"
@@ -131,31 +106,6 @@ const DetailsAuthor = () => {
               />
             </Text>
           </TouchableOpacity>
-          <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isModalVisible}
-          onRequestClose={toggleModal}
-        >
-<View style={styles.modalContainer}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={toggleModal}
-            >
-              <FontAwesome
-                name="close"
-                color="black"
-                size={30}
-                style={styles.closeIcon}
-              />
-            </TouchableOpacity>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Contact Details</Text>
-              <Text>Email: {details?.email}</Text>
-              <Text>Telephone: {details?.phone_number}</Text>
-            </View>
-          </View>
-        </Modal>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -304,24 +254,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontFamily: "Poppins",
   },
-  modalContent: {
-    backgroundColor: "white",
-    padding: 20,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  closeButton: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    zIndex: 1,
-  },
 });
 
-export default DetailsAuthor;
+

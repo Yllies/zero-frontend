@@ -28,7 +28,7 @@ const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 // const CLOUDINARY_UPLOAD_PRESET = 'iyp6ovfi';
 // const CLOUDINARY_API_KEY = '974414836328966';
 
-export default function AddScreenCompany({ navigation }) {
+export default function AddCompanyScreen({ navigation }) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Vetement");
   const [description, setDescription] = useState("");

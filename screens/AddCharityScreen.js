@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../reducers/user";
 import {Picker} from "@react-native-picker/picker";
 import {
-  Image,
+
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -13,12 +11,10 @@ import {
   View,
   StatusBar,
   SafeAreaView,
-  ScrollView,
+
 } from "react-native";
 
-const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
-
-export default function AddScreenCharity({ navigation }) {
+export default function AddCharityScreen({ navigation }) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Vetement");
   const [description, setDescription] = useState("");

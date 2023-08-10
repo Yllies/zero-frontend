@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import ArticleReserved from "../components/ArticleReserved";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { useIsFocused } from "@react-navigation/native";
-import { addToConfirmOrRefuse, addToShowTheAccepted } from "../reducers/post";
+import {  addToShowTheAccepted } from "../reducers/post";
 import { removeAllToConfirm } from "../reducers/post";
 import {
   ImageBackground,
@@ -13,12 +12,9 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   StatusBar,
-  SafeAreaView,
-  ScrollView,
 } from "react-native";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;

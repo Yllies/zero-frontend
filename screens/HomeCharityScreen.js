@@ -2,21 +2,14 @@ import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
-  Image,
-  Text,
-  TouchableHighlight,
   FlatList,
   SafeAreaView,
   TextInput,
   Modal,
 } from "react-native";
-
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useSelector } from 'react-redux';
-
-import Header from "../components/Header";
+import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import DonnationScreen from "./DonnationScreen";
 import ArticleDetails from "../components/ArticleDetails";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FilterScreen from "./FilterScreen";
@@ -24,17 +17,16 @@ import FilterScreen from "./FilterScreen";
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function HomeScreenCharity({ navigation}) {
-
+export default function HomeCharityScreen({ navigation }) {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const selectedQuantity = useSelector(state => state.filter.quantity);
+  const selectedQuantity = useSelector((state) => state.filter.quantity);
 
-  const selectedDate = useSelector(state => state.filter.date);
+  const selectedDate = useSelector((state) => state.filter.date);
 
   // const selectedLocalisation= useSelector(state => state.filter.localisation);
 
@@ -42,45 +34,41 @@ export default function HomeScreenCharity({ navigation}) {
   const [error, setError] = useState(null);
   // const navigation = useNavigation();
 
-
   useEffect(() => {
     // Appeler la fonction pour récupérer les posts depuis le backend ou une API REST
     fetchPosts();
   }, [selectedQuantity, selectedDate]);
 
   const goToDonnationScreen = (postId) => {
-   navigation.navigate("DonnationScreen", { postId: postId });
- };
+    navigation.navigate("DonnationScreen", { postId: postId });
+  };
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
     fetch(`${BACK_URL}:3000/posts/company`)
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {
-          const filteredPosts = data.posts.filter(post => {
+          const filteredPosts = data.posts.filter((post) => {
+            // Vérification de la quantité en fonction de la plage sélectionnée
+            const postQuantity = parseInt(post.quantity);
+            const matchQuantity =
+              selectedQuantity[0] <= postQuantity &&
+              postQuantity <= selectedQuantity[1];
+            const matchDate = post.availability_date >= selectedDate;
+            return matchQuantity && matchDate;
 
-        // Vérification de la quantité en fonction de la plage sélectionnée
-        const postQuantity = parseInt(post.quantity);
-        const matchQuantity = selectedQuantity[0] <= postQuantity && postQuantity <= selectedQuantity[1];
-        const matchDate = post.availability_date >= selectedDate;
-        return matchQuantity && matchDate;
-    
-        // const localisationMatch = selectedLocalisation.includes(post.location);
-  
-   
-      });
-      setPosts(filteredPosts);
+            // const localisationMatch = selectedLocalisation.includes(post.location);
+          });
+          setPosts(filteredPosts);
           //  setPosts(data.posts);
-
-    } else {
-      setError("Erreur inconnue !");
-    }
-  })
-  .catch((error) => {
-    setError("Erreur lors de la récupération des posts :" + error.message);
-  });
+        } else {
+          setError("Erreur inconnue !");
+        }
+      })
+      .catch((error) => {
+        setError("Erreur lors de la récupération des posts :" + error.message);
+      });
   };
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -99,48 +87,44 @@ export default function HomeScreenCharity({ navigation}) {
           placeholderTextColor="#707070"
         />
         <FontAwesome
-        
           onPress={toggleModal}
           style={styles.iconeFilter}
           name="filter"
           size={28}
           color="#274539"
         />
-        
       </View>
 
-  <Modal
-    animationType="slide"
-    transparent={true}
-    visible={isModalVisible}
-    onRequestClose={toggleModal}
-  >
-    <View style={styles.modalContainer}>
-      {/* Contenu de la modal (FilterScreen) */}
-      <FilterScreen onClose={toggleModal}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modalContainer}>
+          {/* Contenu de la modal (FilterScreen) */}
+          <FilterScreen onClose={toggleModal} />
+        </View>
+      </Modal>
+
+      <FlatList
+        style={styles.flatlist}
+        data={posts}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+        contentContainerStyle={styles.cardsRow}
+        renderItem={({ item }) => (
+          <View style={styles.needContainer}>
+            <ArticleDetails
+              title={item.title}
+              description={item.description.slice(0, 25) + "..."}
+              category={item.category}
+              photo={item.photo[0]}
+            />
+          </View>
+        )}
       />
-    </View>
-  </Modal>
-
-  <FlatList
-    style={styles.flatlist}
-    data={posts}
-    keyExtractor={(item, index) => index.toString()}
-    numColumns={2}
-    contentContainerStyle={styles.cardsRow}
-    renderItem={({ item }) => (
-
-      <View style={styles.needContainer}>
-        <ArticleDetails
-          title={item.title}
-          description={item.description.slice(0, 25) + "..."}
-          category={item.category}
-          photo={item.photo[0]}
-        />
-      </View>
-    )}
-  />
-</SafeAreaView>
+    </SafeAreaView>
   );
 }
 
@@ -148,9 +132,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start", 
+    justifyContent: "flex-start",
     marginTop: 50,
-
   },
 
   scrollViewContainer: {
@@ -174,7 +157,6 @@ const styles = StyleSheet.create({
     // backgroundColor: "#fff",
     justifyContent: "flex-start",
     width: "100%",
-
   },
 
   // Style du conteneur de l'en-tête
@@ -200,9 +182,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 17,
     marginBottom: 15,
-    fontFamily:"MontserratBold",
+    fontFamily: "MontserratBold",
   },
-  iconeFilter:{
+  iconeFilter: {
     padding: 5,
   },
   // Style du conteneur de l'icône de notification
@@ -259,15 +241,15 @@ const styles = StyleSheet.create({
   },
 
   modalContent: {
-    width: '100%', // Largeur du contenu modal (vous pouvez ajuster selon vos besoins)
-    backgroundColor: '#fff', // Couleur de fond blanc pur
+    width: "100%", // Largeur du contenu modal (vous pouvez ajuster selon vos besoins)
+    backgroundColor: "#fff", // Couleur de fond blanc pur
     borderRadius: 10,
     padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-   // Style de l'icône "croix" en haut à droite de l'en-tête
-   iconeClose: {
+  // Style de l'icône "croix" en haut à droite de l'en-tête
+  iconeClose: {
     position: "absolute",
     top: 20,
     right: 20,
@@ -282,4 +264,3 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 });
-

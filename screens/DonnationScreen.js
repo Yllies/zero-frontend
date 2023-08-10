@@ -10,48 +10,45 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import DetailsAuthor from "./DetailsAuthor";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-const DonnationScreen = () => {
+export default function DonnationScreen ()  {
   const route = useRoute();
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
-  const navigation =useNavigation()
+  const navigation = useNavigation();
   const goToProfileScreen = (author) => {
     navigation.navigate("DetailsAuthor", { author: author });
   };
 
-console.log(idPost)
-useEffect(() => {
-  const fetchData = async (url) => {
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      if (data.post) {
-        setDetails(data.post);
+  console.log(idPost);
+  useEffect(() => {
+    const fetchData = async (url) => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.post) {
+          setDetails(data.post);
+        }
+      } catch (error) {
+        console.error("Error fetching post details:", error);
       }
-    } catch (error) {
-      console.error("Error fetching post details:", error);
-    }
-  };
+    };
 
-  const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
-  const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
+    const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
+    const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
 
-  fetchData(companyUrl); // Try fetching from the company URL
+    fetchData(companyUrl); // Try fetching from the company URL
 
-  setTimeout(() => {
-    if (!details) {
-      fetchData(charityUrl); // If details are still null, fetch from the charity URL
-    }
-  }, 1000);
-
-}, [idPost, details]);
+    setTimeout(() => {
+      if (!details) {
+        fetchData(charityUrl); // If details are still null, fetch from the charity URL
+      }
+    }, 1000);
+  }, [idPost, details]);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -77,20 +74,17 @@ useEffect(() => {
         <View style={styles.textContainer}>
           <Text style={styles.title}>{details?.title}</Text>
           <View style={styles.InfosContainer}>
-            <Text style={styles.titleInfo}>
-Catégorie:              
-            </Text>
+            <Text style={styles.titleInfo}>Catégorie:</Text>
             <Text style={styles.textInfo}>{details?.category}</Text>
-            <Text style={styles.titleInfo}>
-Description:              
-            </Text>
+            <Text style={styles.titleInfo}>Description:</Text>
             <Text style={styles.textInfo}>{details?.description}</Text>
-            
-
           </View>
-          <TouchableOpacity style={styles.btnContact}onPress={() => {
-          goToProfileScreen(details?.author?.token);
-        }}>
+          <TouchableOpacity
+            style={styles.btnContact}
+            onPress={() => {
+              goToProfileScreen(details?.author?.token);
+            }}
+          >
             <Text style={styles.Contact}>
               Détails de l'{details?.author?.type}{" "}
               <FontAwesome
@@ -251,4 +245,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DonnationScreen;
+
