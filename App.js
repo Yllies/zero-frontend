@@ -9,6 +9,7 @@ import HomeCharityScreen from "./screens/HomeCharityScreen";
 import HomeCompanyScreen from "./screens/HomeCompanyScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
+import FavoriteScreen from "./screens/FavoriteScreen";
 import PostsPublishedScreen from "./screens/PostsPublishedScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import EditPostScreen from "./screens/EditPostScreen";
@@ -25,45 +26,84 @@ import AccountScreen from "./screens/AccountScreen";
 import UserProfileScreen from "./screens/UserProfileScreen";
 import HomeCharityScreenBeta from "./screens/HomeCharityScreenBeta";
 import FilterScreenBeta from "./screens/FilterScreenBeta";
+import AddCharityScreen from "./screens/AddCharityScreen";
+import AddCompanyScreen from "./screens/AddCompanyScreen";
+import { useSelector } from "react-redux";
+import AuthorDetailsScreen from "./screens/AuthorDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName = "";
-          if (route.name === "Accueil") {
-            iconName = "home";
-          } else if (route.name === "Favoris") {
-            iconName = "heart";
-          } else if (route.name === "Publier") {
-            iconName = "plus";
-          } else if (route.name === "Profile") {
-            iconName = "user";
-          }
-          return <FontAwesome name={iconName} size={size} color={color} />;
-        },
-        tabBarStyle: {
-          height: 55,
-          backgroundColor: "#274539",
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
-          paddingBottom: 5,
-        },
-        tabBarActiveTintColor: "#EDFC92",
-        tabBarInactiveTintColor: "#fff",
-        headerShown: false,
-      })}
-    >
-      <Tab.Screen name="Accueil" component={HomeCharityScreenBeta} />
-      <Tab.Screen name="Favoris" component={HomeCompanyScreen} />
-      <Tab.Screen name="Publier" component={ScreenPostCompany} />
-      <Tab.Screen name="Profile" component={AccountScreen} />
-    </Tab.Navigator>
-  );
+  const user = useSelector((state) => state.user.value);
+  if (user.type === "Association") {
+    return (
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color, size }) => {
+            let iconName = "";
+            if (route.name === "Accueil") {
+              iconName = "home";
+            } else if (route.name === "Favoris") {
+              iconName = "heart";
+            } else if (route.name === "Publier") {
+              iconName = "plus";
+            } else if (route.name === "Mon compte") {
+              iconName = "user";
+            }
+            return <FontAwesome name={iconName} size={size} color={color} />;
+          },
+          tabBarStyle: {
+            height: 55,
+            backgroundColor: "#274539",
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            paddingBottom: 5,
+          },
+          tabBarActiveTintColor: "#EDFC92",
+          tabBarInactiveTintColor: "#fff",
+          headerShown: false,
+        })}
+      >
+        <Tab.Screen name="Accueil" component={HomeCharityScreen} />
+        <Tab.Screen name="Favoris" component={FavoriteScreen} />
+        <Tab.Screen name="Publier" component={AddCharityScreen} />
+        <Tab.Screen name="Mon compte" component={AccountScreen} />
+      </Tab.Navigator>
+    );
+  } else {
+    return (
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color, size }) => {
+            let iconName = "";
+            if (route.name === "Accueil") {
+              iconName = "home";
+            } else if (route.name === "Publier") {
+              iconName = "plus";
+            } else if (route.name === "Mon compte") {
+              iconName = "user";
+            }
+            return <FontAwesome name={iconName} size={size} color={color} />;
+          },
+          tabBarStyle: {
+            height: 55,
+            backgroundColor: "#274539",
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            paddingBottom: 5,
+          },
+          tabBarActiveTintColor: "#EDFC92",
+          tabBarInactiveTintColor: "#fff",
+          headerShown: false,
+        })}
+      >
+        <Tab.Screen name="Accueil" component={HomeCompanyScreen} />
+        <Tab.Screen name="Publier" component={AddCompanyScreen} />
+        <Tab.Screen name="Mon compte" component={AccountScreen} />
+      </Tab.Navigator>
+    );
+  }
 };
 
 export default function App() {
@@ -93,7 +133,10 @@ export default function App() {
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
             <Stack.Screen name="NeedScreen" component={NeedScreen} />
-            <Stack.Screen name="DetailsAuthor" component={DetailsAuthor} />
+            <Stack.Screen
+              name="DetailsAuthor"
+              component={AuthorDetailsScreen}
+            />
 
             <Stack.Screen
               name="PostsInWaiting"
