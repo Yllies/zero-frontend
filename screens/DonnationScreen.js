@@ -22,7 +22,6 @@ const DonnationScreen = () => {
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
   const navigation = useNavigation();
-  const navigation = useNavigation();
   const goToProfileScreen = (author) => {
     navigation.navigate("DetailsAuthor", { author: author });
   };
@@ -42,10 +41,8 @@ const DonnationScreen = () => {
 
     const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
     const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
-    const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
-    const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
+  
 
-    fetchData(companyUrl); // Try fetching from the company URL
     fetchData(companyUrl); // Try fetching from the company URL
 
     setTimeout(() => {
