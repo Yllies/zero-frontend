@@ -119,10 +119,10 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     color: "white",
   },
- category: {
+  category: {
     fontSize: 15,
     fontFamily: "PoppinsSemiBold",
-    color:"#EDFC92",
+    color: "#EDFC92",
   },
   topContainer: {
     backgroundColor: "#274539",
@@ -158,7 +158,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     borderRadius: 4,
-   
   },
   accepter: {
     fontFamily: "PoppinsSemiBold",
