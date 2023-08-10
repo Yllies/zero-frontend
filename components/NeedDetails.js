@@ -45,14 +45,14 @@ if (props.category === "Meubles") {
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{props.title}</Text>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <FontAwesome
                 style={styles.heart}
                 name="heart"
                 size={20}
                 color="#EDFC92"
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
          
           <Text style={styles.description}>{props.description}</Text>

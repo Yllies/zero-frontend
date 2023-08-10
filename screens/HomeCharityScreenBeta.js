@@ -13,7 +13,7 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import ArticleDetailsBeta from "../components/ArticleDetailsBeta"
+import ArticleDetailsBeta from "../components/ArticleDetailsBeta";
 import ArticleDetails from "../components/ArticleDetails";
 
 // URL de l'API back-end
@@ -155,15 +155,14 @@ export default function HomeCharityScreenBeta({ navigation }) {
           contentContainerStyle={styles.cardsRow}
           renderItem={({ item }) => (
             <View style={styles.needContainer}>
-                {/* Affichage des détails du besoin */}
-                <ArticleDetailsBeta
-                  title={item.title}
-                  description={item.description.slice(0, 25) + "..."}
-                  category={item.category}
+              {/* Affichage des détails du besoin */}
+              <ArticleDetailsBeta
+                title={item.title}
+                description={item.description.slice(0, 25) + "..."}
+                category={item.category}
                 photo={item.photo[0]}
-                  idPost={item.idPost}
-                />
-         
+                idPost={item.idPost}
+              />
             </View>
           )}
         />
