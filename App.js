@@ -58,7 +58,7 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Accueil" component={HomeCharityScreen} />
+      <Tab.Screen name="Accueil" component={HomeCharityScreenBeta} />
       <Tab.Screen name="Favoris" component={HomeCompanyScreen} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
       <Tab.Screen name="Profile" component={AccountScreen} />
@@ -88,7 +88,7 @@ export default function App() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="FilterScreen" component={FilterScreen} />
+            <Stack.Screen name="FilterScreen" component={FilterScreenBeta} />
             <Stack.Screen name="UserProfile" component={UserProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
