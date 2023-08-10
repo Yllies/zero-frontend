@@ -10,23 +10,26 @@ export default function NeedDetails(props) {
 
   switch (props.category) {
     case "Meubles":
-      ImageCompany = "../assets/background-diagonal.png";
+      ImageCompany = require('../assets/meuble.webp');
       break;
       case "High-Tech":
-      catImage = "../assets/default-image.png";
-      break;
+        ImageCompany = require('../assets/itech.webp');
+        break;
       case "Electroménager":
-        catImage = "../assets/default-image.png"; 
-      break;
+        ImageCompany = require('../assets/electro.jpeg');
+        break;
       case "Jeux":
-      catImage = "../assets/default-image.png"; 
-      break;
+        ImageCompany = require('../assets/enfants.webp');
+        break;
       case "Enfants":
-      catImage = "../assets/default-image.png"; 
-      break;
+        ImageCompany = require('../assets/enfants.webp');
+        break;
       case "Autre":
-      catImage = "../assets/default-image.png"; 
-      break;
+        ImageCompany = require('../assets/autre.webp');
+        break;
+        case "Vetement":
+          ImageCompany = require('../assets/clothes.jpeg');
+          break;
 
   }
 
@@ -45,7 +48,7 @@ export default function NeedDetails(props) {
         <View style={styles.imageContainer}>
           <Image
             style={styles.donationImage}
-            source={require("../assets/background-diagonal.png")}
+            source={ImageCompany} 
             alt="don"
           />
         </View>
