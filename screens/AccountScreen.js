@@ -63,10 +63,7 @@ export default function AccountScreen() {
         setShowModal(false);
       });
   };
-  console.log("hors useEffect", isFocused);
   useEffect(() => {
-    console.log("dans useEffect", isFocused);
-
     fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
