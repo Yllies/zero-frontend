@@ -23,8 +23,9 @@ export default function AuthorDetailsScreen ()  {
     const { author } = route.params;
     const [details, setDetails] = useState(null);
     const [initialRegion,setInitialRegion] = useState(null)
+    const [count,setCount] =useState(0)
+    const [text,setText] =useState('')
     const navigation =useNavigation()
-  const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
 
@@ -40,7 +41,41 @@ export default function AuthorDetailsScreen ()  {
         console.error("Error fetching post details:", error);
       });
     }, 1000);
-  }, [author]);
+
+    if (details?.type === 'Entreprise') {
+      setText('dons ont été posté par cette entreprise')
+      fetch(`${BACK_URL}:3000/posts/company`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.posts) {
+          setCount(data.posts.length);
+        } else {
+          setError("Unknown error!");
+        }
+      })
+      .catch((error) => {
+        setError("Erreur lors de la récupération des posts :" + error.message);
+      });
+    }
+    else if (details?.type === 'Association') {
+      setText('besoins ont été posté par cette association')
+      fetch(`${BACK_URL}:3000/posts/charity`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.posts) {
+          setCount(data.posts.length);
+        } else {
+          setError("Unknown error!");
+        }
+      })
+      .catch((error) => {
+        setError("Erreur lors de la récupération des posts :" + error.message);
+      });
+    
+    }
+
+  }, [details]);
+
 
   console.log(initialRegion)
   const [isModalVisible, setModalVisible] = useState(false);
@@ -117,8 +152,8 @@ export default function AuthorDetailsScreen ()  {
           </View>
           <Text style={styles.title}>Points Forts</Text>
           <View style={styles.PFContainer}>
-            <Text style={styles.Number}>
-              8 <Text style={styles.PFText}>euros dans la poche</Text>
+          <Text style={styles.Number}>
+              {count} <Text style={styles.PFText}> {text}</Text>
             </Text>
           </View>
           <TouchableOpacity style={styles.btnContact} onPress={toggleModal}>
