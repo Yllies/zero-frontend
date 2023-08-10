@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reducers/user";
 import MapScreen from "../components/Map";
 
-const UserProfile = () => {
+export default function UserProfile  ()  {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
 
@@ -256,4 +256,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+

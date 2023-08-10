@@ -4,19 +4,20 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FavoriteScreen from "./screens/FavoriteScreen";
-import ScreenPostCompany from "./screens/ScreenPostCompany";
+import ScreenPostCompany from "./screens/AddScreenCompany";
 import PostsInWaitingScreen from "./screens/PostsInWaitingScreen";
-import ProfileScreen from "./screens/ProfileScreen";
+import HomeScreenCharity from "./screens/HomeScreenCharity";
 import LoginScreen from "./screens/LoginScreen";
 import FilterScreen from "./screens/FilterScreen";
 import PostsPublishedScreen from "./screens/PostsPublishedScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import EditPostScreen from "./screens/EditPostScreen";
+import HomeScreenCompany from "./screens/HomeScreenCompany";
 import NeedDetails from "./components/NeedDetails";
 import NeedScreen from "./screens/NeedScreen";
 import DonnationScreen from "./screens/DonnationScreen";
-import HomeScreenCompany from "./screens/HomeScreenCompany";
-import HomeScreenCharity from "./screens/HomeScreenCharity";
+import AddScreenCharity from "./screens/HomeScreenCharity";
+import AddScreenCompany from "./screens/AddScreenCompany";
 import ReservationScreen from "./screens/ReservationScreen";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
@@ -28,8 +29,9 @@ import DetailsAuthor from "./screens/DetailsAuthor";
 import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
-import ArticleReserved from "./components/ArticleReserved";
+
 import ArticleDetails from "./components/ArticleDetails";
+import UserProfile from "./screens/UserProfile";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -63,7 +65,6 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreenCharity} />
-      <Tab.Screen name="Reservation" component={ReservationScreen} />
       <Tab.Screen name="Favoris" component={HomeScreenCompany} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
       <Tab.Screen name="Profile" component={ArticleDetails} />
@@ -95,7 +96,7 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
-            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen name="UserProfile" component={UserProfile} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
             <Stack.Screen name="NeedScreen" component={NeedScreen} />
