@@ -148,7 +148,7 @@ export default function DonnationScreen() {
               <FontAwesome
                 name="arrow-right"
                 color="#274539"
-                size={30}
+                size={15}
                 style={styles.icons}
               />
             </Text>
@@ -342,16 +342,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
   },
+
   Contact: {
-    fontSize: 17,
+    fontSize: 15,
     color: "#274539",
-    marginBottom: 10,
     fontFamily: "Poppins",
   },
 
   btnBooking: {
-    // width: "80%",
-    alignItems: "center",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center", // Aligner au milieu verticalement
+    alignItems: "center", // Aligner au centre horizontalement
     padding: 10,
   },
   
@@ -386,7 +388,7 @@ const styles = StyleSheet.create({
   },
 
   annuler: {
-    fontFamily: "PoppinsSemiBold",
+    fontFamily: "Poppins",
     color: "white",
     textAlign: "center",
     fontSize: 15,
