@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import {
   View,
   Text,
@@ -15,7 +16,8 @@ import { useState } from "react";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function DonnationScreen ()  {
+const DonnationScreen = () => {
+  const user = useSelector((state) => state.user.value);
   const route = useRoute();
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
@@ -24,7 +26,6 @@ export default function DonnationScreen ()  {
     navigation.navigate("DetailsAuthor", { author: author });
   };
 
-  console.log(idPost);
   useEffect(() => {
     const fetchData = async (url) => {
       try {
@@ -49,6 +50,34 @@ export default function DonnationScreen ()  {
       }
     }, 1000);
   }, [idPost, details]);
+
+  const handleCancel = () => {
+    fetch(
+      `${BACK_URL}:3000/posts/association/book/cancel/${user.token}/${post.idPost}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+      .then((response) => response.json())
+      .then(() => {
+        alert("Réservation annulée !");
+      });
+  };
+
+  const handleReserve = () => {
+    fetch(`${BACK_URL}:3000/posts/company/book/${user.token}/${post.idPost}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then(() => {
+        alert(
+          "Demande de réservation effectuée, veuillez patienter que l'entreprise confirme votre demande !"
+        );
+      });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -75,7 +104,9 @@ export default function DonnationScreen ()  {
           <Text style={styles.title}>{details?.title}</Text>
           <View style={styles.InfosContainer}>
             <Text style={styles.titleInfo}>Catégorie:</Text>
+            <Text style={styles.titleInfo}>Catégorie:</Text>
             <Text style={styles.textInfo}>{details?.category}</Text>
+            <Text style={styles.titleInfo}>Description:</Text>
             <Text style={styles.titleInfo}>Description:</Text>
             <Text style={styles.textInfo}>{details?.description}</Text>
           </View>
@@ -95,6 +126,18 @@ export default function DonnationScreen ()  {
               />
             </Text>
           </TouchableOpacity>
+          {user.type === "Association" && (
+            <>
+              <TouchableOpacity onPress={() => handleReserve()}>
+                <Text>Envoyer une demande de réservation</Text>
+              </TouchableOpacity>
+              {details.isBookedBy.token === user.token && (
+                <TouchableOpacity onPress={() => handleCancel()}>
+                  <Text>Annuler ma réservation</Text>
+                </TouchableOpacity>
+              )}
+            </>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -244,5 +287,3 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
 });
-
-
