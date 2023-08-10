@@ -4,6 +4,32 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 
 export default function NeedDetails(props) {
+
+  let ImageCompany;
+
+
+  switch (props.category) {
+    case "Meubles":
+      ImageCompany = "../assets/background-diagonal.png";
+      break;
+      case "High-Tech":
+      catImage = "../assets/default-image.png";
+      break;
+      case "Electroménager":
+        catImage = "../assets/default-image.png"; 
+      break;
+      case "Jeux":
+      catImage = "../assets/default-image.png"; 
+      break;
+      case "Enfants":
+      catImage = "../assets/default-image.png"; 
+      break;
+      case "Autre":
+      catImage = "../assets/default-image.png"; 
+      break;
+
+  }
+
   const navigation = useNavigation()
   const goToDonnationScreen = (idPost) => {
     console.log("toto", idPost),

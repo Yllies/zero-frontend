@@ -10,50 +10,62 @@ import Slider from "@react-native-community/slider";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
 import * as Location from "expo-location";
-import { useDispatch } from 'react-redux';
-import { addQuantity, addDate, addLocalisation,removeFilter, addRadius, addDisplay } from '../reducers/filter';
+import { useDispatch } from "react-redux";
+import {
+  addQuantity,
+  addDate,
+  addLocalisation,
+  removeFilter,
+} from "../reducers/filter";
 
 export default function FilterScreen({ navigation, onClose }) {
-  
   const dispatch = useDispatch();
 
-//-------------------------------------- LOCALISATION
+  //-------------------------------------- LOCALISATION
 
-// Current position 
-const [currentPosition, setCurrentPosition] = useState({});
+  // Current position
+  const [currentPosition, setCurrentPosition] = useState(null);
 
-// Slider de localisation
-const [sliderValue, setSliderValue] = useState(50);
-  
-const onSliderValueChange = (value) => {
-        setSliderValue(value);
-        console.log("je veux la valeur",value)
-        dispatch(addRadius(value)); };
+  // Slider de localisation
+  const [sliderValue, setSliderValue] = useState(50);
 
-// Accès à la localisation de l'utilisateur
-useEffect(() => {
-  (async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
+  const onSliderValueChange = (value) => {
+    setSliderValue(value);
+  };
 
-      if (status === 'granted') {
-        Location.watchPositionAsync({ distanceInterval: 10 },
-          (location) => {
-            setCurrentPosition({ latitude: location.coords.latitude, longitude: location.coords.longitude })
-            console.log("test", currentPosition )
-            dispatch(addLocalisation({ latitude: location.coords.latitude, longitude: location.coords.longitude }));
-          });
+  // Accès à la localisation de l'utilisateur
+  useEffect(() => {
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status === "granted") {
+        Location.watchPositionAsync({ distanceInterval: 10 }, (location) => {
+          setCurrentPosition(location.coords);
+        });
       }
-
-      console.log("loc envoyée au store",currentPosition)
-
     })();
-  }, [sliderValue]);
+  }, []);
 
+  useEffect(() => {
+    if (currentPosition !== null) {
+      // Calculer la nouvelle localisation en fonction du rayon sélectionné
+      const latitude = currentPosition.latitude;
+      const longitude = currentPosition.longitude;
+      const newLatitude = latitude + sliderValue * 0.009; // 0.009 est une valeur approximative pour convertir km en degrés
+      const newLongitude = longitude + sliderValue * 0.009;
 
-// -----------------------------------------CHIPS
+      // Mettre à jour la localisation avec la nouvelle valeur
+      const newLocation = { latitude: newLatitude, longitude: newLongitude };
 
-  //  Etat de la chips selectionnée
-  const [selectedChip, setSelectedChip] = useState(null);
+      console.log(newLocation);
+      dispatch(addLocalisation({ newLocation }));
+    }
+  }, [sliderValue, currentPosition]);
+
+  // -----------------------------------------CHIPS
+
+  //  tableau qui contiendra les "chips" sélectionnées
+  const [selectedChips, setSelectedChips] = useState([]);
 
   // selection des filtres "chips"
 
@@ -61,20 +73,18 @@ useEffect(() => {
 
   // Si la puce est déjà dans le tableau, cela signifie qu'on veut la désélectionner, donc elle est retirée du tableau, autrement ça veut dire qu'on veut l'ajouter au tableau
 
-
-
   const handleChipPress = (chip) => {
-
     // Le but est d'envoyer la quantité au store mais React ne met pas immédiatement à jour le tableau donc il faut passer par un calcul de la sélection actuelle/etat local actuel et c'est ça qu'on va pousser au store
 
-    if (selectedChip === chip) {
-      setSelectedChip(null); // Désélectionner la puce actuellement sélectionnée
+    let updatedChips;
+
+    if (selectedChips.includes(chip)) {
+      updatedChips = selectedChips.filter((item) => item !== chip);
     } else {
-      setSelectedChip(chip); // Sélectionner la nouvelle puce
+      updatedChips = [...selectedChips, chip];
     }
 
-  
-    // il faut faire une conversion pour obtenir le nombre de lot en number 
+    // il faut faire une conversion pour obtenir le nombre de lot en number
 
     let quantityRange = null;
 
@@ -98,29 +108,26 @@ useEffect(() => {
         quantityRange = [150, Infinity];
         break;
       default:
-        // Gérer tout autre cas par : 
+        // Gérer tout autre cas par :
         break;
     }
-  
 
+    setSelectedChips(updatedChips);
     dispatch(addQuantity(quantityRange));
-    console.log("qté envoyé au store",quantityRange)
-
+    console.log(quantityRange);
   };
 
-
   const renderChip = (label) => {
-    const isSelected = selectedChip === label; // Vérifier si la puce est sélectionnée
+    const isSelected = selectedChips.includes(label);
     return (
       <TouchableOpacity
         key={label}
         onPress={() => handleChipPress(label)}
-        style={[
-          styles.chip,
-          isSelected ? styles.selectedChip : null,
-        ]}
+        style={[styles.chip, isSelected ? styles.selectedChip : null]}
       >
-        <Text style={[styles.chipText, isSelected ? styles.selectedChipText : null]}>
+        <Text
+          style={[styles.chipText, isSelected ? styles.selectedChipText : null]}
+        >
           {label}
         </Text>
       </TouchableOpacity>
@@ -133,7 +140,7 @@ useEffect(() => {
 
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);
-    console.log("date envoyée au store",day.dateString);
+    console.log(day.dateString);
     dispatch(addDate(day.dateString));
   };
 
@@ -142,24 +149,16 @@ useEffect(() => {
     arrowColor: "#EDFC92",
   };
 
-  const handleDisplay = () => {
-		dispatch(addDisplay(true));
-    onClose()
-  }
-
   // -------------------------- EFFACER LES FILTRES
 
   const handleErase = () => {
-		dispatch(removeFilter());
+    dispatch(removeFilter());
     setSliderValue(0);
-    setSelectedDate("2020-08-26");
-    setSelectedChip(null); // Remettre la puce sélectionnée à null
-    setCurrentPosition(null); // Remettre la position actuelle à null
-	};
-
+    setSelectedDate("");
+    setSelectedChips([]);
+  };
 
   // ----------------------------
-
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -167,7 +166,7 @@ useEffect(() => {
         <View style={styles.containerTitle}>
           <Text style={styles.Title}>Filtres</Text>
           <FontAwesome
-            onPress={() => onClose()}  // Utilisez la fonction navigation.goBack() pour fermer la page
+            onPress={() => onClose()} // Utilisez la fonction navigation.goBack() pour fermer la page
             style={styles.iconeFilter}
             name="close"
             size={28}
@@ -212,18 +211,17 @@ useEffect(() => {
         </View>
 
         <View style={styles.btnContainer}>
-
-
-          <TouchableOpacity 
-          style={styles.btnAppliquer}
-          onPress={() => handleDisplay()}
+          <TouchableOpacity
+            style={styles.btnAppliquer}
+            onPress={() => onClose()}
           >
             <Text style={styles.textBtn1}>Appliquer</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-           onPress={() => handleErase()} 
-          style={styles.btnEffacer}>
+          <TouchableOpacity
+            onPress={() => handleErase()}
+            style={styles.btnEffacer}
+          >
             <Text style={styles.textBtn}>Effacer</Text>
           </TouchableOpacity>
         </View>
@@ -237,8 +235,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: "Poppins",
   },
-  scrollContainer:{
-backgroundColor:"white"
+  scrollContainer: {
+    backgroundColor: "white",
   },
   containerTitle: {
     flexDirection: "row",

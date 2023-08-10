@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { useIsFocused } from "@react-navigation/native";
-
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux"; // Import correct
 import {
   View,
   Text,
@@ -11,10 +10,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useRoute } from "@react-navigation/native";
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useRoute, useNavigation } from "@react-navigation/native"; // Combine imports
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
@@ -24,6 +20,7 @@ export default function DonnationScreen() {
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
   const navigation = useNavigation();
+
   const goToProfileScreen = (author) => {
     navigation.navigate("DetailsAuthor", { author: author });
   };
@@ -121,8 +118,10 @@ export default function DonnationScreen() {
           <Text style={styles.title}>{details?.title}</Text>
           <View style={styles.InfosContainer}>
             <Text style={styles.titleInfo}>Catégorie:</Text>
+
             <Text style={styles.textInfo}>{details?.category}</Text>
             <Text style={styles.titleInfo}>Description:</Text>
+
             <Text style={styles.textInfo}>{details?.description}</Text>
           </View>
           <TouchableOpacity

@@ -24,9 +24,11 @@ export default function HomeCharityScreen({ navigation }) {
 
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const selectedQuantity = useSelector((state) => state.filter.quantity);
+  const quantity = useSelector(state => state.filter.quantity);
 
-  const selectedDate = useSelector((state) => state.filter.date);
+  const date = useSelector(state => state.filter.date);
+
+  const displayFilter = useSelector((state) => state.filter.display);
 
   // const selectedLocalisation= useSelector(state => state.filter.localisation);
 
@@ -34,42 +36,55 @@ export default function HomeCharityScreen({ navigation }) {
   const [error, setError] = useState(null);
   // const navigation = useNavigation();
 
+
   useEffect(() => {
     // Appeler la fonction pour récupérer les posts depuis le backend ou une API REST
     fetchPosts();
-  }, [selectedQuantity, selectedDate]);
+  }, [quantity, date, displayFilter]);
 
   const goToDonnationScreen = (postId) => {
     navigation.navigate("DonnationScreen", { postId: postId });
   };
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
-    fetch(`${BACK_URL}:3000/posts/company`)
+    if (displayFilter) {
+      console.log("posts filtrés")
+      // Fetch posts with filters applied
+      fetch(`${BACK_URL}:3000/filter/company/posts/?quantity=${quantity}&date=${date}`)
       .then((response) => response.json())
-      .then((data) => {
-        if (data.posts) {
-          const filteredPosts = data.posts.filter((post) => {
-            // Vérification de la quantité en fonction de la plage sélectionnée
-            const postQuantity = parseInt(post.quantity);
-            const matchQuantity =
-              selectedQuantity[0] <= postQuantity &&
-              postQuantity <= selectedQuantity[1];
-            const matchDate = post.availability_date >= selectedDate;
-            return matchQuantity && matchDate;
+        .then((data) => {
+          if (data.result === true) {
+            const filteredPosts = data.data.filter((post) => {
+              const postQuantity = parseInt(post.quantity);
+               if (!isNaN(postQuantity)) {
+                return postQuantity >= quantity[0] && postQuantity <= quantity[1];
+ }
+  });  
+            setPosts(filteredPosts);
 
-            // const localisationMatch = selectedLocalisation.includes(post.location);
-          });
-          setPosts(filteredPosts);
-          //  setPosts(data.posts);
-        } else {
-          setError("Erreur inconnue !");
-        }
-      })
-      .catch((error) => {
-        setError("Erreur lors de la récupération des posts :" + error.message);
-      });
+           } 
+        })
+        .catch((error) => {
+          setError("Erreur lors de la récupération des posts :" + error.message);
+        });
+    } else {
+      // Fetch all posts without filters
+      console.log("posts normaux")
+      fetch(`${BACK_URL}:3000/posts/company`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.posts) {
+            setPosts(data.posts);
+          } else {
+            setError("Erreur inconnue !");
+          }
+        })
+        .catch((error) => {
+          setError("Erreur lors de la récupération des posts :" + error.message);
+        });
+    }
   };
-
+console.log("mon filtre sur homecharity", displayFilter)
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBarContainer}>

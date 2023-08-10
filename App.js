@@ -22,8 +22,10 @@ import DetailsAuthor from "./screens/AuthorDetailsScreen";
 import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
-import ArticleDetails from "./components/ArticleDetails";
 import UserProfileScreen from "./screens/UserProfileScreen";
+import HomeCharityScreenBeta from "./screens/HomeCharityScreenBeta";
+import FilterScreenBeta from "./screens/FilterScreenBeta";
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -56,7 +58,7 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Accueil" component={HomeCharityScreen} />
+      <Tab.Screen name="Accueil" component={HomeCharityScreenBeta} />
       <Tab.Screen name="Favoris" component={HomeCompanyScreen} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
       <Tab.Screen name="Profile" component={AccountScreen} />
@@ -83,10 +85,10 @@ export default function App() {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            {/* <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="FilterScreen" component={FilterScreen} />
+            <Stack.Screen name="FilterScreen" component={FilterScreenBeta} />
             <Stack.Screen name="UserProfile" component={UserProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
