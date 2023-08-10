@@ -102,25 +102,28 @@ export default function DonnationScreen() {
             resizeMode="cover"
           />
           <View style={styles.iconContainer}>
-            <TouchableOpacity></TouchableOpacity>
             <TouchableOpacity>
+            <View style={styles.circle}>
+
               <FontAwesome
                 name="heart"
                 color="#EDFC92"
                 size={40}
                 style={styles.icons}
               />
-
+      </View>
             </TouchableOpacity>
             <TouchableOpacity>
+            <View style={styles.circle}>
               <FontAwesome
                 name="star"
                 color="#EDFC92"
                 size={40}
                 style={styles.icons}
               />
+                    </View>
             </TouchableOpacity>
-<Text>4,9</Text>
+<Text>  4,9</Text>
           </View>
         </View>
 
@@ -251,11 +254,13 @@ const styles = StyleSheet.create({
     alignItems: "flex-start", // Updated from 'center' to 'flex-start'
     marginTop: 250, // You can adjust the marginTop as needed
   },
+
   icons: {
     marginTop: 50,
-    marginBottom: 50,
     marginRight: 15,
-  },
+    justifyContent: "center"
+   },
+
   textContainer: {
     flex: 1,
     marginTop: 10,
@@ -264,11 +269,18 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     fontFamily: "Poppins",
   },
+
   title: {
-    fontSize: 25,
-    lineHeight: 54.5 /* 218% */,
+    fontSize: 30,
     fontFamily: "PoppinsBold",
   },
+
+  textInfo: {
+    color: "white",
+    fontSize: 13,
+    fontFamily: "Poppins",
+  },
+
   description: {
     color: 676767,
     fontFamily: "Poppins",
@@ -287,17 +299,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#254739",
     paddingLeft: 40,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 30,
+    paddingBottom: 30,
   },
-  textInfo: {
-    color: "white",
-    fontSize: 15,
-    marginTop: 10,
-    marginLeft: 30,
-    marginRight: 30,
-    fontFamily: "Poppins",
-  },
+
   titleInfo: {
     fontSize: 15,
     lineHeight: 54.5,
@@ -349,6 +354,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
   },
+  
   reserve: {
     backgroundColor: "#274539",
     padding: 10,
@@ -360,8 +366,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+  
   cancel: {
-    backgroundColor: "red",
+    backgroundColor: "#274539",
     width: "90%",
     padding: 10,
     borderRadius: 5,
@@ -370,8 +377,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+
   reserver: {
-    fontFamily: "PoppinsSemiBold",
+    fontFamily: "Poppins",
     color: "white",
     textAlign: "center",
     fontSize: 15,
