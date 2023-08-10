@@ -10,14 +10,8 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-<<<<<<< HEAD
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-=======
-import { useRoute, useNavigation } from "@react-navigation/native"; // Combine imports
->>>>>>> 9c9e2266639c6620d6df764cc23288812b3599d1
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 

@@ -22,6 +22,7 @@ export default function AuthorDetailsScreen ()  {
     const route = useRoute();
     const { author } = route.params;
     const [details, setDetails] = useState(null);
+    const [initialRegion,setInitialRegion] = useState(null)
     const navigation =useNavigation()
   const dispatch = useDispatch();
   useEffect(() => {
@@ -32,15 +33,16 @@ export default function AuthorDetailsScreen ()  {
       .then((data) => {
         console.log(data)
         setDetails(data); // Update the Details state with the fetched data
+        setInitialRegion ({latitude:data.latitude, longitude:data.longitude,latitudeDelta:data.latitudeDelta,longitudeDelta:data.longitudeDelta})
+
       })
       .catch((error) => {
         console.error("Error fetching post details:", error);
       });
     }, 1000);
-
   }, [author]);
 
-
+  console.log(initialRegion)
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -82,7 +84,7 @@ export default function AuthorDetailsScreen ()  {
           </Text>
         </View>
         <View style={styles.mapContainer}>
-          <MapScreen />
+          <MapScreen initialRegion = {initialRegion} />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Infos Complémentaire</Text>
