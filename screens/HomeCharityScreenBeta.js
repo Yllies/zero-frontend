@@ -13,12 +13,12 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import NeedDetails from "../components/NeedDetails";
+import ArticleDetailsBeta from "../components/ArticleDetailsBeta";
 
 // URL de l'API back-end
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function HomeCompanyScreen({ navigation }) {
+export default function HomeCharityScreenBeta({ navigation }) {
   // États locaux
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -52,7 +52,7 @@ export default function HomeCompanyScreen({ navigation }) {
 
   // Fonction pour récupérer les messages depuis l'API
   const fetchPosts = () => {
-    fetch(`${BACK_URL}:3000/posts/charity`)
+    fetch(`${BACK_URL}:3000/posts/company`)
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {
@@ -159,10 +159,11 @@ export default function HomeCompanyScreen({ navigation }) {
                 underlayColor="#EDFC92" // Specify the underlay color for TouchableHighlight
               >
                 {/* Affichage des détails du besoin */}
-                <NeedDetails
+                <ArticleDetailsBeta
                   title={item.title}
                   description={item.description.slice(0, 25) + "..."}
                   category={item.category}
+                  photo={item.photo[0]}
                   idPost={item.idPost}
                 />
               </TouchableHighlight>

@@ -3,7 +3,7 @@ import React from "react";
 import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default function ArticleDetails(props) {
+export default function ArticleDetailsBeta(props) {
   const navigation =useNavigation()
   const goToDonnationScreen = (idPost) => {
     navigation.navigate("DonnationScreen", { idPost: idPost });

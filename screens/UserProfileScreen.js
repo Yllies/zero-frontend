@@ -9,17 +9,69 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../reducers/user";
+import { useSelector } from "react-redux";
 import MapScreen from "../components/Map";
+import { useState, useEffect} from "react";
+
+
+const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function UserProfileScreen  ()  {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
+    const author = user.token
+    const [details, setDetails] = useState(null);
+    const [initialRegion,setInitialRegion] = useState(null)
+    const [count,setCount] =useState(0)
+    const [text,setText] =useState('')
+  useEffect(() => {
+    setTimeout(() => {
 
-  const handelLogout = () => {
-    dispatch(logout());
-  };
+    fetch(`${BACK_URL}:3000/users/${author}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        setDetails(data); // Update the Details state with the fetched data
+        setInitialRegion ({latitude:data.latitude, longitude:data.longitude,latitudeDelta:data.latitudeDelta,longitudeDelta:data.longitudeDelta})
+
+      })
+      .catch((error) => {
+        console.error("Error fetching post details:", error);
+      });
+    }, 1000);
+
+    if (details?.type === 'Entreprise') {
+      setText('dons ont été posté par cette entreprise')
+      fetch(`${BACK_URL}:3000/posts/company`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.posts) {
+          setCount(data.posts.length);
+        } else {
+          setError("Unknown error!");
+        }
+      })
+      .catch((error) => {
+        setError("Erreur lors de la récupération des posts :" + error.message);
+      });
+    }
+    else if (details?.type === 'Association') {
+      setText('besoins ont été posté par cette association')
+      fetch(`${BACK_URL}:3000/posts/charity`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.posts) {
+          setCount(data.posts.length);
+        } else {
+          setError("Unknown error!");
+        }
+      })
+      .catch((error) => {
+        setError("Erreur lors de la récupération des posts :" + error.message);
+      });
+    
+    }
+
+  }, [details]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -52,13 +104,11 @@ export default function UserProfileScreen  ()  {
         <View style={styles.textContainer}>
           <Text style={styles.title}>Qui sommes-nous?</Text>
           <Text style={styles.description}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-            voluptatum laborum
+{details?.description}
           </Text>
         </View>
         <View style={styles.mapContainer}>
-          <MapScreen />
+          <MapScreen initialRegion={initialRegion} />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Infos Complémentaire</Text>
@@ -73,7 +123,7 @@ export default function UserProfileScreen  ()  {
               />{" "}
               Adresse
             </Text>
-            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
+            <Text style={styles.textInfo}>{details?.address}</Text>
 
             <Text style={styles.titleInfo}>
               {" "}
@@ -92,7 +142,7 @@ export default function UserProfileScreen  ()  {
           <Text style={styles.title}>Points Forts</Text>
           <View style={styles.PFContainer}>
             <Text style={styles.Number}>
-              8 <Text style={styles.PFText}>euros dans la poche</Text>
+              {count} <Text style={styles.PFText}> {text}</Text>
             </Text>
           </View>
           <TouchableOpacity style={styles.btnContact}>
