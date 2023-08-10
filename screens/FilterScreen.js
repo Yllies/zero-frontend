@@ -11,7 +11,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
 import * as Location from "expo-location";
 import { useDispatch } from 'react-redux';
-import { addQuantity, addDate, addLocalisation,removeFilter, addRadius } from '../reducers/filter';
+import { addQuantity, addDate, addLocalisation,removeFilter, addRadius, addDisplay } from '../reducers/filter';
 
 export default function FilterScreen({ navigation, onClose }) {
   
@@ -20,7 +20,7 @@ export default function FilterScreen({ navigation, onClose }) {
 //-------------------------------------- LOCALISATION
 
 // Current position 
-const [currentPosition, setCurrentPosition] = useState(null);
+const [currentPosition, setCurrentPosition] = useState({});
 
 // Slider de localisation
 const [sliderValue, setSliderValue] = useState(50);
@@ -38,15 +38,16 @@ useEffect(() => {
       if (status === 'granted') {
         Location.watchPositionAsync({ distanceInterval: 10 },
           (location) => {
-            setCurrentPosition(location.coords)
-            dispatch(addLocalisation(location.coords))
+            setCurrentPosition({ latitude: location.coords.latitude, longitude: location.coords.longitude })
+            console.log("test", currentPosition )
+            dispatch(addLocalisation({ latitude: location.coords.latitude, longitude: location.coords.longitude }));
           });
       }
 
       console.log("loc envoyée au store",currentPosition)
 
     })();
-  }, [sliderValue, currentPosition]);
+  }, [sliderValue]);
 
 
 // -----------------------------------------CHIPS
@@ -141,6 +142,10 @@ useEffect(() => {
     arrowColor: "#EDFC92",
   };
 
+  const handleDisplay = () => {
+		dispatch(addDisplay(true));
+    onClose()
+  }
 
   // -------------------------- EFFACER LES FILTRES
 
@@ -211,7 +216,7 @@ useEffect(() => {
 
           <TouchableOpacity 
           style={styles.btnAppliquer}
-          onPress={() => onClose()}
+          onPress={() => handleDisplay()}
           >
             <Text style={styles.textBtn1}>Appliquer</Text>
           </TouchableOpacity>

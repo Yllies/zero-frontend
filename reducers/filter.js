@@ -5,6 +5,7 @@ const initialState = {
   date: null,
   location: { latitude: null, longitude: null }, // Utiliser une structure d'objet pour stocker les coordonnées
   radius: null,
+  display: false,
 };
 
 export const userSlice = createSlice({
@@ -32,16 +33,24 @@ export const userSlice = createSlice({
         state.radius = action.payload;
       },
 
-  removeFilter: (state, action) => {
-    state.location = {};
-    state.date = null;
-    state.quantity = [];
-    state.radius = null;
-},
-},
+      addDisplay : (state, action) => {
+        console.log("déclenchement de add")
+        state.display = action.payload;
+      },
+
+
+      removeFilter: (state, action) => {
+        console.log("déclenchement de remove")
+        state.location = {};
+        state.date = null;
+        state.quantity = [];
+        state.radius = null;
+        state.display = false;
+      },
+  },
 });
 
 
-export const {addQuantity, addDate, addLocalisation, removeFilter, addRadius} = userSlice.actions;
+export const {addQuantity, addDate, addLocalisation, removeFilter, addRadius, addDisplay} = userSlice.actions;
 
 export default userSlice.reducer;
