@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   quantity: [1, Infinity],
-  date: null,
+  date: '2020-08-26',
   location: { latitude: null, longitude: null }, // Utiliser une structure d'objet pour stocker les coordonnées
   radius: null,
   display: false,

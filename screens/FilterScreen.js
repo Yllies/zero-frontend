@@ -152,7 +152,7 @@ useEffect(() => {
   const handleErase = () => {
 		dispatch(removeFilter());
     setSliderValue(0);
-    setSelectedDate("");
+    setSelectedDate("2020-08-26");
     setSelectedChip(null); // Remettre la puce sélectionnée à null
     setCurrentPosition(null); // Remettre la position actuelle à null
 	};
