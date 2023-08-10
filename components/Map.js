@@ -31,8 +31,12 @@ export default function MapScreen(props) {
     return (
       <View style={{ flex: 1 }}>
         <MapView initialRegion={props?.initialRegion} mapType="standard" style={styles.map}>
-          {currentPosition && <Marker coordinate={currentPosition} title="My position" pinColor="#fecb2d" />}
-          {/* {markers} */}
+        {currentPosition && (
+                    <Marker coordinate={currentPosition} title="My position" pinColor="#fecb2d" />
+                )}
+                {props?.initialRegion?.latitude && props?.initialRegion?.longitude && (
+                    <Marker coordinate={{ latitude: props.initialRegion.longitude, longitude: props.initialRegion.latitude }} pinColor="red" />
+                )}
         </MapView>
       </View>
     );
