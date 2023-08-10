@@ -7,31 +7,21 @@ export default function NeedDetails(props) {
 
   let ImageCompany;
 
-
-  switch (props.category) {
-    case "Meubles":
-      ImageCompany = require('../assets/meuble.webp');
-      break;
-      case "High-Tech":
-        ImageCompany = require('../assets/itech.webp');
-        break;
-      case "Electroménager":
-        ImageCompany = require('../assets/electro.jpeg');
-        break;
-      case "Jeux":
-        ImageCompany = require('../assets/enfants.webp');
-        break;
-      case "Enfants":
-        ImageCompany = require('../assets/enfants.webp');
-        break;
-      case "Autre":
-        ImageCompany = require('../assets/autre.webp');
-        break;
-        case "Vetement":
-          ImageCompany = require('../assets/clothes.jpeg');
-          break;
-
-  }
+if (props.category === "Meubles") {
+  ImageCompany = require('../assets/meuble.webp');
+} else if (props.category === "High-Tech") {
+  ImageCompany = require('../assets/itech.webp');
+} else if (props.category === "Electroménager") {
+  ImageCompany = require('../assets/electro.jpeg');
+} else if (props.category === "Jeux") {
+  ImageCompany = require('../assets/enfants.webp');
+} else if (props.category === "Enfants") {
+  ImageCompany = require('../assets/enfants.webp');
+}  else if (props.category === "Vetement") {
+  ImageCompany = require('../assets/clothes.jpeg');
+} else {
+  ImageCompany = require('../assets/autre.webp');
+}
 
   const navigation = useNavigation()
   const goToDonnationScreen = (idPost) => {
@@ -80,9 +70,7 @@ const styles = StyleSheet.create({
     margin: 7,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    borderColor:"#EDFC92",
-    borderWidth: 2,
-        backgroundColor:"#274539",
+    backgroundColor:"#274539",
   },
   imageContainer: {
     height: 150,
@@ -105,9 +93,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontFamily: "PoppinsBold",
+    fontFamily: "PoppinsSemiBold",
     fontSize: 15,
-    color: "#EDFC92"
+    color: "white"
   },
   description: {
     fontFamily: "Poppins",

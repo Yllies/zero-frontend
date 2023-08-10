@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../reducers/user";
 import {
@@ -57,8 +57,14 @@ export default function LoginScreen({ navigation }) {
           } else {
             // Redirect to "Accueil" page
             setDataError(false);
+
             dispatch(
-              login({ token: data.token, email: data.email, name: data.name, type:data.type })
+              login({
+                token: data.token,
+                email: data.email,
+                name: data.name,
+                type: data.type,
+              })
             );
             navigation.navigate("TabNavigator", { screen: "Acceuil" });
           }
@@ -70,7 +76,6 @@ export default function LoginScreen({ navigation }) {
       // });
     }
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -147,7 +152,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   topContainer: {
-     backgroundColor: "#274539",
+    backgroundColor: "#274539",
     height: 160,
     justifyContent: "center",
     alignItems: "center",
@@ -214,7 +219,6 @@ const styles = StyleSheet.create({
   login: {
     fontSize: 15,
     fontFamily: "Poppins",
-   
   },
   mdp: {
     fontFamily: "Poppins",
