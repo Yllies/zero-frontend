@@ -23,6 +23,9 @@ import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
 import UserProfileScreen from "./screens/UserProfileScreen";
+import HomeCharityScreenBeta from "./screens/HomeCharityScreenBeta";
+import FilterScreenBeta from "./screens/FilterScreenBeta";
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -85,7 +88,7 @@ export default function App() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="FilterScreen" component={FilterScreen} />
+            <Stack.Screen name="FilterScreen" component={FilterScreenBeta} />
             <Stack.Screen name="UserProfile" component={UserProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
