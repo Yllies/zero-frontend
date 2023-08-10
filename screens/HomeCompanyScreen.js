@@ -18,7 +18,7 @@ import NeedDetails from "../components/NeedDetails";
 // URL de l'API back-end
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function HomeScreenCompany({ navigation }) {
+export default function HomeCompanyScreen({ navigation }) {
   // États locaux
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);

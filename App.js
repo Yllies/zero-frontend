@@ -22,7 +22,6 @@ import DetailsAuthor from "./screens/AuthorDetailsScreen";
 import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
-import ArticleDetails from "./components/ArticleDetails";
 import UserProfileScreen from "./screens/UserProfileScreen";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -59,8 +58,7 @@ const TabNavigator = () => {
       <Tab.Screen name="Accueil" component={HomeCharityScreen} />
       <Tab.Screen name="Favoris" component={HomeCompanyScreen} />
       <Tab.Screen name="Publier" component={ScreenPostCompany} />
-      <Tab.Screen name="Profile" component={ArticleDetails} />
-      <Tab.Screen name="Acount" component={AccountScreen} />
+      <Tab.Screen name="Profile" component={AccountScreen} />
     </Tab.Navigator>
   );
 };

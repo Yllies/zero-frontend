@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux"; // Import correct
 import {
   View,
   Text,
@@ -10,18 +10,24 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+<<<<<<< HEAD
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+=======
+import { useRoute, useNavigation } from "@react-navigation/native"; // Combine imports
+>>>>>>> 9c9e2266639c6620d6df764cc23288812b3599d1
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-const DonnationScreen = () => {
+export default function DonnationScreen() {
   const user = useSelector((state) => state.user.value);
   const route = useRoute();
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
   const navigation = useNavigation();
+
   const goToProfileScreen = (author) => {
     navigation.navigate("DetailsAuthor", { author: author });
   };
@@ -42,18 +48,18 @@ const DonnationScreen = () => {
     const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
     const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
 
-    fetchData(companyUrl); // Try fetching from the company URL
+    fetchData(companyUrl);
 
     setTimeout(() => {
       if (!details) {
-        fetchData(charityUrl); // If details are still null, fetch from the charity URL
+        fetchData(charityUrl);
       }
     }, 1000);
   }, [idPost, details]);
 
   const handleCancel = () => {
     fetch(
-      `${BACK_URL}:3000/posts/association/book/cancel/${user.token}/${post.idPost}`,
+      `${BACK_URL}:3000/posts/association/book/cancel/${user.token}/${idPost}`, // Corrected 'post.idPost' to 'idPost'
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -66,7 +72,7 @@ const DonnationScreen = () => {
   };
 
   const handleReserve = () => {
-    fetch(`${BACK_URL}:3000/posts/company/book/${user.token}/${post.idPost}`, {
+    fetch(`${BACK_URL}:3000/posts/company/book/${user.token}/${idPost}`, { // Corrected 'post.idPost' to 'idPost'
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     })
@@ -77,6 +83,7 @@ const DonnationScreen = () => {
         );
       });
   };
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -104,10 +111,10 @@ const DonnationScreen = () => {
           <Text style={styles.title}>{details?.title}</Text>
           <View style={styles.InfosContainer}>
             <Text style={styles.titleInfo}>Catégorie:</Text>
-            <Text style={styles.titleInfo}>Catégorie:</Text>
+
             <Text style={styles.textInfo}>{details?.category}</Text>
             <Text style={styles.titleInfo}>Description:</Text>
-            <Text style={styles.titleInfo}>Description:</Text>
+            
             <Text style={styles.textInfo}>{details?.description}</Text>
           </View>
           <TouchableOpacity

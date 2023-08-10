@@ -120,6 +120,7 @@ export default function HomeCharityScreen({ navigation }) {
               description={item.description.slice(0, 25) + "..."}
               category={item.category}
               photo={item.photo[0]}
+              idPost={item.idPost}
             />
           </View>
         )}
