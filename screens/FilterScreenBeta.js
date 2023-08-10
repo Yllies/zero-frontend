@@ -18,7 +18,7 @@ import {
   removeFilter,
 } from "../reducers/filter";
 
-export default function FilterScreenBeta({ navigation, onClose }) {
+export default function FilterScreen({ navigation, onClose }) {
   const dispatch = useDispatch();
 
   //-------------------------------------- LOCALISATION
