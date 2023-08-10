@@ -16,7 +16,7 @@ import { useState } from "react";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-const DonnationScreen = () => {
+export default function DonnationScreen  ()  {
   const user = useSelector((state) => state.user.value);
   const route = useRoute();
   const { idPost } = route.params;
