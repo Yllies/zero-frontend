@@ -109,7 +109,7 @@ export default function AccountScreen() {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {/* Contenu */}
         <View style={styles.containerOption}>
-          {postToConfirm && (
+          {postToConfirm && user.type === "Entreprise" && (
             <TouchableOpacity
               onPress={() => navigation.navigate("PostsInWaiting")}
               style={styles.reservation}
