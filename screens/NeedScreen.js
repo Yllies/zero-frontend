@@ -10,9 +10,6 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
-
-import { useDispatch, useSelector } from "react-redux";
-
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 export default function NeedScreen({ navigation }){
   const route = useRoute();

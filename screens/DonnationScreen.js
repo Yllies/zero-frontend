@@ -11,10 +11,8 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import DetailsAuthor from "./DetailsAuthor";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
@@ -23,6 +21,7 @@ const DonnationScreen = () => {
   const route = useRoute();
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
+  const navigation = useNavigation();
   const navigation = useNavigation();
   const goToProfileScreen = (author) => {
     navigation.navigate("DetailsAuthor", { author: author });
@@ -43,7 +42,10 @@ const DonnationScreen = () => {
 
     const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
     const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
+    const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
+    const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
 
+    fetchData(companyUrl); // Try fetching from the company URL
     fetchData(companyUrl); // Try fetching from the company URL
 
     setTimeout(() => {
@@ -106,10 +108,18 @@ const DonnationScreen = () => {
           <Text style={styles.title}>{details?.title}</Text>
           <View style={styles.InfosContainer}>
             <Text style={styles.titleInfo}>Catégorie:</Text>
+            <Text style={styles.titleInfo}>Catégorie:</Text>
             <Text style={styles.textInfo}>{details?.category}</Text>
+            <Text style={styles.titleInfo}>Description:</Text>
             <Text style={styles.titleInfo}>Description:</Text>
             <Text style={styles.textInfo}>{details?.description}</Text>
           </View>
+          <TouchableOpacity
+            style={styles.btnContact}
+            onPress={() => {
+              goToProfileScreen(details?.author?.token);
+            }}
+          >
           <TouchableOpacity
             style={styles.btnContact}
             onPress={() => {
@@ -288,4 +298,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DonnationScreen;
+

@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeUser, logout } from "../reducers/user";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import Header from "../components/Header";
 import {
   SafeAreaView,
   ScrollView,
@@ -13,7 +11,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from "react-native";
 import { addToUpdate } from "../reducers/post";
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 
 import {
   FlatList,
@@ -14,7 +14,6 @@ import {
   StatusBar,
   SafeAreaView,
   ScrollView,
-  Alert,
 } from "react-native";
 
 import * as ImagePicker from "expo-image-picker";
