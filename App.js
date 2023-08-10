@@ -23,6 +23,9 @@ import filter from "./reducers/filter";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
 import UserProfileScreen from "./screens/UserProfileScreen";
+import HomeCharityScreenBeta from "./screens/HomeCharityScreenBeta";
+import FilterScreenBeta from "./screens/FilterScreenBeta";
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
