@@ -41,7 +41,6 @@ const DonnationScreen = () => {
 
     const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
     const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
-  
 
     fetchData(companyUrl); // Try fetching from the company URL
 
@@ -111,12 +110,6 @@ const DonnationScreen = () => {
             <Text style={styles.titleInfo}>Description:</Text>
             <Text style={styles.textInfo}>{details?.description}</Text>
           </View>
-          <TouchableOpacity
-            style={styles.btnContact}
-            onPress={() => {
-              goToProfileScreen(details?.author?.token);
-            }}
-          >
           <TouchableOpacity
             style={styles.btnContact}
             onPress={() => {
@@ -294,5 +287,3 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
 });
-
-
