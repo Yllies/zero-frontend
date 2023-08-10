@@ -154,10 +154,7 @@ export default function HomeCompanyScreen({ navigation }) {
           contentContainerStyle={styles.cardsRow}
           renderItem={({ item }) => (
             <View style={styles.needContainer}>
-              <TouchableHighlight
-                onPress={() => goToDonnationScreen(item.postId)}
-                underlayColor="#EDFC92" // Specify the underlay color for TouchableHighlight
-              >
+            
                 {/* Affichage des détails du besoin */}
                 <NeedDetails
                   title={item.title}
@@ -165,7 +162,7 @@ export default function HomeCompanyScreen({ navigation }) {
                   category={item.category}
                   idPost={item.idPost}
                 />
-              </TouchableHighlight>
+           
             </View>
           )}
         />
