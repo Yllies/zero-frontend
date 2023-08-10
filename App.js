@@ -134,15 +134,8 @@ export default function App() {
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
             <Stack.Screen name="NeedScreen" component={NeedScreen} />
-<<<<<<< HEAD
             <Stack.Screen name="DetailsAuthor" component={DetailsAuthor} />
             <Stack.Screen name="Reservation" component={ReservationScreen} />
-=======
-            <Stack.Screen
-              name="DetailsAuthor"
-              component={AuthorDetailsScreen}
-            />
->>>>>>> 25c652b1238ccb781a4e91ba219916a727dd0e1b
 
             <Stack.Screen
               name="PostsInWaiting"
