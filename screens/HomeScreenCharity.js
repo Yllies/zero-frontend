@@ -35,11 +35,13 @@ export default function HomeScreenCharity({ navigation}) {
   const [isModalVisible, setModalVisible] = useState(false);
 
 
-  const selectedQuantity = useSelector(state => state.filter.quantity);
+  const quantity = useSelector(state => state.filter.quantity);
 
-  const selectedDate = useSelector(state => state.filter.date);
+  const date = useSelector(state => state.filter.date);
 
-  // const selectedLocalisation= useSelector(state => state.filter.localisation);
+  const location = useSelector(state => state.filter.location);
+
+  const radius = useSelector(state => state.filter.radius);
   
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -47,47 +49,50 @@ export default function HomeScreenCharity({ navigation}) {
 
   
   useEffect(() => {
-    // Appeler la fonction pour récupérer les posts depuis le backend ou une API REST
     fetchPosts();
-  }, [selectedQuantity, selectedDate]);
+  }, [quantity, date, location]);
   
   const goToDonnationScreen = (postId) => {
     console.log("toto", postId),
    navigation.navigate("DonnationScreen", { postId: postId });
  };
-  // Fonction pour récupérer les posts depuis le backend ou une API REST
+
+
+  // Fonction pour récupérer les posts depuis le backend 
   const fetchPosts = () => {
-    fetch(`${BACK_URL}:3000/posts/company`)
+
+    const locationQueryParam = location
+    ? `&location=${location.latitude},${location.longitude}`
+    : '';
+    
+  const radiusQueryParam = radius !== null
+    ? `&radius=${radius}`
+    : '';
+
+
+    fetch(`${BACK_URL}:3000/filter/company/posts/?quantity=${quantity}&date=${date}&userlocation=${locationQueryParam}&radius=${radiusQueryParam}`)
       .then((response) => response.json())
       .then((data) => {
-        if (data.posts) {
-          const filteredPosts = data.posts.filter(post => {
-            console.log('post.quantity', post.quantity)
 
-            // Vérification de la quantité en fonction de la plage sélectionnée
+        if (data.result === true) {
+          const filteredPosts = data.data.filter((post) => {
             const postQuantity = parseInt(post.quantity);
-            const matchQuantity = selectedQuantity[0] <= postQuantity && postQuantity <= selectedQuantity[1];
-            const matchDate = post.availability_date >= selectedDate;
-            return matchQuantity && matchDate;
-        
-            // const localisationMatch = selectedLocalisation.includes(post.location);
-      
-   
+            if (!isNaN(postQuantity)) {
+              return postQuantity >= quantity[0] && postQuantity <= quantity[1];
+            }
+            return false;
           });
-          setPosts(filteredPosts);
-              //  setPosts(data.posts);
 
+          setPosts(filteredPosts);
+       
         } else {
           setError("Erreur inconnue !");
         }
       })
-      .catch((error) => {
-        setError("Erreur lors de la récupération des posts :" + error.message);
-      });
+      
   };
 
 
-  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBarContainer}>

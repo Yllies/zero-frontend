@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   quantity: [1, Infinity],
   date: null,
-  localisation: [],
+  location: { latitude: null, longitude: null }, // Utiliser une structure d'objet pour stocker les coordonnées
+  radius: null,
 };
 
 export const userSlice = createSlice({
@@ -12,32 +13,35 @@ export const userSlice = createSlice({
   reducers: {
 
     addQuantity: (state, action) => {
-      state.quantity.push(action.payload);
+
+      // On ne push pas pour ne pas avoir plusieurs quantité enregistré dans le store
+      state.quantity = action.payload; // Update with the new quantity range
     },
     
-    // on veut pas de doubon donc = 
+  
     addDate:(state, action) => {
-// Update the date without checking for duplicates
-state.date = action.payload;
+    // Update the date without checking for duplicates
+    state.date = action.payload;
       },
 
-     // on veut pas de doubon donc = 
-    addLocalisation: (state, action) => {
-  // Add the payload to the localisation array if not already present
-  const newLocalisation = action.payload;
-  if (!state.localisation.includes(newLocalisation)) {
-    state.localisation.push(newLocalisation);
-  }    },
+      addLocalisation: (state, action) => {
+        state.location = action.payload;
+      },
+
+      addRadius : (state, action) => {
+        state.radius = action.payload;
+      },
 
   removeFilter: (state, action) => {
-    state.localisation = [];
+    state.location = {};
     state.date = null;
     state.quantity = [];
+    state.radius = null;
 },
 },
 });
 
 
-export const {addQuantity, addDate, addLocalisation, removeFilter} = userSlice.actions;
+export const {addQuantity, addDate, addLocalisation, removeFilter, addRadius} = userSlice.actions;
 
 export default userSlice.reducer;

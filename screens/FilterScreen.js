@@ -11,7 +11,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
 import * as Location from "expo-location";
 import { useDispatch } from 'react-redux';
-import { addQuantity, addDate, addLocalisation,removeFilter } from '../reducers/filter';
+import { addQuantity, addDate, addLocalisation,removeFilter, addRadius } from '../reducers/filter';
 
 export default function FilterScreen({ navigation, onClose }) {
   
@@ -27,7 +27,8 @@ const [sliderValue, setSliderValue] = useState(50);
   
 const onSliderValueChange = (value) => {
         setSliderValue(value);
-      };
+        console.log("je veux la valeur",value)
+        dispatch(addRadius(value)); };
 
 // Accès à la localisation de l'utilisateur
 useEffect(() => {
@@ -37,33 +38,21 @@ useEffect(() => {
       if (status === 'granted') {
         Location.watchPositionAsync({ distanceInterval: 10 },
           (location) => {
-            setCurrentPosition(location.coords);
+            setCurrentPosition(location.coords)
+            dispatch(addLocalisation(location.coords))
           });
       }
+
+      console.log("loc envoyée au store",currentPosition)
+
     })();
-  }, []);
+  }, [sliderValue, currentPosition]);
 
-  useEffect(() => {
-    if (currentPosition !== null) {
-      // Calculer la nouvelle localisation en fonction du rayon sélectionné
-      const latitude = currentPosition.latitude;
-      const longitude = currentPosition.longitude;
-      const newLatitude = latitude + (sliderValue * 0.009); // 0.009 est une valeur approximative pour convertir km en degrés
-      const newLongitude = longitude + (sliderValue * 0.009);
-
-    // Mettre à jour la localisation avec la nouvelle valeur
-    const newLocation = { latitude: newLatitude, longitude: newLongitude };
-
-    console.log(newLocation)
-    dispatch(addLocalisation({newLocation}));
-  }
-}, [sliderValue, currentPosition]);
 
 // -----------------------------------------CHIPS
 
-  //  tableau qui contiendra les "chips" sélectionnées
-  const [selectedChips, setSelectedChips] = useState([]);
-
+  //  Etat de la chips selectionnée
+  const [selectedChip, setSelectedChip] = useState(null);
 
   // selection des filtres "chips"
 
@@ -77,13 +66,12 @@ useEffect(() => {
 
     // Le but est d'envoyer la quantité au store mais React ne met pas immédiatement à jour le tableau donc il faut passer par un calcul de la sélection actuelle/etat local actuel et c'est ça qu'on va pousser au store
 
-    let updatedChips;
-  
-    if (selectedChips.includes(chip)) {
-      updatedChips = selectedChips.filter((item) => item !== chip);
+    if (selectedChip === chip) {
+      setSelectedChip(null); // Désélectionner la puce actuellement sélectionnée
     } else {
-      updatedChips = [...selectedChips, chip];
+      setSelectedChip(chip); // Sélectionner la nouvelle puce
     }
+
   
     // il faut faire une conversion pour obtenir le nombre de lot en number 
 
@@ -113,15 +101,15 @@ useEffect(() => {
         break;
     }
   
-    setSelectedChips(updatedChips);
+
     dispatch(addQuantity(quantityRange));
-    console.log(quantityRange)
+    console.log("qté envoyé au store",quantityRange)
 
   };
 
 
   const renderChip = (label) => {
-    const isSelected = selectedChips.includes(label);
+    const isSelected = selectedChip === label; // Vérifier si la puce est sélectionnée
     return (
       <TouchableOpacity
         key={label}
@@ -144,7 +132,7 @@ useEffect(() => {
 
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);
-    console.log(day.dateString);
+    console.log("date envoyée au store",day.dateString);
     dispatch(addDate(day.dateString));
   };
 
@@ -160,7 +148,8 @@ useEffect(() => {
 		dispatch(removeFilter());
     setSliderValue(0);
     setSelectedDate("");
-    setSelectedChips([])
+    setSelectedChip(null); // Remettre la puce sélectionnée à null
+    setCurrentPosition(null); // Remettre la position actuelle à null
 	};
 
 
