@@ -58,22 +58,21 @@ export default function AddCompanyScreen({ navigation }) {
     setSelectedImages(selectedImages.filter((image) => image.uri !== imageUri));
   };
 
-  const SelectedImageItem = ({ item }) =>
-  (
+  const SelectedImageItem = ({ item }) => (
     <View style={styles.selectedImageItem}>
-    <Image source={{ uri: item }} style={styles.selectedImage} />
-    <TouchableOpacity
-      onPress={() => removeImage(item)}
-      style={styles.deleteIconContainer}
-    >
-      <FontAwesome
-        name="times"
-        size={20}
-        color="#EDFC92"
-        style={styles.deleteIcon}
-      />
-    </TouchableOpacity>
-  </View>
+      <Image source={{ uri: item }} style={styles.selectedImage} />
+      <TouchableOpacity
+        onPress={() => removeImage(item)}
+        style={styles.deleteIconContainer}
+      >
+        <FontAwesome
+          name="times"
+          size={20}
+          color="#EDFC92"
+          style={styles.deleteIcon}
+        />
+      </TouchableOpacity>
+    </View>
   );
 
   const handleUpload = async (image) => {
@@ -229,6 +228,7 @@ export default function AddCompanyScreen({ navigation }) {
                 <Picker.Item label="Electroménager" value="Electroménager" />
                 <Picker.Item label="Jeux" value="Jeux" />
                 <Picker.Item label="Enfants" value="Enfants" />
+                <Picker.Item label="Autre" value="Autre" />
               </Picker>
             </View>
             <View style={styles.inputContainer}>

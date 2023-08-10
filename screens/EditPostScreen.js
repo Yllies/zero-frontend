@@ -178,7 +178,7 @@ export default function EditPostScreen({ navigation }) {
           setQuantity("");
           setAvailability("");
           setSelectedImages([]);
-          navigation.navigate("PostsPublished");
+          navigation.navigate("TabNavigator", { screen: "Acceuil" })
         } else {
           alert("Une erreur est survenue lors de la publication de l'annonce.");
         }
@@ -237,6 +237,7 @@ export default function EditPostScreen({ navigation }) {
                 <Picker.Item label="Electroménager" value="Electroménager" />
                 <Picker.Item label="Jeux" value="Jeux" />
                 <Picker.Item label="Enfants" value="Enfants" />
+                <Picker.Item label="Autre" value="Autre" />
               </Picker>
             </View>
             <View style={styles.inputContainer}>

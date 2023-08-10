@@ -57,6 +57,7 @@ export default function AddCharityScreen({ navigation }) {
           <Picker.Item label="Electroménager" value="Electroménager" />
           <Picker.Item label="Jeux" value="Jeux" />
           <Picker.Item label="Enfants" value="Enfants" />
+          <Picker.Item label="Autre" value="Autre" />
           </Picker>
 
             </View>

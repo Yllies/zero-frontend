@@ -144,7 +144,7 @@ export default function AccountScreen() {
             style={styles.optionBtn}
             onPress={() => {
               if (user.token) {
-                navigation.navigate("ProfileScreen");
+                navigation.navigate("AccountScreen");
               } else {
                 navigation.navigate("Login");
               }
