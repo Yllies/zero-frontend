@@ -28,7 +28,7 @@ const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 // const CLOUDINARY_UPLOAD_PRESET = 'iyp6ovfi';
 // const CLOUDINARY_API_KEY = '974414836328966';
 
-export default function AddScreenCompany({ navigation }) {
+export default function AddCompanyScreen({ navigation }) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Vetement");
   const [description, setDescription] = useState("");
@@ -61,19 +61,19 @@ export default function AddScreenCompany({ navigation }) {
   const SelectedImageItem = ({ item }) =>
   (
     <View style={styles.selectedImageItem}>
-      <Image source={{ uri: item }} style={styles.selectedImage} />
-      <TouchableOpacity
-        onPress={() => removeImage(item)}
-        style={styles.deleteIconContainer}
-      >
-        <FontAwesome
-          name="times"
-          size={20}
-          color="#EDFC92"
-          style={styles.deleteIcon}
-        />
-      </TouchableOpacity>
-    </View>
+    <Image source={{ uri: item }} style={styles.selectedImage} />
+    <TouchableOpacity
+      onPress={() => removeImage(item)}
+      style={styles.deleteIconContainer}
+    >
+      <FontAwesome
+        name="times"
+        size={20}
+        color="#EDFC92"
+        style={styles.deleteIcon}
+      />
+    </TouchableOpacity>
+  </View>
   );
 
   const handleUpload = async (image) => {
@@ -165,13 +165,13 @@ export default function AddScreenCompany({ navigation }) {
 
         if (data.result) {
           alert("Votre annonce a été publiée avec succès !");
+          navigation.navigate("Accueil");
           setTitle("");
           setDescription("");
-          setCategory("");
+          setCategory("Vetement"); // Set the initial category
           setQuantity("");
           setAvailability("");
           setSelectedImages([]);
-          navigation.navigate("Accueil");
         } else {
           alert("Une erreur est survenue lors de la publication de l'annonce.");
         }

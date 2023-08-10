@@ -9,31 +9,46 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
 import { useRoute } from "@react-navigation/native";
-
-import { useDispatch, useSelector } from "react-redux";
-import { UseSelector } from "react-redux/es/hooks/useSelector";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-const DonnationScreen = () => {
+export default function DonnationScreen ()  {
   const route = useRoute();
-  const { postId } = route.params;
-  const [Details, setDetails] = useState([]);
+  const { idPost } = route.params;
+  const [details, setDetails] = useState(null);
+  const navigation = useNavigation();
+  const goToProfileScreen = (author) => {
+    navigation.navigate("DetailsAuthor", { author: author });
+  };
 
-
+  console.log(idPost);
   useEffect(() => {
-    fetch(`${BACK_URL}:3000/posts/company/${postId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        setDetails(data); // Update the Details state with the fetched data
-      })
-      .catch((error) => {
+    const fetchData = async (url) => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.post) {
+          setDetails(data.post);
+        }
+      } catch (error) {
         console.error("Error fetching post details:", error);
-      });
-  }, [postId]);
+      }
+    };
+
+    const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
+    const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
+
+    fetchData(companyUrl); // Try fetching from the company URL
+
+    setTimeout(() => {
+      if (!details) {
+        fetchData(charityUrl); // If details are still null, fetch from the charity URL
+      }
+    }, 1000);
+  }, [idPost, details]);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -44,9 +59,7 @@ const DonnationScreen = () => {
             resizeMode="cover"
           />
           <View style={styles.iconContainer}>
-            <TouchableOpacity>
-
-            </TouchableOpacity>
+            <TouchableOpacity></TouchableOpacity>
             <TouchableOpacity>
               <FontAwesome
                 name="heart"
@@ -59,24 +72,21 @@ const DonnationScreen = () => {
         </View>
 
         <View style={styles.textContainer}>
-          <Text style={styles.title}>Détails</Text>
+          <Text style={styles.title}>{details?.title}</Text>
           <View style={styles.InfosContainer}>
-            <Text style={styles.titleInfo}>
-              Adresse de l'entreprise:
-              
-            </Text>
-            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
-            <Text style={styles.titleInfo}>
-              Adresse de l'entreprise:
-              
-            </Text>
-            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
-            
-
+            <Text style={styles.titleInfo}>Catégorie:</Text>
+            <Text style={styles.textInfo}>{details?.category}</Text>
+            <Text style={styles.titleInfo}>Description:</Text>
+            <Text style={styles.textInfo}>{details?.description}</Text>
           </View>
-          <TouchableOpacity style={styles.btnContact}>
+          <TouchableOpacity
+            style={styles.btnContact}
+            onPress={() => {
+              goToProfileScreen(details?.author?.token);
+            }}
+          >
             <Text style={styles.Contact}>
-             Détails de l'Entreprise{" "}
+              Détails de l'{details?.author?.type}{" "}
               <FontAwesome
                 name="arrow-right"
                 color="#274539"
@@ -235,4 +245,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DonnationScreen;
+

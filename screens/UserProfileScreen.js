@@ -9,24 +9,17 @@ import {
   SafeAreaView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useRoute } from "@react-navigation/native";
-const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
-export default function NeedScreen({ navigation }){
-  const route = useRoute();
-  const { postId } = route.params;
-  const [Details, setDetails] = useState([]);
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../reducers/user";
+import MapScreen from "../components/Map";
 
+export default function UserProfileScreen  ()  {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
 
-  useEffect(() => {
-    fetch(`${BACK_URL}:3000/posts/Charity/${postId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching post details:", error);
-      });
-  }, [postId]);
+  const handelLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,11 +32,16 @@ export default function NeedScreen({ navigation }){
           />
           <View style={styles.iconContainer}>
             <TouchableOpacity>
-
+              <FontAwesome
+                name="star"
+                color="#254739"
+                size={40}
+                style={styles.icons}
+              />
             </TouchableOpacity>
             <TouchableOpacity>
               <FontAwesome
-                name="hand-holding-heart"
+                name="heart"
                 color="#EDFC92"
                 size={40}
                 style={styles.icons}
@@ -51,29 +49,58 @@ export default function NeedScreen({ navigation }){
             </TouchableOpacity>
           </View>
         </View>
-
         <View style={styles.textContainer}>
-          <Text style={styles.title}>Détails</Text>
+          <Text style={styles.title}>Qui sommes-nous?</Text>
+          <Text style={styles.description}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+            voluptatum laborum
+          </Text>
+        </View>
+        <View style={styles.mapContainer}>
+          <MapScreen />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>Infos Complémentaire</Text>
           <View style={styles.InfosContainer}>
             <Text style={styles.titleInfo}>
-              Adresse de l'entreprise:
-              
+              {" "}
+              <FontAwesome
+                name="map-pin"
+                color="#EDFC92"
+                size={40}
+                style={styles.icons}
+              />{" "}
+              Adresse
             </Text>
             <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
-            <Text style={styles.titleInfo}>
-              Adresse de l'entreprise:
-              
-            </Text>
-            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
-            
 
+            <Text style={styles.titleInfo}>
+              {" "}
+              <FontAwesome
+                name="lock"
+                color="#EDFC92"
+                size={40}
+                style={styles.icons}
+              />{" "}
+              Horaires
+            </Text>
+            <Text style={styles.textInfo}>
+            Du lundi au vendredi de 9h à 18h
+            </Text>
+          </View>
+          <Text style={styles.title}>Points Forts</Text>
+          <View style={styles.PFContainer}>
+            <Text style={styles.Number}>
+              8 <Text style={styles.PFText}>euros dans la poche</Text>
+            </Text>
           </View>
           <TouchableOpacity style={styles.btnContact}>
             <Text style={styles.Contact}>
-             Détails de l'Entreprise{" "}
+              Contacter l'Entreprise{" "}
               <FontAwesome
                 name="arrow-right"
-                color="#274539"
+                color="#EDFC92"
                 size={30}
                 style={styles.icons}
               />
@@ -92,7 +119,7 @@ const styles = StyleSheet.create({
   },
   image: {
     // borderRadius: 0 0 30 0
-    height: 250,
+    height: 320,
     width: 250,
     borderBottomRightRadius: 30,
   },
@@ -183,7 +210,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
   titleInfo: {
-    fontSize: 15,
+    fontSize: 25,
     lineHeight: 54.5,
     color: "white",
     fontFamily: "Poppins",
@@ -207,7 +234,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
   btnContact: {
-    backgroundColor: "#EDFC92",
+    backgroundColor: "#274539",
     padding: 10,
     width: 290,
     shadowColor: "#171717",
@@ -223,7 +250,7 @@ const styles = StyleSheet.create({
   },
   Contact: {
     fontSize: 17,
-    color: "#274539",
+    color: "white",
     marginBottom: 10,
     fontFamily: "Poppins",
   },

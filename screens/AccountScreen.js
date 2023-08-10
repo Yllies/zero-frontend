@@ -2,17 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser, logout } from "../reducers/user";
 import { addToConfirm } from "../reducers/post";
-
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-
 import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Modal,

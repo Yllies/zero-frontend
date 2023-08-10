@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { addToUpdate } from "../reducers/post";
+import {useSelector } from "react-redux";
+
 import {
   FlatList,
   Image,
@@ -19,7 +19,8 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { AntDesign } from "@expo/vector-icons";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Picker } from "@react-native-picker/picker";
+import { Calendar } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function EditPostScreen({ navigation }) {
@@ -28,14 +29,13 @@ export default function EditPostScreen({ navigation }) {
   const [title, setTitle] = useState(post.title);
   const [category, setCategory] = useState(post.category);
   const [description, setDescription] = useState(post.description);
-  const [availability, setAvailability] = useState(post.availability);
+  const [availability, setAvailability] = useState(post.availability_date.slice(0,10));
   const [quantity, setQuantity] = useState(`${post.quantity}`);
   const [selectedImages, setSelectedImages] = useState(post.photo);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState(
-    post.availability_date.substring(0, 10)
-  );
-  console.log(post);
+    post.availability_date.slice(0,10));
+
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
     (async () => {
@@ -44,60 +44,26 @@ export default function EditPostScreen({ navigation }) {
       setGalleryPermission(galleryStatus.status === "granted");
     })();
   }, []);
-  // console.log(selectedImages);
-  // Fonction pour sélectionner des images depuis la galerie
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      aspect: [3, 4],
-      quality: 1,
-      allowsMultipleSelection: true,
-    });
 
-    // Vérifier si l'utilisateur a sélectionné des images
-    if (!result.canceled) {
-      // Ajouter les nouvelles images sélectionnées au tableau existant
-      const URIs = result.assets.map((elem) => elem.uri);
-      setSelectedImages([...selectedImages, ...URIs]);
-      dispatch(addToUpdate({ ...post, photo: [...selectedImages, ...URIs] }));
-    }
-  };
-
-  // Fonction pour ouvrir l'appareil photo
-  const takePhoto = async () => {
-    let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      aspect: [3, 4],
-      quality: 1,
-    });
-
-    // Vérifier si l'utilisateur a pris une photo
-    if (!result.canceled) {
-      // Ajouter la nouvelle image prise au tableau existant
-      setSelectedImages([...selectedImages, result.uri]);
-    }
-  };
-
-  // Fonction pour supprimer une image du tableau selectedImages
-  const removeImage = (imageUri) => {
-    setSelectedImages(selectedImages.filter((image) => image.uri !== imageUri));
-  };
-
-  // Si l'accès à la galerie est refusé, afficher un message d'erreur
-  if (galleryPermission === false) {
-    return <Text>Pas d'accès au stockage interne</Text>;
-  }
   const onDayPress = (day) => {
+    console.log(day);
     setSelectedDate(day.dateString);
     setAvailability(day.dateString);
   };
-  // Composant pour afficher une image sélectionnée avec l'icône de suppression
-  const SelectedImageItem = ({ item }) => (
+
+  const removeImage = (imageUri) => {
+    console.log(imageUri);
+    setSelectedImages(selectedImages.filter((image) => image !== imageUri));
+  };
+
+  const SelectedImageItem = ({ item }) =>
+  // console.log(item);
+  (
+   
     <View style={styles.selectedImageItem}>
       <Image source={{ uri: item }} style={styles.selectedImage} />
-      {/* Icône "times" pour supprimer l'image */}
       <TouchableOpacity
-        onPress={() => removeImage(item.uri)}
+        onPress={() => removeImage(item)}
         style={styles.deleteIconContainer}
       >
         <FontAwesome
@@ -110,22 +76,88 @@ export default function EditPostScreen({ navigation }) {
     </View>
   );
 
-  // Fonction pour gérer l'envoi du formulaire
-  const handleSubmit = () => {
-    // Créer un tableau contenant les liens des images sélectionnées
-    const picture = selectedImages.map((image) => image.uri);
+  const handleUpload = async (image) => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "iyp6ovfi");
+    data.append("cloud-name", "do7vfvt5l");
+    fetch("https://api.cloudinary.com/v1_1/do7vfvt5l/image/upload", {
+      method: "POST",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then(async (data) => {
+        console.log(data);
 
-    // Créer un objet contenant les informations de l'annonce
+        if (data) {
+          setSelectedImages([...selectedImages, data.url]);
+        } else {
+          alert("Erreur lors du téléchargement de l'image sur Cloudinary");
+        }
+      });
+  };
+
+  const pickImage = async () => {
+    let data = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      aspect: [3, 4],
+      quality: 1,
+      // allowsMultipleSelection: true,
+    });
+
+    if (!data.cancelled) {
+      let newFile = {
+        uri: data.uri,
+        type: `test/${data.uri.split(".")[1]}`,
+        name: `test.${data.uri.split(".")[1]}`,
+      };
+      handleUpload(newFile);
+    }
+  };
+
+  const takePhoto = async () => {
+    let data = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      aspect: [3, 4],
+      quality: 1,
+    });
+
+    if (!data.cancelled) {
+      let newFile = {
+        uri: data.uri,
+        type: `test/${data.uri.split(".")[1]}`,
+        name: `test.${data.uri.split(".")[1]}`,
+      };
+      handleUpload(newFile);
+    }
+  };
+
+  const handleSubmit = () => {
+    console.log(
+      "title",title,
+      "description",description,
+      "category",category,"selected",selectedImages.length,"quantity", quantity,"availability",availability)
+    if (
+      !title ||
+      !description ||
+      !category ||
+      !selectedImages.length ||
+      !quantity ||
+      !availability
+    ) {
+      alert("Veuillez remplir tous les champs obligatoires");
+      return;
+    }
+
     const newPostData = {
       title,
       description,
       category,
-      photo: picture,
+      photo: selectedImages,
       quantity,
       availability_date: availability,
     };
 
-    // Envoyer les informations au backend via une requête POST
     fetch(
       `${BACK_URL}:3000/posts/company/update/${user.token}/${post.idPost}`,
       {
@@ -136,12 +168,10 @@ export default function EditPostScreen({ navigation }) {
     )
       .then((response) => response.json())
       .then((data) => {
+        // console.log("from front", user.token);
+
         if (data.result) {
-          // Si la publication a réussi, naviguer vers une autre page ou afficher un message de succès
-          // Naviguer vers une autre page :
-          // Ou afficher un message de succès :
           alert("Votre annonce a été modifée avec succès !");
-          // Réinitialiser les champs du formulaire (si nécessaire)
           setTitle("");
           setDescription("");
           setCategory("");
@@ -150,22 +180,24 @@ export default function EditPostScreen({ navigation }) {
           setSelectedImages([]);
           navigation.navigate("PostsPublished");
         } else {
-          // Si la publication a échoué, afficher un message d'erreur
-
           alert("Une erreur est survenue lors de la publication de l'annonce.");
         }
       })
       .catch((error) => {
-        // Gérer les erreurs potentielles
         console.error("Erreur lors de la publication de l'annonce :", error);
-        // Afficher un message d'erreur générique
         alert("Une erreur est survenue lors de la publication de l'annonce.");
       });
   };
+
   const customTheme = {
     todayTextColor: "#EDFC92",
     arrowColor: "#EDFC92",
   };
+
+  if (galleryPermission === false) {
+    return <Text>Pas d'accès au stockage interne</Text>;
+  }
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -180,7 +212,6 @@ export default function EditPostScreen({ navigation }) {
         </View>
         <ScrollView style={styles.bottomContainer}>
           <View style={styles.form}>
-            {/* Champ pour le titre */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Titre</Text>
               <TextInput
@@ -192,19 +223,22 @@ export default function EditPostScreen({ navigation }) {
                 placeholder="Quel est le titre de votre annonce?"
               />
             </View>
-            {/* Champ pour la catégorie */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Catégorie</Text>
-              <TextInput
+              <Picker
+                selectedValue={category}
                 style={styles.input}
-                multiline={true}
-                textAlignVertical="top"
-                onChangeText={(value) => setCategory(value)}
-                value={category}
-                placeholder="Quelle est la catégorie?"
-              />
+                mode={"dialog"}
+                onValueChange={(itemValue) => setCategory(itemValue)}
+              >
+                <Picker.Item label="Vetement" value="Vetement" />
+                <Picker.Item label="Meubles" value="Meuble" />
+                <Picker.Item label="High-Tech" value="High-Tech" />
+                <Picker.Item label="Electroménager" value="Electroménager" />
+                <Picker.Item label="Jeux" value="Jeux" />
+                <Picker.Item label="Enfants" value="Enfants" />
+              </Picker>
             </View>
-            {/* Champ pour la description */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Description</Text>
               <TextInput
@@ -218,7 +252,6 @@ export default function EditPostScreen({ navigation }) {
             </View>
             <View style={styles.imagePickerContainer}>
               <Text style={styles.label}>Ajouter des photos</Text>
-              {/* Bouton pour ouvrir l'appareil photo */}
               <View style={styles.cameraIconContainer}>
                 <TouchableOpacity
                   onPress={() => pickImage()}
@@ -240,7 +273,6 @@ export default function EditPostScreen({ navigation }) {
                   />
                 </TouchableOpacity>
               </View>
-              {/* Afficher les images sélectionnées */}
               <FlatList
                 data={selectedImages}
                 renderItem={SelectedImageItem}
@@ -248,7 +280,6 @@ export default function EditPostScreen({ navigation }) {
                 horizontal
               />
             </View>
-            {/* Champ pour la quantité */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Quantité</Text>
               <TextInput
@@ -260,7 +291,6 @@ export default function EditPostScreen({ navigation }) {
                 placeholder="Combien de pièces?"
               />
             </View>
-            {/* Champ pour la disponibilité */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Disponibilité</Text>
               <Calendar
@@ -269,15 +299,11 @@ export default function EditPostScreen({ navigation }) {
                 markedDates={{
                   [selectedDate]: { selected: true, selectedColor: "#274539" },
                 }}
-                theme={customTheme} // Utiliser le thème personnalisé pour modifier les couleurs du calendrier
+                theme={customTheme}
               />
             </View>
-            {/* Bouton de soumission de l'annonce */}
-            <TouchableOpacity
-              style={styles.btnLogin}
-              onPress={() => handleSubmit()}
-            >
-              <Text style={styles.login}>Modifier</Text>
+            <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
+              <Text style={styles.login}>Publiez votre annonce</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
