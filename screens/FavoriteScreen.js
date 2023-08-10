@@ -15,9 +15,7 @@ import {
 } from "react-native";
 
 export default function FavoriteScreen({ navigation }) {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Vetement");
-  const [description, setDescription] = useState("");
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -32,6 +30,7 @@ export default function FavoriteScreen({ navigation }) {
             </Text>
           </Text>
         </View>
+      
         <StatusBar style="auto" />
       </KeyboardAvoidingView>
     </SafeAreaView>
