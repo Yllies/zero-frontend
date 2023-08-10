@@ -34,7 +34,6 @@ useEffect(() => {
       const data = await response.json();
       if (data.post) {
         setDetails(data.post);
-        console.log(data.post.author.token);
       }
     } catch (error) {
       console.error("Error fetching post details:", error);
@@ -90,10 +89,10 @@ Description:
 
           </View>
           <TouchableOpacity style={styles.btnContact}onPress={() => {
-          goToProfileScreen(details.author.token);
+          goToProfileScreen(details?.author?.token);
         }}>
             <Text style={styles.Contact}>
-              Détails de l'{details.author.type}{" "}
+              Détails de l'{details?.author?.type}{" "}
               <FontAwesome
                 name="arrow-right"
                 color="#274539"

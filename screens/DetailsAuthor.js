@@ -24,7 +24,6 @@ const DetailsAuthor = () => {
     const { author } = route.params;
     const [details, setDetails] = useState(null);
     const navigation =useNavigation()
-    console.log(author)
   const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
