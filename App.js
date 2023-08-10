@@ -65,7 +65,7 @@ const TabNavigator = () => {
           headerShown: false,
         })}
       >
-        <Tab.Screen name="Accueil" component={HomeCharityScreen} />
+        <Tab.Screen name="Accueil" component={HomeCharityScreenBeta} />
         <Tab.Screen name="Favoris" component={FavoriteScreen} />
         <Tab.Screen name="Publier" component={AddCharityScreen} />
         <Tab.Screen name="Mon compte" component={AccountScreen} />

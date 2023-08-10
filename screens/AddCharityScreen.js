@@ -34,40 +34,43 @@ export default function AddCharityScreen({ navigation }) {
         </View>
         <View style={styles.bottomContainer}>
           <View style={styles.form}>
-            <View style={styles.email}>
+    <View style={styles.inputContainer}>
               <Text style={styles.label}>Titre</Text>
               <TextInput
                 style={styles.input}
+                multiline={true}
+                textAlignVertical="top"
                 onChangeText={(value) => setTitle(value)}
                 value={title}
                 placeholder="Quel est le titre de votre annonce?"
               />
             </View>
-            <View style={styles.password}>
+            <View style={styles.inputContainer}>
               <Text style={styles.label}>Catégorie</Text>
               <Picker
                 selectedValue={category}
-                style={{ height: 50, width: 250 }}
+                style={styles.input}
                 mode={"dialog"}
                 onValueChange={(itemValue) => setCategory(itemValue)}
               >
-          <Picker.Item label="Vetement" value="Vetement"  />
-          <Picker.Item label="Meubles" value="Meuble" />
-          <Picker.Item label="High-Tech" value="High-Tech" />
-          <Picker.Item label="Electroménager" value="Electroménager" />
-          <Picker.Item label="Jeux" value="Jeux" />
-          <Picker.Item label="Enfants" value="Enfants" />
-          <Picker.Item label="Autre" value="Autre" />
-          </Picker>
-
+                <Picker.Item label="Vetement" value="Vetement" />
+                <Picker.Item label="Meubles" value="Meuble" />
+                <Picker.Item label="High-Tech" value="High-Tech" />
+                <Picker.Item label="Electroménager" value="Electroménager" />
+                <Picker.Item label="Jeux" value="Jeux" />
+                <Picker.Item label="Enfants" value="Enfants" />
+                <Picker.Item label="Autre" value="Autre" />
+              </Picker>
             </View>
-            <View style={styles.password}>
+            <View style={styles.inputContainer}>
               <Text style={styles.label}>Description</Text>
               <TextInput
                 style={styles.input}
+                multiline={true}
+                textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Dites nous pourquoi vous en avez besoin?"
+                placeholder="Dites nous pourquoi vous n'en voulez plus"
               />
             </View>
             <TouchableOpacity style={styles.btnLogin}>
@@ -84,85 +87,104 @@ export default function AddCharityScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  mainContain: {
-    flex: 1,
     backgroundColor: "#fff",
+  },
+  mainContainer: {
+    flex: 1,
+   alignItems: "center",
+  
   },
   topContainer: {
     backgroundColor: "#274539",
-    height: 150,
-    width: "100%",
+    height: 160,
     justifyContent: "center",
+    textAlign:"center",
     alignItems: "center",
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    fontFamily: "Montserrat",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   title: {
-    width: "80%",
-    textAlign: "center",
-    fontSize: 40,
+    fontSize: 30,
     fontFamily: "MontserratBold",
     color: "white",
+    textAlign:"center",
+  
   },
-  zero: {
-    color: "#EDFC92",
-    fontSize: 30,
-  },
-  white: {
-    fontSize: 30,
-  },
+
   bottomContainer: {
-    height: "70%",
-    alignItems: "center",
+    padding: 20,
   },
   form: {
-    width: "80%",
-    height: 500,
-    marginTop: 70,
-    alignItems: "center",
+    marginTop: 20,
   },
-  input: {
-    backgroundColor: "#F6F8F7",
-    padding: 13,
-    fontSize: 10,
-    marginTop: 10,
-    borderRadius: 4,
-    width: 300,
-    fontFamily: "Poppins",
+  inputContainer: {
+    marginBottom: 20,
   },
   label: {
     fontSize: 15,
     fontFamily: "Poppins",
   },
-  email: {
-    marginBottom: 30,
+  input: {
+    backgroundColor: "#F6F8F7",
+    padding: 13,
+    borderRadius: 4,
+    width: "100%",
     fontFamily: "Poppins",
   },
-  password: {
-    marginBottom: 50,
+  imagePickerContainer: {
+    flex: 1,
+    marginBottom: 20,
+  },
+  cameraIconContainer: {
+    flex: 1,
+    backgroundColor: "#F6F8F7",
+    borderRadius: 4,
+    padding: 4,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  imagePickerButton: {
+    backgroundColor: "#F6F8F7",
+    padding: 13,
+    borderRadius: 4,
+    justifyContent: "center",
+  },
+  imagePickerButtonText: {
+    fontFamily: "Poppins",
+    color: "#555",
+  },
+  selectedImageItem: {
+    marginRight: 10,
+  },
+  selectedImage: {
+    flexWrap: "wrap",
+    width: 100,
+    height: 100,
+    resizeMode: "cover",
+    borderRadius: 4,
+    margin: 5,
   },
   btnLogin: {
     backgroundColor: "#EDFC92",
     padding: 10,
-    width: 290,
-    shadowColor: "#171717",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    borderRadius: 4,
+    width: "100%",
     alignItems: "center",
-  },
-  signupHere: {
     marginTop: 30,
-    textAlign: "center",
-    fontFamily: "Poppins",
   },
   login: {
     fontSize: 15,
     fontFamily: "Poppins",
   },
-  mdp: {
-    fontFamily: "Poppins",
+  zero: {
+    color: "#EDFC92",
+  },
+  deleteIconContainer: {
+    position: "absolute",
+    top: 6,
+    right: 6,
+    backgroundColor: "rgba(39, 69, 57, 0.7)",
+    borderRadius: 100,
+    padding: 3,
   },
 });
