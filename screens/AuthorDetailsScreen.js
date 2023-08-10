@@ -32,7 +32,6 @@ export default function AuthorDetailsScreen ()  {
     fetch(`${BACK_URL}:3000/users/${author}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setDetails(data); // Update the Details state with the fetched data
         setInitialRegion ({latitude:data.latitude, longitude:data.longitude,latitudeDelta:data.latitudeDelta,longitudeDelta:data.longitudeDelta})
 
@@ -77,7 +76,6 @@ export default function AuthorDetailsScreen ()  {
   }, [details]);
 
 
-  console.log(initialRegion)
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {

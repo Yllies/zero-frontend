@@ -145,17 +145,6 @@ export default function UserProfileScreen  ()  {
               {count} <Text style={styles.PFText}> {text}</Text>
             </Text>
           </View>
-          <TouchableOpacity style={styles.btnContact}>
-            <Text style={styles.Contact}>
-              Contacter l'Entreprise{" "}
-              <FontAwesome
-                name="arrow-right"
-                color="#EDFC92"
-                size={30}
-                style={styles.icons}
-              />
-            </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
