@@ -110,17 +110,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   title: {
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: "PoppinsBold",
     color: "#EDFC92",
   },
   description: {
-    fontSize: 15,
+    fontSize: 12,
     fontFamily: "Poppins",
     color: "white",
   },
   category: {
-    fontSize: 15,
+    fontSize: 12,
     fontFamily: "PoppinsSemiBold",
     color: "#EDFC92",
   },

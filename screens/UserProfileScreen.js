@@ -55,7 +55,7 @@ export default function UserProfileScreen  ()  {
       });
     }
     else if (details?.type === 'Association') {
-      setText('besoins ont été posté par cette association')
+      setText('besoins ont été postés par cette association')
       fetch(`${BACK_URL}:3000/posts/charity`)
       .then((response) => response.json())
       .then((data) => {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    marginTop: 250,
+    // marginTop: 250,
     // Ajustez la marge supérieure en fonction de la disposition souhaitée
   },
   title: {
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
   title: {
-    fontSize: 25,
+    fontSize: 20,
     lineHeight: 54.5 /* 218% */,
     fontFamily: "PoppinsBold",
   },
@@ -242,14 +242,14 @@ const styles = StyleSheet.create({
   },
   textInfo: {
     color: "white",
-    fontSize: 15,
+    fontSize: 12,
     marginTop: 10,
     marginLeft: 30,
     marginRight: 30,
     fontFamily: "Poppins",
   },
   titleInfo: {
-    fontSize: 25,
+    fontSize: 17,
     lineHeight: 54.5,
     color: "white",
     fontFamily: "Poppins",

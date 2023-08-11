@@ -9,6 +9,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
+import Swiper from 'react-native-swiper';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute, useNavigation } from "@react-navigation/native"; // Combine imports
 
@@ -19,6 +20,7 @@ export default function DonnationScreen() {
   const route = useRoute();
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
+  const [selectedImage,setSelectedImage] = useState([])
   const navigation = useNavigation();
 
   const goToProfileScreen = (author) => {
@@ -45,9 +47,13 @@ export default function DonnationScreen() {
 
     fetchData(companyUrl);
 
+    setTimeout(() => {
       if (!details) {
         fetchData(charityUrl);
       }
+    }, 1000);
+    setSelectedImage(details?.photo)
+  }, [idPost, isReserved, details]);
 
   useEffect(() => {
     console.log("le use qui set le reserved");
@@ -96,11 +102,26 @@ export default function DonnationScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.TopContainer}>
-          <Image
-            source={require("../assets/asso6.jpeg")}
-            style={styles.image}
-            resizeMode="cover"
-          />
+
+        <View style={styles.swiper}>
+
+{selectedImage?.length > 0 ? (
+  <Swiper style={styles.wrapper} showsButtons={true}>
+      {selectedImage.map((image, index) => (
+        <View key={index} style={styles.slide}>
+          <Image source={{ uri: image }} style={styles.image} resizeMode="cover" />
+        </View>
+      ))}
+    </Swiper>
+  ) : (
+    <Image
+    source={require("../assets/asso6.jpeg")}
+      style={styles.image}
+      resizeMode="cover"
+      />
+      )}
+      </View>
+
           <View style={styles.iconContainer}>
             <TouchableOpacity></TouchableOpacity>
             <TouchableOpacity>
@@ -154,7 +175,7 @@ export default function DonnationScreen() {
                 </TouchableOpacity>
               )}
 
-            {isReserved && details?.isBookedBy?.token === user.token && (
+            {(isReserved || details?.isBookedBy?.token === user.token) && (
               <TouchableOpacity
                 style={styles.cancel}
                 onPress={() => handleCancel()}
@@ -163,34 +184,12 @@ export default function DonnationScreen() {
               </TouchableOpacity>
             )}
           </View>
-          {/* {user.type === "Association" &&
-            !details.isReserved &&
-            details.isBooked === "Non" && (
-              <View style={styles.btnBooking}>
-                <TouchableOpacity
-                  style={styles.reserve}
-                  onPress={() => handleReserve()}
-                >
-                  <Text style={styles.reserver}>
-                    Envoyer une demande de réservation
-                  </Text>
-                </TouchableOpacity>
-                {details?.isBookedBy?.token === user.token && (
-                  <TouchableOpacity
-                    style={styles.cancel}
-                    onPress={() => handleCancel()}
-                  >
-                    <Text style={styles.annuler}>Annuler ma réservation</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-            )} */}
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
-  )
+  
   
 const styles = StyleSheet.create({
   container: {
@@ -376,6 +375,16 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  swiper: {
+    height: 250,
+    width: 250,
+  },
+  slide: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -385,4 +394,3 @@ const styles = StyleSheet.create({
     width:250,
   }
 });
-}
