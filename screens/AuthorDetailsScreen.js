@@ -26,41 +26,49 @@ export default function AuthorDetailsScreen ()  {
     const [count,setCount] =useState(0)
     const [text,setText] =useState('')
     const navigation =useNavigation()
-  useEffect(() => {
-    setTimeout(() => {
-
-    fetch(`${BACK_URL}:3000/users/${author}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setDetails(data); // Update the Details state with the fetched data
-        setInitialRegion ({latitude:data.latitude, longitude:data.longitude,latitudeDelta:data.latitudeDelta,longitudeDelta:data.longitudeDelta})
-
-      })
-      .catch((error) => {
-        console.error("Error fetching post details:", error);
-      });
-    }, 1000);
-
-    if (details?.type === 'Entreprise'){
-      setText('dons ont été posté par cette entreprise')
-
-      fetch(`${BACK_URL}:3000/posts/company/published/${author}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setCount(data.lenght);
-        });
-      }
-  
-      else if (details?.type === 'Association'){
-        setText('besoins ont été posté par cette association')
-
-        fetch(`${BACK_URL}:3000/posts/charity/published/${author}`)
+    useEffect(() => {
+      setTimeout(() => {
+        fetch(`${BACK_URL}:3000/users/${author}`)
           .then((response) => response.json())
           .then((data) => {
-          setCount(data.lenght);
-          });}
-  
-  }, []);
+            setDetails(data);
+            setInitialRegion({
+              latitude: data.latitude,
+              longitude: data.longitude,
+              latitudeDelta: data.latitudeDelta,
+              longitudeDelta: data.longitudeDelta,
+            });
+    
+            if (data.type === 'Entreprise') {
+              setText('dons ont été postés par cette entreprise');
+      
+              fetch(`${BACK_URL}:3000/posts/company/published/${author}`)
+                .then((response) => response.json())
+                .then((postData) => {
+                  setCount(postData.data.length);
+                })
+                .catch((error) => {
+                  console.error("Error fetching company posts:", error);
+                });
+            } else if (data.type === 'Association') {
+              setText('besoins ont été postés par cette association');
+      
+              fetch(`${BACK_URL}:3000/posts/charity/published/${author}`)
+                .then((response) => response.json())
+                .then((postData) => {
+                  setCount(postData.data.length);
+                })
+                .catch((error) => {
+                  console.error("Error fetching association posts:", error);
+                });
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user details:", error);
+          });
+      }, 1000);
+    }, []);
+    
 
 
   const [isModalVisible, setModalVisible] = useState(false);
