@@ -103,27 +103,26 @@ export default function DonnationScreen() {
           />
           <View style={styles.iconContainer}>
             <TouchableOpacity>
-            <View style={styles.circle}>
-
-              <FontAwesome
-                name="heart"
-                color="#EDFC92"
-                size={40}
-                style={styles.icons}
-              />
-      </View>
+              <View style={styles.circle}>
+                <FontAwesome
+                  name="heart"
+                  color="#EDFC92"
+                  size={40}
+                  style={styles.icons}
+                />
+              </View>
             </TouchableOpacity>
             <TouchableOpacity>
-            <View style={styles.circle}>
-              <FontAwesome
-                name="star"
-                color="#274539"
-                size={40}
-                style={styles.icons}
-              />
-                    </View>
+              <View style={styles.circle}>
+                <FontAwesome
+                  name="star"
+                  color="#274539"
+                  size={40}
+                  style={styles.icons}
+                />
+              </View>
             </TouchableOpacity>
-<Text>  4,9</Text>
+            <Text> 4,9</Text>
           </View>
         </View>
 
@@ -151,7 +150,6 @@ export default function DonnationScreen() {
                 size={15}
                 style={styles.icons}
               />
-
             </Text>
           </TouchableOpacity>
           <View style={styles.btnBooking}>
@@ -220,7 +218,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#ffffff",
-
   },
   iconContainer: {
     // flexDirection: "column",
@@ -259,8 +256,8 @@ const styles = StyleSheet.create({
   icons: {
     marginTop: 50,
     marginRight: 15,
-    justifyContent: "center"
-   },
+    justifyContent: "center",
+  },
 
   textContainer: {
     flex: 1,
@@ -273,7 +270,7 @@ const styles = StyleSheet.create({
 
   title: {
     paddingTop: "10%",
-    paddingBottom:"5%",
+    paddingBottom: "5%",
     fontSize: 25,
     fontFamily: "PoppinsBold",
     color: "#274539",
@@ -299,7 +296,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
-  
+
   InfosContainer: {
     borderRadius: 10,
     backgroundColor: "#254739",
@@ -314,7 +311,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: "MontserratBold",
   },
-  
+
   PFContainer: {
     borderRadius: 10,
     backgroundColor: "#EDFC92",
@@ -325,7 +322,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "Poppins",
   },
-  
+
   Number: {
     color: "#274539",
     fontSize: 105.799,
@@ -334,7 +331,7 @@ const styles = StyleSheet.create({
   },
 
   btnContact: {
-  backgroundColor: "#EDFC92",
+    backgroundColor: "#EDFC92",
     padding: 10,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
@@ -353,7 +350,7 @@ const styles = StyleSheet.create({
     color: "#274539",
     fontFamily: "Poppins",
   },
-  
+
   reserve: {
     backgroundColor: "#274539",
     padding: 10,
@@ -364,9 +361,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-  
+
   cancel: {
-    backgroundColor: "#EDFC92",
+    backgroundColor: "red",
     padding: 10,
     borderRadius: 5,
     shadowColor: "#171717",
@@ -384,7 +381,7 @@ const styles = StyleSheet.create({
 
   annuler: {
     fontFamily: "Poppins",
-    color: "#274539",
+    color: "white",
     textAlign: "center",
     fontSize: 15,
   },
