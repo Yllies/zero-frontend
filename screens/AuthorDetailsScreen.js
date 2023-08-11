@@ -26,54 +26,49 @@ export default function AuthorDetailsScreen ()  {
     const [count,setCount] =useState(0)
     const [text,setText] =useState('')
     const navigation =useNavigation()
-  useEffect(() => {
-    setTimeout(() => {
-
-    fetch(`${BACK_URL}:3000/users/${author}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setDetails(data); // Update the Details state with the fetched data
-        setInitialRegion ({latitude:data.latitude, longitude:data.longitude,latitudeDelta:data.latitudeDelta,longitudeDelta:data.longitudeDelta})
-
-      })
-      .catch((error) => {
-        console.error("Error fetching post details:", error);
-      });
-    }, 1000);
-
-    if (details?.type === 'Entreprise') {
-      setText('dons ont été posté par cette entreprise')
-      fetch(`${BACK_URL}:3000/posts/company`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.posts) {
-          setCount(data.posts.length);
-        } else {
-          setError("Unknown error!");
-        }
-      })
-      .catch((error) => {
-        setError("Erreur lors de la récupération des posts :" + error.message);
-      });
-    }
-    else if (details?.type === 'Association') {
-      setText('besoins ont été posté par cette association')
-      fetch(`${BACK_URL}:3000/posts/charity`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.posts) {
-          setCount(data.posts.length);
-        } else {
-          setError("Unknown error!");
-        }
-      })
-      .catch((error) => {
-        setError("Erreur lors de la récupération des posts :" + error.message);
-      });
+    useEffect(() => {
+      setTimeout(() => {
+        fetch(`${BACK_URL}:3000/users/${author}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setDetails(data);
+            setInitialRegion({
+              latitude: data.latitude,
+              longitude: data.longitude,
+              latitudeDelta: data.latitudeDelta,
+              longitudeDelta: data.longitudeDelta,
+            });
     
-    }
-
-  }, []);
+            if (data.type === 'Entreprise') {
+              setText('dons ont été postés par cette entreprise');
+      
+              fetch(`${BACK_URL}:3000/posts/company/published/${author}`)
+                .then((response) => response.json())
+                .then((postData) => {
+                  setCount(postData.data.length);
+                })
+                .catch((error) => {
+                  console.error("Error fetching company posts:", error);
+                });
+            } else if (data.type === 'Association') {
+              setText('besoins ont été postés par cette association');
+      
+              fetch(`${BACK_URL}:3000/posts/charity/published/${author}`)
+                .then((response) => response.json())
+                .then((postData) => {
+                  setCount(postData.data.length);
+                })
+                .catch((error) => {
+                  console.error("Error fetching association posts:", error);
+                });
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching user details:", error);
+          });
+      }, 1000);
+    }, []);
+    
 
 
   const [isModalVisible, setModalVisible] = useState(false);
@@ -152,7 +147,7 @@ export default function AuthorDetailsScreen ()  {
           <Text style={styles.title}>Points Forts</Text>
           <View style={styles.PFContainer}>
           <Text style={styles.Number}>
-            {count} <Text style={styles.PFText}> </Text>
+            {count} 
           </Text>
           <Text style={styles.PFSubText}>
           {text}

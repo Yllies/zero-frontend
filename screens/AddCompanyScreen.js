@@ -239,7 +239,7 @@ export default function AddCompanyScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Dû à l'impossibilité de vendre ses habits..."
+                placeholder="Nous ne pouvons vendre ses habits à cause de..."
               />
             </View>
             <View style={styles.imagePickerContainer}>

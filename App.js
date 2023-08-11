@@ -31,10 +31,10 @@ import FilterScreenBeta from "./screens/FilterScreenBeta";
 import AddCharityScreen from "./screens/AddCharityScreen";
 import AddCompanyScreen from "./screens/AddCompanyScreen";
 import { useSelector } from "react-redux";
-
+import { LogBox } from "react-native";
+LogBox.ignoreAllLogs();
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
 const TabNavigator = () => {
   const user = useSelector((state) => state.user.value);
   if (user.type === "Association") {

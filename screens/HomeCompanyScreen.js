@@ -207,14 +207,14 @@ marginTop:20,
   containerHeader: {
     backgroundColor: "#274539",
     width: "100%",
-    height: 160,
+    height: 180,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingRight: 30,
     paddingLeft: 30,
+    marginBottom: '5%',
   },
 
-  // Style du texte "Bonjour"
   text: {
     fontFamily: "MontserratBold",
     color: "white",
@@ -227,12 +227,15 @@ marginTop:20,
     fontSize: 17,
     marginBottom: 15,
     fontFamily: "MontserratBold",
+     marginBottom:'7%',
   },
   iconeFilter: {
     padding: 5,
   },
   // Style du conteneur de l'icône de notification
+
   containerNotif: {
+    marginTop:'3%',
     padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
