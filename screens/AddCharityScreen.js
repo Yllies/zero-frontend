@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import {Picker} from "@react-native-picker/picker";
+import { Picker } from "@react-native-picker/picker";
 import {
-
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -11,7 +10,6 @@ import {
   View,
   StatusBar,
   SafeAreaView,
-
 } from "react-native";
 
 export default function AddCharityScreen({ navigation }) {
@@ -34,7 +32,7 @@ export default function AddCharityScreen({ navigation }) {
         </View>
         <View style={styles.bottomContainer}>
           <View style={styles.form}>
-    <View style={styles.inputContainer}>
+            <View style={styles.inputContainer}>
               <Text style={styles.label}>Titre</Text>
               <TextInput
                 style={styles.input}
@@ -42,7 +40,7 @@ export default function AddCharityScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setTitle(value)}
                 value={title}
-                placeholder="Quel est le titre de votre annonce?"
+                placeholder="Vêtements de tout type"
               />
             </View>
             <View style={styles.inputContainer}>
@@ -70,7 +68,7 @@ export default function AddCharityScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Dites nous pourquoi vous n'en voulez plus"
+                placeholder="Nous avons besoin d'habits afin de les redistribuer..."
               />
             </View>
             <TouchableOpacity style={styles.btnLogin}>
@@ -91,14 +89,13 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-   alignItems: "center",
-  
+    alignItems: "center",
   },
   topContainer: {
     backgroundColor: "#274539",
     height: 160,
     justifyContent: "center",
-    textAlign:"center",
+    textAlign: "center",
     alignItems: "center",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
@@ -107,8 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: "MontserratBold",
     color: "white",
-    textAlign:"center",
-  
+    textAlign: "center",
   },
 
   bottomContainer: {

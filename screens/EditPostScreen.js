@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import {
   FlatList,
@@ -29,12 +29,15 @@ export default function EditPostScreen({ navigation }) {
   const [title, setTitle] = useState(post.title);
   const [category, setCategory] = useState(post.category);
   const [description, setDescription] = useState(post.description);
-  const [availability, setAvailability] = useState(post.availability_date.slice(0,10));
+  const [availability, setAvailability] = useState(
+    post.availability_date.slice(0, 10)
+  );
   const [quantity, setQuantity] = useState(`${post.quantity}`);
   const [selectedImages, setSelectedImages] = useState(post.photo);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState(
-    post.availability_date.slice(0,10));
+    post.availability_date.slice(0, 10)
+  );
 
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
@@ -56,10 +59,8 @@ export default function EditPostScreen({ navigation }) {
     setSelectedImages(selectedImages.filter((image) => image !== imageUri));
   };
 
-  const SelectedImageItem = ({ item }) =>
-  // console.log(item);
-  (
-   
+  const SelectedImageItem = ({ item }) => (
+    // console.log(item);
     <View style={styles.selectedImageItem}>
       <Image source={{ uri: item }} style={styles.selectedImage} />
       <TouchableOpacity
@@ -134,9 +135,19 @@ export default function EditPostScreen({ navigation }) {
 
   const handleSubmit = () => {
     console.log(
-      "title",title,
-      "description",description,
-      "category",category,"selected",selectedImages.length,"quantity", quantity,"availability",availability)
+      "title",
+      title,
+      "description",
+      description,
+      "category",
+      category,
+      "selected",
+      selectedImages.length,
+      "quantity",
+      quantity,
+      "availability",
+      availability
+    );
     if (
       !title ||
       !description ||
@@ -178,7 +189,7 @@ export default function EditPostScreen({ navigation }) {
           setQuantity("");
           setAvailability("");
           setSelectedImages([]);
-          navigation.navigate("TabNavigator", { screen: "Acceuil" })
+          navigation.navigate("TabNavigator", { screen: "Acceuil" });
         } else {
           alert("Une erreur est survenue lors de la publication de l'annonce.");
         }
@@ -197,7 +208,6 @@ export default function EditPostScreen({ navigation }) {
   if (galleryPermission === false) {
     return <Text>Pas d'accès au stockage interne</Text>;
   }
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -220,7 +230,7 @@ export default function EditPostScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setTitle(value)}
                 value={title}
-                placeholder="Quel est le titre de votre annonce?"
+                placeholder="Palette de pantalons"
               />
             </View>
             <View style={styles.inputContainer}>
@@ -248,7 +258,7 @@ export default function EditPostScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Dites nous pourquoi vous n'en voulez plus"
+                placeholder="Nous ne pouvons plus les vendres à cause de tâches"
               />
             </View>
             <View style={styles.imagePickerContainer}>
@@ -289,7 +299,7 @@ export default function EditPostScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setQuantity(value)}
                 value={quantity}
-                placeholder="Combien de pièces?"
+                placeholder="24"
               />
             </View>
             <View style={styles.inputContainer}>

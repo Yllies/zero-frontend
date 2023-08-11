@@ -98,7 +98,7 @@ export default function LoginScreen({ navigation }) {
                   keyboardType="email-address"
                   onChangeText={(value) => setEmail(value)}
                   value={email}
-                  placeholder=""
+                  placeholder="johndoe@grocerycompany.com"
                 />
                 {emailError && (
                   <Text style={styles.error}>Adresse email invalide</Text>
@@ -113,7 +113,7 @@ export default function LoginScreen({ navigation }) {
                   autoCapitalize="none"
                   onChangeText={(value) => setPassword(value)}
                   value={password}
-                  placeholder=""
+                  placeholder="XH2LQ869pgpr3z"
                 />
                 {dataError && (
                   <Text style={styles.error}>Mauvais identifiants ! </Text>
