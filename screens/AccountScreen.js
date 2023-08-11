@@ -132,10 +132,11 @@ export default function AccountScreen() {
           >
             <Text style={styles.textOptionBtn}>Annonces en lignes</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.optionBtn}>
-            <Text style={styles.textOptionBtn}>Historique des dons</Text>
-          </TouchableOpacity>
+          {user.type === "Entreprise" && (
+            <TouchableOpacity style={styles.optionBtn}>
+              <Text style={styles.textOptionBtn}>Historique des dons</Text>
+            </TouchableOpacity>
+          )}
 
           <TouchableOpacity
             style={styles.optionBtn}
