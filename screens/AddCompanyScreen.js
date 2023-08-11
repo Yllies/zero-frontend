@@ -30,7 +30,7 @@ const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function AddCompanyScreen({ navigation }) {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Vetement");
+  const [category, setCategory] = useState("Vetements");
   const [description, setDescription] = useState("");
   const [availability, setAvailability] = useState("");
   const [quantity, setQuantity] = useState("");

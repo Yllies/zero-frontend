@@ -14,7 +14,6 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
-  ScrollView,
   Alert,
 } from "react-native";
 
