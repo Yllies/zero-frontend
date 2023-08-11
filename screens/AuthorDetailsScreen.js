@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,66 +10,63 @@ import {
   Modal,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import MapScreen from "../components/Map";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-
-export default function AuthorDetailsScreen ()  {
-    const route = useRoute();
-    const { author } = route.params;
-    const [details, setDetails] = useState(null);
-    const [initialRegion,setInitialRegion] = useState(null)
-    const [count,setCount] =useState(0)
-    const [text,setText] =useState('')
-    const navigation =useNavigation()
-    useEffect(() => {
-      setTimeout(() => {
-        fetch(`${BACK_URL}:3000/users/${author}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setDetails(data);
-            setInitialRegion({
-              latitude: data.latitude,
-              longitude: data.longitude,
-              latitudeDelta: data.latitudeDelta,
-              longitudeDelta: data.longitudeDelta,
-            });
-    
-            if (data.type === 'Entreprise') {
-              setText('dons ont été postés par cette entreprise');
-      
-              fetch(`${BACK_URL}:3000/posts/company/published/${author}`)
-                .then((response) => response.json())
-                .then((postData) => {
-                  setCount(postData.data.length);
-                })
-                .catch((error) => {
-                  console.error("Error fetching company posts:", error);
-                });
-            } else if (data.type === 'Association') {
-              setText('besoins ont été postés par cette association');
-      
-              fetch(`${BACK_URL}:3000/posts/charity/published/${author}`)
-                .then((response) => response.json())
-                .then((postData) => {
-                  setCount(postData.data.length);
-                })
-                .catch((error) => {
-                  console.error("Error fetching association posts:", error);
-                });
-            }
-          })
-          .catch((error) => {
-            console.error("Error fetching user details:", error);
+export default function AuthorDetailsScreen() {
+  const route = useRoute();
+  const { author } = route.params;
+  const [details, setDetails] = useState(null);
+  const [initialRegion, setInitialRegion] = useState(null);
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("");
+  const navigation = useNavigation();
+  useEffect(() => {
+    setTimeout(() => {
+      fetch(`${BACK_URL}:3000/users/${author}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setDetails(data);
+          setInitialRegion({
+            latitude: data.latitude,
+            longitude: data.longitude,
+            latitudeDelta: data.latitudeDelta,
+            longitudeDelta: data.longitudeDelta,
           });
-      }, 1000);
-    }, []);
-    
 
+          if (data.type === "Entreprise") {
+            setText("dons ont été postés par cette entreprise");
+
+            fetch(`${BACK_URL}:3000/posts/company/published/${author}`)
+              .then((response) => response.json())
+              .then((postData) => {
+                setCount(postData.data.length);
+              })
+              .catch((error) => {
+                console.error("Error fetching company posts:", error);
+              });
+          } else if (data.type === "Association") {
+            setText("besoins ont été postés par cette association");
+
+            fetch(`${BACK_URL}:3000/posts/charity/published/${author}`)
+              .then((response) => response.json())
+              .then((postData) => {
+                setCount(postData.data.length);
+              })
+              .catch((error) => {
+                console.error("Error fetching association posts:", error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user details:", error);
+        });
+    }, 1000);
+  }, []);
 
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -102,18 +99,16 @@ export default function AuthorDetailsScreen ()  {
                 size={40}
                 style={styles.icons}
               />
-              <Text>   4,9</Text>
+              <Text> 4,9</Text>
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Qui sommes-nous?</Text>
-          <Text style={styles.description}>
-            {details?.description}
-          </Text>
+          <Text style={styles.description}>{details?.description}</Text>
         </View>
         <View style={styles.mapContainer}>
-          <MapScreen initialRegion = {initialRegion} />
+          <MapScreen initialRegion={initialRegion} />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Infos Complémentaire</Text>
@@ -141,18 +136,14 @@ export default function AuthorDetailsScreen ()  {
               Horaires
             </Text>
             <Text style={styles.textInfo}>
-            Du lundi au vendredi de 9h à 18h
+              Du lundi au vendredi de 9h à 18h
             </Text>
           </View>
           <Text style={styles.title}>Points Forts</Text>
           <View style={styles.PFContainer}>
-          <Text style={styles.Number}>
-            {count} 
-          </Text>
-          <Text style={styles.PFSubText}>
-          {text}
-          </Text>
-        </View>
+            <Text style={styles.Number}>{count}</Text>
+            <Text style={styles.PFSubText}>{text}</Text>
+          </View>
           <TouchableOpacity style={styles.btnContact} onPress={toggleModal}>
             <Text style={styles.Contact}>
               Contacter l'{details?.type}{" "}
@@ -165,35 +156,35 @@ export default function AuthorDetailsScreen ()  {
             </Text>
           </TouchableOpacity>
           <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isModalVisible}
-          onRequestClose={toggleModal}
-        >
-<View style={styles.modalContainer}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={toggleModal}
-            >
-              <FontAwesome
-                name="close"
-                color="black"
-                size={30}
-                style={styles.closeIcon}
-              />
-            </TouchableOpacity>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Contact Details</Text>
-              <Text>Email: {details?.email}</Text>
-              <Text>Telephone: {details?.phone_number}</Text>
+            animationType="slide"
+            transparent={true}
+            visible={isModalVisible}
+            onRequestClose={toggleModal}
+          >
+            <View style={styles.modalContainer}>
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={toggleModal}
+              >
+                <FontAwesome
+                  name="close"
+                  color="black"
+                  size={30}
+                  style={styles.closeIcon}
+                />
+              </TouchableOpacity>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalTitle}>Contacts</Text>
+                <Text style={styles.modalTitle}>Email: {details?.email}</Text>
+                <Text style={styles.modalTitle}>Telephone: {details?.phone_number}</Text>
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -210,13 +201,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#ffffff",
-
   },
   iconContainer: {
     // flexDirection: "column",
     position: "absolute",
     right: 20,
-    marginTop:'12%',
+    marginTop: "12%",
   },
 
   buttonContainer: {
@@ -226,7 +216,7 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
   },
-  
+
   button: {
     backgroundColor: "#EDFC92",
     padding: 10,
@@ -263,9 +253,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     // lineHeight: 54.5 /* 218% */,
     fontFamily: "PoppinsBold",
-    color : "#254739",
-    paddingBottom :15,
-    paddingTop :25,
+    color: "#254739",
+    paddingBottom: 15,
+    paddingTop: 25,
   },
   description: {
     color: 676767,
@@ -278,7 +268,10 @@ const styles = StyleSheet.create({
     width: 250,
     borderRadius: 10,
   },
-  
+modalTitle:{
+  fontSize: 17,
+  fontFamily: "Poppins",
+},
   mapContainer: {
     justifyContent: "center",
     alignItems: "center",
@@ -310,16 +303,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#EDFC92",
     paddingLeft: 40,
     paddingTop: 20,
-    flexDirection : 'column',
+    flexDirection: "column",
   },
-  
+
   PFText: {
     color: "#274539",
     fontSize: 15,
     fontFamily: "Poppins",
   },
 
-  PFSubText : {
+  PFSubText: {
     marginTop: -40,
     paddingBottom: 20,
     color: "#274539",
@@ -358,12 +351,15 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     alignItems: "center",
+    fontFamily: "Poppins",
+
   },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+    
   },
   closeButton: {
     position: "absolute",
@@ -372,5 +368,3 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 });
-
-
