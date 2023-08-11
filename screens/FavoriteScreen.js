@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     padding: 5,
     // marginLeft: 16,
+    justifyContent: "center",
   },
 
   articleContainer: {
