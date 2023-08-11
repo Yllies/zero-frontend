@@ -68,11 +68,11 @@ export default function PostPublishedScreen() {
               style={styles.cross}
               name="close"
               size={20}
-              color="#EDFC92"
+              color="white"
               onPress={() => handleDeletePost(postCompany.idPost)}
             />
             <TouchableOpacity onPress={() => handleUpdatePost(postCompany)}>
-              <FontAwesome name="edit" size={20} color="#EDFC92" />
+              <FontAwesome name="edit" size={20} color="white" />
             </TouchableOpacity>
           </View>
         </View>
@@ -113,8 +113,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    borderColor: "#EDFC92",
-    borderWidth: 2,
+ 
   },
   leftContain: {
     width: "80%",
@@ -129,17 +128,17 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   title: {
-    fontSize: 20,
+    fontSize:15,
     fontFamily: "PoppinsBold",
     color: "#EDFC92"
   },
   description: {
-    fontSize: 15,
+    fontSize: 12,
     fontFamily: "Poppins",
     color: "white"
   },
  category: {
-    fontSize: 15,
+    fontSize: 12,
     fontFamily: "PoppinsBold",
     color:"#EDFC92"
   },

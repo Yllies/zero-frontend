@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "PoppinsBold",
     fontSize: 15,
-    color: "white",
+    color: "#EDFC92",
   },
   description: {
     fontFamily: "Poppins",
