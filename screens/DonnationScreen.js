@@ -47,7 +47,7 @@ export default function DonnationScreen() {
       console.log("fetch charity");
       fetchData(charityUrl); // If details are still null, fetch from the charity URL
     }
-  }, [idPost, isReserved]);
+  }, [idPost, isReserved, details]);
 
   useEffect(() => {
     console.log("le use qui set le reserved");

@@ -213,11 +213,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   refuser: {
-    color: "#274539",
+    color: "white",
     fontFamily: "PoppinsSemiBold",
     padding: 10,
     width: 280,
     textAlign: "center",
+    backgroundColor:"red",
+    borderRadius:10,
+   
   },
   attention: {
     marginTop: 15,
