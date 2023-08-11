@@ -18,7 +18,7 @@ export default function FavoriteScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.title}>
-          Vos <Text style={styles.zero}>favoris</Text>
+          Voici la liste de vos  <Text style={styles.zero}>favoris</Text>
         </Text>
       </View>
       <FlatList
@@ -64,13 +64,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", // Ajoutez de l'espace entre les colonnes
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    marginLeft: 16,
+  padding:5,
+    // marginLeft: 16,
   },
 
   articleContainer: {
-    width: "48%", // Chaque article prend la moitié de la ligne avec un espace entre eux
-    marginBottom: 10,
+    // width: "48%", // Chaque article prend la moitié de la ligne avec un espace entre eux
+    // marginBottom: 10,
   },
 });
