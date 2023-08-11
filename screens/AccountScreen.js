@@ -273,17 +273,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
   },
+  
   textDynamique: {
     color: "#EDFC92",
   },
+
   containerNote: {
     flexDirection: "row",
     paddingTop: "5%",
   },
+
   containerOption: {
     paddingTop: "10%",
     alignItems: "center",
   },
+
   reservation: {
     width: "90%",
     height: 100,
