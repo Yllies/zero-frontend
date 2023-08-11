@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,37 +10,33 @@ import {
   Modal,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import MapScreen from "../components/Map";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-
 const DetailsAuthor = () => {
-    const route = useRoute();
-    const { author } = route.params;
-    const [details, setDetails] = useState(null);
-    const navigation =useNavigation()
-    console.log(author)
+  const route = useRoute();
+  const { author } = route.params;
+  const [details, setDetails] = useState(null);
+  const navigation = useNavigation();
+  console.log(author);
   const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
-
-    fetch(`${BACK_URL}:3000/users/${author}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        setDetails(data); // Update the Details state with the fetched data
-      })
-      .catch((error) => {
-        console.error("Error fetching post details:", error);
-      });
+      fetch(`${BACK_URL}:3000/users/${author}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setDetails(data); // Update the Details state with the fetched data
+        })
+        .catch((error) => {
+          console.error("Error fetching post details:", error);
+        });
     }, 1000);
-
   }, [author]);
-
 
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -78,9 +74,7 @@ const DetailsAuthor = () => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Qui sommes-nous?</Text>
-          <Text style={styles.description}>
-            {details?.description}
-          </Text>
+          <Text style={styles.description}>{details?.description}</Text>
         </View>
         <View style={styles.mapContainer}>
           <MapScreen />
@@ -111,7 +105,7 @@ const DetailsAuthor = () => {
               Horaires
             </Text>
             <Text style={styles.textInfo}>
-            Du lundi au vendredi de 9h à 18h
+              Du lundi au vendredi de 9h à 18h
             </Text>
           </View>
           <Text style={styles.title}>Points Forts</Text>
@@ -132,30 +126,30 @@ const DetailsAuthor = () => {
             </Text>
           </TouchableOpacity>
           <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isModalVisible}
-          onRequestClose={toggleModal}
-        >
-<View style={styles.modalContainer}>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={toggleModal}
-            >
-              <FontAwesome
-                name="close"
-                color="black"
-                size={30}
-                style={styles.closeIcon}
-              />
-            </TouchableOpacity>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Contact Details</Text>
-              <Text>Email: {details?.email}</Text>
-              <Text>Telephone: {details?.phone_number}</Text>
+            animationType="slide"
+            transparent={true}
+            visible={isModalVisible}
+            onRequestClose={toggleModal}
+          >
+            <View style={styles.modalContainer}>
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={toggleModal}
+              >
+                <FontAwesome
+                  name="close"
+                  color="black"
+                  size={30}
+                  style={styles.closeIcon}
+                />
+              </TouchableOpacity>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalTitle}>Contact Details</Text>
+                <Text>Email: {details?.email}</Text>
+                <Text>Telephone: {details?.phone_number}</Text>
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -234,6 +228,7 @@ const styles = StyleSheet.create({
     color: 676767,
     fontFamily: "Poppins",
     fontSize: 15,
+    marginBottom: 10,
   },
   map: {
     height: 120,
