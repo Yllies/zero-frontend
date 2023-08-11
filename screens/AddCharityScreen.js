@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
-import { Picker } from "@react-native-picker/picker";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import {
+  FlatList,
+  Image,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -9,28 +12,88 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
+  ScrollView,
   SafeAreaView,
+  ScrollView,
+  Alert,
 } from "react-native";
+
+import * as ImagePicker from "expo-image-picker";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { AntDesign } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
+import { Calendar } from "react-native-calendars";
+const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
+
+// const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/do7vfvt5l`;
+// const CLOUDINARY_UPLOAD_PRESET = 'iyp6ovfi';
+// const CLOUDINARY_API_KEY = '974414836328966';
 
 export default function AddCharityScreen({ navigation }) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Vetement");
   const [description, setDescription] = useState("");
+  const user = useSelector((state) => state.user.value);
+
+
+  const handleSubmit = () => {
+    if (
+      !title ||
+      !description ||
+      !category 
+    ) {
+      alert("Veuillez remplir tous les champs obligatoires");
+      return;
+    }
+
+    const newPostData = {
+      title,
+      description,
+      category,
+    
+    };
+
+    fetch(`${BACK_URL}:3000/posts/charity/publish/${user.token}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newPostData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("from front", user.token);
+
+        if (data.result) {
+          alert("Votre annonce a été publiée avec succès !");
+          navigation.navigate("Accueil");
+          setTitle("");
+          setDescription("");
+          setCategory("Vetement"); // Set the initial category
+      
+        } else {
+          alert("Une erreur est survenue lors de la publication de l'annonce.");
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la publication de l'annonce :", error);
+        alert("Une erreur est survenue lors de la publication de l'annonce.");
+      });
+  };
+
+
+  
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-        style={styles.mainContain}
+        style={styles.mainContainer}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <View style={styles.topContainer}>
           <Text style={styles.title}>
-            <Text style={styles.white}>
-              Postez votre demande de <Text style={styles.zero}>besoin</Text>
-            </Text>
+            Postez votre <Text style={styles.zero}>annonce</Text>
           </Text>
         </View>
-        <View style={styles.bottomContainer}>
+        <ScrollView style={styles.bottomContainer}>
           <View style={styles.form}>
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Titre</Text>
@@ -40,7 +103,7 @@ export default function AddCharityScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setTitle(value)}
                 value={title}
-                placeholder="Vêtements de tout type"
+                placeholder="Palette de vêtements"
               />
             </View>
             <View style={styles.inputContainer}>
@@ -68,14 +131,15 @@ export default function AddCharityScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Nous avons besoin d'habits afin de les redistribuer..."
+                placeholder="Dû à l'impossibilité de vendre ses habits..."
               />
             </View>
-            <TouchableOpacity style={styles.btnLogin}>
+            
+            <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
               <Text style={styles.login}>Publiez votre demande</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
         <StatusBar style="auto" />
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -89,13 +153,11 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    alignItems: "center",
   },
   topContainer: {
     backgroundColor: "#274539",
     height: 160,
     justifyContent: "center",
-    textAlign: "center",
     alignItems: "center",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
@@ -104,9 +166,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: "MontserratBold",
     color: "white",
-    textAlign: "center",
   },
-
   bottomContainer: {
     padding: 20,
   },
@@ -166,7 +226,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: "100%",
     alignItems: "center",
-    marginTop: 30,
+    marginBottom: 30,
   },
   login: {
     fontSize: 15,
