@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
+  ScrollView,
   SafeAreaView,
 } from "react-native";
 
@@ -16,6 +17,8 @@ export default function AddCharityScreen({ navigation }) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Vetement");
   const [description, setDescription] = useState("");
+
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,7 +33,7 @@ export default function AddCharityScreen({ navigation }) {
             </Text>
           </Text>
         </View>
-        <View style={styles.bottomContainer}>
+        <ScrollView style={styles.bottomContainer}>
           <View style={styles.form}>
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Titre</Text>
@@ -75,7 +78,8 @@ export default function AddCharityScreen({ navigation }) {
               <Text style={styles.login}>Publiez votre demande</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
+
         <StatusBar style="auto" />
       </KeyboardAvoidingView>
     </SafeAreaView>
