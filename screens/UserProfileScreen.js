@@ -101,7 +101,7 @@ export default function UserProfileScreen  ()  {
           </Text>
         </View>
         <View style={styles.mapContainer}>
-          <MapScreen initialRegion={initialRegion} />
+        <MapScreen initialRegion = {initialRegion} />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Infos Complémentaire</Text>
