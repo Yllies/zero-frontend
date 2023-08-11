@@ -134,25 +134,11 @@ export default function EditPostScreen({ navigation }) {
   };
 
   const handleSubmit = () => {
-    console.log(
-      "title",
-      title,
-      "description",
-      description,
-      "category",
-      category,
-      "selected",
-      selectedImages.length,
-      "quantity",
-      quantity,
-      "availability",
-      availability
-    );
     if (
       !title ||
       !description ||
       !category ||
-      !selectedImages.length ||
+      !selectedImages ||
       !quantity ||
       !availability
     ) {

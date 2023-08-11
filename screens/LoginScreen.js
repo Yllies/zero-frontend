@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainContain: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff",
   },
   topContainer: {
