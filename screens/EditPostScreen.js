@@ -37,6 +37,7 @@ export default function EditPostScreen({ navigation }) {
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState(
     post?.availability_date?.slice(0, 10));
+    const [type, setType] =useState(false)
 
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
@@ -208,7 +209,7 @@ export default function EditPostScreen({ navigation }) {
     return <Text>Pas d'accès au stockage interne</Text>;
   }
 
-  if (user.token === 'Entreprise') {
+  if (user.type === 'Entreprise') {
     setType(true)
   }
 
