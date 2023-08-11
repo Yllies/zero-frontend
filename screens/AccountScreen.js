@@ -70,10 +70,7 @@ export default function AccountScreen() {
         let isInWaiting = false;
 
         data.data.map((postInWaiting) => {
-          if (
-            postInWaiting.isBooked === "En attente" &&
-            postInWaiting.author.token === user.token
-          ) {
+          if (postInWaiting.isBooked === "En attente") {
             isInWaiting = true;
             if (
               !post.map((elem) => elem.idPost).includes(postInWaiting.idPost)
