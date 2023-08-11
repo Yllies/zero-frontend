@@ -1,12 +1,25 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { addToFavorites, removeFromFavorites } from "../reducers/favorites";
+import { TouchableOpacity, Text, View, StyleSheet,Image } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ArticleDetails(props) {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const favorites = useSelector((state) => state.favorites.value);
+  const isFavorite = favorites.some((item) => item.idPost === props.idPost);
+
+  const handleFavoriteClick = () => {
+    if (isFavorite) {
+      dispatch(removeFromFavorites(props));
+    } else {
+      dispatch(addToFavorites(props));
+    }
+  };
   const goToDonnationScreen = (idPost) => {
-    console.log("idPost ArticleDetails", idPost);
     navigation.navigate("DonnationScreen", { idPost: idPost });
   };
 
@@ -28,12 +41,12 @@ export default function ArticleDetails(props) {
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{props.title}</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleFavoriteClick}>
               <FontAwesome
                 style={styles.heart}
                 name="heart"
                 size={20}
-                color="#EDFC92"
+                color={isFavorite ? "#EDFC92" : "white"} // Change the color based on the 'isFavorite' status
               />
             </TouchableOpacity>
           </View>
@@ -45,6 +58,7 @@ export default function ArticleDetails(props) {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   containerPage: {
