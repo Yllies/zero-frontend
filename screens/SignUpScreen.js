@@ -152,7 +152,7 @@ export default function SignUpScreen({ navigation }) {
           <Text style={styles.title}>
             Bienvenue parmis <Text style={styles.zero}>nous!</Text>
           </Text>
-          <Text style={styles.textWelcome}>Créer votre compte</Text>
+          <Text style={styles.textWelcome}>Créez votre compte</Text>
         </View>
         <ScrollView>
           {/* <View style={styles.topContainer}>
