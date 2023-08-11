@@ -147,18 +147,6 @@ export default function HomeCharityScreen({ navigation }) {
         />
       </View>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isModalVisible}
-        onRequestClose={toggleModal}
-      >
-        <View style={styles.modalContainer}>
-          {/* Contenu de la modal (FilterScreen) */}
-          <FilterScreen onClose={toggleModal} />
-        </View>
-      </Modal>
-
       <FlatList
         style={styles.flatlist}
         data={posts}

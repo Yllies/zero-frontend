@@ -30,14 +30,13 @@ export default function EditPostScreen({ navigation }) {
   const [category, setCategory] = useState(post.category);
   const [description, setDescription] = useState(post.description);
   const [availability, setAvailability] = useState(
-    post.availability_date.slice(0, 10)
-  );
-  const [quantity, setQuantity] = useState(`${post.quantity}`);
+    post.availability_date.slice(0, 10));
+  const [quantity, setQuantity] = useState(post.quantity);
   const [selectedImages, setSelectedImages] = useState(post.photo);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState(
-    post.availability_date.slice(0, 10)
-  );
+    post.availability_date.splice(0, 10));
+    const [type, setType] = useState (false)
 
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
@@ -46,7 +45,7 @@ export default function EditPostScreen({ navigation }) {
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       setGalleryPermission(galleryStatus.status === "granted");
     })();
-  }, []);
+  }, [post]);
 
   const onDayPress = (day) => {
     console.log(day);
@@ -209,6 +208,11 @@ export default function EditPostScreen({ navigation }) {
     return <Text>Pas d'accès au stockage interne</Text>;
   }
 
+  if (user.token === 'Entreprise') {
+    setType(true)
+  }
+
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -261,7 +265,7 @@ export default function EditPostScreen({ navigation }) {
                 placeholder="Nous ne pouvons plus les vendres à cause de tâches"
               />
             </View>
-            <View style={styles.imagePickerContainer}>
+             { type && (<View style={styles.imagePickerContainer}>
               <Text style={styles.label}>Ajouter des photos</Text>
               <View style={styles.cameraIconContainer}>
                 <TouchableOpacity
@@ -290,8 +294,9 @@ export default function EditPostScreen({ navigation }) {
                 keyExtractor={(item, index) => index.toString()}
                 horizontal
               />
-            </View>
-            <View style={styles.inputContainer}>
+            </View>)}
+
+           {type && (<View style={styles.inputContainer}>
               <Text style={styles.label}>Quantité</Text>
               <TextInput
                 style={styles.input}
@@ -302,7 +307,7 @@ export default function EditPostScreen({ navigation }) {
                 value={quantity}
                 placeholder="24"
               />
-            </View>
+            </View>)}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Disponibilité</Text>
               <Calendar
