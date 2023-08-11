@@ -152,7 +152,7 @@ export default function SignUpScreen({ navigation }) {
           <Text style={styles.title}>
             Bienvenue parmis <Text style={styles.zero}>nous!</Text>
           </Text>
-          <Text style={styles.textWelcome}>Créer votre compte</Text>
+          <Text style={styles.textWelcome}>Créez votre compte</Text>
         </View>
         <ScrollView>
           {/* <View style={styles.topContainer}>
@@ -182,12 +182,12 @@ export default function SignUpScreen({ navigation }) {
               </View>
               <View style={styles.bottomForm}>
                 <View>
-                  <Text style={styles.label}>Username</Text>
+                  <Text style={styles.label}>Identifiant</Text>
                   <TextInput
                     onChangeText={(value) => setUsername(value)}
                     value={username}
                     style={styles.input}
-                    placeholder=""
+                    placeholder="John Doe"
                   />
                 </View>
 
@@ -197,7 +197,7 @@ export default function SignUpScreen({ navigation }) {
                     onChangeText={(value) => setName(value)}
                     value={name}
                     style={styles.input}
-                    placeholder=""
+                    placeholder="Grocery Company"
                   />
                 </View>
 
@@ -216,7 +216,7 @@ export default function SignUpScreen({ navigation }) {
                         latitudeDelta: item.latitudeDelta,
                       }))
                     }
-                    placeholder="Addresse"
+                    placeholder="Rue D 59255 Haveluy"
                     dataSet={dataSet}
                     value={address.title}
                     textInputProps={{ placeholder: "" }}
@@ -237,7 +237,7 @@ export default function SignUpScreen({ navigation }) {
                     style={styles.input}
                     autoCapitalize="none"
                     keyboardType="number-pad"
-                    placeholder=""
+                    placeholder="123456789"
                   />
                 </View>
 
@@ -249,7 +249,7 @@ export default function SignUpScreen({ navigation }) {
                     style={styles.input}
                     autoCapitalize="none"
                     keyboardType="email-address"
-                    placeholder=""
+                    placeholder="johndoe@grocerycompany.com"
                   />
                   {emailError && (
                     <Text style={styles.error}>Adresse email invalide</Text>
@@ -264,7 +264,7 @@ export default function SignUpScreen({ navigation }) {
                     style={styles.input}
                     autoCapitalize="none"
                     secureTextEntry={true}
-                    placeholder=""
+                    placeholder="AbeJp4P644Lh6b"
                   />
                   {passewordError && (
                     <Text style={styles.error}>
@@ -283,7 +283,7 @@ export default function SignUpScreen({ navigation }) {
                     secureTextEntry={true}
                     style={styles.input}
                     autoCapitalize="none"
-                    placeholder=""
+                    placeholder="AbeJp4P644Lh6b"
                   />
                 </View>
 
