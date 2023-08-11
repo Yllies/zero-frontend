@@ -1,24 +1,24 @@
-// reducers.js
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
-    favorites: [], // Liste des articles favoris
-  };
-  
-  const reducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'ADD_TO_FAVORITES':
-        return {
-          ...state,
-          favorites: [...state.favorites, action.payload],
-        };
-      case 'REMOVE_FROM_FAVORITES':
-        return {
-          ...state,
-          favorites: state.favorites.filter((postId) => postId !== action.payload),
-        };
-      default:
-        return state;
-    }
-  };
-  
-  export default reducer;
-  
+  value: [],
+};
+
+export const favoritesSlice = createSlice({
+  name: "favorites",
+
+  initialState,
+  reducers: {
+    addToFavorites: (state, action) => {
+      state.value.push(action.payload);
+    },
+    removeFromFavorites: (state, action) => {
+      state.value = state.value.filter(
+        (favorites) => favorites.title !== action.payload.title
+        //
+      );
+    },
+  },
+});
+export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions;
+export default favoritesSlice.reducer;

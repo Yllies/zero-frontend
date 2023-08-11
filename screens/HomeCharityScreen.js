@@ -16,7 +16,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FilterScreen from "./FilterScreen";
 import { MaterialIcons } from "@expo/vector-icons";
 
-
 const Stack = createNativeStackNavigator();
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
@@ -29,9 +28,9 @@ export default function HomeCharityScreen({ navigation }) {
 
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const quantity = useSelector(state => state.filter.quantity);
+  const quantity = useSelector((state) => state.filter.quantity);
 
-  const date = useSelector(state => state.filter.date);
+  const date = useSelector((state) => state.filter.date);
 
   const displayFilter = useSelector((state) => state.filter.display);
 
@@ -40,7 +39,6 @@ export default function HomeCharityScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   // const navigation = useNavigation();
-
 
   useEffect(() => {
     // Appeler la fonction pour récupérer les posts depuis le backend ou une API REST
@@ -53,28 +51,33 @@ export default function HomeCharityScreen({ navigation }) {
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
     if (displayFilter) {
-      console.log("posts filtrés")
+      console.log("posts filtrés");
       // Fetch posts with filters applied
-      fetch(`${BACK_URL}:3000/filter/company/posts/?quantity=${quantity}&date=${date}`)
-      .then((response) => response.json())
+      fetch(
+        `${BACK_URL}:3000/filter/company/posts/?quantity=${quantity}&date=${date}`
+      )
+        .then((response) => response.json())
         .then((data) => {
           if (data.result === true) {
             const filteredPosts = data.data.filter((post) => {
               const postQuantity = parseInt(post.quantity);
-               if (!isNaN(postQuantity)) {
-                return postQuantity >= quantity[0] && postQuantity <= quantity[1];
- }
-  });  
+              if (!isNaN(postQuantity)) {
+                return (
+                  postQuantity >= quantity[0] && postQuantity <= quantity[1]
+                );
+              }
+            });
             setPosts(filteredPosts);
-
-           } 
+          }
         })
         .catch((error) => {
-          setError("Erreur lors de la récupération des posts :" + error.message);
+          setError(
+            "Erreur lors de la récupération des posts :" + error.message
+          );
         });
     } else {
       // Fetch all posts without filters
-      console.log("posts normaux")
+      console.log("posts normaux");
       fetch(`${BACK_URL}:3000/posts/company`)
         .then((response) => response.json())
         .then((data) => {
@@ -85,43 +88,42 @@ export default function HomeCharityScreen({ navigation }) {
           }
         })
         .catch((error) => {
-          setError("Erreur lors de la récupération des posts :" + error.message);
+          setError(
+            "Erreur lors de la récupération des posts :" + error.message
+          );
         });
     }
   };
-console.log("mon filtre sur homecharity", displayFilter)
+  console.log("mon filtre sur homecharity", displayFilter);
   return (
-
-
     <SafeAreaView style={styles.container}>
-
-<View style={styles.containerPage}>
-      <View style={styles.containerHeader}>
-        <View style={styles.containerNotif}>
-          <MaterialIcons
-            style={styles.icone}
-            name="notifications"
-            size={34}
-            color="#FFFFFF"
-          />
+      <View style={styles.containerPage}>
+        <View style={styles.containerHeader}>
+          <View style={styles.containerNotif}>
+            <MaterialIcons
+              style={styles.icone}
+              name="notifications"
+              size={34}
+              color="#FFFFFF"
+            />
+          </View>
+          <Text style={styles.text}>
+            Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
+          </Text>
+          <Text style={styles.paragraphe}>Bienvenue sur Zéro</Text>
         </View>
-        <Text style={styles.text}>
-          Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
-        </Text>
-        <Text style={styles.paragraphe}>Bienvenue sur Zéro</Text>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isModalVisible}
+          onRequestClose={toggleModal}
+        >
+          <View style={styles.modalContainer}>
+            {/* Contenu de la modal (FilterScreen) */}
+            <FilterScreen onClose={toggleModal} />
+          </View>
+        </Modal>
       </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isModalVisible}
-        onRequestClose={toggleModal}
-      >
-        <View style={styles.modalContainer}>
-          {/* Contenu de la modal (FilterScreen) */}
-          <FilterScreen onClose={toggleModal} />
-        </View>
-      </Modal>
-    </View>
       <View style={styles.searchBarContainer}>
         <View style={styles.searchIconContainer}>
           <FontAwesome
@@ -183,12 +185,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",
+    // justifyContent: "flex-start",
   },
 
   scrollViewContainer: {
-    flex: 1,
-    width: "100%",
+    marginTop: -20,
   },
 
   cardsRow: {
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
   containerHeader: {
     backgroundColor: "#274539",
     width: "100%",
-    height: 200,
+    height: 160,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingRight: 30,
@@ -243,7 +244,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     paddingBottom: 20,
-    paddingTop: 35,
   },
 
   // Style du texte dynamique à l'intérieur du texte "Bonjour"
@@ -253,20 +253,20 @@ const styles = StyleSheet.create({
 
   // Style du conteneur de la barre de recherche
   searchBarContainer: {
-  flexDirection: "row",
-  marginTop: 20,
-  marginBottom: 20, // Add margin below the search bar
-  marginLeft: 20, // Adjust the left margin
-  marginRight: 20, // Adjust the right margin
-  backgroundColor: "#FFFFFF",
-  borderRadius: 30,
-  borderWidth: 1,
-  borderColor: "#EDFC92",
-  shadowColor: "#171717",
-  shadowOffset: { width: -2, height: 4 },
-  shadowOpacity: 0.2,
-  shadowRadius: 3,
-  zIndex: 1,
+    flexDirection: "row",
+    marginTop: -20,
+    marginBottom: 5, // Add margin below the search bar
+    marginLeft: 20, // Adjust the left margin
+    marginRight: 20, // Adjust the right margin
+    backgroundColor: "#FFFFFF",
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "#EDFC92",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    zIndex: 1,
   },
 
   // Style du conteneur de l'icône de loupe

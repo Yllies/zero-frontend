@@ -42,12 +42,12 @@ export default function DonnationScreen() {
     };
     const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
     const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
-    fetchData(companyUrl); // Try fetching from the company URL
-    if (!details) {
-      console.log("fetch charity");
-      fetchData(charityUrl); // If details are still null, fetch from the charity URL
-    }
-  }, [idPost, isReserved]);
+
+    fetchData(companyUrl);
+
+      if (!details) {
+        fetchData(charityUrl);
+      }
 
   useEffect(() => {
     console.log("le use qui set le reserved");
@@ -373,4 +373,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
   },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
+  swiper:{
+    height:250,
+    width:250,
+  }
 });
