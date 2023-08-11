@@ -26,15 +26,28 @@ export default function PostPublishedScreen() {
   const [allPosts, setAllPosts] = useState([]);
   const [lastDeleted, setLastDeleted] = useState("");
   useEffect(() => {
-    console.log("retour dans le composant post published");
+
+    if (user.type === 'Entreprise'){
+
     fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setAllPosts(data.data);
       });
+    }
+
+    else if (user.type === 'Association'){
+      fetch(`${BACK_URL}:3000/posts/charity/published/${user.token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAllPosts(data.data);
+        });}
   }, [isFocused, lastDeleted]);
 
+
   const handleDeletePost = (id) => {
+
+   if (user.type === 'Entreprise'){
     fetch(`${BACK_URL}:3000/posts/company/delete/${user.token}/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -45,9 +58,24 @@ export default function PostPublishedScreen() {
           setLastDeleted(id);
           // alert("Post supprimé");
         }
+        
       });
   };
-
+   if (user.type === 'Association'){
+    fetch(`${BACK_URL}:3000/posts/charity/delete/${user.token}/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          setLastDeleted(id);
+          // alert("Post supprimé");
+        }
+        
+      });
+  }
+  }
   const handleUpdatePost = (post) => {
     dispatch(addToUpdate(post));
     navigation.navigate("EditPost");

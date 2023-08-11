@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
   },
-  
+
   textDynamique: {
     color: "#EDFC92",
   },

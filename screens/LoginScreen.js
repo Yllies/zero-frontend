@@ -67,6 +67,8 @@ export default function LoginScreen({ navigation }) {
               })
             );
             navigation.navigate("TabNavigator", { screen: "Acceuil" });
+            setDataError(false)
+            setEmailError(false)
           }
         });
       // .catch(error => {

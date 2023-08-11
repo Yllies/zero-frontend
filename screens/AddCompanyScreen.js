@@ -30,7 +30,7 @@ const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function AddCompanyScreen({ navigation }) {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Vetement");
+  const [category, setCategory] = useState("Vetements");
   const [description, setDescription] = useState("");
   const [availability, setAvailability] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -222,13 +222,13 @@ export default function AddCompanyScreen({ navigation }) {
                 mode={"dialog"}
                 onValueChange={(itemValue) => setCategory(itemValue)}
               >
-                <Picker.Item label="Vetement" value="Vetement" />
-                <Picker.Item label="Meubles" value="Meuble" />
+                <Picker.Item label="Vetements" value="Vetements" />
+                <Picker.Item label="Meubles" value="Meubles" />
                 <Picker.Item label="High-Tech" value="High-Tech" />
                 <Picker.Item label="Electroménager" value="Electroménager" />
                 <Picker.Item label="Jeux" value="Jeux" />
                 <Picker.Item label="Enfants" value="Enfants" />
-                <Picker.Item label="Autre" value="Autre" />
+                <Picker.Item label="Autres" value="Autres" />
               </Picker>
             </View>
             <View style={styles.inputContainer}>

@@ -31,7 +31,6 @@ import FilterScreenBeta from "./screens/FilterScreenBeta";
 import AddCharityScreen from "./screens/AddCharityScreen";
 import AddCompanyScreen from "./screens/AddCompanyScreen";
 import { useSelector } from "react-redux";
-import AuthorDetailsScreen from "./screens/AuthorDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -100,7 +99,6 @@ const TabNavigator = () => {
           headerShown: false,
         })}
       >
-   
         <Tab.Screen name="Accueil" component={HomeCompanyScreen} />
         <Tab.Screen name="Publier" component={AddCompanyScreen} />
         <Tab.Screen name="Mon compte" component={AccountScreen} />
@@ -128,7 +126,6 @@ export default function App() {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
