@@ -302,7 +302,6 @@ const styles = StyleSheet.create({
     color: "#274539",
     fontSize: 15,
     fontFamily: "Poppins",
-
   },
   btn: {
     color: "#274539",
@@ -330,7 +329,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginTop: 20,
   },
-  
+
   btnDeco: {
     backgroundColor: "#EDFC92",
     width: "35%",
@@ -340,8 +339,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     borderRadius: 10,
     fontFamily: "Poppins",
+    justifyContent: "center",
   },
-  
+
   btnSupp: {
     fontFamily: "Poppins",
     backgroundColor: "#EDFC92",
@@ -352,13 +352,13 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     borderRadius: 10,
   },
-  
+
   textBtn: {
     color: "#274539",
     fontFamily: "Poppins",
     textAlign: "center",
     alignItems: "center",
-    paddingTop:'12%',
-    paddingBottom:'12%',
+    paddingTop: "12%",
+    paddingBottom: "12%",
   },
 });

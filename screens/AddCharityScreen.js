@@ -34,13 +34,8 @@ export default function AddCharityScreen({ navigation }) {
   const [description, setDescription] = useState("");
   const user = useSelector((state) => state.user.value);
 
-
   const handleSubmit = () => {
-    if (
-      !title ||
-      !description ||
-      !category 
-    ) {
+    if (!title || !description || !category) {
       alert("Veuillez remplir tous les champs obligatoires");
       return;
     }
@@ -49,7 +44,6 @@ export default function AddCharityScreen({ navigation }) {
       title,
       description,
       category,
-    
     };
 
     fetch(`${BACK_URL}:3000/posts/charity/publish/${user.token}`, {
@@ -67,7 +61,6 @@ export default function AddCharityScreen({ navigation }) {
           setTitle("");
           setDescription("");
           setCategory("Vetement"); // Set the initial category
-      
         } else {
           alert("Une erreur est survenue lors de la publication de l'annonce.");
         }
@@ -77,9 +70,6 @@ export default function AddCharityScreen({ navigation }) {
         alert("Une erreur est survenue lors de la publication de l'annonce.");
       });
   };
-
-
-  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -130,10 +120,10 @@ export default function AddCharityScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Dû à l'impossibilité de vendre ses habits..."
+                placeholder="Nous ne pouvons vendre ses habits à cause de..."
               />
             </View>
-            
+
             <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
               <Text style={styles.login}>Publiez votre demande</Text>
             </TouchableOpacity>
