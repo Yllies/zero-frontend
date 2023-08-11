@@ -80,7 +80,7 @@ export default function ReservationScreen({ navigation }) {
           <View style={styles.title}>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: 30,
                 fontFamily: "MontserratBold",
                 color: "white",
               }}
@@ -89,7 +89,7 @@ export default function ReservationScreen({ navigation }) {
             </Text>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: 30,
                 fontFamily: "MontserratBold",
                 color: "#EDFC92",
               }}
@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   title: {
+    size:30,
     flexDirection: "row",
     padding: 40,
     width: "100%",
