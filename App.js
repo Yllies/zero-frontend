@@ -22,6 +22,7 @@ import user from "./reducers/user";
 import post from "./reducers/post";
 import DetailsAuthor from "./screens/AuthorDetailsScreen";
 import filter from "./reducers/filter";
+import favorites from "./reducers/favorites";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
 import UserProfileScreen from "./screens/UserProfileScreen";
@@ -66,7 +67,7 @@ const TabNavigator = () => {
           headerShown: false,
         })}
       >
-        <Tab.Screen name="Accueil" component={HomeCharityScreenBeta} />
+        <Tab.Screen name="Accueil" component={HomeCharityScreen} />
         <Tab.Screen name="Favoris" component={FavoriteScreen} />
         <Tab.Screen name="Publier" component={AddCharityScreen} />
         <Tab.Screen name="Mon compte" component={AccountScreen} />
@@ -109,7 +110,7 @@ const TabNavigator = () => {
 
 export default function App() {
   const store = configureStore({
-    reducer: { user, filter, post },
+    reducer: { user, filter, post, favorites },
   });
 
   const [fontsLoaded] = useFonts({
