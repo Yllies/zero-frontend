@@ -8,11 +8,8 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  FlatList,
 } from "react-native";
 import Swiper from 'react-native-swiper';
-
-import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
@@ -49,9 +46,11 @@ export default function DonnationScreen() {
 
     fetchData(companyUrl);
 
+    setTimeout(() => {
       if (!details) {
         fetchData(charityUrl);
       }
+    }, 1000);
 
     setSelectedImage(details?.photo)
   }, [idPost, details]);
