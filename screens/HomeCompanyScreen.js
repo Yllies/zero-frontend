@@ -200,12 +200,14 @@ const styles = StyleSheet.create({
   containerHeader: {
     backgroundColor: "#274539",
     width: "100%",
-    height: 160,
+    height: 180,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingRight: 30,
     paddingLeft: 30,
+    marginBottom: '5%',
   },
+
   text: {
     fontFamily: "MontserratBold",
     color: "white",
@@ -216,16 +218,21 @@ const styles = StyleSheet.create({
     fontSize: 17,
     marginBottom: 15,
     fontFamily: "MontserratBold",
+     marginBottom:'7%',
   },
+
   containerNotif: {
+    marginTop:'3%',
     padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
     paddingBottom: 20,
   },
+
   textDynamique: {
     color: "#EDFC92",
   },
+
   searchBarContainer: {
     flexDirection: "row",
     backgroundColor: "#FFFFFF",

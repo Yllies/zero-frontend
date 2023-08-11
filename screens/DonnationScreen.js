@@ -117,7 +117,7 @@ export default function DonnationScreen() {
             <View style={styles.circle}>
               <FontAwesome
                 name="star"
-                color="#EDFC92"
+                color="#274539"
                 size={40}
                 style={styles.icons}
               />
@@ -272,8 +272,11 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 30,
+    paddingTop: "10%",
+    paddingBottom:"5%",
+    fontSize: 25,
     fontFamily: "PoppinsBold",
+    color: "#274539",
   },
 
   textInfo: {
@@ -296,27 +299,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
+  
   InfosContainer: {
     borderRadius: 10,
     backgroundColor: "#254739",
-    paddingLeft: 40,
-    paddingTop: 30,
+    paddingLeft: 30,
+    paddingTop: 20,
     paddingBottom: 30,
   },
 
   titleInfo: {
     fontSize: 15,
-    lineHeight: 54.5,
+    lineHeight: 50,
     color: "white",
     fontFamily: "MontserratBold",
   },
   
   PFContainer: {
-    marginTop: 20,
     borderRadius: 10,
     backgroundColor: "#EDFC92",
-    paddingLeft: 40,
-    paddingTop: 20,
   },
 
   PFText: {
@@ -352,19 +353,10 @@ const styles = StyleSheet.create({
     color: "#274539",
     fontFamily: "Poppins",
   },
-
-  btnBooking: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center", // Aligner au milieu verticalement
-    alignItems: "center", // Aligner au centre horizontalement
-    padding: 10,
-  },
   
   reserve: {
     backgroundColor: "#274539",
     padding: 10,
-    width: "90%",
     borderRadius: 5,
     margin: 7,
     shadowColor: "#171717",
@@ -375,7 +367,6 @@ const styles = StyleSheet.create({
   
   cancel: {
     backgroundColor: "#EDFC92",
-    width: "90%",
     padding: 10,
     borderRadius: 5,
     shadowColor: "#171717",
@@ -388,7 +379,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     color: "white",
     textAlign: "center",
-    fontSize: 15,
+    fontSize: 14,
   },
 
   annuler: {
