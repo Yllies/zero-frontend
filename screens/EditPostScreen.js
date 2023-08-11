@@ -309,7 +309,7 @@ export default function EditPostScreen({ navigation }) {
                 placeholder="24"
               />
             </View>)}
-            <View style={styles.inputContainer}>
+           {type && ( <View style={styles.inputContainer}>
               <Text style={styles.label}>Disponibilité</Text>
               <Calendar
                 style={{ fontFamily: "Poppins" }}
@@ -319,7 +319,7 @@ export default function EditPostScreen({ navigation }) {
                 }}
                 theme={customTheme}
               />
-            </View>
+            </View>)}
             <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
               <Text style={styles.login}>Publiez votre annonce</Text>
             </TouchableOpacity>
