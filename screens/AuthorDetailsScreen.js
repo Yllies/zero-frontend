@@ -174,9 +174,9 @@ export default function AuthorDetailsScreen() {
                 />
               </TouchableOpacity>
               <View style={styles.modalContent}>
-                <Text style={styles.modalTitle}>Contact Details</Text>
-                <Text>Email: {details?.email}</Text>
-                <Text>Telephone: {details?.phone_number}</Text>
+                <Text style={styles.modalTitle}>Contacts</Text>
+                <Text style={styles.modalTitle}>Email: {details?.email}</Text>
+                <Text style={styles.modalTitle}>Telephone: {details?.phone_number}</Text>
               </View>
             </View>
           </Modal>
@@ -268,7 +268,10 @@ const styles = StyleSheet.create({
     width: 250,
     borderRadius: 10,
   },
-
+modalTitle:{
+  fontSize: 17,
+  fontFamily: "Poppins",
+},
   mapContainer: {
     justifyContent: "center",
     alignItems: "center",
@@ -348,12 +351,15 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     alignItems: "center",
+    fontFamily: "Poppins",
+
   },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+    
   },
   closeButton: {
     position: "absolute",

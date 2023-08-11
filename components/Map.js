@@ -30,7 +30,7 @@ export default function MapScreen(props) {
   
     return (
       <View style={{ flex: 1 }}>
-        <MapView initialRegion={props?.initialRegion} mapType="standard" style={styles.map}>
+        <MapView initialRegion={props?.initialRegion} mapType="hybrid" style={styles.map}>
         {currentPosition && (
                     <Marker coordinate={currentPosition} title="My position" pinColor="#fecb2d" />
                 )}

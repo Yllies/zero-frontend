@@ -249,6 +249,7 @@ const styles = StyleSheet.create({
   },
   PFContainer: {
     marginTop: 20,
+    marginBottom:30,
     borderRadius: 10,
     backgroundColor: "#EDFC92",
     paddingLeft: 40,

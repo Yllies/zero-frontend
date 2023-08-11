@@ -193,8 +193,8 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: "white",
   },
-  flatlist:{
-marginTop:20,
+  clearSearchIconContainer:{
+padding:5,
   },
   containerPage: {
     // flex: 1,
