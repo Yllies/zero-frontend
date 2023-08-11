@@ -31,7 +31,6 @@ import FilterScreenBeta from "./screens/FilterScreenBeta";
 import AddCharityScreen from "./screens/AddCharityScreen";
 import AddCompanyScreen from "./screens/AddCompanyScreen";
 import { useSelector } from "react-redux";
-import AuthorDetailsScreen from "./screens/AuthorDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
