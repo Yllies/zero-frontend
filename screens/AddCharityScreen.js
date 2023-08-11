@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
+  ScrollView,
   SafeAreaView,
   ScrollView,
   Alert,
@@ -78,6 +79,8 @@ export default function AddCharityScreen({ navigation }) {
       });
   };
 
+
+  
 
   return (
     <SafeAreaView style={styles.container}>
