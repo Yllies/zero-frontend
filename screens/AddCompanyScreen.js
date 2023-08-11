@@ -211,7 +211,7 @@ export default function AddCompanyScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setTitle(value)}
                 value={title}
-                placeholder="Quel est le titre de votre annonce?"
+                placeholder="Palette de vêtements"
               />
             </View>
             <View style={styles.inputContainer}>
@@ -239,7 +239,7 @@ export default function AddCompanyScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Dites nous pourquoi vous n'en voulez plus"
+                placeholder="Dû à l'impossibilité de vendre ses habits..."
               />
             </View>
             <View style={styles.imagePickerContainer}>
@@ -280,7 +280,7 @@ export default function AddCompanyScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setQuantity(value)}
                 value={quantity}
-                placeholder="Combien de pièces?"
+                placeholder="150"
               />
             </View>
             <View style={styles.inputContainer}>
