@@ -73,7 +73,7 @@ export default function AuthorDetailsScreen ()  {
     
     }
 
-  }, [details]);
+  }, []);
 
 
   const [isModalVisible, setModalVisible] = useState(false);

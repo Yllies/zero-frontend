@@ -49,11 +49,9 @@ export default function DonnationScreen() {
 
     fetchData(companyUrl);
 
-    setTimeout(() => {
       if (!details) {
         fetchData(charityUrl);
       }
-    }, 1000);
 
     setSelectedImage(details?.photo)
   }, [idPost, details]);
@@ -374,4 +372,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
   },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
+  swiper:{
+    height:250,
+    width:250,
+  }
 });
