@@ -296,6 +296,7 @@ export default function EditPostScreen({ navigation }) {
               <TextInput
                 style={styles.input}
                 multiline={true}
+                keyboardType="number-pad"
                 textAlignVertical="top"
                 onChangeText={(value) => setQuantity(value)}
                 value={quantity}
