@@ -9,7 +9,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import Swiper from 'react-native-swiper';
+import Swiper from "react-native-swiper";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute, useNavigation } from "@react-navigation/native"; // Combine imports
 
@@ -20,7 +20,7 @@ export default function DonnationScreen() {
   const route = useRoute();
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
-  const [selectedImage,setSelectedImage] = useState([])
+  const [selectedImage, setSelectedImage] = useState([]);
   const navigation = useNavigation();
 
   const goToProfileScreen = (author) => {
@@ -52,7 +52,7 @@ export default function DonnationScreen() {
         fetchData(charityUrl);
       }
     }, 1000);
-    setSelectedImage(details?.photo)
+    setSelectedImage(details?.photo);
   }, [idPost, isReserved, details]);
 
   useEffect(() => {
@@ -102,25 +102,27 @@ export default function DonnationScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.TopContainer}>
-
-        <View style={styles.swiper}>
-
-{selectedImage?.length > 0 ? (
-  <Swiper style={styles.wrapper} showsButtons={true}>
-      {selectedImage.map((image, index) => (
-        <View key={index} style={styles.slide}>
-          <Image source={{ uri: image }} style={styles.image} resizeMode="cover" />
-        </View>
-      ))}
-    </Swiper>
-  ) : (
-    <Image
-    source={require("../assets/asso6.jpeg")}
-      style={styles.image}
-      resizeMode="cover"
-      />
-      )}
-      </View>
+          <View style={styles.swiper}>
+            {selectedImage?.length > 0 ? (
+              <Swiper style={styles.wrapper} showsButtons={true}>
+                {selectedImage.map((image, index) => (
+                  <View key={index} style={styles.slide}>
+                    <Image
+                      source={{ uri: image }}
+                      style={styles.image}
+                      resizeMode="cover"
+                    />
+                  </View>
+                ))}
+              </Swiper>
+            ) : (
+              <Image
+                source={require("../assets/asso6.jpeg")}
+                style={styles.image}
+                resizeMode="cover"
+              />
+            )}
+          </View>
 
           <View style={styles.iconContainer}>
             <TouchableOpacity></TouchableOpacity>
@@ -189,8 +191,7 @@ export default function DonnationScreen() {
     </SafeAreaView>
   );
 }
-  
-  
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -385,12 +386,12 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  
-  swiper:{
-    height:250,
-    width:250,
-  }
+
+  swiper: {
+    height: 250,
+    width: 250,
+  },
 });

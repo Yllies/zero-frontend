@@ -70,7 +70,10 @@ export default function AccountScreen() {
         let isInWaiting = false;
 
         data.data.map((postInWaiting) => {
-          if (postInWaiting.isBooked === "En attente") {
+          if (
+            postInWaiting.isBooked === "En attente" &&
+            postInWaiting.author.token === user.token
+          ) {
             isInWaiting = true;
             if (
               !post.map((elem) => elem.idPost).includes(postInWaiting.idPost)
@@ -274,7 +277,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
   },
-  
+
   textDynamique: {
     color: "#EDFC92",
   },
