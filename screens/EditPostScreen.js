@@ -30,13 +30,13 @@ export default function EditPostScreen({ navigation }) {
   const [category, setCategory] = useState(post.category);
   const [description, setDescription] = useState(post.description);
   const [availability, setAvailability] = useState(
-    post.availability_date.slice(0, 10));
+    post?.availability_date?.slice(0, 10)
+  );
   const [quantity, setQuantity] = useState(post.quantity);
   const [selectedImages, setSelectedImages] = useState(post.photo);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState(
-    post.availability_date.splice(0, 10));
-    const [type, setType] = useState (false)
+    post?.availability_date?.slice(0, 10));
 
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
