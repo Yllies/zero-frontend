@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ArticleReserved from "../components/ArticleReserved";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { useIsFocused } from "@react-navigation/native";
-import {  addToShowTheAccepted } from "../reducers/post";
+import { addToShowTheAccepted } from "../reducers/post";
 import { removeAllToConfirm } from "../reducers/post";
 import {
   ImageBackground,
@@ -116,7 +116,9 @@ export default function ReservationScreen({ navigation }) {
                       <Text style={styles.titleCard}>{post.title}</Text>
                     </View>
 
-                    <Text style={styles.description}>{post.description}</Text>
+                    <Text style={styles.description}>
+                      {post.description.slice(0, 30) + "..."}
+                    </Text>
                     <Text style={styles.category}>{post.category}</Text>
                   </View>
                 </TouchableOpacity>
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   title: {
-    size:30,
+    size: 30,
     flexDirection: "row",
     padding: 40,
     width: "100%",
