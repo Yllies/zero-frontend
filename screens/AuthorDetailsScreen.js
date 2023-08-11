@@ -139,7 +139,7 @@ export default function AuthorDetailsScreen() {
               Du lundi au vendredi de 9h à 18h
             </Text>
           </View>
-          <Text style={styles.title}>Points Forts</Text>
+          <Text style={styles.title}>Points forts</Text>
           <View style={styles.PFContainer}>
             <Text style={styles.Number}>{count}</Text>
             <Text style={styles.PFSubText}>{text}</Text>
