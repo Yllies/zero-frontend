@@ -328,6 +328,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginTop: 20,
   },
+  
   btnDeco: {
     backgroundColor: "#EDFC92",
     padding: "4%",
@@ -354,6 +355,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     borderRadius: 10,
   },
+  
   textBtn: {
     color: "#274539",
     fontFamily: "Poppins",
