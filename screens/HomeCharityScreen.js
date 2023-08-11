@@ -166,7 +166,7 @@ export default function HomeCharityScreen({ navigation }) {
         numColumns={2}
         contentContainerStyle={styles.cardsRow}
         renderItem={({ item }) => (
-          <View style={styles.needContainer}>
+          <View >
             <ArticleDetails
               title={item.title}
               description={item.description.slice(0, 25) + "..."}
