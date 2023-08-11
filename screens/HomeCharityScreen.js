@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingRight: 30,
-    paddingLeft: 30,  
+    paddingLeft: 30,
   },
 
   // Style du texte "Bonjour"
@@ -226,7 +226,6 @@ const styles = StyleSheet.create({
     fontFamily: "MontserratBold",
     color: "white",
     fontSize: 30,
-    
   },
 
   // Style du paragraphe d'introduction
@@ -235,7 +234,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
     marginBottom: 15,
     fontFamily: "MontserratBold",
-   
   },
 
   iconeFilter: {
@@ -243,7 +241,7 @@ const styles = StyleSheet.create({
   },
   // Style du conteneur de l'icône de notification
   containerNotif: {
-    marginTop:'3%',
+    marginTop: "3%",
     padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
@@ -257,7 +255,6 @@ const styles = StyleSheet.create({
 
   // Style du conteneur de la barre de recherche
   searchBarContainer: {
-
     flexDirection: "row",
     marginTop: -20,
     marginBottom: 5, // Add margin below the search bar
@@ -272,8 +269,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     zIndex: 1,
-     marginBottom:'5%',
-  
+    marginBottom: "5%",
   },
 
   // Style du conteneur de l'icône de loupe
@@ -283,7 +279,6 @@ const styles = StyleSheet.create({
     padding: 10,
     // borderWidth: 1,
     // borderColor: "black",
-
   },
 
   // Style de l'icône de loupe
@@ -299,7 +294,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-
   },
 
   modalContent: {
