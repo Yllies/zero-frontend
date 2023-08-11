@@ -111,7 +111,7 @@ export default function AuthorDetailsScreen() {
           <MapScreen initialRegion={initialRegion} />
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>Infos Complémentaire</Text>
+          <Text style={styles.title}>Informations complémentaires</Text>
           <View style={styles.InfosContainer}>
             <Text style={styles.titleInfo}>
               {" "}
@@ -139,7 +139,7 @@ export default function AuthorDetailsScreen() {
               Du lundi au vendredi de 9h à 18h
             </Text>
           </View>
-          <Text style={styles.title}>Points Forts</Text>
+          <Text style={styles.title}>Points forts</Text>
           <View style={styles.PFContainer}>
             <Text style={styles.Number}>{count}</Text>
             <Text style={styles.PFSubText}>{text}</Text>
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 15,
-    fontFamily: "Poppins",
+    fontFamily: "PoppinsSemiBold",
   },
   botcontiner: {
     justifyContent: "flex-start", // Updated from 'center' to 'flex-start'
@@ -295,7 +295,7 @@ modalTitle:{
     fontSize: 20,
     lineHeight: 54.5,
     color: "white",
-    fontFamily: "Poppins",
+    fontFamily: "PoppinsSemiBold",
   },
   PFContainer: {
     marginTop: 20,
