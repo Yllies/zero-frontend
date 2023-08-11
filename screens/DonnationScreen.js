@@ -45,9 +45,10 @@ export default function DonnationScreen() {
 
     fetchData(companyUrl);
 
-      if (!details) {
-        fetchData(charityUrl);
-      }
+    if (!details) {
+      fetchData(charityUrl);
+    }
+  }, [idPost, isReserved]);
 
   useEffect(() => {
     console.log("le use qui set le reserved");
@@ -154,7 +155,7 @@ export default function DonnationScreen() {
                 </TouchableOpacity>
               )}
 
-            {isReserved && details?.isBookedBy?.token === user.token && (
+            {(isReserved || details?.isBookedBy?.token === user.token) && (
               <TouchableOpacity
                 style={styles.cancel}
                 onPress={() => handleCancel()}
@@ -163,28 +164,6 @@ export default function DonnationScreen() {
               </TouchableOpacity>
             )}
           </View>
-          {/* {user.type === "Association" &&
-            !details.isReserved &&
-            details.isBooked === "Non" && (
-              <View style={styles.btnBooking}>
-                <TouchableOpacity
-                  style={styles.reserve}
-                  onPress={() => handleReserve()}
-                >
-                  <Text style={styles.reserver}>
-                    Envoyer une demande de réservation
-                  </Text>
-                </TouchableOpacity>
-                {details?.isBookedBy?.token === user.token && (
-                  <TouchableOpacity
-                    style={styles.cancel}
-                    onPress={() => handleCancel()}
-                  >
-                    <Text style={styles.annuler}>Annuler ma réservation</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-            )} */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -375,12 +354,12 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  
-  swiper:{
-    height:250,
-    width:250,
-  }
+
+  swiper: {
+    height: 250,
+    width: 250,
+  },
 });
