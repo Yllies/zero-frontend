@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     color: "#274539",
     fontSize: 15,
     fontFamily: "Poppins",
-    textAlign: "center",
+
   },
   btn: {
     color: "#274539",
@@ -317,12 +317,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: "5%",
   },
+
   textOptionBtn: {
     color: "white",
     fontSize: 15,
     fontFamily: "Poppins",
     textAlign: "center",
   },
+
   btnContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -331,28 +333,23 @@ const styles = StyleSheet.create({
   
   btnDeco: {
     backgroundColor: "#EDFC92",
-    padding: "4%",
-    width: "45%",
+    width: "35%",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    alignItems: "center",
-    marginBottom: 25,
     borderRadius: 10,
     fontFamily: "Poppins",
   },
+  
   btnSupp: {
     fontFamily: "Poppins",
     backgroundColor: "#EDFC92",
-    padding: "4%",
-    width: "45%",
+    width: "50%",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    alignItems: "center",
-    marginBottom: 25,
     borderRadius: 10,
   },
   
@@ -360,5 +357,8 @@ const styles = StyleSheet.create({
     color: "#274539",
     fontFamily: "Poppins",
     textAlign: "center",
+    alignItems: "center",
+    paddingTop:'12%',
+    paddingBottom:'12%',
   },
 });
