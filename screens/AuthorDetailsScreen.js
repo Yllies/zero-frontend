@@ -41,38 +41,25 @@ export default function AuthorDetailsScreen ()  {
       });
     }, 1000);
 
-    if (details?.type === 'Entreprise') {
+    if (details?.type === 'Entreprise'){
       setText('dons ont été posté par cette entreprise')
-      fetch(`${BACK_URL}:3000/posts/company`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.posts) {
-          setCount(data.posts.length);
-        } else {
-          setError("Unknown error!");
-        }
-      })
-      .catch((error) => {
-        setError("Erreur lors de la récupération des posts :" + error.message);
-      });
-    }
-    else if (details?.type === 'Association') {
-      setText('besoins ont été posté par cette association')
-      fetch(`${BACK_URL}:3000/posts/charity`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.posts) {
-          setCount(data.posts.length);
-        } else {
-          setError("Unknown error!");
-        }
-      })
-      .catch((error) => {
-        setError("Erreur lors de la récupération des posts :" + error.message);
-      });
-    
-    }
 
+      fetch(`${BACK_URL}:3000/posts/company/published/${author}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCount(data.lenght);
+        });
+      }
+  
+      else if (details?.type === 'Association'){
+        setText('besoins ont été posté par cette association')
+
+        fetch(`${BACK_URL}:3000/posts/charity/published/${author}`)
+          .then((response) => response.json())
+          .then((data) => {
+          setCount(data.lenght);
+          });}
+  
   }, []);
 
 
@@ -152,7 +139,7 @@ export default function AuthorDetailsScreen ()  {
           <Text style={styles.title}>Points Forts</Text>
           <View style={styles.PFContainer}>
           <Text style={styles.Number}>
-            {count} <Text style={styles.PFText}> </Text>
+            {count} 
           </Text>
           <Text style={styles.PFSubText}>
           {text}
