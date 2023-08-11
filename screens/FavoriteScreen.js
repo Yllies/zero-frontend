@@ -16,17 +16,22 @@ export default function FavoriteScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-        <View style={styles.topContainer}>
-          <Text style={styles.title}>
-            Voici la liste de vos <Text style={styles.zero}>favoris</Text>
-          </Text>
-        </View>
-        <FlatList
-          data={favorites}
-          keyExtractor={(item) => item.idPost.toString()}
-          renderItem={({ item }) => <View><ArticleDetails {...item} /></View>}
-          contentContainerStyle={styles.cardsRow}
-        />
+      <View style={styles.topContainer}>
+        <Text style={styles.title}>
+          Voici la liste de vos <Text style={styles.zero}>favoris</Text>
+        </Text>
+      </View>
+      <FlatList
+        data={favorites}
+        keyExtractor={(item) => item.idPost.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.articleContainer}>
+            <ArticleDetails {...item} />
+          </View>
+        )}
+        contentContainerStyle={styles.cardsRow}
+        numColumns={2}
+      />
     </SafeAreaView>
   );
 }
@@ -35,14 +40,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-
-  },
-  
-  mainContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "columns",
   },
   topContainer: {
     backgroundColor: "#274539",
@@ -60,12 +57,20 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
-
-  login: {
-    fontSize: 15,
-    fontFamily: "Poppins",
-  },
   zero: {
     color: "#EDFC92",
+  },
+  cardsRow: {
+    justifyContent: "space-between", // Ajoutez de l'espace entre les colonnes
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginLeft : 16,
+  },
+  
+  articleContainer: {
+    width: "48%", // Chaque article prend la moitié de la ligne avec un espace entre eux
+    marginBottom: 10,
   },
 });
