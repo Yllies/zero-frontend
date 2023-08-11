@@ -167,16 +167,40 @@ export default function SignUpScreen({ navigation }) {
                   <TouchableOpacity
                     onPress={() => setType("Entreprise")}
                     value={type}
-                    style={styles.btnChoice}
+                    style={
+                      type === "Entreprise"
+                        ? styles.btnChoiceSetted
+                        : styles.btnChoiceNotSetted
+                    }
                   >
-                    <Text style={styles.company}>ENTREPRISE</Text>
+                    <Text
+                      style={
+                        type === "Entreprise"
+                          ? styles.companySetted
+                          : styles.companyNotSetted
+                      }
+                    >
+                      ENTREPRISE
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => setType("Association")}
                     value={type}
-                    style={styles.btnChoice}
+                    style={
+                      type === "Association"
+                        ? styles.btnChoiceSetted
+                        : styles.btnChoiceNotSetted
+                    }
                   >
-                    <Text style={styles.association}>ASSOCIATION</Text>
+                    <Text
+                      style={
+                        type === "Association"
+                          ? styles.associationSetted
+                          : styles.associationNotSetted
+                      }
+                    >
+                      ASSOCIATION
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -370,7 +394,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginTop: 7,
   },
-  btnChoice: {
+  btnChoiceNotSetted: {
+    backgroundColor: "#EDFC92",
+    width: 130,
+    padding: 13,
+    justifyContent: "center",
+    color: "white",
+    borderRadius: 4,
+    alignItems: "center",
+  },
+  btnChoiceSetted: {
     backgroundColor: "#274539",
     width: 130,
     padding: 13,
@@ -379,14 +412,27 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: "center",
   },
-  company: {
+  companySetted: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 13,
+
+    fontFamily: "PoppinsBold",
+  },
+  associationSetted: {
     color: "white",
     textAlign: "center",
     fontSize: 13,
     fontFamily: "PoppinsBold",
   },
-  association: {
-    color: "white",
+  companyNotSetted: {
+    color: "black",
+    textAlign: "center",
+    fontSize: 13,
+    fontFamily: "PoppinsBold",
+  },
+  associationNotSetted: {
+    color: "black",
     textAlign: "center",
     fontSize: 13,
     fontFamily: "PoppinsBold",
