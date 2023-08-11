@@ -76,14 +76,16 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
+
   },
   allPosts: {
     width: "90%",
     // padding: 10,
+    paddingTop: "5%",
   },
 
   post: {
-    height: 100,
+    height: 140,
     margin: 10,
     flexDirection: "row",
     backgroundColor: "#274539",
@@ -92,9 +94,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    borderColor: "#EDFC92",
-    borderWidth: 2,
+   
   },
+
   leftContain: {
     width: "60%",
     padding: 10,

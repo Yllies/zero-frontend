@@ -9,7 +9,6 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import Swiper from "react-native-swiper";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute, useNavigation } from "@react-navigation/native"; // Combine imports
 
@@ -20,7 +19,6 @@ export default function DonnationScreen() {
   const route = useRoute();
   const { idPost } = route.params;
   const [details, setDetails] = useState(null);
-  const [selectedImage, setSelectedImage] = useState([]);
   const navigation = useNavigation();
 
   const goToProfileScreen = (author) => {
@@ -44,16 +42,12 @@ export default function DonnationScreen() {
     };
     const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
     const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
-
-    fetchData(companyUrl);
-
-    setTimeout(() => {
-      if (!details) {
-        fetchData(charityUrl);
-      }
-    }, 1000);
-    setSelectedImage(details?.photo);
-  }, [idPost, isReserved, details]);
+    fetchData(companyUrl); // Try fetching from the company URL
+    if (!details) {
+      console.log("fetch charity");
+      fetchData(charityUrl); // If details are still null, fetch from the charity URL
+    }
+  }, [idPost, isReserved]);
 
   useEffect(() => {
     console.log("le use qui set le reserved");
@@ -102,48 +96,44 @@ export default function DonnationScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.TopContainer}>
-          <View style={styles.swiper}>
-            {selectedImage?.length > 0 ? (
-              <Swiper style={styles.wrapper} showsButtons={true}>
-                {selectedImage.map((image, index) => (
-                  <View key={index} style={styles.slide}>
-                    <Image
-                      source={{ uri: image }}
-                      style={styles.image}
-                      resizeMode="cover"
-                    />
-                  </View>
-                ))}
-              </Swiper>
-            ) : (
-              <Image
-                source={require("../assets/asso6.jpeg")}
-                style={styles.image}
-                resizeMode="cover"
-              />
-            )}
-          </View>
-
+          <Image
+            source={require("../assets/asso6.jpeg")}
+            style={styles.image}
+            resizeMode="cover"
+          />
           <View style={styles.iconContainer}>
-            <TouchableOpacity></TouchableOpacity>
             <TouchableOpacity>
+            <View style={styles.circle}>
+
               <FontAwesome
                 name="heart"
                 color="#EDFC92"
                 size={40}
                 style={styles.icons}
               />
+      </View>
             </TouchableOpacity>
+            <TouchableOpacity>
+            <View style={styles.circle}>
+              <FontAwesome
+                name="star"
+                color="#EDFC92"
+                size={40}
+                style={styles.icons}
+              />
+                    </View>
+            </TouchableOpacity>
+<Text>  4,9</Text>
           </View>
         </View>
 
         <View style={styles.textContainer}>
           <Text style={styles.title}>{details?.title}</Text>
           <View style={styles.InfosContainer}>
-            <Text style={styles.titleInfo}>Catégorie:</Text>
+            <Text style={styles.titleInfo}>Catégorie :</Text>
 
             <Text style={styles.textInfo}>{details?.category}</Text>
-            <Text style={styles.titleInfo}>Description:</Text>
+            <Text style={styles.titleInfo}>Description :</Text>
 
             <Text style={styles.textInfo}>{details?.description}</Text>
           </View>
@@ -158,9 +148,10 @@ export default function DonnationScreen() {
               <FontAwesome
                 name="arrow-right"
                 color="#274539"
-                size={30}
+                size={15}
                 style={styles.icons}
               />
+
             </Text>
           </TouchableOpacity>
           <View style={styles.btnBooking}>
@@ -177,7 +168,7 @@ export default function DonnationScreen() {
                 </TouchableOpacity>
               )}
 
-            {(isReserved || details?.isBookedBy?.token === user.token) && (
+            {isReserved && details?.isBookedBy?.token === user.token && (
               <TouchableOpacity
                 style={styles.cancel}
                 onPress={() => handleCancel()}
@@ -186,6 +177,28 @@ export default function DonnationScreen() {
               </TouchableOpacity>
             )}
           </View>
+          {/* {user.type === "Association" &&
+            !details.isReserved &&
+            details.isBooked === "Non" && (
+              <View style={styles.btnBooking}>
+                <TouchableOpacity
+                  style={styles.reserve}
+                  onPress={() => handleReserve()}
+                >
+                  <Text style={styles.reserver}>
+                    Envoyer une demande de réservation
+                  </Text>
+                </TouchableOpacity>
+                {details?.isBookedBy?.token === user.token && (
+                  <TouchableOpacity
+                    style={styles.cancel}
+                    onPress={() => handleCancel()}
+                  >
+                    <Text style={styles.annuler}>Annuler ma réservation</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            )} */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -207,11 +220,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#ffffff",
+
   },
   iconContainer: {
     // flexDirection: "column",
     position: "absolute",
-    top: 20,
     right: 20,
   },
 
@@ -242,11 +255,13 @@ const styles = StyleSheet.create({
     alignItems: "flex-start", // Updated from 'center' to 'flex-start'
     marginTop: 250, // You can adjust the marginTop as needed
   },
+
   icons: {
     marginTop: 50,
-    marginBottom: 50,
     marginRight: 15,
-  },
+    justifyContent: "center"
+   },
+
   textContainer: {
     flex: 1,
     marginTop: 10,
@@ -255,11 +270,18 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     fontFamily: "Poppins",
   },
+
   title: {
-    fontSize: 25,
-    lineHeight: 54.5 /* 218% */,
+    fontSize: 30,
     fontFamily: "PoppinsBold",
   },
+
+  textInfo: {
+    color: "white",
+    fontSize: 13,
+    fontFamily: "Poppins",
+  },
+
   description: {
     color: 676767,
     fontFamily: "Poppins",
@@ -278,23 +300,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#254739",
     paddingLeft: 40,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 30,
+    paddingBottom: 30,
   },
-  textInfo: {
-    color: "white",
-    fontSize: 15,
-    marginTop: 10,
-    marginLeft: 30,
-    marginRight: 30,
-    fontFamily: "Poppins",
-  },
+
   titleInfo: {
     fontSize: 15,
     lineHeight: 54.5,
     color: "white",
-    fontFamily: "Poppins",
+    fontFamily: "MontserratBold",
   },
+  
   PFContainer: {
     marginTop: 20,
     borderRadius: 10,
@@ -302,44 +318,49 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingTop: 20,
   },
+
   PFText: {
     color: "#274539",
     fontSize: 15,
     fontFamily: "Poppins",
   },
+  
   Number: {
     color: "#274539",
     fontSize: 105.799,
     marginTop: -75,
     fontFamily: "Poppins",
   },
+
   btnContact: {
-    backgroundColor: "#EDFC92",
+  backgroundColor: "#EDFC92",
     padding: 10,
-    width: 290,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    alignItems: "center",
+    alignItems: "center", // Centrer horizontalement
     marginBottom: 25,
     marginTop: 25,
     borderRadius: 10,
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: "center", // Centrer verticalement
   },
+
   Contact: {
-    fontSize: 17,
+    fontSize: 15,
     color: "#274539",
-    marginBottom: 10,
     fontFamily: "Poppins",
   },
 
   btnBooking: {
-    // width: "80%",
-    alignItems: "center",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center", // Aligner au milieu verticalement
+    alignItems: "center", // Aligner au centre horizontalement
     padding: 10,
   },
+  
   reserve: {
     backgroundColor: "#274539",
     padding: 10,
@@ -351,8 +372,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+  
   cancel: {
-    backgroundColor: "red",
+    backgroundColor: "#EDFC92",
     width: "90%",
     padding: 10,
     borderRadius: 5,
@@ -361,37 +383,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+
   reserver: {
-    fontFamily: "PoppinsSemiBold",
+    fontFamily: "Poppins",
     color: "white",
     textAlign: "center",
     fontSize: 15,
   },
 
   annuler: {
-    fontFamily: "PoppinsSemiBold",
-    color: "white",
+    fontFamily: "Poppins",
+    color: "#274539",
     textAlign: "center",
     fontSize: 15,
-  },
-  slide: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  swiper: {
-    height: 250,
-    width: 250,
-  },
-  slide: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  swiper: {
-    height: 250,
-    width: 250,
   },
 });

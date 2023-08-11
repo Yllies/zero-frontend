@@ -107,6 +107,7 @@ export default function AuthorDetailsScreen ()  {
                 size={40}
                 style={styles.icons}
               />
+              <Text>   4,9</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -127,7 +128,7 @@ export default function AuthorDetailsScreen ()  {
               <FontAwesome
                 name="map-pin"
                 color="#EDFC92"
-                size={40}
+                size={20}
                 style={styles.icons}
               />{" "}
               Adresse
@@ -139,7 +140,7 @@ export default function AuthorDetailsScreen ()  {
               <FontAwesome
                 name="lock"
                 color="#EDFC92"
-                size={40}
+                size={20}
                 style={styles.icons}
               />{" "}
               Horaires
@@ -151,16 +152,19 @@ export default function AuthorDetailsScreen ()  {
           <Text style={styles.title}>Points Forts</Text>
           <View style={styles.PFContainer}>
           <Text style={styles.Number}>
-              {count} <Text style={styles.PFText}> {text}</Text>
-            </Text>
-          </View>
+            {count} <Text style={styles.PFText}> </Text>
+          </Text>
+          <Text style={styles.PFSubText}>
+          {text}
+          </Text>
+        </View>
           <TouchableOpacity style={styles.btnContact} onPress={toggleModal}>
             <Text style={styles.Contact}>
               Contacter l'{details?.type}{" "}
               <FontAwesome
                 name="arrow-right"
                 color="#EDFC92"
-                size={30}
+                size={20}
                 style={styles.icons}
               />
             </Text>
@@ -211,12 +215,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#ffffff",
+
   },
   iconContainer: {
     // flexDirection: "column",
     position: "absolute",
-    top: 20,
     right: 20,
+    marginTop:'12%',
   },
 
   buttonContainer: {
@@ -226,6 +231,7 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
   },
+  
   button: {
     backgroundColor: "#EDFC92",
     padding: 10,
@@ -248,7 +254,6 @@ const styles = StyleSheet.create({
   },
   icons: {
     marginTop: 50,
-    marginBottom: 50,
     marginRight: 15,
   },
   textContainer: {
@@ -260,41 +265,46 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
   title: {
-    fontSize: 25,
-    lineHeight: 54.5 /* 218% */,
+    fontSize: 20,
+    // lineHeight: 54.5 /* 218% */,
     fontFamily: "PoppinsBold",
+    color : "#254739",
+    paddingBottom :15,
+    paddingTop :25,
   },
   description: {
     color: 676767,
     fontFamily: "Poppins",
     fontSize: 15,
   },
+
   map: {
     height: 120,
-    width: 240,
+    width: 250,
+    borderRadius: 10,
   },
+  
   mapContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    borderRadius: 10,
   },
+
   InfosContainer: {
     borderRadius: 10,
     backgroundColor: "#254739",
-    paddingLeft: 40,
+    paddingLeft: 30,
     paddingTop: 20,
     paddingBottom: 20,
   },
   textInfo: {
     color: "white",
     fontSize: 15,
-    marginTop: 10,
-    marginLeft: 30,
-    marginRight: 30,
     fontFamily: "Poppins",
   },
+
   titleInfo: {
-    fontSize: 25,
+    fontSize: 20,
     lineHeight: 54.5,
     color: "white",
     fontFamily: "Poppins",
@@ -305,12 +315,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#EDFC92",
     paddingLeft: 40,
     paddingTop: 20,
+    flexDirection : 'column',
   },
+  
   PFText: {
     color: "#274539",
     fontSize: 15,
     fontFamily: "Poppins",
   },
+
+  PFSubText : {
+    marginTop: -40,
+    paddingBottom: 20,
+    color: "#274539",
+    fontSize: 15,
+    fontFamily: "Poppins",
+  },
+
   Number: {
     color: "#274539",
     fontSize: 105.799,
@@ -319,8 +340,6 @@ const styles = StyleSheet.create({
   },
   btnContact: {
     backgroundColor: "#274539",
-    padding: 10,
-    width: 290,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
@@ -333,9 +352,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   Contact: {
-    fontSize: 17,
+    fontSize: 15,
     color: "white",
-    marginBottom: 10,
+    marginBottom: 15,
+    marginTop: 15,
     fontFamily: "Poppins",
   },
   modalContent: {

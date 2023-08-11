@@ -118,7 +118,7 @@ export default function UserProfileScreen  ()  {
               <FontAwesome
                 name="map-pin"
                 color="#EDFC92"
-                size={40}
+                size={20}
                 style={styles.icons}
               />{" "}
               Adresse
@@ -130,7 +130,7 @@ export default function UserProfileScreen  ()  {
               <FontAwesome
                 name="lock"
                 color="#EDFC92"
-                size={40}
+                size={30}
                 style={styles.icons}
               />{" "}
               Horaires

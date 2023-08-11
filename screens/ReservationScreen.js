@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   btnRefuse: {
-    backgroundColor: "red",
+    backgroundColor: "#EDFC92",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.3,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   refuser: {
-    color: "white",
+    color: "#274539",
     fontFamily: "PoppinsSemiBold",
     padding: 10,
     width: 280,
