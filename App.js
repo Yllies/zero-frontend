@@ -99,9 +99,7 @@ const TabNavigator = () => {
           headerShown: false,
         })}
       >
-        
-              <Tab.Screen name="Favoris" component={FavoriteScreen} />
-              <Tab.Screen name="Accueil" component={HomeCharityScreen} />
+        <Tab.Screen name="Accueil" component={HomeCompanyScreen} />
         <Tab.Screen name="Publier" component={AddCompanyScreen} />
         <Tab.Screen name="Mon compte" component={AccountScreen} />
       </Tab.Navigator>
@@ -128,9 +126,8 @@ export default function App() {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {/* <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
-            
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreenBeta} />
             <Stack.Screen name="UserProfile" component={UserProfileScreen} />
