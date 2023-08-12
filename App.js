@@ -136,6 +136,8 @@ export default function App() {
             <Stack.Screen name="NeedScreen" component={NeedScreen} />
             <Stack.Screen name="DetailsAuthor" component={DetailsAuthor} />
             <Stack.Screen name="Reservation" component={ReservationScreen} />
+            <Stack.Screen name="HomeCharity" component={HomeCharityScreen} />
+            <Stack.Screen name="HomeCOmpany" component={HomeCompanyScreen} />
             <Stack.Screen name="Acount" component={AccountScreen} />
 
             <Stack.Screen

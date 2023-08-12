@@ -21,11 +21,14 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { AntDesign } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { Calendar } from "react-native-calendars";
+import { useNavigation } from "@react-navigation/native";
+
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function EditPostScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
   const post = useSelector((state) => state.post.value.toUpdate);
+
   const [title, setTitle] = useState(post.title);
   const [category, setCategory] = useState(post.category);
   const [description, setDescription] = useState(post.description);
@@ -36,9 +39,9 @@ export default function EditPostScreen({ navigation }) {
   const [selectedImages, setSelectedImages] = useState(post.photo);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState(
-    post?.availability_date?.slice(0, 10));
-    const [type, setType] =useState(false)
-
+    post?.availability_date?.slice(0, 10)
+  );
+console.log(post.quantity);
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
     (async () => {
@@ -46,7 +49,7 @@ export default function EditPostScreen({ navigation }) {
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       setGalleryPermission(galleryStatus.status === "granted");
     })();
-  }, [post]);
+  }, []);
 
   const onDayPress = (day) => {
     console.log(day);
@@ -55,12 +58,10 @@ export default function EditPostScreen({ navigation }) {
   };
 
   const removeImage = (imageUri) => {
-    console.log(imageUri);
-    setSelectedImages(selectedImages.filter((image) => image !== imageUri));
+    setSelectedImages(selectedImages.filter((image) => image.uri !== imageUri));
   };
 
   const SelectedImageItem = ({ item }) => (
-    // console.log(item);
     <View style={styles.selectedImageItem}>
       <Image source={{ uri: item }} style={styles.selectedImage} />
       <TouchableOpacity
@@ -134,56 +135,123 @@ export default function EditPostScreen({ navigation }) {
   };
 
   const handleSubmit = () => {
-    if (
-      !title ||
-      !description ||
-      !category ||
-      !selectedImages ||
-      !quantity ||
-      !availability
-    ) {
-      alert("Veuillez remplir tous les champs obligatoires");
-      return;
-    }
+    // if (
+    //   !title ||
+    //   !description ||
+    //   !category ||
+    //   !selectedImages ||
+    //   !quantity ||
+    //   !availability
+    // ) {
+    //   alert("Veuillez remplir tous les champs obligatoires");
+    //   return;
+    // }
+    if (user.type === "Entreprise") {
+      const newPostData = {
+        title,
+        description,
+        category,
+        photo: selectedImages,
+        quantity,
+        availability_date: availability,
+      };
+      if (
+        !title ||
+        !description ||
+        !category ||
+        !selectedImages.length ||
+        !quantity ||
+        !availability
+      ) {
+        alert("Veuillez remplir tous les champs obligatoires");
+        return;
+      } else {
+        fetch(
+          `${BACK_URL}:3000/posts/company/update/${user.token}/${post.idPost}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newPostData),
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            // console.log("from front", user.token);
 
-    const newPostData = {
-      title,
-      description,
-      category,
-      photo: selectedImages,
-      quantity,
-      availability_date: availability,
-    };
-
-    fetch(
-      `${BACK_URL}:3000/posts/company/update/${user.token}/${post.idPost}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newPostData),
+            if (data.result) {
+              alert("Votre annonce a été modifée avec succès !");
+              navigation.navigate("TabNavigator");
+              setTitle("");
+              setDescription("");
+              setCategory("");
+              setQuantity("");
+              setAvailability("");
+              setSelectedImages([]);
+            } else {
+              alert(
+                "Une erreur est survenue lors de la publication de l'annonce."
+              );
+            }
+          })
+          .catch((error) => {
+            console.error(
+              "Erreur lors de la publication de l'annonce :",
+              error
+            );
+            alert(
+              "Une erreur est survenue lors de la publication de l'annonce."
+            );
+          });
       }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log("from front", user.token);
+    } else {
+      // if (!title || !description || !category) {
+      //   alert("Veuillez remplir tous les champs obligatoires");
+      //   return;
+      // }
+      const newPostData = {
+        title,
+        description,
+        category,
+      };
+      if (!title || !description || !category) {
+        alert("Veuillez remplir tous les champs obligatoires");
+        return;
+      } else {
+        fetch(
+          `${BACK_URL}:3000/posts/charity/update/${user.token}/${post.idPost}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newPostData),
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            // console.log("from front", user.token);
 
-        if (data.result) {
-          alert("Votre annonce a été modifée avec succès !");
-          setTitle("");
-          setDescription("");
-          setCategory("");
-          setQuantity("");
-          setAvailability("");
-          setSelectedImages([]);
-          navigation.navigate("TabNavigator", { screen: "Acceuil" });
-        } else {
-          alert("Une erreur est survenue lors de la publication de l'annonce.");
-        }
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la publication de l'annonce :", error);
-        alert("Une erreur est survenue lors de la publication de l'annonce.");
-      });
+            if (data.result) {
+              alert("Votre annonce a été modifiée avec succès !");
+              navigation.navigate("TabNavigator");
+              setTitle("");
+              setDescription("");
+              setCategory(""); // Set the initial category
+            } else {
+              alert(
+                "Une erreur est survenue lors de la publication de l'annonce."
+              );
+            }
+          })
+          .catch((error) => {
+            console.error(
+              "Erreur lors de la publication de l'annonce :",
+              error
+            );
+            alert(
+              "Une erreur est survenue lors de la publication de l'annonce."
+            );
+          });
+      }
+    }
   };
 
   const customTheme = {
@@ -195,126 +263,187 @@ export default function EditPostScreen({ navigation }) {
     return <Text>Pas d'accès au stockage interne</Text>;
   }
 
-  if (user.type === 'Entreprise') {
-    setType(true)
-  }
-
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        style={styles.mainContainer}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <View style={styles.topContainer}>
-          <Text style={styles.title}>
-            Modifier mon <Text style={styles.zero}>annonce</Text>
-          </Text>
-        </View>
-        <ScrollView style={styles.bottomContainer}>
-          <View style={styles.form}>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Titre</Text>
-              <TextInput
-                style={styles.input}
-                multiline={true}
-                textAlignVertical="top"
-                onChangeText={(value) => setTitle(value)}
-                value={title}
-                placeholder="Palette de pantalons"
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Catégorie</Text>
-              <Picker
-                selectedValue={category}
-                style={styles.input}
-                mode={"dialog"}
-                onValueChange={(itemValue) => setCategory(itemValue)}
-              >
-                <Picker.Item label="Vetement" value="Vetement" />
-                <Picker.Item label="Meubles" value="Meuble" />
-                <Picker.Item label="High-Tech" value="High-Tech" />
-                <Picker.Item label="Electroménager" value="Electroménager" />
-                <Picker.Item label="Jeux" value="Jeux" />
-                <Picker.Item label="Enfants" value="Enfants" />
-                <Picker.Item label="Autre" value="Autre" />
-              </Picker>
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Description</Text>
-              <TextInput
-                style={styles.input}
-                multiline={true}
-                textAlignVertical="top"
-                onChangeText={(value) => setDescription(value)}
-                value={description}
-                placeholder="Nous ne pouvons plus les vendres à cause de tâches"
-              />
-            </View>
-             { type && (<View style={styles.imagePickerContainer}>
-              <Text style={styles.label}>Ajouter des photos</Text>
-              <View style={styles.cameraIconContainer}>
-                <TouchableOpacity
-                  onPress={() => pickImage()}
-                  style={styles.imagePickerButton}
-                >
-                  <Text style={styles.imagePickerButtonText}>
-                    Sélectionner dans la galerie ou
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => takePhoto()}
-                  style={styles.cameraIcon}
-                >
-                  <AntDesign
-                    name="camera"
-                    size={20}
-                    color="#EDFC92"
-                    backgroundColor="#274539"
-                  />
-                </TouchableOpacity>
-              </View>
-              <FlatList
-                data={selectedImages}
-                renderItem={SelectedImageItem}
-                keyExtractor={(item, index) => index.toString()}
-                horizontal
-              />
-            </View>)}
-
-           {type && (<View style={styles.inputContainer}>
-              <Text style={styles.label}>Quantité</Text>
-              <TextInput
-                style={styles.input}
-                multiline={true}
-                keyboardType="number-pad"
-                textAlignVertical="top"
-                onChangeText={(value) => setQuantity(value)}
-                value={quantity}
-                placeholder="24"
-              />
-            </View>)}
-           {type && ( <View style={styles.inputContainer}>
-              <Text style={styles.label}>Disponibilité</Text>
-              <Calendar
-                style={{ fontFamily: "Poppins" }}
-                onDayPress={onDayPress}
-                markedDates={{
-                  [selectedDate]: { selected: true, selectedColor: "#274539" },
-                }}
-                theme={customTheme}
-              />
-            </View>)}
-            <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
-              <Text style={styles.login}>Publiez votre annonce</Text>
-            </TouchableOpacity>
+  if (user.type === "Entreprise") {
+    return (
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView
+          style={styles.mainContainer}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <View style={styles.topContainer}>
+            <Text style={styles.title}>
+              Postez votre <Text style={styles.zero}>annonce</Text>
+            </Text>
           </View>
-        </ScrollView>
-        <StatusBar style="auto" />
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
+          <ScrollView style={styles.bottomContainer}>
+            <View style={styles.form}>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Titre</Text>
+                <TextInput
+                  style={styles.input}
+                  multiline={true}
+                  textAlignVertical="top"
+                  onChangeText={(value) => setTitle(value)}
+                  value={title}
+                  placeholder="Palette de vêtements"
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Catégorie</Text>
+                <Picker
+                  selectedValue={category}
+                  style={styles.input}
+                  mode={"dialog"}
+                  onValueChange={(itemValue) => setCategory(itemValue)}
+                >
+                  <Picker.Item label="Vetements" value="Vetements" />
+                  <Picker.Item label="Meubles" value="Meubles" />
+                  <Picker.Item label="High-Tech" value="High-Tech" />
+                  <Picker.Item label="Electroménager" value="Electroménager" />
+                  <Picker.Item label="Jeux" value="Jeux" />
+                  <Picker.Item label="Enfants" value="Enfants" />
+                </Picker>
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Description</Text>
+                <TextInput
+                  style={styles.input}
+                  multiline={true}
+                  textAlignVertical="top"
+                  onChangeText={(value) => setDescription(value)}
+                  value={description}
+                  placeholder="Nous ne pouvons vendre ses habits à cause de..."
+                />
+              </View>
+              <View style={styles.imagePickerContainer}>
+                <Text style={styles.label}>Ajouter des photos</Text>
+                <View style={styles.cameraIconContainer}>
+                  <TouchableOpacity
+                    onPress={() => pickImage()}
+                    style={styles.imagePickerButton}
+                  >
+                    <Text style={styles.imagePickerButtonText}>
+                      Sélectionner dans la galerie ou
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => takePhoto()}
+                    style={styles.cameraIcon}
+                  >
+                    <AntDesign
+                      name="camera"
+                      size={20}
+                      color="#EDFC92"
+                      backgroundColor="#274539"
+                    />
+                  </TouchableOpacity>
+                </View>
+                <FlatList
+                  data={selectedImages}
+                  renderItem={SelectedImageItem}
+                  keyExtractor={(item, index) => index.toString()}
+                  horizontal
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Quantité</Text>
+                <TextInput
+                  style={styles.input}
+                  multiline={true}
+                  textAlignVertical="top"
+                  onChangeText={(value) => setQuantity(value)}
+                  value={quantity}
+                  placeholder="150"
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Disponibilité</Text>
+                <Calendar
+                  style={{ fontFamily: "Poppins" }}
+                  onDayPress={onDayPress}
+                  markedDates={{
+                    [selectedDate]: {
+                      selected: true,
+                      selectedColor: "#274539",
+                    },
+                  }}
+                  theme={customTheme}
+                />
+              </View>
+              <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
+                <Text style={styles.login}>Publiez votre annonce</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+          <StatusBar style="auto" />
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView
+          style={styles.mainContainer}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <View style={styles.topContainer}>
+            <Text style={styles.title}>
+              Postez votre <Text style={styles.zero}>annonce</Text>
+            </Text>
+          </View>
+          <ScrollView style={styles.bottomContainer}>
+            <View style={styles.form}>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Titre</Text>
+                <TextInput
+                  style={styles.input}
+                  multiline={true}
+                  textAlignVertical="top"
+                  onChangeText={(value) => setTitle(value)}
+                  value={title}
+                  placeholder="Palette de vêtements"
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Catégorie</Text>
+                <Picker
+                  selectedValue={category}
+                  style={styles.input}
+                  mode={"dialog"}
+                  onValueChange={(itemValue) => setCategory(itemValue)}
+                >
+                  <Picker.Item label="" value="" />
+                  <Picker.Item label="Vetements" value="Vetements" />
+                  <Picker.Item label="Meubles" value="Meubles" />
+                  <Picker.Item label="High-Tech" value="High-Tech" />
+                  <Picker.Item label="Electroménager" value="Electroménager" />
+                  <Picker.Item label="Jeux" value="Jeux" />
+                  <Picker.Item label="Enfants" value="Enfants" />
+                  <Picker.Item label="Autres" value="Autres" />
+                </Picker>
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Description</Text>
+                <TextInput
+                  style={styles.input}
+                  multiline={true}
+                  textAlignVertical="top"
+                  onChangeText={(value) => setDescription(value)}
+                  value={description}
+                  placeholder="Nous ne pouvons vendre ses habits à cause de..."
+                />
+              </View>
+
+              <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
+                <Text style={styles.login}>Publiez votre demande</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+          <StatusBar style="auto" />
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

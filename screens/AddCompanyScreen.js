@@ -16,7 +16,6 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-
 import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { AntDesign } from "@expo/vector-icons";
@@ -24,11 +23,8 @@ import { Picker } from "@react-native-picker/picker";
 import { Calendar } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-// const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/do7vfvt5l`;
-// const CLOUDINARY_UPLOAD_PRESET = 'iyp6ovfi';
-// const CLOUDINARY_API_KEY = '974414836328966';
-
 export default function AddCompanyScreen({ navigation }) {
+
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Vetements");
   const [description, setDescription] = useState("");
@@ -160,7 +156,7 @@ export default function AddCompanyScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("from front", user.token);
+        // console.log("from front", user.token);
 
         if (data.result) {
           alert("Votre annonce a été publiée avec succès !");

@@ -186,3 +186,78 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
+// const handleSubmit = () => {
+//   if (user.type === "Entreprise") {
+//     const newPostData = {
+//       title,
+//       description,
+//       category,
+//       photo: selectedImages,
+//       quantity,
+//       availability_date: availability,
+//     };
+
+//     fetch(
+//       `${BACK_URL}:3000/posts/company/update/${user.token}/${post.idPost}`,
+//       {
+//         method: "PUT",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(newPostData),
+//       }
+//     )
+//       .then((response) => response.json())
+//       .then((data) => {
+//         // console.log("from front", user.token);
+
+//         if (data.result) {
+//           alert("Votre annonce a été modifée avec succès !");
+//           navigation.navigate("Accueil");
+//           setTitle("");
+//           setDescription("");
+//           setCategory("");
+//           setQuantity("");
+//           setAvailability("");
+//           setSelectedImages([]);
+//         } else {
+//           alert(
+//             "Une erreur est survenue lors de la publication de l'annonce."
+//           );
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Erreur lors de la publication de l'annonce :", error);
+//         alert("Une erreur est survenue lors de la publication de l'annonce.");
+//       });
+//   }
+//   else {
+//     const newPostData = {
+//       title,
+//       description,
+//       category,
+//     };
+
+//     fetch(`${BACK_URL}:3000/posts/charity/update/${user.token}`, {
+//       method: "PUT",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(newPostData),
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log("from front", user.token);
+
+//         if (data.result) {
+//           alert("Votre annonce a été modifiée avec succès !");
+//           navigation.navigate("Accueil");
+//           setTitle("");
+//           setDescription("");
+//           setCategory(""); // Set the initial category
+//         } else {
+//           alert("Une erreur est survenue lors de la publication de l'annonce.");
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Erreur lors de la publication de l'annonce :", error);
+//         alert("Une erreur est survenue lors de la publication de l'annonce.");
+//       });
+//   }
+// };
