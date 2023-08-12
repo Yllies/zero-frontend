@@ -41,7 +41,9 @@ export default function EditPostScreen({ navigation }) {
   const [selectedDate, setSelectedDate] = useState(
     post?.availability_date?.slice(0, 10)
   );
-console.log(post.quantity);
+
+// console.log(post.quantity);
+
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
     (async () => {
@@ -52,7 +54,7 @@ console.log(post.quantity);
   }, []);
 
   const onDayPress = (day) => {
-    console.log(day);
+    // console.log(day);
     setSelectedDate(day.dateString);
     setAvailability(day.dateString);
   };
@@ -89,7 +91,7 @@ console.log(post.quantity);
     })
       .then((res) => res.json())
       .then(async (data) => {
-        console.log(data);
+        // console.log(data);
 
         if (data) {
           setSelectedImages([...selectedImages, data.url]);
@@ -177,7 +179,7 @@ console.log(post.quantity);
           .then((response) => response.json())
           .then((data) => {
             // console.log("from front", user.token);
-
+// console.log(data)
             if (data.result) {
               alert("Votre annonce a été modifée avec succès !");
               navigation.navigate("TabNavigator");

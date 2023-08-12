@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
 
   scrollViewContainer: {
-    marginTop: -20,
+    // marginTop: -10,
   },
 
   cardsRow: {

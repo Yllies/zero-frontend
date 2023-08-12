@@ -29,7 +29,7 @@ export default function AddCompanyScreen({ navigation }) {
   const [category, setCategory] = useState("Vetements");
   const [description, setDescription] = useState("");
   const [availability, setAvailability] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState();
   const [selectedImages, setSelectedImages] = useState([]);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
