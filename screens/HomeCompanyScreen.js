@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   },
 
   scrollViewContainer: {
-    marginTop: -20,
+    // marginTop: -20,
   },
 
   cardsRow: {
@@ -207,12 +207,15 @@ padding:5,
   containerHeader: {
     backgroundColor: "#274539",
     width: "100%",
-    height: 180,
+    height: 160,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingRight: 30,
     paddingLeft: 30,
     marginBottom: '5%',
+    justifyContent:"center",
+    alignItems:'center',
+ 
   },
 
   text: {
@@ -235,11 +238,12 @@ padding:5,
   // Style du conteneur de l'icône de notification
 
   containerNotif: {
-    marginTop:'3%',
+    // marginTop:'3%',
     padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
-    paddingBottom: 20,
+    marginTop:30,
+    // paddingBottom: 20,
   },
 
   // Style du texte dynamique à l'intérieur du texte "Bonjour"
@@ -250,7 +254,7 @@ padding:5,
   // Style du conteneur de la barre de recherche
   searchBarContainer: {
     flexDirection: "row",
-    // marginTop: -20,
+    // marginTop: 20,
     // marginBottom: 5, // Add margin below the search bar
     // marginLeft: 20, // Adjust the left margin
     // marginRight: 20, // Adjust the right margin

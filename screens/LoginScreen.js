@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   form: {
     width: "80%",
-    height: 500,
+    height: 600,
     marginTop: 70,
     alignItems: "center",
   },

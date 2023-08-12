@@ -207,6 +207,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 30,
     paddingRight: 30,
     paddingLeft: 30,
+    justifyContent:"center",
+    alignItems:'center',
+    
   },
 
   // Style du texte "Bonjour"
@@ -229,11 +232,11 @@ const styles = StyleSheet.create({
   },
   // Style du conteneur de l'icône de notification
   containerNotif: {
-    marginTop: "3%",
-    padding: 5,
+    // marginTop: "3%",
+    // padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
-    paddingBottom: 20,
+    // marginTop:30,
   },
 
   // Style du texte dynamique à l'intérieur du texte "Bonjour"
