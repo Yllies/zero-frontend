@@ -16,9 +16,15 @@ export default function ResetPasswordScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); // Nouvel état pour la confirmation du mot de passe
   const [nickname, setNickname] = useState("");
-
+  
   const handleResetPassword = () => {
+    if (password !== confirmPassword) {
+      Alert.alert("Erreur", "Les mots de passe ne correspondent pas.");
+      return;
+    }
+
     fetch(`${BACK_URL}:3000/users/resetPassword/${user.token}`, {
       method: "PUT",
       headers: {
@@ -33,19 +39,14 @@ export default function ResetPasswordScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          alert("Votre mot de passe a été modifiée avec succès !");
+          alert("Votre mot de passe a été modifié avec succès !");
           navigation.navigate("Login");
         } else {
-          alert(
-            "Une erreur est survenue lors de la modification du mot de passe."
-          );
+          alert("Une erreur est survenue lors de la modification du mot de passe.");
         }
       })
       .catch((error) => {
-        console.error(
-          "Erreur lors de la réinitialisation du mot de passe:",
-          error
-        );
+        console.error("Erreur lors de la réinitialisation du mot de passe:", error);
         // Affichez un message d'erreur ou gérez l'erreur
       });
   };
@@ -89,13 +90,24 @@ export default function ResetPasswordScreen({ navigation }) {
             autoCapitalize="none"
           />
         </View>
-        <TouchableOpacity
-          title="Réinitialiser le mot de passe"
-          onPress={handleResetPassword}
-          style={styles.btnLogin}
-        >
-          <Text style={styles.login}>Modifier </Text>
-        </TouchableOpacity>
+        <View style={styles.email}>
+        <Text style={styles.label}>Confirmer le mot de passe</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="xH&@F*^des"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+          autoCapitalize="none"
+        />
+      </View>
+      <TouchableOpacity
+        title="Réinitialiser le mot de passe"
+        onPress={handleResetPassword}
+        style={styles.btnLogin}
+      >
+        <Text style={styles.login}>Modifier </Text>
+      </TouchableOpacity>
       </View>
     </View>
   );
@@ -119,7 +131,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 1,
     alignItems: "center",
-    marginTop:40,
+    marginTop:20,
   },
   title: {
     width: "80%",
@@ -144,7 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#EDFC92",
     padding: 13,
     fontSize: 15,
-    marginTop: 40,
+    marginTop: 30,
     borderRadius: 4,
     width: 300,
     fontFamily: "Poppins",
@@ -166,7 +178,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
   email: {
-  margin:20,
+  margin:15,
     fontFamily: "Poppins",
   },
 });

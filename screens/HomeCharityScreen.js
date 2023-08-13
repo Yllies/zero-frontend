@@ -46,7 +46,7 @@ export default function HomeCharityScreen({ navigation }) {
   }, [quantity, date, displayFilter]);
 
   const goToDonnationScreen = (postId) => {
-    navigation.navigate("DonnationScreen", { postId: postId });
+    navigation.navigate("HomeCharity", { postId: postId });
   };
   // Fonction pour récupérer les posts depuis le backend ou une API REST
   const fetchPosts = () => {
@@ -232,11 +232,10 @@ const styles = StyleSheet.create({
   },
   // Style du conteneur de l'icône de notification
   containerNotif: {
-    // marginTop: "3%",
-    // padding: 5,
+
+    padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
-    // marginTop:30,
   },
 
   // Style du texte dynamique à l'intérieur du texte "Bonjour"
