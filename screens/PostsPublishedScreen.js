@@ -26,56 +26,49 @@ export default function PostPublishedScreen() {
   const [allPosts, setAllPosts] = useState([]);
   const [lastDeleted, setLastDeleted] = useState("");
   useEffect(() => {
-
-    if (user.type === 'Entreprise'){
-
-    fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllPosts(data.data);
-      });
-    }
-
-    else if (user.type === 'Association'){
+    if (user.type === "Entreprise") {
+      fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAllPosts(data.data);
+        });
+    } else if (user.type === "Association") {
       fetch(`${BACK_URL}:3000/posts/charity/published/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
           setAllPosts(data.data);
-        });}
+        });
+    }
   }, [isFocused, lastDeleted]);
 
-
   const handleDeletePost = (id) => {
-
-   if (user.type === 'Entreprise'){
-    fetch(`${BACK_URL}:3000/posts/company/delete/${user.token}/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          setLastDeleted(id);
-          // alert("Post supprimé");
-        }
-        
-      });
+    if (user.type === "Entreprise") {
+      fetch(`${BACK_URL}:3000/posts/company/delete/${user.token}/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            setLastDeleted(id);
+            // alert("Post supprimé");
+          }
+        });
+    }
+    if (user.type === "Association") {
+      fetch(`${BACK_URL}:3000/posts/charity/delete/${user.token}/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            setLastDeleted(id);
+            // alert("Post supprimé");
+          }
+        });
+    }
   };
-   if (user.type === 'Association'){
-    fetch(`${BACK_URL}:3000/posts/charity/delete/${user.token}/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          setLastDeleted(id);
-          // alert("Post supprimé");
-        }
-        
-      });
-  }
-  }
   const handleUpdatePost = (post) => {
     dispatch(addToUpdate(post));
     navigation.navigate("EditPost");
@@ -86,19 +79,23 @@ export default function PostPublishedScreen() {
       <TouchableOpacity key={i}>
         <View style={styles.post}>
           <View style={styles.leftContain}>
-    
             <Text style={styles.title}>{postCompany.title}</Text>
-            <Text style={styles.description}>{postCompany.description.slice(0, 25) + "..."}</Text>
+            <Text style={styles.description}>
+              {postCompany.description.slice(0, 25) + "..."}
+            </Text>
             <Text style={styles.category}>{postCompany.category}</Text>
           </View>
           <View style={styles.rightContain}>
-            <FontAwesome
-              style={styles.cross}
-              name="close"
-              size={20}
-              color="white"
+            <TouchableOpacity
               onPress={() => handleDeletePost(postCompany.idPost)}
-            />
+            >
+              <FontAwesome
+                style={styles.cross}
+                name="close"
+                size={20}
+                color="white"
+              />
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => handleUpdatePost(postCompany)}>
               <FontAwesome name="edit" size={20} color="white" />
             </TouchableOpacity>
@@ -141,7 +138,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
- 
   },
   leftContain: {
     width: "80%",
@@ -156,19 +152,19 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   title: {
-    fontSize:15,
+    fontSize: 15,
     fontFamily: "PoppinsBold",
-    color: "#EDFC92"
+    color: "#EDFC92",
   },
   description: {
     fontSize: 12,
     fontFamily: "Poppins",
-    color: "white"
+    color: "white",
   },
- category: {
+  category: {
     fontSize: 12,
     fontFamily: "PoppinsBold",
-    color:"#EDFC92"
+    color: "#EDFC92",
   },
   topContainer: {
     backgroundColor: "#274539",
@@ -186,78 +182,3 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
-// const handleSubmit = () => {
-//   if (user.type === "Entreprise") {
-//     const newPostData = {
-//       title,
-//       description,
-//       category,
-//       photo: selectedImages,
-//       quantity,
-//       availability_date: availability,
-//     };
-
-//     fetch(
-//       `${BACK_URL}:3000/posts/company/update/${user.token}/${post.idPost}`,
-//       {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(newPostData),
-//       }
-//     )
-//       .then((response) => response.json())
-//       .then((data) => {
-//         // console.log("from front", user.token);
-
-//         if (data.result) {
-//           alert("Votre annonce a été modifée avec succès !");
-//           navigation.navigate("Accueil");
-//           setTitle("");
-//           setDescription("");
-//           setCategory("");
-//           setQuantity("");
-//           setAvailability("");
-//           setSelectedImages([]);
-//         } else {
-//           alert(
-//             "Une erreur est survenue lors de la publication de l'annonce."
-//           );
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Erreur lors de la publication de l'annonce :", error);
-//         alert("Une erreur est survenue lors de la publication de l'annonce.");
-//       });
-//   }
-//   else {
-//     const newPostData = {
-//       title,
-//       description,
-//       category,
-//     };
-
-//     fetch(`${BACK_URL}:3000/posts/charity/update/${user.token}`, {
-//       method: "PUT",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(newPostData),
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         console.log("from front", user.token);
-
-//         if (data.result) {
-//           alert("Votre annonce a été modifiée avec succès !");
-//           navigation.navigate("Accueil");
-//           setTitle("");
-//           setDescription("");
-//           setCategory(""); // Set the initial category
-//         } else {
-//           alert("Une erreur est survenue lors de la publication de l'annonce.");
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Erreur lors de la publication de l'annonce :", error);
-//         alert("Une erreur est survenue lors de la publication de l'annonce.");
-//       });
-//   }
-// };

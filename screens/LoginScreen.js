@@ -128,7 +128,7 @@ export default function LoginScreen({ navigation }) {
               >
                 <Text style={styles.login}>Connexion</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress ={() => navigation.navigate("ResetPassword")}>
                 <Text style={styles.signupHere}>Mot de passe oublié ?</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
