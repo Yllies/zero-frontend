@@ -26,7 +26,7 @@ const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 export default function AddCompanyScreen({ navigation }) {
 
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Vetements");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [availability, setAvailability] = useState("");
   const [quantity, setQuantity] = useState();
@@ -131,7 +131,7 @@ export default function AddCompanyScreen({ navigation }) {
     if (
       !title ||
       !description ||
-      !category ||
+      category ===""||
       !selectedImages.length ||
       !quantity ||
       !availability
@@ -163,7 +163,7 @@ export default function AddCompanyScreen({ navigation }) {
           navigation.navigate("Accueil");
           setTitle("");
           setDescription("");
-          setCategory("Vetement"); // Set the initial category
+          setCategory(""); // Set the initial category
           setQuantity("");
           setAvailability("");
           setSelectedImages([]);
@@ -218,6 +218,7 @@ export default function AddCompanyScreen({ navigation }) {
                 mode={"dialog"}
                 onValueChange={(itemValue) => setCategory(itemValue)}
               >
+                  <Picker.Item label="" value="" />
                 <Picker.Item label="Vetements" value="Vetements" />
                 <Picker.Item label="Meubles" value="Meubles" />
                 <Picker.Item label="High-Tech" value="High-Tech" />
@@ -235,7 +236,7 @@ export default function AddCompanyScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Nous ne pouvons vendre ses habits à cause de..."
+                placeholder="Nous donnons ces ..."
               />
             </View>
             <View style={styles.imagePickerContainer}>

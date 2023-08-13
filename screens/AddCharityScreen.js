@@ -24,15 +24,14 @@ import { Picker } from "@react-native-picker/picker";
 import { Calendar } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-
 export default function AddCharityScreen({ navigation }) {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Vetement");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const user = useSelector((state) => state.user.value);
 
   const handleSubmit = () => {
-    if (!title || !description || !category) {
+    if (!title || !description || category==="") {
       alert("Veuillez remplir tous les champs obligatoires");
       return;
     }
@@ -57,7 +56,7 @@ export default function AddCharityScreen({ navigation }) {
           navigation.navigate("Accueil");
           setTitle("");
           setDescription("");
-          setCategory("Vetement"); // Set the initial category
+          setCategory(""); // Set the initial category
         } else {
           alert("Une erreur est survenue lors de la publication de l'annonce.");
         }
@@ -100,6 +99,7 @@ export default function AddCharityScreen({ navigation }) {
                 mode={"dialog"}
                 onValueChange={(itemValue) => setCategory(itemValue)}
               >
+                  <Picker.Item label="" value="" />
                 <Picker.Item label="Vetements" value="Vetements" />
                 <Picker.Item label="Meubles" value="Meubles" />
                 <Picker.Item label="High-Tech" value="High-Tech" />
@@ -117,7 +117,7 @@ export default function AddCharityScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Nous ne pouvons vendre ses habits à cause de..."
+                placeholder="Nous donnons ces ..."
               />
             </View>
 

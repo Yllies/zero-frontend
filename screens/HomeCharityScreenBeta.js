@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   TouchableHighlight,
   TextInput,
+  KeyboardAvoidingView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -90,6 +91,10 @@ export default function HomeCharityScreenBeta({ navigation }) {
   // Rendu de l'interface utilisateur
   return (
     <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.mainContain}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      ></KeyboardAvoidingView>
       {/* En-tête */}
       <View style={styles.containerHeader}>
         {/* Icône de notifications */}
@@ -147,26 +152,25 @@ export default function HomeCharityScreenBeta({ navigation }) {
         </View>
       </View>
       {/* Affichage des résultats */}
-      <View style={styles.scrollViewContainer}>
-        <FlatList
-          data={searchResults}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={2}
-          contentContainerStyle={styles.cardsRow}
-          renderItem={({ item }) => (
-            <View style={styles.needContainer}>
-              {/* Affichage des détails du besoin */}
-              <ArticleDetailsBeta
-                title={item.title}
-                description={item.description.slice(0, 25) + "..."}
-                category={item.category}
-                photo={item.photo[0]}
-                idPost={item.idPost}
-              />
-            </View>
-          )}
-        />
-      </View>
+
+      <FlatList
+        data={searchResults}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+        contentContainerStyle={styles.cardsRow}
+        renderItem={({ item }) => (
+          <View style={styles.needContainer}>
+            {/* Affichage des détails du besoin */}
+            <ArticleDetailsBeta
+              title={item.title}
+              description={item.description.slice(0, 25) + "..."}
+              category={item.category}
+              photo={item.photo[0]}
+              idPost={item.idPost}
+            />
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 }
@@ -175,11 +179,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    // justifyContent: "flex-start",
   },
+
   scrollViewContainer: {
-    marginTop: 20,
+    // marginTop: -20,
   },
+
   cardsRow: {
+    // flexDirection: "row",
+    // flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -188,15 +197,16 @@ const styles = StyleSheet.create({
     color: "white",
   },
   clearSearchIconContainer: {
-    // backgroundColor: "#274539",
-    borderRadius: 40,
-    padding: 10,
+    padding: 5,
   },
-  searchIconContainer: {
-    backgroundColor: "#274539",
-    borderRadius: 30,
-    padding: 10,
+  containerPage: {
+    // flex: 1,
+    // backgroundColor: "#fff",
+    justifyContent: "flex-start",
+    width: "100%",
   },
+
+  // Style du conteneur de l'en-tête
   containerHeader: {
     backgroundColor: "#274539",
     width: "100%",
@@ -205,40 +215,74 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 30,
     paddingRight: 30,
     paddingLeft: 30,
+    marginBottom: "7%",
+    justifyContent: "center",
+    alignItems: "center",
   },
+
   text: {
     fontFamily: "MontserratBold",
     color: "white",
     fontSize: 30,
   },
+
+  // Style du paragraphe d'introduction
   paragraphe: {
     color: "white",
     fontSize: 17,
     marginBottom: 15,
     fontFamily: "MontserratBold",
+    marginBottom: "7%",
   },
+  iconeFilter: {
+    padding: 5,
+  },
+  // Style du conteneur de l'icône de notification
+
   containerNotif: {
+    // marginTop:'3%',
     padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
-    paddingBottom: 20,
+    marginTop: 30,
+    // paddingBottom: 20,
   },
+
+  // Style du texte dynamique à l'intérieur du texte "Bonjour"
   textDynamique: {
     color: "#EDFC92",
   },
+
+  // Style du conteneur de la barre de recherche
   searchBarContainer: {
     flexDirection: "row",
+    // marginTop: 20,
+    // marginBottom: 5, // Add margin below the search bar
+    // marginLeft: 20, // Adjust the left margin
+    // marginRight: 20, // Adjust the right margin
     backgroundColor: "#FFFFFF",
     borderRadius: 30,
     borderWidth: 1,
     borderColor: "#EDFC92",
-    borderRadius: 30,
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
+    zIndex: 1,
   },
 
+  // Style du conteneur de l'icône de loupe
+  searchIconContainer: {
+    backgroundColor: "#274539", // Couleur de fond de l'icône de loupe
+    borderRadius: 30, // Arrondi des coins de l'icône de loupe
+    padding: 10,
+    // borderWidth: 1,
+    // borderColor: "black",
+  },
+
+  // Style de l'icône de loupe
+
+  // Style du champ d'entrée de texte de recherche
   searchInput: {
     flex: 1,
     color: "#707070",
@@ -249,5 +293,29 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
+  },
+
+  modalContent: {
+    width: "100%", // Largeur du contenu modal (vous pouvez ajuster selon vos besoins)
+    backgroundColor: "#fff", // Couleur de fond blanc pur
+    borderRadius: 10,
+    padding: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  // Style de l'icône "croix" en haut à droite de l'en-tête
+  iconeClose: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 1, // Assurez-vous que l'icône est au-dessus de la modale
+  },
+
+  // Style de l'icône "croix" en haut à droite de la modale
+  iconeCloseModal: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 1,
   },
 });

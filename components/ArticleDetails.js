@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFavorites, removeFromFavorites } from "../reducers/favorites";
-import { TouchableOpacity, Text, View, StyleSheet,Image } from "react-native";
+import { TouchableOpacity, Text, View, StyleSheet, Image } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 
@@ -58,7 +58,6 @@ export default function ArticleDetails(props) {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   containerPage: {

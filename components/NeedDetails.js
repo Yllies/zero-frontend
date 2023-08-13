@@ -4,43 +4,39 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 
 export default function NeedDetails(props) {
-
   let ImageCompany;
 
-if (props.category === "Meubles") {
-  ImageCompany = require('../assets/meuble.webp');
-} else if (props.category === "High-Tech") {
-  ImageCompany = require('../assets/itech.webp');
-} else if (props.category === "Electroménager") {
-  ImageCompany = require('../assets/electro.jpeg');
-} else if (props.category === "Jeux") {
-  ImageCompany = require('../assets/enfants.webp');
-} else if (props.category === "Enfants") {
-  ImageCompany = require('../assets/enfants.webp');
-}  else if (props.category === "Vetement") {
-  ImageCompany = require('../assets/clothes.jpeg');
-} else {
-  ImageCompany = require('../assets/autre.webp');
-}
+  if (props.category === "Meubles") {
+    ImageCompany = require("../assets/meuble.webp");
+  } else if (props.category === "High-Tech") {
+    ImageCompany = require("../assets/itech.webp");
+  } else if (props.category === "Electroménager") {
+    ImageCompany = require("../assets/electro.jpeg");
+  } else if (props.category === "Jeux") {
+    ImageCompany = require("../assets/enfants.webp");
+  } else if (props.category === "Enfants") {
+    ImageCompany = require("../assets/enfants.webp");
+  } else if (props.category === "Vetement") {
+    ImageCompany = require("../assets/clothes.jpeg");
+  } else {
+    ImageCompany = require("../assets/autre.webp");
+  }
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const goToDonnationScreen = (idPost) => {
     console.log("toto", idPost),
-   navigation.navigate("DonnationScreen", { idPost: idPost });
- };
+      navigation.navigate("DonnationScreen", { idPost: idPost });
+  };
   return (
     <View style={styles.containerPage}>
-           <TouchableOpacity style={styles.touch}
+      <TouchableOpacity
+        style={styles.touch}
         onPress={() => {
           goToDonnationScreen(props.idPost);
         }}
       >
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.donationImage}
-            source={ImageCompany} 
-            alt="don"
-          />
+          <Image style={styles.donationImage} source={ImageCompany} alt="don" />
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
@@ -54,7 +50,7 @@ if (props.category === "Meubles") {
               />
             </TouchableOpacity> */}
           </View>
-         
+
           <Text style={styles.description}>{props.description}</Text>
           <Text style={styles.category}>{props.category}</Text>
         </View>
@@ -70,7 +66,7 @@ const styles = StyleSheet.create({
     margin: 7,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    backgroundColor:"#274539",
+    backgroundColor: "#274539",
   },
   imageContainer: {
     height: 150,
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
   category: {
     fontFamily: "PoppinsSemiBold",
     fontSize: 12,
-    color: "#EDFC92"
+    color: "#EDFC92",
   },
   titleContainer: {
     flexDirection: "row",
@@ -95,12 +91,12 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "PoppinsSemiBold",
     fontSize: 15,
-    color: "#EDFC92"
+    color: "#EDFC92",
   },
   description: {
     fontFamily: "Poppins",
     fontSize: 12,
-    color: "white"
+    color: "white",
   },
   donationImage: {
     width: "100%",
@@ -110,6 +106,5 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     borderColor: "#274539",
-  
   },
 });
