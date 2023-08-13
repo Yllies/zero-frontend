@@ -115,7 +115,7 @@ export default function LoginScreen({ navigation }) {
                   autoCapitalize="none"
                   onChangeText={(value) => setPassword(value)}
                   value={password}
-                  placeholder="XH2LQ869pgpr3z"
+                  placeholder="xH&@F*^des"
                 />
                 {dataError && (
                   <Text style={styles.error}>Mauvais identifiants ! </Text>

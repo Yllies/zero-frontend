@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button, Alert, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function ResetPasswordScreen({navigation}) {
+export default function ResetPasswordScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,10 +33,12 @@ export default function ResetPasswordScreen({navigation}) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-            alert("Votre mot de passe a été modifiée avec succès !")
-            navigation.navigate("Login");
+          alert("Votre mot de passe a été modifiée avec succès !");
+          navigation.navigate("Login");
         } else {
-            alert("Une erreur est survenue lors de la modification du mot de passe.")
+          alert(
+            "Une erreur est survenue lors de la modification du mot de passe."
+          );
         }
       })
       .catch((error) => {
@@ -43,36 +53,50 @@ export default function ResetPasswordScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-            <Text style={styles.title}>
-              Réinitialisez votre mot de<Text style={styles.zero}> passe</Text>
-            </Text>
-          </View>
-          <View style={styles.bottomContainer}>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Adresse e-mail"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Pseudo"
-        value={nickname}
-        onChangeText={setNickname}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Nouveau mot de passe"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity  title="Réinitialiser le mot de passe"
-        onPress={handleResetPassword}  style={styles.btnLogin} >
-            <Text style={styles.login}>Modifier </Text>
-      </TouchableOpacity>
-          </View>
+        <Text style={styles.title}>
+          Réinitialisez votre mot de<Text style={styles.zero}> passe</Text>
+        </Text>
+      </View>
+      <View style={styles.bottomContainer}>
+        <View style={styles.email}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="johndoe@grocerycompany.com"
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+          />
+        </View>
+        <View style={styles.email}>
+          <Text style={styles.label}>Identifiant</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Pseudo"
+            value={nickname}
+            onChangeText={setNickname}
+            autoCapitalize="none"
+          />
+        </View>
+        <View style={styles.email}>
+          <Text style={styles.label}>Mot de passe</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="xH&@F*^des"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            autoCapitalize="none"
+          />
+        </View>
+        <TouchableOpacity
+          title="Réinitialiser le mot de passe"
+          onPress={handleResetPassword}
+          style={styles.btnLogin}
+        >
+          <Text style={styles.login}>Modifier </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -93,9 +117,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 30,
   },
   bottomContainer: {
-flex:1,
+    flex: 1,
     alignItems: "center",
-    
+    marginTop:40,
   },
   title: {
     width: "80%",
@@ -108,11 +132,10 @@ flex:1,
     backgroundColor: "#F6F8F7",
     padding: 13,
     fontSize: 15,
-    marginTop: 40,
+    // marginTop: 40,
     borderRadius: 4,
     width: 300,
     fontFamily: "Poppins",
-  
   },
   zero: {
     color: "#EDFC92",
@@ -125,19 +148,25 @@ flex:1,
     borderRadius: 4,
     width: 300,
     fontFamily: "Poppins",
-    
-  
+
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
     alignItems: "center",
-   
-    // marginBottom: 25,
 
+    // marginBottom: 25,
   },
   login: {
     fontSize: 15,
+    fontFamily: "Poppins",
+  },
+  label: {
+    fontSize: 15,
+    fontFamily: "Poppins",
+  },
+  email: {
+  margin:20,
     fontFamily: "Poppins",
   },
 });
