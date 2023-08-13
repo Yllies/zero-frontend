@@ -382,7 +382,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: "100%",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 130,
+    marginTop:20,
   },
   login: {
     fontSize: 15,

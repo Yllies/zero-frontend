@@ -161,7 +161,7 @@ export default function HomeCharityScreenBeta({ navigation }) {
         renderItem={({ item }) => (
           <View style={styles.needContainer}>
             {/* Affichage des détails du besoin */}
-            <ArticleDetailsBeta
+            <ArticleDetails
               title={item.title}
               description={item.description.slice(0, 25) + "..."}
               category={item.category}
