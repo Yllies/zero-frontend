@@ -288,7 +288,7 @@ export default function SignUpScreen({ navigation }) {
                     style={styles.input}
                     autoCapitalize="none"
                     secureTextEntry={true}
-                    placeholder="AbeJp4P644Lh6b"
+                    placeholder="xH&@F*^des"
                   />
                   {passewordError && (
                     <Text style={styles.error}>
