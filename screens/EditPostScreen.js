@@ -42,7 +42,7 @@ export default function EditPostScreen({ navigation }) {
     post?.availability_date?.slice(0, 10)
   );
 
-// console.log(post.quantity);
+  // console.log(post.quantity);
 
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
@@ -109,7 +109,7 @@ export default function EditPostScreen({ navigation }) {
       // allowsMultipleSelection: true,
     });
 
-    if (!data.cancelled) {
+    if (!data.canceled) {
       let newFile = {
         uri: data.uri,
         type: `test/${data.uri.split(".")[1]}`,
@@ -126,7 +126,7 @@ export default function EditPostScreen({ navigation }) {
       quality: 1,
     });
 
-    if (!data.cancelled) {
+    if (!data.canceled) {
       let newFile = {
         uri: data.uri,
         type: `test/${data.uri.split(".")[1]}`,
@@ -179,7 +179,7 @@ export default function EditPostScreen({ navigation }) {
           .then((response) => response.json())
           .then((data) => {
             // console.log("from front", user.token);
-// console.log(data)
+            // console.log(data)
             if (data.result) {
               alert("Votre annonce a été modifée avec succès !");
               navigation.navigate("TabNavigator");
@@ -353,8 +353,8 @@ export default function EditPostScreen({ navigation }) {
                   style={styles.input}
                   multiline={true}
                   textAlignVertical="top"
-                  onChangeText={(value) => setQuantity(value)}
-                  value={quantity}
+                  onChangeText={(value) => setQuantity(parseInt(value, 10))}
+                  value={quantity.toString()}
                   placeholder="150"
                 />
               </View>
@@ -437,7 +437,7 @@ export default function EditPostScreen({ navigation }) {
               </View>
 
               <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
-                <Text style={styles.login}>Publiez votre demande</Text>
+                <Text style={styles.login}>Modifiez votre demande</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -515,7 +515,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   selectedImage: {
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     width: 100,
     height: 100,
     resizeMode: "cover",
@@ -528,7 +528,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: "100%",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 80,
   },
   login: {
     fontSize: 15,

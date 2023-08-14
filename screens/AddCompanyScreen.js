@@ -100,7 +100,7 @@ export default function AddCompanyScreen({ navigation }) {
       // allowsMultipleSelection: true,
     });
 
-    if (!data.cancelled) {
+    if (!data.canceled) {
       let newFile = {
         uri: data.uri,
         type: `test/${data.uri.split(".")[1]}`,
@@ -117,7 +117,7 @@ export default function AddCompanyScreen({ navigation }) {
       quality: 1,
     });
 
-    if (!data.cancelled) {
+    if (!data.canceled) {
       let newFile = {
         uri: data.uri,
         type: `test/${data.uri.split(".")[1]}`,
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   selectedImage: {
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     width: 100,
     height: 100,
     resizeMode: "cover",
