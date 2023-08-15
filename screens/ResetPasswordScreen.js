@@ -87,7 +87,7 @@ export default function ResetPasswordScreen({ navigation }) {
             />
           </View>
           <View style={styles.email}>
-            <Text style={styles.label}>Mot de passe</Text>
+            <Text style={styles.label}>Nouveau mot de passe</Text>
             <TextInput
               style={styles.input}
               placeholder="xH&@F*^des"
