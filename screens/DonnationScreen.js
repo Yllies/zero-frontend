@@ -40,8 +40,8 @@ export default function DonnationScreen() {
         console.error("Error fetching post details:", error);
       }
     };
-    const companyUrl = `${BACK_URL}:3000/posts/company/${idPost}`;
-    const charityUrl = `${BACK_URL}:3000/posts/charity/${idPost}`;
+    const companyUrl = `${BACK_URL}/posts/company/${idPost}`;
+    const charityUrl = `${BACK_URL}/posts/charity/${idPost}`;
     fetchData(companyUrl); // Try fetching from the company URL
     if (!details) {
       console.log("fetch charity");
@@ -62,7 +62,7 @@ export default function DonnationScreen() {
 
   const handleCancel = () => {
     fetch(
-      `${BACK_URL}:3000/posts/association/book/cancel/${user.token}/${details.idPost}`,
+      `${BACK_URL}/posts/association/book/cancel/${user.token}/${details.idPost}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -77,7 +77,7 @@ export default function DonnationScreen() {
 
   const handleReserve = () => {
     fetch(
-      `${BACK_URL}:3000/posts/association/book/${user.token}/${details.idPost}`,
+      `${BACK_URL}/posts/association/book/${user.token}/${details.idPost}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

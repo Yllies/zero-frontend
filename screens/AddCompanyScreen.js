@@ -153,7 +153,7 @@ export default function AddCompanyScreen({ navigation }) {
       availability_date: availability,
     };
 
-    fetch(`${BACK_URL}:3000/posts/company/publish/${user.token}`, {
+    fetch(`${BACK_URL}/posts/company/publish/${user.token}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newPostData),

@@ -26,7 +26,7 @@ const DetailsAuthor = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
-      fetch(`${BACK_URL}:3000/users/${author}`)
+      fetch(`${BACK_URL}/users/${author}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

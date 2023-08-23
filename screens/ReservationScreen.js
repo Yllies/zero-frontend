@@ -37,7 +37,7 @@ export default function ReservationScreen({ navigation }) {
 
   const handleAccept = (post) => {
     fetch(
-      `${BACK_URL}:3000/posts/company/book/accept/${user.token}/${post.idPost}`,
+      `${BACK_URL}/posts/company/book/accept/${user.token}/${post.idPost}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -54,7 +54,7 @@ export default function ReservationScreen({ navigation }) {
   };
   const handleRefuse = (post) => {
     fetch(
-      `${BACK_URL}:3000/posts/company/book/refuse/${user.token}/${post.idPost}`,
+      `${BACK_URL}/posts/company/book/refuse/${user.token}/${post.idPost}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

@@ -40,7 +40,7 @@ export default function LoginScreen({ navigation }) {
       console.log("mauvais email");
       setEmailError(true);
     } else {
-      fetch(`${BACK_URL}:3000/users/signin`, {
+      fetch(`${BACK_URL}/users/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

@@ -54,7 +54,7 @@ export default function HomeCharityScreen({ navigation }) {
       console.log("posts filtrés");
       // Fetch posts with filters applied
       fetch(
-        `${BACK_URL}:3000/filter/company/posts/?quantity=${quantity}&date=${date}`
+        `${BACK_URL}/filter/company/posts/?quantity=${quantity}&date=${date}`
       )
         .then((response) => response.json())
         .then((data) => {

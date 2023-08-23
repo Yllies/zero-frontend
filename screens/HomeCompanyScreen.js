@@ -52,7 +52,7 @@ export default function HomeCompanyScreen({ navigation }) {
 
   // Fonction pour récupérer les messages depuis l'API
   const fetchPosts = () => {
-    fetch(`${BACK_URL}:3000/posts/charity`)
+    fetch(`${BACK_URL}/posts/charity`)
       .then((response) => response.json())
       .then((data) => {
         if (data.posts) {

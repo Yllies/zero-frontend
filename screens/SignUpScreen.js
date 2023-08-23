@@ -95,7 +95,7 @@ export default function SignUpScreen({ navigation }) {
 
     // si les mdp + email ok > on fetch
     if (!hasError) {
-      fetch(`${BACK_URL}:3000/users/signup`, {
+      fetch(`${BACK_URL}/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

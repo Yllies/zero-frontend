@@ -39,7 +39,7 @@ export default function UserProfileScreen  ()  {
             if (data.type === 'Entreprise') {
               setText('dons ont été postés par cette entreprise');
       
-              fetch(`${BACK_URL}:3000/posts/company/published/${author}`)
+              fetch(`${BACK_URL}/posts/company/published/${author}`)
                 .then((response) => response.json())
                 .then((postData) => {
                   setCount(postData.data.length);
@@ -50,7 +50,7 @@ export default function UserProfileScreen  ()  {
             } else if (data.type === 'Association') {
               setText('besoins ont été postés par cette association');
       
-              fetch(`${BACK_URL}:3000/posts/charity/published/${author}`)
+              fetch(`${BACK_URL}/posts/charity/published/${author}`)
                 .then((response) => response.json())
                 .then((postData) => {
                   setCount(postData.data.length);

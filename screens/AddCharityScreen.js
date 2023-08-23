@@ -46,7 +46,7 @@ export default function AddCharityScreen({ navigation }) {
       category,
     };
 
-    fetch(`${BACK_URL}:3000/posts/charity/publish/${user.token}`, {
+    fetch(`${BACK_URL}/posts/charity/publish/${user.token}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newPostData),

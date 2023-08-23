@@ -64,7 +64,7 @@ export default function AccountScreen() {
       });
   };
   useEffect(() => {
-    fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
+    fetch(`${BACK_URL}posts/company/published/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         let isInWaiting = false;

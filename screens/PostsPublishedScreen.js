@@ -29,7 +29,7 @@ export default function PostPublishedScreen() {
 
     if (user.type === 'Entreprise'){
 
-    fetch(`${BACK_URL}:3000/posts/company/published/${user.token}`)
+    fetch(`${BACK_URL}/posts/company/published/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         setAllPosts(data.data);
@@ -37,7 +37,7 @@ export default function PostPublishedScreen() {
     }
 
     else if (user.type === 'Association'){
-      fetch(`${BACK_URL}:3000/posts/charity/published/${user.token}`)
+      fetch(`${BACK_URL}/posts/charity/published/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
           setAllPosts(data.data);
@@ -48,7 +48,7 @@ export default function PostPublishedScreen() {
   const handleDeletePost = (id) => {
 
    if (user.type === 'Entreprise'){
-    fetch(`${BACK_URL}:3000/posts/company/delete/${user.token}/${id}`, {
+    fetch(`${BACK_URL}/posts/company/delete/${user.token}/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
@@ -62,7 +62,7 @@ export default function PostPublishedScreen() {
       });
   };
    if (user.type === 'Association'){
-    fetch(`${BACK_URL}:3000/posts/charity/delete/${user.token}/${id}`, {
+    fetch(`${BACK_URL}/posts/charity/delete/${user.token}/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })

@@ -170,7 +170,7 @@ export default function EditPostScreen({ navigation }) {
     };
 
     fetch(
-      `${BACK_URL}:3000/posts/company/update/${user.token}/${post.idPost}`,
+      `${BACK_URL}/posts/company/update/${user.token}/${post.idPost}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

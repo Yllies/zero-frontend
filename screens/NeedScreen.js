@@ -18,7 +18,7 @@ export default function NeedScreen({ navigation }){
 
 
   useEffect(() => {
-    fetch(`${BACK_URL}:3000/posts/Charity/${postId}`)
+    fetch(`${BACK_URL}/posts/Charity/${postId}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
