@@ -27,7 +27,7 @@ export default function AuthorDetailsScreen() {
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
-      fetch(`${BACK_URL}:3000/users/${author}`)
+      fetch(`${BACK_URL}/users/${author}`)
         .then((response) => response.json())
         .then((data) => {
           setDetails(data);
@@ -176,7 +176,9 @@ export default function AuthorDetailsScreen() {
               <View style={styles.modalContent}>
                 <Text style={styles.modalTitle}>Contacts</Text>
                 <Text style={styles.modalTitle}>Email: {details?.email}</Text>
-                <Text style={styles.modalTitle}>Telephone: {details?.phone_number}</Text>
+                <Text style={styles.modalTitle}>
+                  Telephone: {details?.phone_number}
+                </Text>
               </View>
             </View>
           </Modal>
@@ -268,10 +270,10 @@ const styles = StyleSheet.create({
     width: 250,
     borderRadius: 10,
   },
-modalTitle:{
-  fontSize: 17,
-  fontFamily: "Poppins",
-},
+  modalTitle: {
+    fontSize: 17,
+    fontFamily: "Poppins",
+  },
   mapContainer: {
     justifyContent: "center",
     alignItems: "center",
@@ -352,14 +354,12 @@ modalTitle:{
     borderRadius: 10,
     alignItems: "center",
     fontFamily: "Poppins",
-
   },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    
   },
   closeButton: {
     position: "absolute",

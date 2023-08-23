@@ -26,56 +26,49 @@ export default function PostPublishedScreen() {
   const [allPosts, setAllPosts] = useState([]);
   const [lastDeleted, setLastDeleted] = useState("");
   useEffect(() => {
-
-    if (user.type === 'Entreprise'){
-
-    fetch(`${BACK_URL}/posts/company/published/${user.token}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllPosts(data.data);
-      });
-    }
-
-    else if (user.type === 'Association'){
+    if (user.type === "Entreprise") {
+      fetch(`${BACK_URL}/posts/company/published/${user.token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAllPosts(data.data);
+        });
+    } else if (user.type === "Association") {
       fetch(`${BACK_URL}/posts/charity/published/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
           setAllPosts(data.data);
-        });}
+        });
+    }
   }, [isFocused, lastDeleted]);
 
-
   const handleDeletePost = (id) => {
-
-   if (user.type === 'Entreprise'){
-    fetch(`${BACK_URL}/posts/company/delete/${user.token}/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          setLastDeleted(id);
-          // alert("Post supprimé");
-        }
-        
-      });
+    if (user.type === "Entreprise") {
+      fetch(`${BACK_URL}/posts/company/delete/${user.token}/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            setLastDeleted(id);
+            // alert("Post supprimé");
+          }
+        });
+    }
+    if (user.type === "Association") {
+      fetch(`${BACK_URL}/posts/charity/delete/${user.token}/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.result) {
+            setLastDeleted(id);
+            // alert("Post supprimé");
+          }
+        });
+    }
   };
-   if (user.type === 'Association'){
-    fetch(`${BACK_URL}/posts/charity/delete/${user.token}/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          setLastDeleted(id);
-          // alert("Post supprimé");
-        }
-        
-      });
-  }
-  }
   const handleUpdatePost = (post) => {
     dispatch(addToUpdate(post));
     navigation.navigate("EditPost");
@@ -86,19 +79,23 @@ export default function PostPublishedScreen() {
       <TouchableOpacity key={i}>
         <View style={styles.post}>
           <View style={styles.leftContain}>
-    
             <Text style={styles.title}>{postCompany.title}</Text>
-            <Text style={styles.description}>{postCompany.description.slice(0, 25) + "..."}</Text>
+            <Text style={styles.description}>
+              {postCompany.description.slice(0, 25) + "..."}
+            </Text>
             <Text style={styles.category}>{postCompany.category}</Text>
           </View>
           <View style={styles.rightContain}>
-            <FontAwesome
-              style={styles.cross}
-              name="close"
-              size={20}
-              color="white"
+            <TouchableOpacity
               onPress={() => handleDeletePost(postCompany.idPost)}
-            />
+            >
+              <FontAwesome
+                style={styles.cross}
+                name="close"
+                size={20}
+                color="white"
+              />
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => handleUpdatePost(postCompany)}>
               <FontAwesome name="edit" size={20} color="white" />
             </TouchableOpacity>
@@ -141,7 +138,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
- 
   },
   leftContain: {
     width: "80%",
@@ -154,21 +150,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginBottom: 50,
+
+    height: "100%",
   },
   title: {
-    fontSize:15,
+    fontSize: 15,
     fontFamily: "PoppinsBold",
-    color: "#EDFC92"
+    color: "#EDFC92",
   },
   description: {
     fontSize: 12,
     fontFamily: "Poppins",
-    color: "white"
+    color: "white",
   },
- category: {
+  category: {
     fontSize: 12,
     fontFamily: "PoppinsBold",
-    color:"#EDFC92"
+    color: "#EDFC92",
   },
   topContainer: {
     backgroundColor: "#274539",

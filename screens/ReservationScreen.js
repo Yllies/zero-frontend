@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
+  ScrollView,
 } from "react-native";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
@@ -69,82 +70,85 @@ export default function ReservationScreen({ navigation }) {
       });
   };
   return !isReserved ? (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ImageBackground
-        style={styles.greenBackground}
-        source={require("../assets/background-diagonal.png")}
+    <ScrollView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View>
-          <View style={styles.title}>
-            <Text
-              style={{
-                fontSize: 30,
-                fontFamily: "MontserratBold",
-                color: "white",
-              }}
-            >
-              Votre{" "}
-            </Text>
-            <Text
-              style={{
-                fontSize: 30,
-                fontFamily: "MontserratBold",
-                color: "#EDFC92",
-              }}
-            >
-              réservation
-            </Text>
-          </View>
-          <View style={styles.middleContainer}>
-            <Text style={styles.statutReservation}>
-              En attente de validation
-            </Text>
-            <View style={styles.reservationContainer}>
-              <View style={styles.containerPage}>
-                <TouchableOpacity style={styles.touch}>
-                  <View style={styles.imageContainer}>
-                    <Image
-                      style={styles.donationImage}
-                      source={{ uri: post.photo[0] }}
-                      alt="don"
-                    />
-                  </View>
-                  <View style={styles.contentContainer}>
-                    <View style={styles.titleContainer}>
-                      <Text style={styles.titleCard}>{post.title}</Text>
+        <ImageBackground
+          style={styles.greenBackground}
+          source={require("../assets/background-diagonal.png")}
+        >
+          <View>
+            <View style={styles.title}>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontFamily: "MontserratBold",
+                  color: "white",
+                }}
+              >
+                Votre{" "}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontFamily: "MontserratBold",
+                  color: "#EDFC92",
+                }}
+              >
+                réservation
+              </Text>
+            </View>
+            <View style={styles.middleContainer}>
+              <Text style={styles.statutReservation}>
+                En attente de validation
+              </Text>
+              <View style={styles.reservationContainer}>
+                <View style={styles.containerPage}>
+                  <TouchableOpacity style={styles.touch}>
+                    <View style={styles.imageContainer}>
+                      <Image
+                        style={styles.donationImage}
+                        source={{ uri: post.photo[0] }}
+                        alt="don"
+                      />
                     </View>
+                    <View style={styles.contentContainer}>
+                      <View style={styles.titleContainer}>
+                        <Text style={styles.titleCard}>{post.title}</Text>
+                      </View>
 
-                    <Text style={styles.description}>
-                      {post.description.slice(0, 30) + "..."}
-                    </Text>
-                    <Text style={styles.category}>{post.category}</Text>
-                  </View>
+                      <Text style={styles.description}>
+                        {post.description.slice(0, 30) + "..."}
+                      </Text>
+                      <Text style={styles.category}>{post.category}</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.attention}>
+                  Attention, plus que 24h pour valider la demande de réservation
+                  !
+                </Text>
+                <TouchableOpacity
+                  onPress={() => handleAccept(post)}
+                  style={styles.btnAccept}
+                >
+                  <Text style={styles.valider}>VALIDER</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => handleRefuse(post)}
+                  style={styles.btnRefuse}
+                >
+                  <Text style={styles.refuser}>REFUSER</Text>
                 </TouchableOpacity>
               </View>
-              <Text style={styles.attention}>
-                Attention, plus que 24h pour valider la demande de réservation !
-              </Text>
-              <TouchableOpacity
-                onPress={() => handleAccept(post)}
-                style={styles.btnAccept}
-              >
-                <Text style={styles.valider}>VALIDER</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => handleRefuse(post)}
-                style={styles.btnRefuse}
-              >
-                <Text style={styles.refuser}>REFUSER</Text>
-              </TouchableOpacity>
             </View>
           </View>
-        </View>
-        <StatusBar style="auto" />
-      </ImageBackground>
-    </KeyboardAvoidingView>
+          <StatusBar style="auto" />
+        </ImageBackground>
+      </KeyboardAvoidingView>
+    </ScrollView>
   ) : (
     <KeyboardAvoidingView style={styles.reservationDone}>
       <ConfettiCannon fadeOut="true" count={400} origin={{ x: 0, y: 0 }} />
@@ -157,6 +161,7 @@ export default function ReservationScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   greenBackground: {
     height: "102%",
@@ -218,9 +223,8 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 280,
     textAlign: "center",
-    backgroundColor:"red",
-    borderRadius:10,
-   
+    backgroundColor: "red",
+    borderRadius: 10,
   },
   attention: {
     marginTop: 15,
@@ -232,12 +236,10 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   reservationDone: {
-    // borderWidth: 4,
     flex: 1,
     padding: 20,
-
+    paddingTop: 150,
     alignItems: "center",
-    justifyContent: "center",
   },
   containerPage: {
     width: 160,

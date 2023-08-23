@@ -32,6 +32,7 @@ import AddCharityScreen from "./screens/AddCharityScreen";
 import AddCompanyScreen from "./screens/AddCompanyScreen";
 import { useSelector } from "react-redux";
 import { LogBox } from "react-native";
+import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 LogBox.ignoreAllLogs();
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -66,7 +67,7 @@ const TabNavigator = () => {
           headerShown: false,
         })}
       >
-        <Tab.Screen name="Accueil" component={HomeCharityScreen} />
+        <Tab.Screen name="Accueil" component={HomeCharityScreenBeta} />
         <Tab.Screen name="Favoris" component={FavoriteScreen} />
         <Tab.Screen name="Publier" component={AddCharityScreen} />
         <Tab.Screen name="Mon compte" component={AccountScreen} />
@@ -127,6 +128,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="FilterScreen" component={FilterScreenBeta} />
@@ -136,6 +138,8 @@ export default function App() {
             <Stack.Screen name="NeedScreen" component={NeedScreen} />
             <Stack.Screen name="DetailsAuthor" component={DetailsAuthor} />
             <Stack.Screen name="Reservation" component={ReservationScreen} />
+            <Stack.Screen name="HomeCharity" component={HomeCharityScreen} />
+            <Stack.Screen name="HomeCOmpany" component={HomeCompanyScreen} />
             <Stack.Screen name="Acount" component={AccountScreen} />
 
             <Stack.Screen

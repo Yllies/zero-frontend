@@ -24,18 +24,14 @@ import { Picker } from "@react-native-picker/picker";
 import { Calendar } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-// const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/do7vfvt5l`;
-// const CLOUDINARY_UPLOAD_PRESET = 'iyp6ovfi';
-// const CLOUDINARY_API_KEY = '974414836328966';
-
 export default function AddCharityScreen({ navigation }) {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Vetement");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const user = useSelector((state) => state.user.value);
 
   const handleSubmit = () => {
-    if (!title || !description || !category) {
+    if (!title || !description || category==="") {
       alert("Veuillez remplir tous les champs obligatoires");
       return;
     }
@@ -53,14 +49,14 @@ export default function AddCharityScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("from front", user.token);
+        // console.log("from front", user.token);
 
         if (data.result) {
           alert("Votre annonce a été publiée avec succès !");
           navigation.navigate("Accueil");
           setTitle("");
           setDescription("");
-          setCategory("Vetement"); // Set the initial category
+          setCategory(""); // Set the initial category
         } else {
           alert("Une erreur est survenue lors de la publication de l'annonce.");
         }
@@ -103,6 +99,7 @@ export default function AddCharityScreen({ navigation }) {
                 mode={"dialog"}
                 onValueChange={(itemValue) => setCategory(itemValue)}
               >
+                  <Picker.Item label="" value="" />
                 <Picker.Item label="Vetements" value="Vetements" />
                 <Picker.Item label="Meubles" value="Meubles" />
                 <Picker.Item label="High-Tech" value="High-Tech" />
@@ -120,7 +117,7 @@ export default function AddCharityScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Nous ne pouvons vendre ses habits à cause de..."
+                placeholder="Nous donnons ces ..."
               />
             </View>
 
@@ -202,7 +199,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   selectedImage: {
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     width: 100,
     height: 100,
     resizeMode: "cover",
@@ -215,7 +212,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: "100%",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 130,
+    marginTop:40,
   },
   login: {
     fontSize: 15,

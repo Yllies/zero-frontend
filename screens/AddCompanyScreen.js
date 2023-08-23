@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
 import {
   FlatList,
   Image,
@@ -16,24 +15,22 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-
 import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { AntDesign } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { Calendar } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
-
-// const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/do7vfvt5l`;
-// const CLOUDINARY_UPLOAD_PRESET = 'iyp6ovfi';
-// const CLOUDINARY_API_KEY = '974414836328966';
+const UPLOAD_PRESET = process.env.EXPO_PUBLIC_UPLOAD_PRESET;
+const CLOUD_NAME = process.env.EXPO_PUBLIC_CLOUD_NAME;
 
 export default function AddCompanyScreen({ navigation }) {
+
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Vetements");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [availability, setAvailability] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState();
   const [selectedImages, setSelectedImages] = useState([]);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
@@ -78,9 +75,9 @@ export default function AddCompanyScreen({ navigation }) {
   const handleUpload = async (image) => {
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "iyp6ovfi");
-    data.append("cloud-name", "do7vfvt5l");
-    fetch("https://api.cloudinary.com/v1_1/do7vfvt5l/image/upload", {
+    data.append("upload_preset", UPLOAD_PRESET);
+    data.append("cloud-name", CLOUD_NAME);
+    fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
       method: "POST",
       body: data,
     })
@@ -104,7 +101,7 @@ export default function AddCompanyScreen({ navigation }) {
       // allowsMultipleSelection: true,
     });
 
-    if (!data.cancelled) {
+    if (!data.canceled) {
       let newFile = {
         uri: data.uri,
         type: `test/${data.uri.split(".")[1]}`,
@@ -121,7 +118,7 @@ export default function AddCompanyScreen({ navigation }) {
       quality: 1,
     });
 
-    if (!data.cancelled) {
+    if (!data.canceled) {
       let newFile = {
         uri: data.uri,
         type: `test/${data.uri.split(".")[1]}`,
@@ -135,7 +132,7 @@ export default function AddCompanyScreen({ navigation }) {
     if (
       !title ||
       !description ||
-      !category ||
+      category ===""||
       !selectedImages.length ||
       !quantity ||
       !availability
@@ -160,14 +157,14 @@ export default function AddCompanyScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("from front", user.token);
+        // console.log("from front", user.token);
 
         if (data.result) {
           alert("Votre annonce a été publiée avec succès !");
           navigation.navigate("Accueil");
           setTitle("");
           setDescription("");
-          setCategory("Vetement"); // Set the initial category
+          setCategory(""); // Set the initial category
           setQuantity("");
           setAvailability("");
           setSelectedImages([]);
@@ -222,6 +219,7 @@ export default function AddCompanyScreen({ navigation }) {
                 mode={"dialog"}
                 onValueChange={(itemValue) => setCategory(itemValue)}
               >
+                  <Picker.Item label="" value="" />
                 <Picker.Item label="Vetements" value="Vetements" />
                 <Picker.Item label="Meubles" value="Meubles" />
                 <Picker.Item label="High-Tech" value="High-Tech" />
@@ -239,7 +237,7 @@ export default function AddCompanyScreen({ navigation }) {
                 textAlignVertical="top"
                 onChangeText={(value) => setDescription(value)}
                 value={description}
-                placeholder="Nous ne pouvons vendre ses habits à cause de..."
+                placeholder="Nous donnons ces ..."
               />
             </View>
             <View style={styles.imagePickerContainer}>
@@ -372,7 +370,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   selectedImage: {
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     width: 100,
     height: 100,
     resizeMode: "cover",
@@ -385,7 +383,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: "100%",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 130,
+    marginTop:20,
   },
   login: {
     fontSize: 15,

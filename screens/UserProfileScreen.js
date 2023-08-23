@@ -11,60 +11,58 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
 import MapScreen from "../components/Map";
-import { useState, useEffect} from "react";
-
+import { useState, useEffect } from "react";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
-export default function UserProfileScreen  ()  {
+export default function UserProfileScreen() {
   const user = useSelector((state) => state.user.value);
-    const author = user.token
-    const [details, setDetails] = useState(null);
-    const [initialRegion,setInitialRegion] = useState(null)
-    const [count,setCount] =useState(0)
-    const [text,setText] =useState('')
-    useEffect(() => {
-      setTimeout(() => {
-        fetch(`${BACK_URL}:3000/users/${author}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setDetails(data);
-            setInitialRegion({
-              latitude: data.latitude,
-              longitude: data.longitude,
-              latitudeDelta: data.latitudeDelta,
-              longitudeDelta: data.longitudeDelta,
-            });
-    
-            if (data.type === 'Entreprise') {
-              setText('dons ont été postés par cette entreprise');
-      
-              fetch(`${BACK_URL}/posts/company/published/${author}`)
-                .then((response) => response.json())
-                .then((postData) => {
-                  setCount(postData.data.length);
-                })
-                .catch((error) => {
-                  console.error("Error fetching company posts:", error);
-                });
-            } else if (data.type === 'Association') {
-              setText('besoins ont été postés par cette association');
-      
-              fetch(`${BACK_URL}/posts/charity/published/${author}`)
-                .then((response) => response.json())
-                .then((postData) => {
-                  setCount(postData.data.length);
-                })
-                .catch((error) => {
-                  console.error("Error fetching association posts:", error);
-                });
-            }
-          })
-          .catch((error) => {
-            console.error("Error fetching user details:", error);
+  const author = user.token;
+  const [details, setDetails] = useState(null);
+  const [initialRegion, setInitialRegion] = useState(null);
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("");
+  useEffect(() => {
+    setTimeout(() => {
+      fetch(`${BACK_URL}/users/${author}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setDetails(data);
+
+          setInitialRegion({
+            latitude: data.latitude,
+            longitude: data.longitude,
           });
-      }, 1000);
-    }, []);
+
+          if (data.type === "Entreprise") {
+            setText("dons ont été postés par cette entreprise");
+
+            fetch(`${BACK_URL}/posts/company/published/${author}`)
+              .then((response) => response.json())
+              .then((postData) => {
+                setCount(postData.data.length);
+              })
+              .catch((error) => {
+                console.error("Error fetching company posts:", error);
+              });
+          } else if (data.type === "Association") {
+            setText("besoins ont été postés par cette association");
+
+            fetch(`${BACK_URL}/posts/charity/published/${author}`)
+              .then((response) => response.json())
+              .then((postData) => {
+                setCount(postData.data.length);
+              })
+              .catch((error) => {
+                console.error("Error fetching association posts:", error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user details:", error);
+        });
+    }, 1000);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -96,15 +94,13 @@ export default function UserProfileScreen  ()  {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Qui sommes-nous?</Text>
-          <Text style={styles.description}>
-{details?.description}
-          </Text>
+          <Text style={styles.description}>{details?.description}</Text>
         </View>
         <View style={styles.mapContainer}>
-        <MapScreen initialRegion = {initialRegion} />
+          <MapScreen initialRegion={initialRegion} />
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>Infos Complémentaire</Text>
+          <Text style={styles.title}>Informations complémentaires</Text>
           <View style={styles.InfosContainer}>
             <Text style={styles.titleInfo}>
               {" "}
@@ -129,10 +125,10 @@ export default function UserProfileScreen  ()  {
               Horaires
             </Text>
             <Text style={styles.textInfo}>
-            Du lundi au vendredi de 9h à 18h
+              Du lundi au vendredi de 9h à 18h
             </Text>
           </View>
-          <Text style={styles.title}>Points Forts</Text>
+          <Text style={styles.title}>Points forts</Text>
           <View style={styles.PFContainer}>
             <Text style={styles.Number}>
               {count} <Text style={styles.PFText}> {text}</Text>
@@ -142,7 +138,7 @@ export default function UserProfileScreen  ()  {
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -245,11 +241,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 54.5,
     color: "white",
-    fontFamily: "Poppins",
+    fontFamily: "PoppinsSemiBold",
   },
   PFContainer: {
     marginTop: 20,
-    marginBottom:30,
+    marginBottom: 30,
     borderRadius: 10,
     backgroundColor: "#EDFC92",
     paddingLeft: 40,
@@ -288,5 +284,3 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
 });
-
-

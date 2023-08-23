@@ -62,7 +62,7 @@ export default function DonnationScreen() {
 
   const handleCancel = () => {
     fetch(
-      `${BACK_URL}/posts/association/book/cancel/${user.token}/${details.idPost}`,
+      `${BACK_URL}/posts/charity/book/cancel/${user.token}/${details.idPost}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -77,7 +77,7 @@ export default function DonnationScreen() {
 
   const handleReserve = () => {
     fetch(
-      `${BACK_URL}/posts/association/book/${user.token}/${details.idPost}`,
+      `${BACK_URL}/posts/charity/book/${user.token}/${details.idPost}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

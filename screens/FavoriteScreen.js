@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
   },
   cardsRow: {
     justifyContent: "space-between", // Ajoutez de l'espace entre les colonnes
-    flexDirection: "row",
-    flexWrap: "wrap",
+    // flexDirection: "row",
+    // flexWrap: "wrap",
     padding: 5,
     // marginLeft: 16,
     justifyContent: "center",

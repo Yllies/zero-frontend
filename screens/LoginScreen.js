@@ -115,7 +115,7 @@ export default function LoginScreen({ navigation }) {
                   autoCapitalize="none"
                   onChangeText={(value) => setPassword(value)}
                   value={password}
-                  placeholder="XH2LQ869pgpr3z"
+                  placeholder="xH&@F*^des"
                 />
                 {dataError && (
                   <Text style={styles.error}>Mauvais identifiants ! </Text>
@@ -128,7 +128,7 @@ export default function LoginScreen({ navigation }) {
               >
                 <Text style={styles.login}>Connexion</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress ={() => navigation.navigate("ResetPassword")}>
                 <Text style={styles.signupHere}>Mot de passe oublié ?</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainContain: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff",
   },
   topContainer: {
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   form: {
     width: "80%",
-    height: 500,
+    height: 600,
     marginTop: 70,
     alignItems: "center",
   },
