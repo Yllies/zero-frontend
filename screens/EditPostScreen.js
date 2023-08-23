@@ -35,14 +35,14 @@ export default function EditPostScreen({ navigation }) {
   const [availability, setAvailability] = useState(
     post?.availability_date?.slice(0, 10)
   );
-  const [quantity, setQuantity] = useState(post.quantity);
+  const [quantity, setQuantity] = useState(`${post.quantity}`);
   const [selectedImages, setSelectedImages] = useState(post.photo);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState(
     post?.availability_date?.slice(0, 10)
   );
 
-// console.log(post.quantity);
+  // console.log(post.quantity);
 
   useEffect(() => {
     // Vérifier et demander la permission d'accéder à la galerie
@@ -179,7 +179,7 @@ export default function EditPostScreen({ navigation }) {
           .then((response) => response.json())
           .then((data) => {
             // console.log("from front", user.token);
-// console.log(data)
+            // console.log(data)
             if (data.result) {
               alert("Votre annonce a été modifée avec succès !");
               navigation.navigate("TabNavigator");
@@ -274,7 +274,7 @@ export default function EditPostScreen({ navigation }) {
         >
           <View style={styles.topContainer}>
             <Text style={styles.title}>
-              Postez votre <Text style={styles.zero}>annonce</Text>
+              Modifiez votre <Text style={styles.zero}>annonce</Text>
             </Text>
           </View>
           <ScrollView style={styles.bottomContainer}>
@@ -373,7 +373,7 @@ export default function EditPostScreen({ navigation }) {
                 />
               </View>
               <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
-                <Text style={styles.login}>Publiez votre annonce</Text>
+                <Text style={styles.login}>Modifiez votre annonce</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -390,7 +390,7 @@ export default function EditPostScreen({ navigation }) {
         >
           <View style={styles.topContainer}>
             <Text style={styles.title}>
-              Postez votre <Text style={styles.zero}>annonce</Text>
+              Modifiez votre <Text style={styles.zero}>annonce</Text>
             </Text>
           </View>
           <ScrollView style={styles.bottomContainer}>
@@ -437,7 +437,7 @@ export default function EditPostScreen({ navigation }) {
               </View>
 
               <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
-                <Text style={styles.login}>Publiez votre demande</Text>
+                <Text style={styles.login}>Modifiez votre demande</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>

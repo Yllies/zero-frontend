@@ -8,6 +8,7 @@ import {
   TextInput,
   Modal,
 } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -39,11 +40,11 @@ export default function HomeCharityScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   // const navigation = useNavigation();
-
+  const isFocused = useIsFocused();
   useEffect(() => {
     // Appeler la fonction pour récupérer les posts depuis le backend ou une API REST
     fetchPosts();
-  }, [quantity, date, displayFilter]);
+  }, [quantity, date, displayFilter, isFocused]);
 
   const goToDonnationScreen = (postId) => {
     navigation.navigate("HomeCharity", { postId: postId });
@@ -154,7 +155,7 @@ export default function HomeCharityScreen({ navigation }) {
         numColumns={2}
         contentContainerStyle={styles.cardsRow}
         renderItem={({ item }) => (
-          <View >
+          <View>
             <ArticleDetails
               title={item.title}
               description={item.description.slice(0, 25) + "..."}
@@ -207,9 +208,8 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 30,
     paddingRight: 30,
     paddingLeft: 30,
-    justifyContent:"center",
-    alignItems:'center',
-    
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   // Style du texte "Bonjour"
@@ -232,7 +232,6 @@ const styles = StyleSheet.create({
   },
   // Style du conteneur de l'icône de notification
   containerNotif: {
-
     padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",

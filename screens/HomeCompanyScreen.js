@@ -14,7 +14,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import NeedDetails from "../components/NeedDetails";
-
+import { useIsFocused } from "@react-navigation/native";
 // URL de l'API back-end
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
@@ -27,11 +27,11 @@ export default function HomeCompanyScreen({ navigation }) {
   const [isSearching, setIsSearching] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const user = useSelector((state) => state.user.value);
-
+  const isFocused = useIsFocused();
   // Effet au chargement initial
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [isFocused]);
 
   // Effet en cas de changement dans le champ de recherche ou le mode de recherche
   useEffect(() => {
@@ -146,28 +146,25 @@ export default function HomeCompanyScreen({ navigation }) {
         </View>
       </View>
       {/* Affichage des résultats */}
-     
-        <FlatList
-             style={styles.flatlist}
-          data={searchResults}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={2}
-          contentContainerStyle={styles.cardsRow}
-          renderItem={({ item }) => (
-            <View >
-            
-                {/* Affichage des détails du besoin */}
-                <NeedDetails
-                  title={item.title}
-                  description={item.description.slice(0, 25) + "..."}
-                  category={item.category}
-                  idPost={item.idPost}
-                />
-           
-            </View>
-          )}
-        />
-     
+
+      <FlatList
+        style={styles.flatlist}
+        data={searchResults}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+        contentContainerStyle={styles.cardsRow}
+        renderItem={({ item }) => (
+          <View>
+            {/* Affichage des détails du besoin */}
+            <NeedDetails
+              title={item.title}
+              description={item.description.slice(0, 25) + "..."}
+              category={item.category}
+              idPost={item.idPost}
+            />
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 }
@@ -193,8 +190,8 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: "white",
   },
-  clearSearchIconContainer:{
-padding:5,
+  clearSearchIconContainer: {
+    padding: 5,
   },
   containerPage: {
     // flex: 1,
@@ -212,10 +209,9 @@ padding:5,
     borderBottomRightRadius: 30,
     paddingRight: 30,
     paddingLeft: 30,
-    marginBottom: '5%',
-    justifyContent:"center",
-    alignItems:'center',
- 
+    marginBottom: "5%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   text: {
@@ -230,7 +226,7 @@ padding:5,
     fontSize: 17,
     marginBottom: 15,
     fontFamily: "MontserratBold",
-     marginBottom:'7%',
+    marginBottom: "7%",
   },
   iconeFilter: {
     padding: 5,
@@ -242,7 +238,7 @@ padding:5,
     padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginTop:30,
+    marginTop: 30,
     // paddingBottom: 20,
   },
 

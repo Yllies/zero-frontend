@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   reservationContainer: {
     height: 400,
     width: 350,
+    flex: 1,
   },
   card: {
     marginTop: 30,
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   img: {
     resizeMode: "cover",
     width: 143,
-    height: 206,
+    height: "100%",
     borderBottomRightRadius: 30,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Poppins",
     color: "white",
-    width: 250,
+    width: 220,
     padding: 20,
   },
   note: {

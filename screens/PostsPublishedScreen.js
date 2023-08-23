@@ -150,6 +150,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginBottom: 50,
+
+    height: "100%",
   },
   title: {
     fontSize: 15,
