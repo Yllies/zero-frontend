@@ -24,6 +24,8 @@ import { Calendar } from "react-native-calendars";
 import { useNavigation } from "@react-navigation/native";
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
+const UPLOAD_PRESET = process.env.EXPO_PUBLIC_UPLOAD_PRESET;
+const CLOUD_NAME = process.env.EXPO_PUBLIC_CLOUD_NAME;
 
 export default function EditPostScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
@@ -83,15 +85,15 @@ export default function EditPostScreen({ navigation }) {
   const handleUpload = async (image) => {
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "iyp6ovfi");
-    data.append("cloud-name", "do7vfvt5l");
-    fetch("https://api.cloudinary.com/v1_1/do7vfvt5l/image/upload", {
+    data.append("upload_preset", UPLOAD_PRESET);
+    data.append("cloud-name", CLOUD_NAME);
+    fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
       method: "POST",
       body: data,
     })
       .then((res) => res.json())
       .then(async (data) => {
-        // console.log(data);
+        console.log(data);
 
         if (data) {
           setSelectedImages([...selectedImages, data.url]);
@@ -100,6 +102,7 @@ export default function EditPostScreen({ navigation }) {
         }
       });
   };
+
 
   const pickImage = async () => {
     let data = await ImagePicker.launchImageLibraryAsync({

@@ -7,14 +7,13 @@ import {
   TouchableOpacity,
   FlatList,
   SafeAreaView,
-  TouchableHighlight,
+
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import ArticleDetailsBeta from "../components/ArticleDetailsBeta";
 import ArticleDetails from "../components/ArticleDetails";
 
 // URL de l'API back-end

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
 import {
   FlatList,
   Image,
@@ -22,6 +21,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { Calendar } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
+const UPLOAD_PRESET = process.env.EXPO_PUBLIC_UPLOAD_PRESET;
+const CLOUD_NAME = process.env.EXPO_PUBLIC_CLOUD_NAME;
 
 export default function AddCompanyScreen({ navigation }) {
 
@@ -74,9 +75,9 @@ export default function AddCompanyScreen({ navigation }) {
   const handleUpload = async (image) => {
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "iyp6ovfi");
-    data.append("cloud-name", "do7vfvt5l");
-    fetch("https://api.cloudinary.com/v1_1/do7vfvt5l/image/upload", {
+    data.append("upload_preset", UPLOAD_PRESET);
+    data.append("cloud-name", CLOUD_NAME);
+    fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
       method: "POST",
       body: data,
     })
