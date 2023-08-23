@@ -37,7 +37,7 @@ export default function EditPostScreen({ navigation }) {
   const [availability, setAvailability] = useState(
     post?.availability_date?.slice(0, 10)
   );
-  const [quantity, setQuantity] = useState(post.quantity);
+  const [quantity, setQuantity] = useState(`${post.quantity}`);
   const [selectedImages, setSelectedImages] = useState(post.photo);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [selectedDate, setSelectedDate] = useState(
@@ -277,7 +277,7 @@ export default function EditPostScreen({ navigation }) {
         >
           <View style={styles.topContainer}>
             <Text style={styles.title}>
-              Postez votre <Text style={styles.zero}>annonce</Text>
+              Modifiez votre <Text style={styles.zero}>annonce</Text>
             </Text>
           </View>
           <ScrollView style={styles.bottomContainer}>
@@ -376,7 +376,7 @@ export default function EditPostScreen({ navigation }) {
                 />
               </View>
               <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
-                <Text style={styles.login}>Publiez votre annonce</Text>
+                <Text style={styles.login}>Modifiez votre annonce</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -393,7 +393,7 @@ export default function EditPostScreen({ navigation }) {
         >
           <View style={styles.topContainer}>
             <Text style={styles.title}>
-              Postez votre <Text style={styles.zero}>annonce</Text>
+              Modifiez votre <Text style={styles.zero}>annonce</Text>
             </Text>
           </View>
           <ScrollView style={styles.bottomContainer}>
