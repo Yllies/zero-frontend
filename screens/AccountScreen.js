@@ -47,7 +47,7 @@ export default function AccountScreen() {
 
   // Confirmer la suppression du compte de l'utilisateur
   const confirmDelete = () => {
-    fetch(`${BACK_URL}:3000/users/delete/${user.token}`, {
+    fetch(`${BACK_URL}/users/delete/${user.token}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token }),

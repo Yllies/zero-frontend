@@ -67,7 +67,7 @@ const TabNavigator = () => {
           headerShown: false,
         })}
       >
-        <Tab.Screen name="Accueil" component={HomeCharityScreenBeta} />
+        <Tab.Screen name="Accueil" component={HomeCharityScreen} />
         <Tab.Screen name="Favoris" component={FavoriteScreen} />
         <Tab.Screen name="Publier" component={AddCharityScreen} />
         <Tab.Screen name="Mon compte" component={AccountScreen} />
@@ -131,7 +131,7 @@ export default function App() {
             <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="FilterScreen" component={FilterScreenBeta} />
+            <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="UserProfile" component={UserProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
@@ -139,7 +139,7 @@ export default function App() {
             <Stack.Screen name="DetailsAuthor" component={DetailsAuthor} />
             <Stack.Screen name="Reservation" component={ReservationScreen} />
             <Stack.Screen name="HomeCharity" component={HomeCharityScreen} />
-            <Stack.Screen name="HomeCOmpany" component={HomeCompanyScreen} />
+            <Stack.Screen name="HomeCompany" component={HomeCompanyScreen} />
             <Stack.Screen name="Acount" component={AccountScreen} />
 
             <Stack.Screen
