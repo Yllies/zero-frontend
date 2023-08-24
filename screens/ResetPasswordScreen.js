@@ -26,7 +26,7 @@ export default function ResetPasswordScreen({ navigation }) {
       return;
     }
 
-    fetch(`${BACK_URL}:3000/users/resetPassword/${user.token}`, {
+    fetch(`${BACK_URL}/users/resetPassword/${user.token}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     padding: 13,
     fontSize: 15,
     marginTop: 30,
-    marginBottom:30,
+    marginBottom: 30,
     borderRadius: 4,
     width: 300,
     fontFamily: "Poppins",

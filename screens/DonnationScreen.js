@@ -53,10 +53,8 @@ export default function DonnationScreen() {
     console.log("le use qui set le reserved");
     if (details?.isBooked === "Oui" || details?.isBooked === "En attente") {
       setIsReserved(true);
-      console.log("true", isReserved);
     } else if (details?.isBooked === "Non") {
       setIsReserved(false);
-      console.log("false", isReserved);
     }
   }, [details]);
 
