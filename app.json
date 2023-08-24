@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "backend",
-    "slug": "backend",
+    "slug": "zero",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e4cc829b-c5c1-44f7-8c6c-b504ef79214e"
+      }
+    },
+    "owner": "appocryphos",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e4cc829b-c5c1-44f7-8c6c-b504ef79214e"
     }
   }
 }
