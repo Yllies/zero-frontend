@@ -6,12 +6,10 @@ import {
   Text,
   View,
   SafeAreaView,
-  KeyboardAvoidingView,
-  Platform,
 } from "react-native";
 import ArticleDetails from "../components/ArticleDetails";
 
-export default function FavoriteScreen({ navigation }) {
+export default function FavoriteScreen() {
   const favorites = useSelector((state) => state.favorites.value);
 
   return (

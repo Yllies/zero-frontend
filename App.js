@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import ScreenPostCompany from "./screens/AddCompanyScreen";
 import PostsInWaitingScreen from "./screens/PostsInWaitingScreen";
 import HomeCharityScreen from "./screens/HomeCharityScreen";
 import HomeCompanyScreen from "./screens/HomeCompanyScreen";
@@ -26,16 +25,17 @@ import favorites from "./reducers/favorites";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
 import UserProfileScreen from "./screens/UserProfileScreen";
-import HomeCharityScreenBeta from "./screens/HomeCharityScreenBeta";
-import FilterScreenBeta from "./screens/FilterScreenBeta";
 import AddCharityScreen from "./screens/AddCharityScreen";
 import AddCompanyScreen from "./screens/AddCompanyScreen";
 import { useSelector } from "react-redux";
 import { LogBox } from "react-native";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+
 LogBox.ignoreAllLogs();
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
 const TabNavigator = () => {
   const user = useSelector((state) => state.user.value);
   if (user.type === "Association") {

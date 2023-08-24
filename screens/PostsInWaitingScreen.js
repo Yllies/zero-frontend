@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigation } from "@react-navigation/native";
@@ -12,13 +12,8 @@ import {
   View,
 } from "react-native";
 import {
-  addToConfirm,
-  addToUpdate,
-  removeAllToConfirm,
   addToConfirmOrRefuse,
 } from "../reducers/post";
-
-const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function PostsInWaitingScreen() {
   // Récupérer les informations de l'utilisateur depuis Redux
@@ -26,8 +21,6 @@ export default function PostsInWaitingScreen() {
   const post = useSelector((state) => state.post.value.toConfirm);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [allPosts, setAllPosts] = useState([]);
-  const [lastDeleted, setLastDeleted] = useState("");
 
   const handleConsult = (post) => {
     dispatch(addToConfirmOrRefuse(post));

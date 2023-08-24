@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,6 @@ import {
 import Slider from "@react-native-community/slider";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
-import * as Location from "expo-location";
 import { useDispatch } from 'react-redux';
 import { addQuantity, addDate, removeFilter, addDisplay } from '../reducers/filter';
 
