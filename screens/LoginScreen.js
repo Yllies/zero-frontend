@@ -23,12 +23,6 @@ export default function LoginScreen({ navigation }) {
   // Regex pour vérifier que l'email est valide
   const EMAIL_REGEX =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  // Redirect to /home if logged in
-  // if (user.token) {
-  //   navigation.navigate('Accueil');
-  // }
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -71,11 +65,6 @@ export default function LoginScreen({ navigation }) {
             setEmailError(false)
           }
         });
-      // .catch(error => {
-      //   // Handle fetch error, display an error message, etc.
-      //   console.error('Login failed:', error);
-      //   alert('An error occurred while trying to log in. Please try again later.');
-      // });
     }
   };
   return (

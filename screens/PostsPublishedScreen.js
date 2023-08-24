@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser, logout } from "../reducers/user";
+
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation, useIsFocused } from "@react-navigation/native";

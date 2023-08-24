@@ -11,11 +11,10 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useRoute } from "@react-navigation/native";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
-export default function NeedScreen({ navigation }){
+
+export default function NeedScreen() {
   const route = useRoute();
   const { postId } = route.params;
-  const [Details, setDetails] = useState([]);
-
 
   useEffect(() => {
     fetch(`${BACK_URL}/posts/Charity/${postId}`)
@@ -38,9 +37,7 @@ export default function NeedScreen({ navigation }){
             resizeMode="cover"
           />
           <View style={styles.iconContainer}>
-            <TouchableOpacity>
-
-            </TouchableOpacity>
+            <TouchableOpacity></TouchableOpacity>
             <TouchableOpacity>
               <FontAwesome
                 name="hand-holding-heart"
@@ -55,22 +52,18 @@ export default function NeedScreen({ navigation }){
         <View style={styles.textContainer}>
           <Text style={styles.title}>Détails</Text>
           <View style={styles.InfosContainer}>
-            <Text style={styles.titleInfo}>
-              Adresse de l'entreprise:
-              
+            <Text style={styles.titleInfo}>Adresse de l'entreprise:</Text>
+            <Text style={styles.textInfo}>
+              12 rue de la République 13002 Marseille
             </Text>
-            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
-            <Text style={styles.titleInfo}>
-              Adresse de l'entreprise:
-              
+            <Text style={styles.titleInfo}>Adresse de l'entreprise:</Text>
+            <Text style={styles.textInfo}>
+              12 rue de la République 13002 Marseille
             </Text>
-            <Text style={styles.textInfo}>12 rue de la République 13002 Marseille</Text>
-            
-
           </View>
           <TouchableOpacity style={styles.btnContact}>
             <Text style={styles.Contact}>
-             Détails de l'Entreprise{" "}
+              Détails de l'Entreprise{" "}
               <FontAwesome
                 name="arrow-right"
                 color="#274539"
@@ -83,7 +76,7 @@ export default function NeedScreen({ navigation }){
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -228,5 +221,3 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
 });
-
-

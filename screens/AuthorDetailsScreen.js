@@ -24,7 +24,7 @@ export default function AuthorDetailsScreen() {
   const [initialRegion, setInitialRegion] = useState(null);
   const [count, setCount] = useState(0);
   const [text, setText] = useState("");
-  const navigation = useNavigation();
+
   useEffect(() => {
     setTimeout(() => {
       fetch(`${BACK_URL}/users/${author}`)

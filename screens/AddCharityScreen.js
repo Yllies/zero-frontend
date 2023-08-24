@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useSelector } from "react-redux";
-
 import {
-  FlatList,
-  Image,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -14,14 +11,9 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
-  Alert,
 } from "react-native";
-
-import * as ImagePicker from "expo-image-picker";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { AntDesign } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
-import { Calendar } from "react-native-calendars";
+
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function AddCharityScreen({ navigation }) {

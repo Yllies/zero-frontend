@@ -4,12 +4,11 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   Alert,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+
 import { useSelector } from "react-redux";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 

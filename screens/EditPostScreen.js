@@ -21,7 +21,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { AntDesign } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { Calendar } from "react-native-calendars";
-import { useNavigation } from "@react-navigation/native";
+
 
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 const UPLOAD_PRESET = process.env.EXPO_PUBLIC_UPLOAD_PRESET;
