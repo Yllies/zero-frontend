@@ -150,8 +150,8 @@ export default function HomeCharityScreenBeta({ navigation }) {
           )}
         </View>
       </View>
+      
       {/* Affichage des résultats */}
-
       <FlatList
         data={searchResults}
         keyExtractor={(item, index) => index.toString()}

@@ -6,6 +6,7 @@ import {
   FlatList,
   SafeAreaView,
   TextInput,
+  TouchableOpacity,
   Modal,
 } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
@@ -17,39 +18,81 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FilterScreen from "./FilterScreen";
 import { MaterialIcons } from "@expo/vector-icons";
 
+
 const Stack = createNativeStackNavigator();
+
+// URL de l'API back-end
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
 
 export default function HomeCharityScreen({ navigation }) {
+  // États locaux
   const user = useSelector((state) => state.user.value);
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState(null);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+
+  const isFocused = useIsFocused();
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const [isModalVisible, setModalVisible] = useState(false);
 
   const quantity = useSelector((state) => state.filter.quantity);
-
   const date = useSelector((state) => state.filter.date);
-
   const displayFilter = useSelector((state) => state.filter.display);
 
-
-  const [posts, setPosts] = useState([]);
-  const [error, setError] = useState(null);
-
-
-  const isFocused = useIsFocused();
-  
+// Effet au chargement initial, récupérer les posts depuis le backend, se mettent à jour en fonction des actions dans les filtres 
   useEffect(() => {
-    // récupérer les posts depuis le backend 
     fetchPosts();
   }, [quantity, date, displayFilter, isFocused]);
+
+
+    // Effet en cas de changement dans le champ de recherche ou le mode de recherche
+  useEffect(() => {
+    if (!isSearching) {
+      setSearchResults(posts);
+      return;
+    }
+
+    // Filtrage des messages en fonction du texte de recherche
+    const filteredPosts = posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(searchText.toLowerCase()) ||
+        post.description.toLowerCase().includes(searchText.toLowerCase()) ||
+        post.category.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setSearchResults(filteredPosts);
+  }, [searchText, isSearching, posts]);
 
   const goToDonnationScreen = (postId) => {
     navigation.navigate("HomeCharity", { postId: postId });
   };
+
+
+    // Gestion de la recherche
+  const handleSearch = () => {
+    if (searchText.trim() === "") {
+      // Si le champ de recherche est vide, réinitialiser la recherche
+      setSearchText("");
+      setIsSearching(false);
+      fetchPosts(); // Restaurer les messages d'origine
+    } else {
+      setIsSearching(true);
+    }
+  };
+
+  // Gestion de l'effacement de la recherche
+  const handleClearSearch = () => {
+    setSearchText("");
+    setIsSearching(false);
+    fetchPosts(); // Restaurer les messages d'origine
+  };
+
 
   const fetchPosts = () => {
     if (displayFilter) {
@@ -79,8 +122,6 @@ export default function HomeCharityScreen({ navigation }) {
         });
     } else {
       // Fetcher tous les posts sans le filtre
-      console.log("posts normaux");
-
       fetch(`${BACK_URL}/posts/company`)
         .then((response) => response.json())
         .then((data) => {
@@ -98,7 +139,7 @@ export default function HomeCharityScreen({ navigation }) {
     }
   };
   
-  console.log("mon filtre sur homecharity", displayFilter);
+  // Rendu de l'interface utilisateur
 
   return (
     <SafeAreaView style={styles.container}>
@@ -116,6 +157,7 @@ export default function HomeCharityScreen({ navigation }) {
             Bonjour <Text style={styles.textDynamique}>{user.name}</Text>
           </Text>
           <Text style={styles.paragraphe}>Bienvenue sur Zéro</Text>
+          {/* Barre de recherche */}
         </View>
         <Modal
           animationType="slide"
@@ -129,20 +171,45 @@ export default function HomeCharityScreen({ navigation }) {
           </View>
         </Modal>
       </View>
+
       <View style={styles.searchBarContainer}>
-        <View style={styles.searchIconContainer}>
+            {/* Icône de recherche */}
+        <TouchableOpacity
+        style={styles.searchIconContainer} 
+          onPress={handleSearch}
+          >
           <FontAwesome
             name="search"
             size={20}
             color="#EDFC92"
             style={styles.searchIcon}
           />
-        </View>
+
+      </TouchableOpacity>
+       {/* Champ de recherche */}
         <TextInput
           style={styles.searchInput}
           placeholder="Je recherche..."
           placeholderTextColor="#707070"
+            value={searchText}
+            onChangeText={(text) => setSearchText(text)}
+            onSubmitEditing={handleSearch}
         />
+
+  {/* Icône d'effacement de la recherche */}
+          {isSearching && (
+            <TouchableOpacity
+              style={styles.clearSearchIconContainer}
+              onPress={handleClearSearch}
+            >
+              <FontAwesome
+                name="times"
+                size={20}
+                color="#274539"
+                style={styles.searchIcon}
+              />
+            </TouchableOpacity>
+          )}
         <FontAwesome
           onPress={toggleModal}
           style={styles.iconeFilter}
@@ -152,9 +219,10 @@ export default function HomeCharityScreen({ navigation }) {
         />
       </View>
 
+      {/* Affichage des résultats */}
       <FlatList
         style={styles.flatlist}
-        data={posts}
+        data={searchResults}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         contentContainerStyle={styles.cardsRow}
@@ -187,6 +255,10 @@ const styles = StyleSheet.create({
   titre: {
     fontSize: 10,
     color: "white",
+  },
+
+    clearSearchIconContainer: {
+    padding: 5,
   },
 
   containerPage: {
@@ -261,7 +333,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     color: "#707070",
-    fontSize: 16,
+    fontSize: 15,
     paddingLeft: 10,
     fontFamily: "Poppins",
     shadowColor: "#171717",
@@ -284,7 +356,6 @@ const styles = StyleSheet.create({
     top: 20,
     right: 20,
     zIndex: 1, 
-    
   },
 
   iconeCloseModal: {
