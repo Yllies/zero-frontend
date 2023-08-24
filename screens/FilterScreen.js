@@ -11,7 +11,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Calendar } from "react-native-calendars";
 import * as Location from "expo-location";
 import { useDispatch } from 'react-redux';
-import { addQuantity, addDate, addLocalisation,removeFilter, addRadius, addDisplay } from '../reducers/filter';
+import { addQuantity, addDate, removeFilter, addDisplay } from '../reducers/filter';
 
 export default function FilterScreen({ navigation, onClose }) {
   
@@ -19,49 +19,20 @@ export default function FilterScreen({ navigation, onClose }) {
 
 //-------------------------------------- LOCALISATION
 
-// Current position 
-const [currentPosition, setCurrentPosition] = useState({});
-
 // Slider de localisation
 const [sliderValue, setSliderValue] = useState(50);
   
 const onSliderValueChange = (value) => {
         setSliderValue(value);
-        console.log("je veux la valeur",value)
         dispatch(addRadius(value)); };
-
-// Accès à la localisation de l'utilisateur
-useEffect(() => {
-  (async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-
-      if (status === 'granted') {
-        Location.watchPositionAsync({ distanceInterval: 10 },
-          (location) => {
-            setCurrentPosition({ latitude: location.coords.latitude, longitude: location.coords.longitude })
-            console.log("test", currentPosition )
-            dispatch(addLocalisation({ latitude: location.coords.latitude, longitude: location.coords.longitude }));
-          });
-      }
-
-      console.log("loc envoyée au store",currentPosition)
-
-    })();
-  }, [sliderValue]);
-
 
 // -----------------------------------------CHIPS
 
   //  Etat de la chips selectionnée
   const [selectedChip, setSelectedChip] = useState(null);
 
-  // selection des filtres "chips"
-
   // Lorsque clic sur une puce, la fonction handleChipPress est appelée. Cette fonction prend la chips du clic en paramètre, et elle vérifie si cette puce est déjà dans le tableau selectedChips ou non.
-
   // Si la puce est déjà dans le tableau, cela signifie qu'on veut la désélectionner, donc elle est retirée du tableau, autrement ça veut dire qu'on veut l'ajouter au tableau
-
-
 
   const handleChipPress = (chip) => {
 
@@ -73,7 +44,6 @@ useEffect(() => {
       setSelectedChip(chip); // Sélectionner la nouvelle puce
     }
 
-  
     // il faut faire une conversion pour obtenir le nombre de lot en number 
 
     let quantityRange = null;
@@ -102,7 +72,6 @@ useEffect(() => {
         break;
     }
   
-
     dispatch(addQuantity(quantityRange));
     console.log("qté envoyé au store",quantityRange)
 
@@ -143,8 +112,13 @@ useEffect(() => {
   };
 
   const handleDisplay = () => {
-		dispatch(addDisplay(true));
-    onClose()
+    if (selectedChip === null & selectedDate === "") {
+      dispatch(addDisplay(false));
+      onClose()
+    } else {
+      dispatch(addDisplay(true))
+      onClose() 
+    }
   }
 
   // -------------------------- EFFACER LES FILTRES
@@ -152,9 +126,8 @@ useEffect(() => {
   const handleErase = () => {
 		dispatch(removeFilter());
     setSliderValue(0);
-    setSelectedDate("2020-08-26");
+    setSelectedDate("");
     setSelectedChip(null); // Remettre la puce sélectionnée à null
-    setCurrentPosition(null); // Remettre la position actuelle à null
 	};
 
 
@@ -167,7 +140,7 @@ useEffect(() => {
         <View style={styles.containerTitle}>
           <Text style={styles.Title}>Filtres</Text>
           <FontAwesome
-            onPress={() => onClose()}  // Utilisez la fonction navigation.goBack() pour fermer la page
+            onPress={() => onClose()} 
             style={styles.iconeFilter}
             name="close"
             size={28}
@@ -286,10 +259,10 @@ backgroundColor:"white"
 
   containerChips: {
     paddingLeft: "4%",
-    flexDirection: "row", // Chips à l'horizontal
-    flexWrap: "wrap", // Faire passer les chips à la ligne si besoin
+    flexDirection: "row",
+    flexWrap: "wrap", 
     alignItems: "center",
-    justifyContent: "flex-start", // Aligner les chips à gauche
+    justifyContent: "flex-start", 
     paddingBottom: "2%",
     fontFamily: "Poppins",
   },
@@ -362,6 +335,7 @@ backgroundColor:"white"
     color: "#274539",
     fontFamily: "Poppins",
   },
+
   textBtn: {
     color: "white",
     fontFamily: "Poppins",

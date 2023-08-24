@@ -35,25 +35,26 @@ export default function HomeCharityScreen({ navigation }) {
 
   const displayFilter = useSelector((state) => state.filter.display);
 
-  // const selectedLocalisation= useSelector(state => state.filter.localisation);
 
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
-  // const navigation = useNavigation();
+
+
   const isFocused = useIsFocused();
+  
   useEffect(() => {
-    // Appeler la fonction pour récupérer les posts depuis le backend ou une API REST
+    // récupérer les posts depuis le backend 
     fetchPosts();
   }, [quantity, date, displayFilter, isFocused]);
 
   const goToDonnationScreen = (postId) => {
     navigation.navigate("HomeCharity", { postId: postId });
   };
-  // Fonction pour récupérer les posts depuis le backend ou une API REST
+
   const fetchPosts = () => {
     if (displayFilter) {
       console.log("posts filtrés");
-      // Fetch posts with filters applied
+      // Fetch posts avec les filtres appliqués
       fetch(
         `${BACK_URL}/filter/company/posts/?quantity=${quantity}&date=${date}`
       )
@@ -77,8 +78,9 @@ export default function HomeCharityScreen({ navigation }) {
           );
         });
     } else {
-      // Fetch all posts without filters
+      // Fetcher tous les posts sans le filtre
       console.log("posts normaux");
+
       fetch(`${BACK_URL}/posts/company`)
         .then((response) => response.json())
         .then((data) => {
@@ -95,7 +97,9 @@ export default function HomeCharityScreen({ navigation }) {
         });
     }
   };
+  
   console.log("mon filtre sur homecharity", displayFilter);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.containerPage}>
@@ -174,16 +178,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    // justifyContent: "flex-start",
-  },
-
-  scrollViewContainer: {
-    // marginTop: -10,
   },
 
   cardsRow: {
-    // flexDirection: "row",
-    // flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -193,13 +190,10 @@ const styles = StyleSheet.create({
   },
 
   containerPage: {
-    // flex: 1,
-    // backgroundColor: "#fff",
     justifyContent: "flex-start",
     width: "100%",
   },
 
-  // Style du conteneur de l'en-tête
   containerHeader: {
     backgroundColor: "#274539",
     width: "100%",
@@ -212,14 +206,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  // Style du texte "Bonjour"
   text: {
     fontFamily: "MontserratBold",
     color: "white",
     fontSize: 30,
   },
 
-  // Style du paragraphe d'introduction
   paragraphe: {
     color: "white",
     fontSize: 17,
@@ -230,25 +222,24 @@ const styles = StyleSheet.create({
   iconeFilter: {
     padding: 5,
   },
-  // Style du conteneur de l'icône de notification
+
+  
   containerNotif: {
     padding: 5,
     flexDirection: "row",
     justifyContent: "flex-end",
   },
 
-  // Style du texte dynamique à l'intérieur du texte "Bonjour"
   textDynamique: {
     color: "#EDFC92",
   },
 
-  // Style du conteneur de la barre de recherche
   searchBarContainer: {
     flexDirection: "row",
     marginTop: -20,
-    marginBottom: 5, // Add margin below the search bar
-    marginLeft: 20, // Adjust the left margin
-    marginRight: 20, // Adjust the right margin
+    marginBottom: 5, 
+    marginLeft: 20, 
+    marginRight: 20, 
     backgroundColor: "#FFFFFF",
     borderRadius: 30,
     borderWidth: 1,
@@ -261,18 +252,12 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
 
-  // Style du conteneur de l'icône de loupe
   searchIconContainer: {
-    backgroundColor: "#274539", // Couleur de fond de l'icône de loupe
-    borderRadius: 30, // Arrondi des coins de l'icône de loupe
+    backgroundColor: "#274539", 
+    borderRadius: 30, 
     padding: 10,
-    // borderWidth: 1,
-    // borderColor: "black",
   },
 
-  // Style de l'icône de loupe
-
-  // Style du champ d'entrée de texte de recherche
   searchInput: {
     flex: 1,
     color: "#707070",
@@ -286,22 +271,22 @@ const styles = StyleSheet.create({
   },
 
   modalContent: {
-    width: "100%", // Largeur du contenu modal (vous pouvez ajuster selon vos besoins)
-    backgroundColor: "#fff", // Couleur de fond blanc pur
+    width: "100%", 
+    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
   },
-  // Style de l'icône "croix" en haut à droite de l'en-tête
+
   iconeClose: {
     position: "absolute",
     top: 20,
     right: 20,
-    zIndex: 1, // Assurez-vous que l'icône est au-dessus de la modale
+    zIndex: 1, 
+    
   },
 
-  // Style de l'icône "croix" en haut à droite de la modale
   iconeCloseModal: {
     position: "absolute",
     top: 20,
