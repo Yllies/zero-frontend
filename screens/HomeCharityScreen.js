@@ -48,7 +48,7 @@ export default function HomeCharityScreen({ navigation }) {
 // Effet au chargement initial, récupérer les posts depuis le backend, se mettent à jour en fonction des actions dans les filtres 
   useEffect(() => {
     fetchPosts();
-  }, [quantity, date, displayFilter, isFocused]);
+  }, []);
 
 
     // Effet en cas de changement dans le champ de recherche ou le mode de recherche

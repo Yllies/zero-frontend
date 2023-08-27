@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+
 import {
   FlatList,
   Image,
@@ -13,7 +14,6 @@ import {
   StatusBar,
   SafeAreaView,
   ScrollView,
-  Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -21,8 +21,6 @@ import { AntDesign } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { Calendar } from "react-native-calendars";
 const BACK_URL = process.env.EXPO_PUBLIC_BACK_URL;
-const UPLOAD_PRESET = process.env.EXPO_PUBLIC_UPLOAD_PRESET;
-const CLOUD_NAME = process.env.EXPO_PUBLIC_CLOUD_NAME;
 
 export default function AddCompanyScreen({ navigation }) {
 
@@ -75,9 +73,9 @@ export default function AddCompanyScreen({ navigation }) {
   const handleUpload = async (image) => {
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", UPLOAD_PRESET);
-    data.append("cloud-name", CLOUD_NAME);
-    fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+    data.append("upload_preset", "iyp6ovfi");
+    data.append("cloud-name", "do7vfvt5l");
+    fetch("https://api.cloudinary.com/v1_1/do7vfvt5l/image/upload", {
       method: "POST",
       body: data,
     })
@@ -209,6 +207,7 @@ export default function AddCompanyScreen({ navigation }) {
                 onChangeText={(value) => setTitle(value)}
                 value={title}
                 placeholder="Palette de vêtements"
+                placeholderTextColor="lightgrey"
               />
             </View>
             <View style={styles.inputContainer}>
@@ -238,16 +237,17 @@ export default function AddCompanyScreen({ navigation }) {
                 onChangeText={(value) => setDescription(value)}
                 value={description}
                 placeholder="Nous donnons ces ..."
+                placeholderTextColor="lightgrey"
               />
             </View>
             <View style={styles.imagePickerContainer}>
-              <Text style={styles.label}>Ajouter des photos</Text>
+              <Text style={styles.label} >Ajouter des photos</Text>
               <View style={styles.cameraIconContainer}>
                 <TouchableOpacity
                   onPress={() => pickImage()}
                   style={styles.imagePickerButton}
                 >
-                  <Text style={styles.imagePickerButtonText}>
+                  <Text style={styles.imagePickerButtonText} >
                     Sélectionner dans la galerie ou
                   </Text>
                 </TouchableOpacity>
@@ -279,6 +279,7 @@ export default function AddCompanyScreen({ navigation }) {
                 onChangeText={(value) => setQuantity(value)}
                 value={quantity}
                 placeholder="150"
+                placeholderTextColor="lightgrey"
               />
             </View>
             <View style={styles.inputContainer}>
@@ -336,6 +337,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 15,
     fontFamily: "Poppins",
+    
   },
   input: {
     backgroundColor: "#F6F8F7",
@@ -347,6 +349,7 @@ const styles = StyleSheet.create({
   imagePickerContainer: {
     flex: 1,
     marginBottom: 20,
+    
   },
   cameraIconContainer: {
     flex: 1,
@@ -364,7 +367,7 @@ const styles = StyleSheet.create({
   },
   imagePickerButtonText: {
     fontFamily: "Poppins",
-    color: "#555",
+    color: "lightgrey",
   },
   selectedImageItem: {
     marginRight: 10,
