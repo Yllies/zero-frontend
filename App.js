@@ -26,8 +26,6 @@ import favorites from "./reducers/favorites";
 import { useFonts } from "expo-font";
 import AccountScreen from "./screens/AccountScreen";
 import UserProfileScreen from "./screens/UserProfileScreen";
-import HomeCharityScreenBeta from "./screens/HomeCharityScreenBeta";
-import FilterScreenBeta from "./screens/FilterScreenBeta";
 import AddCharityScreen from "./screens/AddCharityScreen";
 import AddCompanyScreen from "./screens/AddCompanyScreen";
 import { useSelector } from "react-redux";
@@ -132,7 +130,7 @@ export default function App() {
             <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="FilterScreen" component={FilterScreenBeta} />
+            <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="UserProfile" component={UserProfileScreen} />
             <Stack.Screen name="EditPost" component={EditPostScreen} />
             <Stack.Screen name="DonnationScreen" component={DonnationScreen} />
