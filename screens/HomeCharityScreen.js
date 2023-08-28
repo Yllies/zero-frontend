@@ -103,15 +103,7 @@ export default function HomeCharityScreen({ navigation }) {
         .then((response) => response.json())
         .then((data) => {
           if (data.result === true) {
-            const filteredPosts = data.data.filter((post) => {
-              const postQuantity = parseInt(post.quantity);
-              if (!isNaN(postQuantity)) {
-                return (
-                  postQuantity >= quantity[0] && postQuantity <= quantity[1]
-                );
-              }
-            });
-            setPosts(filteredPosts);
+            setPosts(data.data);
           }
         })
         .catch((error) => {
