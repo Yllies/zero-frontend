@@ -104,16 +104,7 @@ export default function HomeCharityScreen({ navigation }) {
         .then((data) => {
           console.log(data);
           if (data?.result) {
-            const filteredPosts = data.data.filter((post) => {
-              const postQuantity = parseInt(post.quantity);
-              if (!isNaN(postQuantity)) {
-                return (
-                  postQuantity >= quantity[0] && postQuantity <= quantity[1]
-                );
-              }
-              setPosts(filteredPosts); // Set filtered posts
-              return false; // Return false if quantity is not a valid number
-            });
+            setPosts(data.data);
           }
         })
         .catch((error) => {
