@@ -31,10 +31,8 @@ export const userSlice = createSlice({
 
       removeFilter: (state, action) => {
         console.log("déclenchement de remove")
-        state.location = {};
-        state.date = null;
-        state.quantity = [];
-        state.radius = null;
+        state.date='2020-08-26';
+        state.quantity= [1, Infinity],
         state.display = false;
       },
   },

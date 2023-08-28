@@ -124,7 +124,7 @@ const onSliderValueChange = (value) => {
 
   const handleErase = () => {
 		dispatch(removeFilter());
-    setSliderValue(0);
+    // setSliderValue(0);
     setSelectedDate("");
     setSelectedChip(null); // Remettre la puce sélectionnée à null
 	};
@@ -166,7 +166,7 @@ const onSliderValueChange = (value) => {
             maximumValue={30}
             step={1}
             value={sliderValue}
-            onValueChange={setSliderValue}
+            // onValueChange={setSliderValue}
             minimumTrackTintColor="#274539"
             thumbTintColor="#EDFC92"
           />
