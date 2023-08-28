@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  quantity: [1, Infinity],
+  quantity: [1, 9999],
   date: '2020-08-26',
   display: false,
 };
@@ -24,7 +24,7 @@ export const userSlice = createSlice({
       },
 
       addDisplay : (state, action) => {
-        console.log("déclenchement de add")
+        console.log(action.payload)
         state.display = action.payload;
       },
 
@@ -32,7 +32,7 @@ export const userSlice = createSlice({
       removeFilter: (state, action) => {
         console.log("déclenchement de remove")
         state.date='2020-08-26';
-        state.quantity= [1, Infinity],
+        state.quantity= [1, 99999],
         state.display = false;
       },
   },

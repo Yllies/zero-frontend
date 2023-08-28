@@ -64,7 +64,7 @@ const onSliderValueChange = (value) => {
         quantityRange = [51, 100];
         break;
       case "Plus de 150":
-        quantityRange = [150, Infinity];
+        quantityRange = [150, 99999];
         break;
       default:
         // Gérer tout autre cas par : 

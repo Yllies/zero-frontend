@@ -48,7 +48,7 @@ export default function HomeCharityScreen({ navigation }) {
 // Effet au chargement initial, récupérer les posts depuis le backend, se mettent à jour en fonction des actions dans les filtres 
   useEffect(() => {
     fetchPosts();
-  }, [isFocused]);
+  }, [isFocused , displayFilter]);
 
 
     // Effet en cas de changement dans le champ de recherche ou le mode de recherche
@@ -98,21 +98,30 @@ export default function HomeCharityScreen({ navigation }) {
       console.log("posts filtrés");
       // Fetch posts avec les filtres appliqués
       fetch(
-        `${BACK_URL}/filter/company/posts/?quantity=${quantity}&date=${date}`
-      )
+        `${BACK_URL}/filter/company/posts/?quantity=${JSON.stringify(quantity)}&date=${date}`
+        )
         .then((response) => response.json())
         .then((data) => {
-          if (data.result === true) {
-            setPosts(data.data);
+          console.log(data);
+          if (data?.result) {
+            const filteredPosts = data.data.filter((post) => {
+              const postQuantity = parseInt(post.quantity);
+              if (!isNaN(postQuantity)) {
+                return (
+                  postQuantity >= quantity[0] && postQuantity <= quantity[1]
+                );
+              }
+              setPosts(filteredPosts); // Set filtered posts
+              return false; // Return false if quantity is not a valid number
+            });
           }
         })
         .catch((error) => {
-          setError(
-            "Erreur lors de la récupération des posts :" + error.message
-          );
+          setError("Erreur lors de la récupération des posts :" + error.message);
         });
     } else {
       // Fetcher tous les posts sans le filtre
+      console.log('glule')
       fetch(`${BACK_URL}/posts/company`)
         .then((response) => response.json())
         .then((data) => {
